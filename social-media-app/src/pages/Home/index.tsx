@@ -1,29 +1,30 @@
 import React, { useEffect } from "react";
-import { usePostsQuery, useUsersQuery } from "../../services/api";
+import { useDeletePostMutation, usePostsQuery } from "../../services/api";
+import { Post } from "../../model/post.model";
 
 const Home = () => {
-  const { data, isLoading, isFetching, error } = useUsersQuery();
-  const {
-    data: postsData,
-    isLoading: isPostsLoading,
-    isFetching: isPostsFetch,
-    error: errorForPosts,
-  } = usePostsQuery();
+  const { data: posts, isLoading: loadingForPosts } = usePostsQuery();
+  const [deletePost] = useDeletePostMutation();
 
-  useEffect(() => {
-    if (data) {
-      console.log(data);
-    }
-    if (postsData) {
-      console.log(postsData);
-    }
-  }, [data, postsData]);
-
-  if (isLoading) {
+  if (loadingForPosts) {
     return <p>Loading...</p>;
   }
 
-  return <div>a</div>;
+  const deletePostHandler = async (id: string) => {
+    await deletePost(id);
+  };
+
+  return (
+    <div>
+      {posts?.map((post: Post, index: number) => {
+        return (
+          <div key={post.id}>
+
+          </div>
+        );
+      })}
+    </div>
+  );
 };
 
 export default Home;

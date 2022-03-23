@@ -1,8 +1,8 @@
 export interface Post{
-    id: String,
-    owner: String,
-    title: String,
-    body: String,
-    createdAt: String,
-    updatedAt: String
+    id: string,
+    owner: string,
+    title: string,
+    body: string,
+    createdAt: string,
+    updatedAt: string
 }
