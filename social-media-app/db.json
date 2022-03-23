@@ -1,0 +1,21 @@
+{
+  "users": [
+    {
+      "id": "test",
+      "username": "test",
+      "fullName": "john doe",
+      "email": "test@mail.com",
+      "city": "Ankara"
+    }
+  ],
+  "posts": [
+    {
+      "id": "post1",
+      "owner": "test",
+      "title": "test title",
+      "body": "lorem ipsum dolor",
+      "createdAt": "2022-03-22T06:45:16.853Z",
+      "updatedAt": "2022-03-22T06:45:16.853Z"
+    }
+  ]
+}
