@@ -3,10 +3,12 @@ import { Routes, BrowserRouter, Route } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import Navigation from "./components/Header";
 
 function App() {
   return (
     <div className="App">
+      <Navigation />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />

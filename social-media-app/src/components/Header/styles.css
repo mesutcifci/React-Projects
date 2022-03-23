@@ -1,0 +1,9 @@
+.navigation-header__link .ant-anchor-link-title {
+  color: #ffffff;
+}
+
+.navigation-header__link .ant-anchor-link-title:hover {
+  color: #40a9ff;
+}
+
+
