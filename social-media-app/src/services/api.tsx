@@ -6,8 +6,8 @@ export const usersApi = createApi({
   reducerPath: "usersApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000" }),
   endpoints: (builder) => ({
+    
     // Queries
-
     users: builder.query<User[], void>({
       query: () => "/users",
     }),

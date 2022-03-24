@@ -1,9 +1,11 @@
-.navigation-header__link .ant-anchor-link-title {
+.navigation__link .ant-anchor-link-title {
   color: #ffffff;
 }
 
-.navigation-header__link .ant-anchor-link-title:hover {
+.navigation__link .ant-anchor-link-title:hover {
   color: #40a9ff;
 }
 
-
+.navigation__plus-icon {
+  color: #000000 !important;
+}

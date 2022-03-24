@@ -1,6 +1,4 @@
-import React, { useEffect } from "react";
 import { useDeletePostMutation, usePostsQuery } from "../../services/api";
-import { Post } from "../../model/post.model";
 import Layout, { Content } from "antd/lib/layout/layout";
 import PostCard from "../../components/PostCard";
 
@@ -19,7 +17,7 @@ const Home = () => {
   return (
     <Layout className="py-10 flex items-center">
       <Content>
-        <PostCard />
+        <PostCard/>
       </Content>
     </Layout>
   );
