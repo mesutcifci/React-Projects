@@ -4,6 +4,7 @@ import "./App.css";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Navigation from "./components/Header";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/profile/:username" element={<Profile />} />
         </Routes>
       </BrowserRouter>
+      <Footer />
     </div>
   );
 }

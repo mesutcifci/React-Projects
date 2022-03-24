@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useDeletePostMutation, usePostsQuery } from "../../services/api";
 import { Post } from "../../model/post.model";
+import Layout, { Content } from "antd/lib/layout/layout";
+import PostCard from "../../components/PostCard";
 
 const Home = () => {
   const { data: posts, isLoading: loadingForPosts } = usePostsQuery();
@@ -15,15 +17,11 @@ const Home = () => {
   };
 
   return (
-    <div>
-      {posts?.map((post: Post, index: number) => {
-        return (
-          <div key={post.id}>
-
-          </div>
-        );
-      })}
-    </div>
+    <Layout className="py-10 flex items-center">
+      <Content>
+        <PostCard />
+      </Content>
+    </Layout>
   );
 };
 
