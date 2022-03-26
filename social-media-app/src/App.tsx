@@ -14,9 +14,10 @@ import CreatePostModal from "./components/CreatePostModal";
 import { useSelector } from "react-redux";
 import { RootState } from "./store";
 
-
 function App() {
-  const isVisible = useSelector<RootState, boolean>((state) => state.modal.isVisible);
+  const isVisible = useSelector<RootState, boolean>(
+    (state) => state.modal.isVisible
+  );
 
   return (
     <div className="App">
@@ -28,7 +29,7 @@ function App() {
         </Routes>
       </BrowserRouter>
       <Footer />
-      <CreatePostModal isVisible={isVisible} />
+      {isVisible && <CreatePostModal isVisible={isVisible} />}
     </div>
   );
 }

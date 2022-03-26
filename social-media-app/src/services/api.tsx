@@ -8,16 +8,16 @@ export const usersApi = createApi({
   endpoints: (builder) => ({
     
     // Queries
-    users: builder.query<User[], void>({
+    getUsers: builder.query<User[], void>({
       query: () => "/users",
     }),
-    user: builder.query<User, string>({
+    getUser: builder.query<User, string>({
       query: (username) => `/users/${username}`,
     }),
-    posts: builder.query<Post[], void>({
+    getPosts: builder.query<Post[], void>({
       query: () => "/posts",
     }),
-    post: builder.query<Post, string>({
+    getPost: builder.query<Post, string>({
       query: (id) => `/posts/${id}`,
     }),
 
@@ -46,10 +46,10 @@ export const usersApi = createApi({
 });
 
 export const {
-  useUsersQuery,
-  useUserQuery,
-  usePostsQuery,
-  usePostQuery,
+  useGetUsersQuery,
+  useGetUserQuery,
+  useGetPostsQuery,
+  useGetPostQuery,
   useCreatePostMutation,
   useUpdatePostMutation,
   useDeletePostMutation,

@@ -1,7 +1,9 @@
-import React from "react";
-import { Form, Input, Button, Select, Modal } from "antd";
-import { useDispatch } from "react-redux";
-import { modalActions } from "../../store";
+import React, { useEffect } from "react";
+import { Form, Input, Button, Select, Modal, Spin } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { modalActions, RootState, usersActions } from "../../store";
+import { User } from "../../model/user.model";
+import { useGetUsersQuery } from "../../services/api";
 
 type ModalProps = {
   isVisible: boolean;
@@ -9,16 +11,33 @@ type ModalProps = {
 
 const CreatePostModal = ({ isVisible }: ModalProps) => {
   const dispatch = useDispatch();
+  const { data: usersQueryResult, isLoading: loadingForUsers } =
+    useGetUsersQuery();
+  const users = useSelector<RootState, any>((state) => state.usersSlice.users);
 
-  const hideCreatePostModal = () => {
+  useEffect(() => {
+    if (!loadingForUsers) {
+      dispatch(usersActions.setUsers(usersQueryResult));
+    }
+  }, [loadingForUsers]);
+
+  const hideModal = () => {
     dispatch(modalActions.hideModal());
+  };
+
+  const renderUsers = () => {
+    return users?.map((user: User) => (
+      <Select.Option key={user.id} value={user.username}>
+        {user.username}
+      </Select.Option>
+    ));
   };
 
   return (
     <Modal
       visible={isVisible}
       centered
-      onCancel={hideCreatePostModal}
+      onCancel={hideModal}
       footer={[
         <Button key="submit" type="primary">
           Submit
@@ -34,9 +53,11 @@ const CreatePostModal = ({ isVisible }: ModalProps) => {
           ]}
           className="!mt-6"
         >
-          <Select defaultValue="Zhejiang">
-            <Select.Option value="Zhejiang">Zhejiang</Select.Option>
-            <Select.Option value="Jiangsu">Jiangsu</Select.Option>
+          <Select
+            defaultValue="Select user"
+            notFoundContent={loadingForUsers ? <Spin size="small" /> : null}
+          >
+            {renderUsers()}
           </Select>
         </Form.Item>
         <Form.Item

@@ -1,13 +1,14 @@
-import { useDeletePostMutation, usePostsQuery } from "../../services/api";
+import { useDeletePostMutation, useGetPostsQuery } from "../../services/api";
 import Layout, { Content } from "antd/lib/layout/layout";
 import PostCard from "../../components/PostCard";
+import { Spin } from "antd";
 
 const Home = () => {
-  const { data: posts, isLoading: loadingForPosts } = usePostsQuery();
+  const { data: posts, isLoading: loadingForPosts } = useGetPostsQuery();
   const [deletePost] = useDeletePostMutation();
 
   if (loadingForPosts) {
-    return <p>Loading...</p>;
+    return <Spin size="large" className="!w-max !h-max !absolute top-2/4 left-2/4"/>;
   }
 
   const deletePostHandler = async (id: string) => {

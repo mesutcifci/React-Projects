@@ -1,17 +1,38 @@
 {
   "users": [
     {
-      "id": "test",
-      "username": "test",
-      "fullName": "john doe",
-      "email": "test@mail.com",
+      "id": "user1",
+      "username": "user1",
+      "fullName": "John Doe",
+      "email": "user1@mail.com",
       "city": "Ankara"
+    },
+    {
+      "id": "user2",
+      "username": "user2",
+      "fullName": "Jane Doe",
+      "email": "user2@mail.com",
+      "city": "Istanbul"
+    },
+    {
+      "id": "user3",
+      "username": "user3",
+      "fullName": "John Smith",
+      "email": "user3@mail.com",
+      "city": "Denizli"
+    },
+    {
+      "id": "user4",
+      "username": "user4",
+      "fullName": "Jane Smith",
+      "email": "user4@mail.com",
+      "city": "Samsun"
     }
   ],
   "posts": [
     {
       "id": "post1",
-      "owner": "test",
+      "ownerUsername": "test",
       "title": "test title",
       "body": "lorem ipsum dolor",
       "createdAt": "2022-03-22T06:45:16.853Z",
