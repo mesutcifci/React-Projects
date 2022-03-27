@@ -37,6 +37,14 @@
       "body": "lorem ipsum dolor",
       "createdAt": "2022-03-22T06:45:16.853Z",
       "updatedAt": "2022-03-22T06:45:16.853Z"
+    },
+    {
+      "title": "sdas",
+      "body": "adsa",
+      "ownerUsername": "user3",
+      "createdAt": "2022-03-27T07:54:14.941Z",
+      "updatedAt": "2022-03-27T07:54:14.941Z",
+      "id": "yHXa6YD"
     }
   ]
 }

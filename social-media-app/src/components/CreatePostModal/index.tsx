@@ -3,17 +3,20 @@ import { Form, Input, Button, Select, Modal, Spin } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { modalActions, RootState, usersActions } from "../../store";
 import { User } from "../../model/user.model";
-import { useGetUsersQuery } from "../../services/api";
+import { useGetUsersQuery, useCreatePostMutation } from "../../services/api";
 
 type ModalProps = {
   isVisible: boolean;
 };
 
-const CreatePostModal = ({ isVisible }: ModalProps) => {
+const CreatePostModal = (props: ModalProps) => {
   const dispatch = useDispatch();
+  const [form] = Form.useForm();
+  const users = useSelector<RootState, any>((state) => state.usersSlice.users);
+
   const { data: usersQueryResult, isLoading: loadingForUsers } =
     useGetUsersQuery();
-  const users = useSelector<RootState, any>((state) => state.usersSlice.users);
+   const [createPost] = useCreatePostMutation();
 
   useEffect(() => {
     if (!loadingForUsers) {
@@ -33,23 +36,30 @@ const CreatePostModal = ({ isVisible }: ModalProps) => {
     ));
   };
 
+  const handleSubmit = async () => {
+    const now = new Date().toISOString();
+    const post = {
+      ...form.getFieldsValue(),
+      createdAt: now,
+      updatedAt: now,
+    };
+    await createPost(post);
+  };
+
   return (
-    <Modal
-      visible={isVisible}
-      centered
-      onCancel={hideModal}
-      footer={[
-        <Button key="submit" type="primary">
-          Submit
-        </Button>,
-      ]}
-    >
-      <Form name="addUser" labelCol={{ span: 5 }} wrapperCol={{ span: 20 }}>
+    <Modal visible={props.isVisible} centered onCancel={hideModal} footer={null}>
+      <Form
+        name="addUser"
+        form={form}
+        labelCol={{ span: 5 }}
+        wrapperCol={{ span: 20 }}
+        onFinish={handleSubmit}
+      >
         <Form.Item
           label="Owner"
-          name="owner"
+          name="ownerUsername"
           rules={[
-            { required: true, message: "Please input username of owner!" },
+            { required: true, message: "Please select username of post owner!" },
           ]}
           className="!mt-6"
         >
@@ -70,12 +80,15 @@ const CreatePostModal = ({ isVisible }: ModalProps) => {
         </Form.Item>
         <Form.Item
           label="Body"
-          name="bıdy"
+          name="body"
           rules={[{ required: true, message: "Please input body!" }]}
           className="!mt-6"
         >
           <Input.TextArea showCount maxLength={200} rows={4} />
         </Form.Item>
+        <Button key="submit" type="primary" htmlType="submit" form="addUser" className="!ml-auto  mt-10 !block">
+          Submit
+        </Button>
       </Form>
     </Modal>
   );

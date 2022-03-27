@@ -23,11 +23,13 @@ export const usersApi = createApi({
 
     //Mutations
     createPost: builder.mutation<void, Post>({
-      query: (post) => ({
-        url: `/posts`,
-        method: "POST",
-        body: post,
-      }),
+      query: (props) => {
+        return{ 
+          url: `/posts`,
+          method: "POST",
+          body: props
+        }
+      },
     }),
     updatePost: builder.mutation<void, Post>({
       query: ({ id, ...post }) => ({
