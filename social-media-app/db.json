@@ -31,20 +31,36 @@
   ],
   "posts": [
     {
-      "id": "post1",
-      "ownerUsername": "test",
-      "title": "test title",
-      "body": "lorem ipsum dolor",
-      "createdAt": "2022-03-22T06:45:16.853Z",
-      "updatedAt": "2022-03-22T06:45:16.853Z"
+      "owner": "user1",
+      "title": "deneme",
+      "body": "deneme",
+      "createdAt": "2022-03-27T18:23:54.251Z",
+      "updatedAt": "2022-03-27T18:23:54.251Z",
+      "id": 1
     },
     {
-      "title": "sdas",
-      "body": "adsa",
-      "ownerUsername": "user3",
-      "createdAt": "2022-03-27T07:54:14.941Z",
-      "updatedAt": "2022-03-27T07:54:14.941Z",
-      "id": "yHXa6YD"
+      "owner": "user3",
+      "title": "dasda",
+      "body": "fasfas",
+      "createdAt": "2022-03-27T18:27:10.487Z",
+      "updatedAt": "2022-03-27T18:27:10.487Z",
+      "id": 2
+    },
+    {
+      "owner": "user4",
+      "title": "dasda",
+      "body": "asdasda",
+      "createdAt": "2022-03-27T20:19:02.661Z",
+      "updatedAt": "2022-03-27T20:19:02.661Z",
+      "id": 3
+    },
+    {
+      "owner": "user4",
+      "title": "elif",
+      "body": "elif",
+      "createdAt": "2022-03-27T20:20:21.952Z",
+      "updatedAt": "2022-03-27T20:20:21.952Z",
+      "id": 4
     }
   ]
 }

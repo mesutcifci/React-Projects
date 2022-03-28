@@ -11,9 +11,8 @@ const Navigation = () => {
     dispatch(modalActions.showModal());
   };
 
-
   return (
-    <Layout>
+    <Layout className="!shrink-0">
       <Layout.Header className="flex justify-between items-center">
         <Anchor>
           <Anchor.Link
@@ -24,7 +23,10 @@ const Navigation = () => {
         </Anchor>
         <Menu mode="horizontal" theme="dark" className="flex items-center">
           <Menu.Item key="1" onClick={showCreatePostModal}>
-            <Button shape="circle" icon={<PlusCircleOutlined className="navigation__plus-icon"/>} />
+            <Button
+              shape="circle"
+              icon={<PlusCircleOutlined className="navigation__plus-icon" />}
+            />
           </Menu.Item>
           <Menu.Item key="2">Home</Menu.Item>
           <Menu.Item key="3">Profile</Menu.Item>

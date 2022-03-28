@@ -1,0 +1,11 @@
+.profile__card-wrapper {
+    display: grid;
+    gap: 20px;
+    justify-content: center;
+}
+
+@media(min-width: 768px) {
+    .profile__card-wrapper {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 400px));
+    }
+}

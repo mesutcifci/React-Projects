@@ -16,7 +16,7 @@ const CreatePostModal = (props: ModalProps) => {
 
   const { data: usersQueryResult, isLoading: loadingForUsers } =
     useGetUsersQuery();
-   const [createPost] = useCreatePostMutation();
+  const [createPost] = useCreatePostMutation();
 
   useEffect(() => {
     if (!loadingForUsers) {
@@ -44,10 +44,16 @@ const CreatePostModal = (props: ModalProps) => {
       updatedAt: now,
     };
     await createPost(post);
+    hideModal();
   };
 
   return (
-    <Modal visible={props.isVisible} centered onCancel={hideModal} footer={null}>
+    <Modal
+      visible={props.isVisible}
+      centered
+      onCancel={hideModal}
+      footer={null}
+    >
       <Form
         name="addUser"
         form={form}
@@ -57,9 +63,12 @@ const CreatePostModal = (props: ModalProps) => {
       >
         <Form.Item
           label="Owner"
-          name="ownerUsername"
+          name="owner"
           rules={[
-            { required: true, message: "Please select username of post owner!" },
+            {
+              required: true,
+              message: "Please select username of post owner!",
+            },
           ]}
           className="!mt-6"
         >
@@ -86,7 +95,13 @@ const CreatePostModal = (props: ModalProps) => {
         >
           <Input.TextArea showCount maxLength={200} rows={4} />
         </Form.Item>
-        <Button key="submit" type="primary" htmlType="submit" form="addUser" className="!ml-auto  mt-10 !block">
+        <Button
+          key="submit"
+          type="primary"
+          htmlType="submit"
+          form="addUser"
+          className="!ml-auto  mt-10 !block"
+        >
           Submit
         </Button>
       </Form>
