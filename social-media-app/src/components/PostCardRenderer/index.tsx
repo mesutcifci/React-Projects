@@ -4,8 +4,8 @@ import { Post } from "../../model/post.model";
 import { useNavigate } from "react-router-dom";
 
 interface PostCardProps {
-  posts: Post[],
-  flex?: boolean,
+  posts: Post[];
+  flex?: boolean;
 }
 
 function PostCardRenderer({ posts, flex }: PostCardProps) {
@@ -20,6 +20,7 @@ function PostCardRenderer({ posts, flex }: PostCardProps) {
     <>
       {posts?.map((post: Post) => (
         <Card
+          key={post.id}
           hoverable
           className={`md:w-[400px] !mb-8} !cursor-auto`}
           cover={<img className="max-w-[100%]" src="/images/image1.jpg" />}
@@ -30,7 +31,10 @@ function PostCardRenderer({ posts, flex }: PostCardProps) {
         >
           <Card.Meta
             avatar={
-              <div onClick={() => navigateToUserProfile(post.owner)} className="cursor-pointer">
+              <div
+                onClick={() => navigateToUserProfile(post.owner)}
+                className="cursor-pointer"
+              >
                 <Avatar size={"large"} src="/images/avatar1.svg" />
               </div>
             }

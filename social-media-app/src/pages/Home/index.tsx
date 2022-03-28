@@ -1,11 +1,23 @@
+import { useEffect } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
 import { useDeletePostMutation, useGetPostsQuery } from "../../services/api";
-import Layout, { Content } from "antd/lib/layout/layout";
+import { postsActions, RootState } from "../../store";
+
 import PostCardRenderer from "../../components/PostCardRenderer";
-import { Spin } from "antd";
+import { Spin, Layout } from "antd";
 
 const Home = () => {
-  const { data: posts, isLoading: loadingForPosts } = useGetPostsQuery();
+  const dispatch = useDispatch();
+  const { data: postsQueryResult, isLoading: loadingForPosts } = useGetPostsQuery();
   const [deletePost] = useDeletePostMutation();
+  const posts = useSelector<RootState, any>((state) => state.postsSlice.posts);
+
+  useEffect(() => {
+    if (!loadingForPosts) {
+      dispatch(postsActions.setPosts(postsQueryResult));
+    }
+  }, [postsQueryResult]);
 
   if (loadingForPosts) {
     return (
@@ -19,9 +31,9 @@ const Home = () => {
 
   return (
     <Layout className="py-10 flex items-center !shrink-0">
-      <Content className="grid gap-6">
-        <PostCardRenderer posts={posts || []} />
-      </Content>
+      <Layout.Content className="grid gap-6">
+        <PostCardRenderer posts={ posts || []} />
+      </Layout.Content>
     </Layout>
   );
 };

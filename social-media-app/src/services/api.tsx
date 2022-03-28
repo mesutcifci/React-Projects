@@ -17,6 +17,9 @@ export const usersApi = createApi({
     getPosts: builder.query<Post[], void>({
       query: () => "/posts",
     }),
+    getPostsByUsername: builder.query<Post[], string>({
+      query: (username) => "/posts?owner=" + username,
+    }),
     getPost: builder.query<Post, string>({
       query: (id) => `/posts/${id}`,
     }),
@@ -52,6 +55,7 @@ export const {
   useGetUserQuery,
   useGetPostsQuery,
   useGetPostQuery,
+  useGetPostsByUsernameQuery,
   useCreatePostMutation,
   useUpdatePostMutation,
   useDeletePostMutation,
