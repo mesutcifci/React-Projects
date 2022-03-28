@@ -21,15 +21,15 @@ function App() {
 
   return (
     <div className="App">
-      <Navigation/>
+      <Navigation />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/profile/:username" element={<Profile />} />
         </Routes>
+        {isVisible && <CreatePostModal isVisible={isVisible} />}
       </BrowserRouter>
       <Footer />
-      {isVisible && <CreatePostModal isVisible={isVisible} />}
     </div>
   );
 }

@@ -1,10 +1,16 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
+import _ from "lodash";
+import { Post, Posts } from "./model/post.model";
 import { usersApi } from "./services/api";
 
 // Initial state
 const modalInitialState = { isVisible: false };
 const usersInitialState = { users: [], user: {} };
-const postsInitialState = { posts: [], post: {} };
+const postsInitialState: Posts = {
+  posts: [],
+  post: { id: "", owner: "", title: "", body: "", createdAt: "", updatedAt: "" },
+  userPosts: [],
+};
 
 // Slice
 const modalSlice = createSlice({
@@ -33,15 +39,26 @@ const usersSlice = createSlice({
   },
 });
 
+const filterAndSortPosts = (posts: Post[]): Post[] => {
+  let filteredPosts = _.uniqBy(posts, "createdAt");
+  filteredPosts = _.orderBy(filteredPosts, ["createdAt"], ["desc"]);
+  return filteredPosts;
+};
+
 const postsSlice = createSlice({
   name: "posts",
   initialState: postsInitialState,
   reducers: {
     setPosts(state, action) {
-      state.posts = action.payload;
+      state.posts = filterAndSortPosts([...state.posts, ...action.payload]);
     },
     setPost(state, action) {
       state.post = action.payload;
+    },
+    setUserPosts(state, action) {
+      if(action.payload.length > 0) {
+        state.userPosts = filterAndSortPosts([...state.userPosts, ...action.payload]);
+      }
     },
   },
 });

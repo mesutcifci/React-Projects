@@ -6,3 +6,9 @@ export interface Post{
     createdAt: string,
     updatedAt: string
 }
+
+export interface Posts {
+    posts: Post[],
+    post: Post,
+    userPosts: Post[]
+}

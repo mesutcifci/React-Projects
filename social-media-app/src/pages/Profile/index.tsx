@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   useGetUserQuery,
   useGetPostsByUsernameQuery,
+  useGetPostsQuery,
 } from "../../services/api";
 import { RootState, usersActions, postsActions } from "../../store";
 
@@ -12,6 +13,7 @@ import PostCardRenderer from "../../components/PostCardRenderer";
 
 import { Layout, Spin } from "antd";
 import "./styles.css";
+import { Post } from "../../model/post.model";
 
 const Profile = () => {
   const username = useLocation()?.pathname?.split("/")[2] || "";
@@ -23,7 +25,7 @@ const Profile = () => {
     useGetPostsByUsernameQuery(username);
 
   const user = useSelector<RootState, any>((state) => state.usersSlice.user);
-  const posts = useSelector<RootState, any>((state) => state.postsSlice.posts);
+  const posts = useSelector<RootState, any>((state) => state.postsSlice.userPosts);
 
   useEffect(() => {
     if (!loadingForUser) {
@@ -31,10 +33,9 @@ const Profile = () => {
     }
 
     if (!loadingForPosts) {
-      dispatch(postsActions.setPosts(postsQueryResult));
+      dispatch(postsActions.setUserPosts(postsQueryResult));
     }
   }, [userQueryResult, postsQueryResult]);
-
 
   if (loadingForUser || loadingForPosts) {
     return (
@@ -60,7 +61,7 @@ const Profile = () => {
         </div>
       </div>
 
-      <Layout.Content className="profile__card-wrapper">
+      <Layout.Content className="profile__card-wrapper items-center">
         <PostCardRenderer posts={posts || []} flex={true} />
       </Layout.Content>
     </Layout>

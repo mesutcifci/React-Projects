@@ -1,7 +1,12 @@
 import React, { useEffect } from "react";
 import { Form, Input, Button, Select, Modal, Spin } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { modalActions, RootState, usersActions } from "../../store";
+import {
+  modalActions,
+  RootState,
+  usersActions,
+  postsActions,
+} from "../../store";
 import { User } from "../../model/user.model";
 import { useGetUsersQuery, useCreatePostMutation } from "../../services/api";
 
@@ -44,6 +49,7 @@ const CreatePostModal = (props: ModalProps) => {
       updatedAt: now,
     };
     await createPost(post);
+    dispatch(postsActions.setPosts([post]));
     hideModal();
   };
 

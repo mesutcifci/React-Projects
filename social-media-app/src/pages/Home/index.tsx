@@ -31,7 +31,7 @@ const Home = () => {
 
   return (
     <Layout className="py-10 flex items-center !shrink-0">
-      <Layout.Content className="grid gap-6">
+      <Layout.Content className="grid gap-6 items-center">
         <PostCardRenderer posts={ posts || []} />
       </Layout.Content>
     </Layout>
