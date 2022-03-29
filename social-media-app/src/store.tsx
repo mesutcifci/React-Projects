@@ -8,7 +8,14 @@ const modalInitialState = { isVisible: false };
 const usersInitialState = { users: [], user: {} };
 const postsInitialState: Posts = {
   posts: [],
-  post: { id: "", owner: "", title: "", body: "", createdAt: "", updatedAt: "" },
+  post: {
+    id: "",
+    owner: "",
+    title: "",
+    body: "",
+    createdAt: "",
+    updatedAt: "",
+  },
   userPosts: [],
 };
 
@@ -56,9 +63,18 @@ const postsSlice = createSlice({
       state.post = action.payload;
     },
     setUserPosts(state, action) {
-      if(action.payload.length > 0) {
-        state.userPosts = filterAndSortPosts([...state.userPosts, ...action.payload]);
+      if (action.payload.length > 0) {
+        state.userPosts = filterAndSortPosts([
+          ...state.userPosts,
+          ...action.payload,
+        ]);
       }
+    },
+    removePost(state, action) {
+      state.posts = state.posts.filter((post) => post.id !== action.payload);
+      state.userPosts = state.userPosts.filter(
+        (post) => post.id !== action.payload
+      );
     },
   },
 });

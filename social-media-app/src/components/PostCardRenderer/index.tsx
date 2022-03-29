@@ -1,8 +1,10 @@
-import { EditOutlined, EllipsisOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { Avatar, Card } from "antd";
 import { Post } from "../../model/post.model";
 import { useNavigate } from "react-router-dom";
-
+import { useDeletePostMutation } from "../../services/api";
+import { useDispatch } from "react-redux";
+import { postsActions } from "../../store";
 interface PostCardProps {
   posts: Post[];
   flex?: boolean;
@@ -10,10 +12,17 @@ interface PostCardProps {
 
 function PostCardRenderer({ posts, flex }: PostCardProps) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [deletePost] = useDeletePostMutation();
 
   const navigateToUserProfile = (username: string) => {
     !username && navigate("/");
     navigate(`/profile/${username}`);
+  };
+
+  const deletePostHandler = async (id: string) => {
+    await deletePost(id);
+    dispatch(postsActions.removePost(id));
   };
 
   return (
@@ -26,7 +35,10 @@ function PostCardRenderer({ posts, flex }: PostCardProps) {
           cover={<img className="max-w-[100%]" src="/images/image1.jpg" />}
           actions={[
             <EditOutlined key="edit" />,
-            <EllipsisOutlined key="ellipsis" />,
+            <DeleteOutlined
+              key={"delete"}
+              onClick={() => deletePostHandler(post.id)}
+            />,
           ]}
         >
           <Card.Meta

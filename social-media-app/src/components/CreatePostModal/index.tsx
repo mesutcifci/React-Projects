@@ -48,8 +48,10 @@ const CreatePostModal = (props: ModalProps) => {
       createdAt: now,
       updatedAt: now,
     };
-    await createPost(post);
-    dispatch(postsActions.setPosts([post]));
+    const addedPost = await createPost(post);
+    if("data" in addedPost) {
+      dispatch(postsActions.setPosts([addedPost.data]));
+    }
     hideModal();
   };
 

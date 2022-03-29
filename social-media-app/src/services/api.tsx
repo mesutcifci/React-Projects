@@ -6,7 +6,6 @@ export const usersApi = createApi({
   reducerPath: "usersApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000" }),
   endpoints: (builder) => ({
-    
     // Queries
     getUsers: builder.query<User[], void>({
       query: () => "/users",
@@ -27,11 +26,11 @@ export const usersApi = createApi({
     //Mutations
     createPost: builder.mutation<void, Post>({
       query: (props) => {
-        return{ 
+        return {
           url: `/posts`,
           method: "POST",
-          body: props
-        }
+          body: props,
+        };
       },
     }),
     updatePost: builder.mutation<void, Post>({
@@ -42,10 +41,9 @@ export const usersApi = createApi({
       }),
     }),
     deletePost: builder.mutation<void, string>({
-      query: (id) => ({
-        url: `posts/${id}`,
-        method: "DELETE",
-      }),
+      query: (id) => {
+        return { url: `posts/${id}`, method: "DELETE" };
+      },
     }),
   }),
 });
