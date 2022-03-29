@@ -4,7 +4,7 @@ import { Post } from "../../model/post.model";
 import { useNavigate } from "react-router-dom";
 import { useDeletePostMutation } from "../../services/api";
 import { useDispatch } from "react-redux";
-import { postsActions } from "../../store";
+import { postsActions, modalActions } from "../../store";
 interface PostCardProps {
   posts: Post[];
   flex?: boolean;
@@ -25,6 +25,10 @@ function PostCardRenderer({ posts, flex }: PostCardProps) {
     dispatch(postsActions.removePost(id));
   };
 
+  const showUpdatePostModal = (previewedPostData : Post) => {
+    dispatch(modalActions.showModal({key: "updatePostModal", previewedPostData}));
+  };
+
   return (
     <>
       {posts?.map((post: Post) => (
@@ -34,7 +38,7 @@ function PostCardRenderer({ posts, flex }: PostCardProps) {
           className={`md:w-[400px] !mb-8} !cursor-auto`}
           cover={<img className="max-w-[100%]" src="/images/image1.jpg" />}
           actions={[
-            <EditOutlined key="edit" />,
+            <EditOutlined key="edit" onClick={() => showUpdatePostModal(post)} />,
             <DeleteOutlined
               key={"delete"}
               onClick={() => deletePostHandler(post.id)}

@@ -9,14 +9,15 @@ import Profile from "./pages/Profile";
 import Navigation from "./components/Header";
 import Footer from "./components/Footer";
 import CreatePostModal from "./components/CreatePostModal";
+import UpdatePostModal from "./components/UpdatePostModal";
 
 // Redux
 import { useSelector } from "react-redux";
 import { RootState } from "./store";
 
 function App() {
-  const isVisible = useSelector<RootState, boolean>(
-    (state) => state.modal.isVisible
+  const { createPostModal, updatePostModal } = useSelector<RootState, any>(
+    (state) => state.modal
   );
 
   return (
@@ -27,7 +28,15 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/profile/:username" element={<Profile />} />
         </Routes>
-        {isVisible && <CreatePostModal isVisible={isVisible} />}
+        {createPostModal.isVisible && (
+          <CreatePostModal isVisible={createPostModal.isVisible} />
+        )}
+        {updatePostModal.isVisible && (
+          <UpdatePostModal
+            isVisible={updatePostModal.isVisible}
+            previewedPostData={updatePostModal.previewedPostData}
+          />
+        )}
       </BrowserRouter>
       <Footer />
     </div>

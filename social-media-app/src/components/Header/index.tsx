@@ -8,7 +8,7 @@ const Navigation = () => {
   const dispatch = useDispatch();
 
   const showCreatePostModal = () => {
-    dispatch(modalActions.showModal());
+    dispatch(modalActions.showModal({key: "createPostModal"}));
   };
 
   return (

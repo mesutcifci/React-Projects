@@ -4,7 +4,20 @@ import { Post, Posts } from "./model/post.model";
 import { usersApi } from "./services/api";
 
 // Initial state
-const modalInitialState = { isVisible: false };
+const modalInitialState = {
+  createPostModal: { isVisible: false },
+  updatePostModal: {
+    isVisible: false,
+    previewedPostData: {
+      id: "",
+      owner: "",
+      title: "",
+      body: "",
+      createdAt: "",
+      updatedAt: "",
+    },
+  },
+};
 const usersInitialState = { users: [], user: {} };
 const postsInitialState: Posts = {
   posts: [],
@@ -24,11 +37,26 @@ const modalSlice = createSlice({
   name: "modal",
   initialState: modalInitialState,
   reducers: {
-    showModal(state) {
-      state.isVisible = true;
+    showModal(state, action) {
+      let { key, previewedPostData } = action.payload;
+      return {
+        ...state,
+        [key]: {
+          isVisible: true,
+          ...(previewedPostData && { previewedPostData: previewedPostData }),
+        },
+      };
     },
-    hideModal(state) {
-      state.isVisible = false;
+    hideModal(state, action) {
+      let key = action.payload;
+
+      return {
+        ...state,
+        [key]: {
+          previewedPostData: { title: "", body: "" },
+          isVisible: false,
+        },
+      };
     },
   },
 });
@@ -68,6 +96,13 @@ const postsSlice = createSlice({
           ...state.userPosts,
           ...action.payload,
         ]);
+      }
+    },
+    updatePost(state, action) {
+      let { data: updatedPost } = action.payload;
+      let index = state.posts.findIndex((post) => post.id === updatedPost.id);
+      if (index > -1) {
+        state.posts[index] = updatedPost;
       }
     },
     removePost(state, action) {

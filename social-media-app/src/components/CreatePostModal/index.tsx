@@ -30,7 +30,7 @@ const CreatePostModal = (props: ModalProps) => {
   }, [loadingForUsers]);
 
   const hideModal = () => {
-    dispatch(modalActions.hideModal());
+    dispatch(modalActions.hideModal("createPostModal"));
   };
 
   const renderUsers = () => {

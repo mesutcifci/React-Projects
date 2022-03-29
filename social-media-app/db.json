@@ -29,5 +29,22 @@
       "city": "Samsun"
     }
   ],
-  "posts": []
+  "posts": [
+    {
+      "owner": "user1",
+      "title": "user1",
+      "body": "user1",
+      "createdAt": "2022-03-29T12:46:31.301Z",
+      "updatedAt": "2022-03-29T12:46:31.301Z",
+      "id": 1
+    },
+    {
+      "owner": "user2",
+      "title": "user2up",
+      "body": "user2",
+      "createdAt": "2022-03-29T12:46:42.494Z",
+      "updatedAt": "2022-03-29T12:46:54.403Z",
+      "id": 2
+    }
+  ]
 }
