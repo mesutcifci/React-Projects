@@ -7,7 +7,7 @@ export interface ISector {
   costMultiplier: number;
 }
 
-export interface IProducts {
+export interface IProduct {
   name: string;
   price: number;
   redecorationCycle: number;
