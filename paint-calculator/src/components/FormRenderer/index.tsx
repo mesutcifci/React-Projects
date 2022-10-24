@@ -36,6 +36,7 @@ const FormRenderer = ({ data }: IFormProps) => {
     projectType_sector,
     products,
     sector_product,
+    colour,
   } = data;
 
   // States start
@@ -52,6 +53,8 @@ const FormRenderer = ({ data }: IFormProps) => {
 
   const [area, setArea] = useState(0);
   const [cost, setCost] = useState(0);
+
+  const [selectedColour, setSelectedColourState] = useState(colour[0]);
   // States end
 
   useEffect(() => {
@@ -82,7 +85,8 @@ const FormRenderer = ({ data }: IFormProps) => {
         selectedSector.costMultiplier * selectedProduct.price * area;
       const thirtyYearsMultiplier = 30 / selectedProduct.redecorationCycle;
       const thirtyYearCost = yearlyCost * thirtyYearsMultiplier;
-      setCost(Number(thirtyYearCost.toFixed(2)));
+      const isCostValid = !isNaN(thirtyYearCost);
+      isCostValid && setCost(Number(thirtyYearCost.toFixed(2)));
     }
   }, [area, selectedProduct, selectedSector]);
 
@@ -103,75 +107,177 @@ const FormRenderer = ({ data }: IFormProps) => {
     setSelectedProduct(productWithPrice);
   };
 
+  const handleClickColour = (event: SelectChangeEvent<string>) => {
+    const value = event.target.value;
+    const matchedColour = colour.find((item) => item.name === value);
+    if (matchedColour) {
+      setSelectedColourState(matchedColour);
+    }
+  };
+
   if (!filteredSectors || !projectTypes) {
     return <CircularProgress color="inherit" size={16} />;
   }
 
   return (
-    <Box sx={{ width: "100%", maxWidth: "500px", mx: "auto", pt: "100px" }}>
-      <Stack direction="row" sx={{ flexWrap: "wrap", gap: "20px" }}>
-        <Stack direction="row" alignItems="center" spacing={1}>
-          <InputLabel id="projectTypes">Project Type: </InputLabel>
-          <Select
-            labelId="projectTypes"
-            id="projectTypes"
-            value={selectedProjectType}
-            onChange={(e) => setSelectedProjectType(e.target.value)}
-          >
-            {projectTypes.map((type) => (
-              <MenuItem key={type.name} value={type.name}>
-                {type.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </Stack>
-
-        <Stack direction="row" alignItems="center" spacing={1}>
-          <InputLabel id="sectors">Sector: </InputLabel>
-          <Select
-            labelId="sectors"
-            id="sectors"
-            value={selectedSector?.name}
-            onChange={(event) => handleClickSector(event)}
-          >
-            {filteredSectors?.map((sector) => (
-              <MenuItem key={sector.sector} value={sector.sector}>
-                {sector.sector}
-              </MenuItem>
-            ))}
-          </Select>
-        </Stack>
-
-        <Stack direction="row" alignItems="center" spacing={1}>
-          <InputLabel id="product">Product: </InputLabel>
-          <Select
-            labelId="product"
-            id="product"
-            value={selectedProduct?.name}
-            onChange={(event) => handleClickProduct(event)}
-          >
-            {filteredProducts?.map((product) => (
-              <MenuItem key={product.product} value={product.product}>
-                {product.product}
-              </MenuItem>
-            ))}
-          </Select>
-        </Stack>
-      </Stack>
-
-      <Stack direction="row" alignItems="center" spacing={1}>
-        <TextField
-          id="area"
-          label="Area"
-          variant="outlined"
-          value={area}
-          onChange={(e) => setArea(Number(e.target.value))}
-        />
-        <Typography variant="body1" component="h2">
-          Cost: {` ${cost}`}
+    <>
+      <header>
+        <Typography
+          variant="h1"
+          fontSize={"30px"}
+          textAlign="center"
+          mb="20px"
+          mt="100px"
+        >
+          Paint Calculator
         </Typography>
-      </Stack>
-    </Box>
+      </header>
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          px: "20px",
+        }}
+      >
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: {
+              xs: "1fr",
+              sm: "repeat(auto-fill, minmax(250px, 1fr))",
+            },
+            gap: "20px",
+            width: { xs: "max-content", sm: "100%" },
+            maxWidth: { xs: "100%", sm: "540px" },
+          }}
+        >
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+            spacing={1}
+          >
+            <InputLabel id="projectTypes">Project Type: </InputLabel>
+            <Select
+              labelId="projectTypes"
+              id="projectTypes"
+              value={selectedProjectType}
+              sx={{ width: { xs: "200px", sm: "150px" } }}
+              onChange={(e) => setSelectedProjectType(e.target.value)}
+            >
+              {projectTypes.map((type) => (
+                <MenuItem key={type.name} value={type.name}>
+                  {type.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </Stack>
+
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+            spacing={1}
+          >
+            <InputLabel id="sectors">Sector: </InputLabel>
+            <Select
+              labelId="sectors"
+              id="sectors"
+              value={selectedSector?.name}
+              sx={{ width: { xs: "200px", sm: "150px" } }}
+              onChange={(event) => handleClickSector(event)}
+            >
+              {filteredSectors?.map((sector) => (
+                <MenuItem key={sector.sector} value={sector.sector}>
+                  {sector.sector}
+                </MenuItem>
+              ))}
+            </Select>
+          </Stack>
+
+          <Stack
+            direction="row"
+            alignItems="center"
+            justifyContent="space-between"
+            spacing={1}
+          >
+            <InputLabel id="product">Product: </InputLabel>
+            <Select
+              labelId="product"
+              id="product"
+              value={selectedProduct?.name}
+              sx={{ width: { xs: "200px", sm: "150px" } }}
+              onChange={(event) => handleClickProduct(event)}
+            >
+              {filteredProducts?.map((product) => (
+                <MenuItem key={product.product} value={product.product}>
+                  {product.product}
+                </MenuItem>
+              ))}
+            </Select>
+          </Stack>
+
+          <Stack
+            direction="row"
+            alignItems="center"
+            spacing={1}
+            justifyContent="space-between"
+            sx={{ position: "relative" }}
+          >
+            <Stack>
+              <InputLabel id="colour">Colour: </InputLabel>
+              <Box
+                sx={{
+                  width: "50px",
+                  height: "15px",
+                  background: `${selectedColour.hex}`,
+                  border: "1px solid black",
+                }}
+              ></Box>
+            </Stack>
+            <Select
+              labelId="colour"
+              id="colour"
+              value={selectedColour?.name}
+              sx={{
+                width: { xs: "200px", sm: "150px" },
+              }}
+              onChange={handleClickColour}
+            >
+              {colour?.map((colour) => (
+                <MenuItem key={colour.name} value={colour.name}>
+                  {colour.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </Stack>
+
+          <Box>
+            <TextField
+              id="area"
+              label="Area"
+              variant="outlined"
+              value={area}
+              onChange={(e) => {
+                const areaValue = Number(e.target.value);
+                const isInputValid = !isNaN(areaValue);
+                isInputValid && setArea(areaValue);
+              }}
+              fullWidth
+            />
+          </Box>
+
+          <Box>
+            <Stack justifyContent={"center"} height="100%">
+              <Typography variant="body1" component="h2">
+                Cost: {` ${cost}`}
+              </Typography>
+            </Stack>
+          </Box>
+        </Box>
+      </Box>
+    </>
   );
 };
 
