@@ -114,11 +114,18 @@ const FormRenderer = ({ data }: IFormProps) => {
       setSelectedColourState(matchedColour);
     }
   };
-
   if (!filteredSectors || !projectTypes) {
-    return <CircularProgress color="inherit" size={16} />;
+    return (
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="center"
+        sx={{ width: "100%", height: "100%" }}
+      >
+        <CircularProgress color="inherit" size={30} />
+      </Stack>
+    );
   }
-
   return (
     <>
       <header>
@@ -158,7 +165,9 @@ const FormRenderer = ({ data }: IFormProps) => {
             justifyContent="space-between"
             spacing={1}
           >
-            <InputLabel id="projectTypes">Project Type: </InputLabel>
+            <InputLabel sx={{ cursor: "pointer" }} id="projectTypes">
+              Project Type:{" "}
+            </InputLabel>
             <Select
               labelId="projectTypes"
               id="projectTypes"
@@ -180,7 +189,9 @@ const FormRenderer = ({ data }: IFormProps) => {
             justifyContent="space-between"
             spacing={1}
           >
-            <InputLabel id="sectors">Sector: </InputLabel>
+            <InputLabel sx={{ cursor: "pointer" }} id="sectors">
+              Sector:{" "}
+            </InputLabel>
             <Select
               labelId="sectors"
               id="sectors"
@@ -202,7 +213,9 @@ const FormRenderer = ({ data }: IFormProps) => {
             justifyContent="space-between"
             spacing={1}
           >
-            <InputLabel id="product">Product: </InputLabel>
+            <InputLabel sx={{ cursor: "pointer" }} id="product">
+              Product:{" "}
+            </InputLabel>
             <Select
               labelId="product"
               id="product"
@@ -226,7 +239,9 @@ const FormRenderer = ({ data }: IFormProps) => {
             sx={{ position: "relative" }}
           >
             <Stack>
-              <InputLabel id="colour">Colour: </InputLabel>
+              <InputLabel sx={{ cursor: "pointer" }} id="colour">
+                Colour:{" "}
+              </InputLabel>
               <Box
                 sx={{
                   width: "50px",
