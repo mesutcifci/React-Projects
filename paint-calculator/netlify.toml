@@ -1,3 +1,3 @@
 [build]
   base = "paint-calculator/"
-  publish = "build/"
+  publish = "public/"
