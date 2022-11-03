@@ -1,0 +1,29 @@
+.switch {
+  background-color: gray;
+  border: 1px solid black;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  width: 60px;
+  height: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 3px;
+}
+
+.circle {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+  padding: 2px;
+  transition: margin 300ms linear;
+}
+
+.circleDark {
+  margin-right: 50%;
+}
+
+.circleLight {
+  margin-left: 50%;
+}
