@@ -4,9 +4,8 @@ import { useContext } from "react";
 
 const ThemeSwitcher = () => {
   const { changeTheme, theme } = useContext(ThemeContext);
-  console.log(theme);
   return (
-    <div className={`${style.switch} `}>
+    <div className={`${style.switch} ${theme === "dark" && style.switchNeon}`}>
       <div
         className={`${style.circle} ${
           theme === "dark" ? style.circleDark : style.circleLight

@@ -3,9 +3,11 @@ import ThemeSwitcher from "../ThemeSwitcher";
 
 const Header = () => {
   return (
-    <header>
-      <h1 className={style.heading}>TODO APP</h1>
-      <ThemeSwitcher />
+    <header className={style.header}>
+      <div className={style.innerContainer}>
+        <h1 className={style.heading}>TODO APP</h1>
+        <ThemeSwitcher />
+      </div>
     </header>
   );
 };

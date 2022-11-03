@@ -1,2 +1,18 @@
+.header {
+  padding-top: 40px;
+}
+
+.innerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--primary);
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+}
+
 .heading {
+  color: var(--primary);
+  font-size: 20px;
 }

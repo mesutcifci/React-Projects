@@ -29,8 +29,10 @@ code {
 
 :root {
   --background: #181a1b;
+  --primary: #ffffff;
 }
 
 [data-theme="light"] {
   --background: #ffffff;
+  --primary: #181a1b;
 }
