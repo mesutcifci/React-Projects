@@ -1,10 +1,58 @@
 import style from "./styles.module.css";
+import { useContext, useState, useEffect } from "react";
+import { TodoContext } from "../../store/TodoContext";
+import { v4 as uuidv4 } from "uuid";
 
 const TodoInput = () => {
+  const { setTodos } = useContext(TodoContext);
+  const [todoText, setTodoText] = useState("");
+  const [isInputValid, setIsInputValid] = useState(false);
+
+  useEffect(() => {
+    validateInput();
+  }, [todoText]);
+
+  const validateInput = () => {
+    if (todoText && todoText.trim().length > 0) {
+      setIsInputValid(true);
+    } else {
+      setIsInputValid(false);
+    }
+  };
+
+  const handleInputChange = (event) => {
+    setTodoText(event.target.value);
+  };
+
+  const addTodo = () => {
+    if (isInputValid) {
+      const todo = { id: uuidv4(), date: new Date(), text: todoText };
+      setTodos((prevState) => [todo, ...prevState]);
+      setTodoText("");
+    }
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key.toLowerCase() === "enter" && isInputValid) {
+      addTodo();
+    }
+  };
+
   return (
     <div className={style.wrapper}>
-      <input type="text" placeholder="Add todo" className={style.input} />
-      <button className={style.button}>
+      <input
+        type="text"
+        placeholder="Add todo"
+        className={style.input}
+        value={todoText}
+        onChange={handleInputChange}
+        onKeyDown={handleKeyDown}
+      />
+      <button
+        className={style.button}
+        disabled={!isInputValid}
+        onClick={addTodo}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
