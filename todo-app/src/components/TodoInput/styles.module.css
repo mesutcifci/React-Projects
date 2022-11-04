@@ -1,0 +1,52 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 500px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.input {
+  background: var(--background);
+  border: 1px solid var(--primary);
+  caret-color: var(--primary);
+  border-radius: 10px;
+  color: var(--primary);
+  width: 100%;
+  height: 40px;
+  padding: 20px 45px 20px 20px;
+}
+
+.input:focus {
+  box-shadow: 0px 0px 10px 0px rgba(0, 255, 255, 0.7);
+  outline: 0px !important;
+}
+
+.button {
+  position: absolute;
+  right: 20px;
+  display: inline-block;
+  border: none;
+  margin: 0;
+  text-decoration: none;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  background: none;
+  transition: transform 300ms ease;
+}
+
+.inputIcon {
+  width: 30px;
+  height: 30px;
+  fill: var(--primary);
+}
+
+.button:active {
+  transform: scale(0.9);
+}
