@@ -3,6 +3,5 @@ import { render, screen } from "@testing-library/react";
 
 test("main heading element should visible", () => {
   render(<Header />);
-  const headingElement = screen.getByRole("heading");
-  expect(headingElement).toBeInTheDocument();
+  expect(screen.getByRole("heading")).toBeInTheDocument();
 });

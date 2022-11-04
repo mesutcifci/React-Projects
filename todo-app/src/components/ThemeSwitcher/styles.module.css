@@ -1,5 +1,5 @@
 .switch {
-  background-color: var(--primary);
+  background-color: var(--background);
   border: 1px solid black;
   border-radius: 30px;
   display: flex;
@@ -22,10 +22,10 @@
   transition: margin 300ms linear;
 }
 
-.circleDark {
+.moveLeft {
   margin-right: 50%;
 }
 
-.circleLight {
+.moveRight {
   margin-left: 50%;
 }

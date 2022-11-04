@@ -8,20 +8,20 @@ const ThemeSwitcher = () => {
     <div className={`${style.switch} ${theme === "dark" && style.switchNeon}`}>
       <div
         className={`${style.circle} ${
-          theme === "dark" ? style.circleDark : style.circleLight
+          theme === "dark" ? style.moveLeft : style.moveRight
         }`}
       >
         {theme === "dark" ? (
           <img
-            src="./images/sun.svg"
+            src="./images/moon.svg"
             onClick={() => changeTheme("light")}
             alt="moon icon"
           />
         ) : (
           <img
-            src="./images/moon.svg"
+            src="./images/sun.svg"
             onClick={() => changeTheme("dark")}
-            alt="sun"
+            alt="sun icon"
           />
         )}
       </div>
