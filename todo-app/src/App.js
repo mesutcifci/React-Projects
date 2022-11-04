@@ -1,14 +1,17 @@
-import "./App.css";
-import { Header, TodoInput } from "./components";
+import style from "./app.module.css";
+import { Header, TodoInput, TodoList } from "./components";
 import { useContext } from "react";
 import { ThemeContext } from "./store/ThemeContext";
 
 function App() {
   const { theme } = useContext(ThemeContext);
   return (
-    <div className="app" data-theme={theme}>
-      <Header />
-      <TodoInput />
+    <div className={style.app} data-theme={theme}>
+      <div className={style.wrapper}>
+        <Header />
+        <TodoInput />
+        <TodoList />
+      </div>
     </div>
   );
 }

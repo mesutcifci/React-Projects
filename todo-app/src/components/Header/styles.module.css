@@ -1,12 +1,14 @@
 .header {
   padding-top: 40px;
+  border-bottom: 2px solid var(--primary);
+  margin-left: -20px;
+  margin-right: -20px;
 }
 
 .innerContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 2px solid var(--primary);
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 10px;

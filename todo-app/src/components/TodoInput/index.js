@@ -26,7 +26,12 @@ const TodoInput = () => {
 
   const addTodo = () => {
     if (isInputValid) {
-      const todo = { id: uuidv4(), date: new Date(), text: todoText };
+      const todo = {
+        id: uuidv4(),
+        date: new Date(),
+        text: todoText,
+        isCompleted: false,
+      };
       setTodos((prevState) => [todo, ...prevState]);
       setTodoText("");
     }
