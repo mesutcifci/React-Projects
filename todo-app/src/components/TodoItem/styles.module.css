@@ -13,28 +13,25 @@
 }
 
 .text {
-  color: var(--primary-transparent);
+  color: var(--primary);
   font-size: 20px;
   word-break: break-word;
-  width: calc(100% - 90px);
+  width: calc(100% - 60px);
 }
 
 .lineThrough {
+  color: var(--primary-transparent);
   text-decoration: line-through 1px var(--completed);
 }
 
 .iconWrapper {
   display: flex;
   column-gap: 15px;
-  width: 90px;
+  width: 60px;
   height: 20px;
 }
 
 .icon {
   width: 20px;
   height: 20px;
-}
-
-.completedIcon {
-  fill: var(--completed);
 }

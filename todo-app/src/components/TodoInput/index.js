@@ -4,7 +4,7 @@ import { TodoContext } from "../../store/TodoContext";
 import { v4 as uuidv4 } from "uuid";
 
 const TodoInput = () => {
-  const { setTodos } = useContext(TodoContext);
+  const { setTodoItems } = useContext(TodoContext);
   const [todoText, setTodoText] = useState("");
   const [isInputValid, setIsInputValid] = useState(false);
 
@@ -30,9 +30,9 @@ const TodoInput = () => {
         id: uuidv4(),
         date: new Date(),
         text: todoText,
-        isCompleted: false,
+        isCompleted: true,
       };
-      setTodos((prevState) => [todo, ...prevState]);
+      setTodoItems((prevState) => [todo, ...prevState]);
       setTodoText("");
     }
   };

@@ -1,15 +1,15 @@
 import { createContext, useState } from "react";
 
 export const TodoContext = createContext({
-  todos: [],
-  setTodo: () => {},
+  todoItems: [],
+  setTodoItems: () => {},
 });
 
 export const TodoProvider = (props) => {
-  const [todos, setTodos] = useState([]);
+  const [todoItems, setTodoItems] = useState([]);
 
   return (
-    <TodoContext.Provider value={{ todos, setTodos }}>
+    <TodoContext.Provider value={{ todoItems, setTodoItems }}>
       {props.children}
     </TodoContext.Provider>
   );
