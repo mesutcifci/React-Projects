@@ -136,7 +136,7 @@ const FormRenderer = ({ data }: IFormProps) => {
           mb="20px"
           mt="100px"
         >
-          Paint Calculator
+          Paint Calculatorr
         </Typography>
       </header>
       <Box
