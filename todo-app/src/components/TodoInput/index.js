@@ -30,7 +30,7 @@ const TodoInput = () => {
         id: uuidv4(),
         date: new Date(),
         text: todoText,
-        isCompleted: true,
+        isCompleted: false,
       };
       setTodoItems((prevState) => [todo, ...prevState]);
       setTodoText("");
