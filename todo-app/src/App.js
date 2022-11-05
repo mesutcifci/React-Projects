@@ -8,7 +8,6 @@ function App() {
   return (
     <div className={style.app} data-theme={theme}>
       <div className={style.wrapper}>
-        TEST NETLİFY UPDATE
         <Header />
         <TodoInput />
         <TodoList />
