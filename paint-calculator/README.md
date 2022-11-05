@@ -6,6 +6,7 @@ It's an app calculate 30 years cost of paint a different types buildings.
 
 ## What technologies I did use?
 
+- ReactJS
 - TypeScript
 - Material UI
 
