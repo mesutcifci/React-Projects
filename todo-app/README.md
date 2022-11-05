@@ -4,9 +4,19 @@
 
 It's a classic todo app that user can create, edit, complete and delete todo.
 
+## Features
+
+- Add todo
+- Edit todo
+- Delete todo
+- Complete todo
+- Dark/Light mode
+- Unit and integration tests
+
 ## What technologies I did use?
 
 - ReactJS
+- Context API
 - React testing library
 - Jest
 - CSS Modules
