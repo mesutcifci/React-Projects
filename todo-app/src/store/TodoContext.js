@@ -6,12 +6,13 @@ export const TodoContext = createContext({
 });
 
 export const TodoProvider = (props) => {
-  // const localStorageTodoItems = JSON.parse(localStorage.getItem("todoItems"));
-  const [todoItems, setTodoItems] = useState([]);
+  const localStorageTodoItems =
+    JSON.parse(localStorage.getItem("todoItems")) || [];
+  const [todoItems, setTodoItems] = useState(localStorageTodoItems);
 
-  // useEffect(() => {
-  //   localStorage.setItem("todoItems", JSON.stringify(todoItems));
-  // }, [todoItems]);
+  useEffect(() => {
+    localStorage.setItem("todoItems", JSON.stringify(todoItems));
+  }, [todoItems]);
 
   return (
     <TodoContext.Provider value={{ todoItems, setTodoItems }}>

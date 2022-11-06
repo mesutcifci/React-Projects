@@ -31,6 +31,7 @@ const addTodo = (tasks, eventType) => {
 
 describe("TodoInput", () => {
   beforeEach(() => {
+    localStorage.clear();
     render(<MockTodo />);
   });
 

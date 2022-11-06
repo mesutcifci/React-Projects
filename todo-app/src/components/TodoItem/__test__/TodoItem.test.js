@@ -107,5 +107,9 @@ describe("Update todo item tests", () => {
     const inputElement = screen.getByRole("textbox");
     fireEvent.change(inputElement, { target: { value: "dummy text" } });
     expect(inputElement.value).toBe("dummy text");
+
+    fireEvent.click(editIcon);
+    fireEvent.change(inputElement, { target: { value: "dummy text2" } });
+    expect(inputElement.value).toBe("dummy text2");
   });
 });

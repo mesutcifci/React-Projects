@@ -34,6 +34,12 @@ const TodoItem = ({ data }) => {
     }
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key.toLowerCase() === "enter") {
+      handleUpdateTodo();
+    }
+  };
+
   const handleDeleteTodo = () => {
     const filteredTodoItems = [...todoItems].filter(
       (todo) => todo.id !== data.id
@@ -64,6 +70,7 @@ const TodoItem = ({ data }) => {
           value={todoText}
           onChange={handleChangeInput}
           className={style.input}
+          onKeyDown={handleKeyDown}
         />
       )}
 
