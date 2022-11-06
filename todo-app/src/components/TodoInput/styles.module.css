@@ -41,7 +41,7 @@
   width: 30px;
   height: 30px;
   background: none;
-  transition: transform 300ms ease, opacity 300ms linear;
+  transition: opacity 300ms linear;
 }
 
 .button:disabled {
@@ -53,6 +53,11 @@
   width: 30px;
   height: 30px;
   fill: var(--primary);
+  transition: opacity 200ms linear;
+}
+
+.inputIcon:hover {
+  opacity: 0.7;
 }
 
 .button:active {

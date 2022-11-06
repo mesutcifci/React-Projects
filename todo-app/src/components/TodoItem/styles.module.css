@@ -20,7 +20,7 @@
 
 .lineThrough {
   color: var(--primary-transparent);
-  text-decoration: line-through 1px var(--completed);
+  text-decoration: line-through 1px var(--blue);
 }
 
 /* Icons */
@@ -36,10 +36,15 @@
   cursor: pointer;
   width: 20px;
   height: 20px;
+  transition: opacity 200ms linear;
+}
+
+.icon:hover {
+  opacity: 0.7;
 }
 
 .completedIcon {
-  fill: var(--completed);
+  fill: var(--blue);
 }
 
 /* Edit Style  */
