@@ -20,6 +20,7 @@ html * {
 }
 
 html {
+  min-height: 100%;
   height: 100%;
 }
 
@@ -30,10 +31,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100%;
   height: 100%;
 }
 
 div#root {
+  min-height: 100%;
   height: 100%;
 }
 
