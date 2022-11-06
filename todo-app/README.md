@@ -11,6 +11,7 @@ It's a classic todo app that user can create, edit, complete and delete todo.
 - Delete todo
 - Complete todo
 - Dark/Light mode
+- Save to local storage
 - Unit and integration tests
 
 ## What technologies I did use?
