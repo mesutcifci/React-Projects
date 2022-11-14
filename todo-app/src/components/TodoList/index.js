@@ -9,25 +9,29 @@ const TodoList = () => {
   const [filterParameter, setFilterParameter] = useState("all");
 
   useEffect(() => {
-    setFilteredTodoItems(todoItems);
+    filterTodo()
   }, [todoItems]);
 
-  const filterTodo = () => {
-    const filteredItems = todoItems.filter((todo) => todo.isCompleted === true);
-    setFilteredTodoItems(filteredItems);
-    setFilterParameter("completed");
-  };
-
-  const clearTodo = () => {
-    setFilteredTodoItems(todoItems);
-    setFilterParameter("all");
+  const filterTodo = (completed) => {
+    if(completed === true){
+      const filteredItems = todoItems.filter((todo) => todo.isCompleted === true);
+      setFilteredTodoItems(filteredItems);
+      setFilterParameter("completed");
+    }else if(completed === false){
+      const filteredItems = todoItems.filter((todo) => todo.isCompleted === false);
+      setFilteredTodoItems(filteredItems);
+      setFilterParameter("unCompleted");
+    }else{
+      setFilteredTodoItems(todoItems);
+      setFilterParameter("all");
+    }
   };
 
   return (
     <div>
       <div className={style.filterWrapper}>
         <p
-          onClick={clearTodo}
+          onClick={() => filterTodo()}
           className={`${style.filterText} ${
             filterParameter === "all" && style.selected
           }`}
@@ -36,7 +40,16 @@ const TodoList = () => {
         </p>
         <p>&nbsp;/&nbsp;</p>
         <p
-          onClick={filterTodo}
+          onClick={() => filterTodo(false)}
+          className={`${style.filterText} ${
+            filterParameter === "unCompleted" && style.selected
+          }`}
+        >
+          UnCompleted
+        </p>
+        <p>&nbsp;/&nbsp;</p>
+        <p
+          onClick={() => filterTodo(true)}
           className={`${style.filterText} ${
             filterParameter === "completed" && style.selected
           }`}
