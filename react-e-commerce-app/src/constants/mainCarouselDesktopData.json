@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "src": "./images/desktop/main-carousel/image",
+    "text": "Sale of the summer collection",
+    "link": "",
+    "imageType": "png"
+  },
+  {
+    "id": 2,
+    "src": "./images/desktop/main-carousel/image",
+    "text": "Sale of the summer collection",
+    "link": "",
+    "imageType": "png"
+  },
+  {
+    "id": 3,
+    "src": "./images/desktop/main-carousel/image",
+    "text": "Sale of the summer collection",
+    "link": "",
+    "imageType": "png"
+  }
+]
