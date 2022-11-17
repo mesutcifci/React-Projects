@@ -41,6 +41,7 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
       {data.map((item, index) => {
         return (
           <Box
+            data-testid={`carouselItem${item.id}`}
             sx={{
               flexShrink: "0",
               height: "501px",
@@ -51,7 +52,7 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
                 objectFit: "cover",
                 filter: "grayScale(0.2)",
               },
-              "&.slide-item": {
+              "&.carousel-item": {
                 transform: "translateX(0)",
                 position: "absolute",
                 transition: "transform 800ms ease",
@@ -62,8 +63,8 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
             key={item.id}
             className={`${
               currentImageIndex !== index + 1
-                ? "slide-item hide"
-                : "slide-item "
+                ? "carousel-item hide"
+                : "carousel-item "
             }`}
           >
             <Typography
@@ -100,7 +101,7 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
                 }}
                 component="button"
               >
-                <ArrowForwardIcon />
+                <ArrowForwardIcon data-testid="shopIcon" />
               </IconButton>
               <Typography
                 sx={{ fontSize: "13px", color: "white", fontWeight: "bold" }}
@@ -132,6 +133,7 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
             "&:hover": { color: "black", backgroundColor: "white" },
           }}
           component="button"
+          data-testid="backwardButton"
           onClick={() => updateCurrentImageIndex("left")}
           {...(currentImageIndex === 1 && { disabled: true })}
         >
@@ -145,6 +147,7 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
             "&:hover": { color: "black", backgroundColor: "white" },
           }}
           component="button"
+          data-testid="forwardButton"
           onClick={() => updateCurrentImageIndex("right")}
           {...(currentImageIndex === data.length && { disabled: true })}
         >

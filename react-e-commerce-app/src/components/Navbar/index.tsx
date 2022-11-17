@@ -22,6 +22,7 @@ const Navbar = () => {
               width="42.996"
               height="32.879"
               viewBox="0 0 42.996 32.879"
+              data-testid="productLogo"
             />
             <Typography color="black">E-Shop</Typography>
           </Box>
