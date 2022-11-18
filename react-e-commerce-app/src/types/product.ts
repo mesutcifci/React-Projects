@@ -20,6 +20,7 @@ export interface ICollection extends IBase {}
 
 export interface IProduct {
   id: string;
+  displayName: string;
   colors: string[];
   sizes: string[];
   price: number;
@@ -32,4 +33,5 @@ export interface IProduct {
   primaryCategories: IPrimaryCategory[];
   secondaryCategories: ISecondaryCategory[];
   tertiaryCategories: ITertiaryCategory[];
+  collections: ICollection[];
 }
