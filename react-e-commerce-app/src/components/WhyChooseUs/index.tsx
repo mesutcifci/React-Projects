@@ -6,7 +6,8 @@ import MoneyBackIcon from "../../ui/MoneyBackIcon";
 import PaymentIcon from "../../ui/PaymentIcon";
 import ShippingIcon from "../../ui/ShippingIcon";
 
-const listData = [
+// "All payments are processed instantly  over a secure payment protocol."
+export const listData = [
   {
     id: "shipping",
     title: "Free Shipping",
@@ -17,7 +18,7 @@ const listData = [
     id: "payments",
     title: "Easy Payments",
     description:
-      "All payments are processed instantly  over a secure payment protocol.",
+      "All payments are processed instantly over a secure payment protocol.",
   },
   {
     id: "money",
@@ -37,13 +38,13 @@ const WhyChooseUs = () => {
   const renderIcon = (iconName: string) => {
     switch (iconName) {
       case "shipping":
-        return <ShippingIcon />;
+        return <ShippingIcon id={iconName} />;
       case "payments":
-        return <PaymentIcon />;
+        return <PaymentIcon id={iconName} />;
       case "money":
-        return <MoneyBackIcon />;
+        return <MoneyBackIcon id={iconName} />;
       case "quality":
-        return <FinestQualityIcon />;
+        return <FinestQualityIcon id={iconName} />;
     }
   };
 

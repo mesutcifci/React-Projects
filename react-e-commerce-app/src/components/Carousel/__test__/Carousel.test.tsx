@@ -36,8 +36,7 @@ describe("Carousel mobile", () => {
   });
 
   test("Backward button should be disabled in first render", () => {
-    const backwardButton = screen.getByTestId("backwardButton");
-    expect(backwardButton).toBeDisabled();
+    expect(screen.getByTestId("backwardButton")).toBeDisabled();
   });
 
   test("Forward button should be disabled and backward button not to be disabled when user reach last carousel item", () => {
@@ -51,8 +50,7 @@ describe("Carousel mobile", () => {
   });
 
   test("The first slide should be visible on first render", () => {
-    const firstItem = screen.getByTestId("carouselItem1");
-    expect(firstItem).not.toHaveClass("hide");
+    expect(screen.getByTestId("carouselItem1")).not.toHaveClass("hide");
   });
 
   test("clicking forward button should change the displayed carousel item", () => {

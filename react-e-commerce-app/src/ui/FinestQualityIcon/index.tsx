@@ -5,9 +5,10 @@ const FinestQualityIcon = ({
   width = "70",
   height = "70",
   sx = { width: "70px", height: "70px" },
+  id,
 }: SvgIconProps) => {
   return (
-    <SvgIcon {...{ viewBox, width, height, sx }}>
+    <SvgIcon {...{ viewBox, width, height, sx }} data-testid={id}>
       <g id="icon" transform="translate(-1210 -1283)">
         <rect
           id="Rectangle_666"

@@ -6,22 +6,18 @@ describe("Navbar", () => {
     render(<Navbar />);
   });
   test("main heading element should visible", () => {
-    const productLogo = screen.getByTestId("productLogo");
-    expect(productLogo).toBeInTheDocument();
+    expect(screen.getByTestId("productLogo")).toBeInTheDocument();
   });
 
   test("search icon should be visible", () => {
-    const searchIcon = screen.getByTestId("SearchIcon");
-    expect(searchIcon).toBeInTheDocument();
+    expect(screen.getByTestId("SearchIcon")).toBeInTheDocument();
   });
 
   test("shopping cart icon should be visible", () => {
-    const shoppingCartIcon = screen.getByTestId("ShoppingCartOutlinedIcon");
-    expect(shoppingCartIcon);
+    expect(screen.getByTestId("ShoppingCartOutlinedIcon"));
   });
 
   test("menu icon should be visible", () => {
-    const menuIcon = screen.getByTestId("MenuIcon");
-    expect(menuIcon).toBeInTheDocument()
+    expect(screen.getByTestId("MenuIcon")).toBeInTheDocument();
   });
 });
