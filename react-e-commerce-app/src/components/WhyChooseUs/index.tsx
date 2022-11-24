@@ -1,38 +1,16 @@
+import {
+  FinestQualityIcon,
+  MoneyBackIcon,
+  PaymentIcon,
+  ShippingIcon,
+} from "../../ui";
+
+import listData from "./listData.json";
+
+/* Material UI */
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import FinestQualityIcon from "../../ui/FinestQualityIcon";
-import MoneyBackIcon from "../../ui/MoneyBackIcon";
-import PaymentIcon from "../../ui/PaymentIcon";
-import ShippingIcon from "../../ui/ShippingIcon";
-
-// "All payments are processed instantly  over a secure payment protocol."
-export const listData = [
-  {
-    id: "shipping",
-    title: "Free Shipping",
-    description:
-      "All purchases over $99 are eligible for free shipping via USPS First Class Mail.",
-  },
-  {
-    id: "payments",
-    title: "Easy Payments",
-    description:
-      "All payments are processed instantly over a secure payment protocol.",
-  },
-  {
-    id: "money",
-    title: "Money-Back Guarantee",
-    description:
-      "If an item arrived damaged or you've changed your mind, you can send it back for a full refund.",
-  },
-  {
-    id: "quality",
-    title: "Finest Quality",
-    description:
-      "Designed to last, each of our products has been crafted with the finest materials.",
-  },
-];
 
 const WhyChooseUs = () => {
   const renderIcon = (iconName: string) => {

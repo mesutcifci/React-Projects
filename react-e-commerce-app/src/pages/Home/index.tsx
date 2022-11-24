@@ -1,5 +1,4 @@
-import Carousel from "../../components/Carousel";
-import WhyChooseUs from "../../components/WhyChooseUs";
+import { Carousel, WhyChooseUs } from "../../components";
 import mobileCarouselData from "../../constants/mainCarouselMobileData.json";
 import Box from "@mui/material/Box";
 

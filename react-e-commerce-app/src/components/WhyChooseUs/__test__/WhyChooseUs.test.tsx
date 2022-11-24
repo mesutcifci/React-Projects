@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import WhyChooseUs from "../index";
-import { listData } from "../index";
+import listData from "../listData.json";
 
 const checkIconsInDocument = () => {
   listData.forEach(({ id }) => {
