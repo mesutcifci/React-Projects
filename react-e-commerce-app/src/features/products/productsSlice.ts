@@ -4,17 +4,14 @@ import { products } from "../../constants/products";
 
 interface IState {
   products: IProduct[];
-  selectedProducts: IProduct[];
 }
 
-const initialState: IState = { products: [...products], selectedProducts: [] };
+const initialState: IState = { products: [...products] };
 
 const productsSlice = createSlice({
   name: "products",
   initialState,
-  reducers: {
-    // setSelectedProduct
-  },
+  reducers: {},
 });
 
 export default productsSlice.reducer;
