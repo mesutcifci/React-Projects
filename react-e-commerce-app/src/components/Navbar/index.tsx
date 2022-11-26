@@ -1,15 +1,12 @@
 import * as React from "react";
 import { ProductLogo } from "../../ui";
 
-/* Material UI */
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import { AppBar, Box, Toolbar, Typography, IconButton } from "@mui/material";
+import {
+  Menu as MenuIcon,
+  Search as SearchIcon,
+  ShoppingCartOutlined as ShoppingCartOutlinedIcon,
+} from "@mui/icons-material";
 
 const Navbar = () => {
   return (

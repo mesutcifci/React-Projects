@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Box from "@mui/material/Box";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
+import {
+  ArrowBack as ArrowBackIcon,
+  ArrowForward as ArrowForwardIcon,
+} from "@mui/icons-material";
+import { IconButton, Typography, Box } from "@mui/material";
 
 interface ICarouselItemType {
   id: number;

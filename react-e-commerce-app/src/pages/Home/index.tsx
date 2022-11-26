@@ -1,6 +1,6 @@
 import { Carousel, WhyChooseUs } from "../../components";
 import mobileCarouselData from "../../constants/mainCarouselMobileData.json";
-import Box from "@mui/material/Box";
+import { Box } from "@mui/material";
 
 const Home = () => {
   return (

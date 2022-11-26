@@ -8,9 +8,7 @@ import {
 import listData from "./listData.json";
 
 /* Material UI */
-import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import { Stack, Box, Typography } from "@mui/material";
 
 const WhyChooseUs = () => {
   const renderIcon = (iconName: string) => {
@@ -52,7 +50,6 @@ const WhyChooseUs = () => {
       sx={{
         alignItems: "center",
         rowGap: { xs: "30px" },
-        fontFamily: "Poppins, sans-serif",
         marginTop: { xs: "30px" },
       }}
     >
