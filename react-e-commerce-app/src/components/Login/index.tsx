@@ -34,7 +34,7 @@ const validationSchema = yup.object({
     .required("Password is required"),
 });
 
-const initialValues = { email: "", password: "" };
+const initialValues = { email: "", password: "", confirmPassword: "" };
 
 const Login = () => {
   const [isPasswordShown, setIsPasswordShown] = useState(false);
@@ -55,7 +55,7 @@ const Login = () => {
           width: "100%",
           maxWidth: "448px",
         },
-        "& .MuiOutlinedInput-input": {
+        "& .MuiOutlinedInput-root": {
           borderRadius: "56px",
           borderColor: "#D8D8D8",
         },
