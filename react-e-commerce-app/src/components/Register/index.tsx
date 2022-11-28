@@ -1,4 +1,7 @@
 import { useState } from "react";
+import * as yup from "yup";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, db, storage } from "../../firebase/config";
 
 import {
   Stack,
@@ -15,8 +18,14 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import { Formik, Form, Field } from "formik";
 import { TextField } from "formik-mui";
-
-import * as yup from "yup";
+import {
+  collection,
+  DocumentReference,
+  FirestoreDataConverter,
+  getDoc,
+  query,
+  where,
+} from "firebase/firestore";
 
 const validationSchema = yup.object({
   firstName: yup
@@ -44,7 +53,15 @@ const validationSchema = yup.object({
     .required("Password is required"),
 });
 
-const initialValues = {
+interface IinitialValues {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+const initialValues: IinitialValues = {
   firstName: "",
   lastName: "",
   email: "",
@@ -53,6 +70,7 @@ const initialValues = {
 };
 
 const Register = () => {
+  const [loading, setLoading] = useState(false);
   const [isPasswordShown, setIsPasswordShown] = useState({
     password: false,
     confirmPassword: false,
@@ -67,6 +85,20 @@ const Register = () => {
         confirmPassword: !state.confirmPassword,
       }));
     }
+  };
+
+  const handleRegisterUser = (values: IinitialValues) => {
+    createUserWithEmailAndPassword(auth, values.email, values.password)
+      .then(async (userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
   };
 
   return (
@@ -111,67 +143,74 @@ const Register = () => {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-          console.log(values);
-        }}
+        onSubmit={handleRegisterUser}
       >
         {() => (
-          <Form>
+          <Form id="registerForm" noValidate>
             <Field
+              disabled={loading}
               component={TextField}
               type="text"
               name="firstName"
               label="First Name"
             />
             <Field
+              disabled={loading}
               component={TextField}
               type="text"
               name="lastName"
               label="Last Name"
             />
             <Field
+              disabled={loading}
               component={TextField}
               type="email"
               name="email"
               label="Email"
             />
             <Field
+              disabled={loading}
               component={TextField}
-              type={isPasswordShown ? "text" : "password"}
+              type={isPasswordShown.password ? "text" : "password"}
               name="password"
               label="Password"
               InputProps={{
                 endAdornment: (
-                  <InputAdornment
-                    position="end"
-                    onClick={() => handleClickPasswordIcon("password")}
-                    sx={{ cursor: "pointer" }}
-                  >
+                  <InputAdornment position="end" sx={{ cursor: "pointer" }}>
                     {isPasswordShown.password ? (
-                      <Visibility />
+                      <Visibility
+                        onClick={() => handleClickPasswordIcon("password")}
+                      />
                     ) : (
-                      <VisibilityOff />
+                      <VisibilityOff
+                        onClick={() => handleClickPasswordIcon("password")}
+                      />
                     )}
                   </InputAdornment>
                 ),
               }}
             />
             <Field
+              disabled={loading}
               component={TextField}
-              type={isPasswordShown ? "text" : "password"}
+              type={isPasswordShown.confirmPassword ? "text" : "password"}
               name="confirmPassword"
               label="Confirm Password"
               InputProps={{
                 endAdornment: (
-                  <InputAdornment
-                    position="end"
-                    onClick={() => handleClickPasswordIcon("confirmPassword")}
-                    sx={{ cursor: "pointer" }}
-                  >
+                  <InputAdornment position="end" sx={{ cursor: "pointer" }}>
                     {isPasswordShown.confirmPassword ? (
-                      <Visibility />
+                      <Visibility
+                        onClick={() =>
+                          handleClickPasswordIcon("confirmPassword")
+                        }
+                      />
                     ) : (
-                      <VisibilityOff />
+                      <VisibilityOff
+                        onClick={() =>
+                          handleClickPasswordIcon("confirmPassword")
+                        }
+                      />
                     )}
                   </InputAdornment>
                 ),
@@ -187,6 +226,7 @@ const Register = () => {
               }}
             >
               <Field
+                disabled={loading}
                 component={FormControlLabel}
                 control={<Checkbox />}
                 label="I agree to the Google Terms of Service and Privacy Policy"
@@ -199,6 +239,9 @@ const Register = () => {
 
       <Button
         variant="contained"
+        type="submit"
+        form="registerForm"
+        disabled={loading}
         sx={{
           width: "100%",
           maxWidth: { xs: "400px", sm: "448px" },
