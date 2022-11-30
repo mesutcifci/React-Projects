@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import {
+  signInWithPopup,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 import {
   Stack,
@@ -51,7 +55,24 @@ const Login = () => {
   const loginWithGmail = async () => {
     setLoading(true);
     try {
-      const userCredential = await signInWithPopup(auth, provider);
+      const userCredentials = await signInWithPopup(auth, provider);
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
+  };
+
+  const loginWithEmail = async (values: {
+    email: string;
+    password: string;
+  }) => {
+    setLoading(true);
+    try {
+      const userCredentials = await signInWithEmailAndPassword(
+        auth,
+        values.email,
+        values.password
+      );
     } catch (error) {
       console.log(error);
     }
@@ -97,19 +118,19 @@ const Login = () => {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-          console.log(values);
-        }}
+        onSubmit={loginWithEmail}
       >
         {() => (
-          <Form>
+          <Form id="loginForm" noValidate>
             <Field
+              disabled={loading}
               component={TextField}
               type="email"
               name="email"
               label="Email"
             />
             <Field
+              disabled={loading}
               component={TextField}
               type={isPasswordShown ? "text" : "password"}
               name="password"
@@ -168,6 +189,7 @@ const Login = () => {
         }}
       >
         <Button
+          disabled={loading}
           variant="contained"
           sx={{
             width: { xs: "100%", sm: "214px" },
@@ -192,6 +214,7 @@ const Login = () => {
           </Typography>
         </Button>
         <Button
+          disabled={loading}
           onClick={loginWithGmail}
           variant="contained"
           sx={{
@@ -228,6 +251,8 @@ const Login = () => {
       </Box>
       <Button
         variant="contained"
+        form="loginForm"
+        type="submit"
         sx={{
           width: "100%",
           maxWidth: { xs: "400px", sm: "448px" },
