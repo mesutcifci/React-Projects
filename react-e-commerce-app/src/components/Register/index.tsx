@@ -1,8 +1,13 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
+
+// firebase
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 import { db, auth } from "../../firebase";
 
+// styles
 import {
   Stack,
   Box,
@@ -17,9 +22,9 @@ import {
 
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
+// formik
 import { Formik, Form, Field } from "formik";
 import { TextField } from "formik-mui";
-import { useNavigate } from "react-router-dom";
 
 const validationSchema = yup.object({
   firstName: yup
@@ -92,6 +97,16 @@ const Register = () => {
         values.password
       );
       const user = userCredential.user;
+
+      await setDoc(doc(db, "users", user.uid), {
+        id: user.uid,
+        email: values.email,
+        fullName: `${values.firstName} ${values.lastName}`,
+        productsForUser: [],
+        favoriteProductIds: [],
+        productsInCart: [],
+      });
+
       setLoading(false);
       navigate("/auth/login");
     } catch (error) {

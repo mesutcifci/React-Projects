@@ -1,10 +1,12 @@
 import { useState } from "react";
-import {
-  signInWithPopup,
-  GoogleAuthProvider,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
+// firebase
+import { auth, db, provider } from "../../firebase";
+import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc, getDoc } from "firebase/firestore";
+
+// styles
 import {
   Stack,
   Box,
@@ -23,12 +25,12 @@ import {
 } from "@mui/icons-material";
 
 import { GmailIcon } from "../../ui/";
+
+// formik
+import * as yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { TextField } from "formik-mui";
-
-import * as yup from "yup";
-import { auth, provider } from "../../firebase";
-import { useNavigate } from "react-router-dom";
+import { resolve } from "path";
 
 const validationSchema = yup.object({
   email: yup
@@ -52,10 +54,28 @@ const Login = () => {
     setIsPasswordShown((previousState) => !previousState);
   };
 
+  const checkUserExistInDB = async (userId: string) => {
+    const docRef = doc(db, "users", userId);
+    const user = await getDoc(docRef);
+    return user.exists();
+  };
+
   const loginWithGmail = async () => {
     setLoading(true);
     try {
-      const userCredentials = await signInWithPopup(auth, provider);
+      const { user } = await signInWithPopup(auth, provider);
+      const isUserExistInDB = await checkUserExistInDB(user.uid);
+      if (!isUserExistInDB) {
+        const userData = {
+          id: user.uid,
+          email: user.email,
+          fullName: user.displayName,
+          productsForUser: [],
+          favoriteProductIds: [],
+          productsInCart: [],
+        };
+        await setDoc(doc(db, "users", user.uid), userData);
+      }
     } catch (error) {
       console.log(error);
     }
