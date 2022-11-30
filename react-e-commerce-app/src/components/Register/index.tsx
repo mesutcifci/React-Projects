@@ -1,7 +1,7 @@
 import { useState } from "react";
 import * as yup from "yup";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db, storage } from "../../firebase/config";
+import { db, auth } from "../../firebase";
 
 import {
   Stack,
@@ -12,30 +12,26 @@ import {
   FormGroup,
   Button,
   InputAdornment,
+  Alert,
 } from "@mui/material";
 
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import { Formik, Form, Field } from "formik";
 import { TextField } from "formik-mui";
-import {
-  collection,
-  DocumentReference,
-  FirestoreDataConverter,
-  getDoc,
-  query,
-  where,
-} from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = yup.object({
   firstName: yup
     .string()
-    .matches(/^[a-zA-Z ]*$/, "First name cannot contain a number")
+    .trim()
+    .matches(/^[\p{L}\p{M}-]+$/u, "First name cannot contain a number")
     .min(2, "First name should be of minimum 2 characters length")
     .required("First name is required"),
   lastName: yup
     .string()
-    .matches(/^[a-zA-Z ]*$/, "Last name cannot contain a number")
+    .trim()
+    .matches(/^[\p{L}\p{M}-]+$/u, "Last name cannot contain a number")
     .min(2, "First name should be of minimum 2 characters length")
     .required("Last name is required"),
   email: yup
@@ -70,6 +66,7 @@ const initialValues: IinitialValues = {
 };
 
 const Register = () => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [isPasswordShown, setIsPasswordShown] = useState({
     password: false,
@@ -86,19 +83,21 @@ const Register = () => {
       }));
     }
   };
-
-  const handleRegisterUser = (values: IinitialValues) => {
-    createUserWithEmailAndPassword(auth, values.email, values.password)
-      .then(async (userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
-      });
+  const handleRegisterUser = async (values: IinitialValues) => {
+    setLoading(true);
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        values.email,
+        values.password
+      );
+      const user = userCredential.user;
+      setLoading(false);
+      navigate("/auth/login");
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
   };
 
   return (
