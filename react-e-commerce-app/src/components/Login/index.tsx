@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 import {
   Stack,
@@ -22,6 +23,8 @@ import { Formik, Form, Field } from "formik";
 import { TextField } from "formik-mui";
 
 import * as yup from "yup";
+import { auth, provider } from "../../firebase";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = yup.object({
   email: yup
@@ -37,10 +40,22 @@ const validationSchema = yup.object({
 const initialValues = { email: "", password: "", confirmPassword: "" };
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [isPasswordShown, setIsPasswordShown] = useState(false);
 
   const handleClickPasswordIcon = () => {
     setIsPasswordShown((previousState) => !previousState);
+  };
+
+  const loginWithGmail = async () => {
+    setLoading(true);
+    try {
+      const userCredential = await signInWithPopup(auth, provider);
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
   };
 
   return (
@@ -177,6 +192,7 @@ const Login = () => {
           </Typography>
         </Button>
         <Button
+          onClick={loginWithGmail}
           variant="contained"
           sx={{
             width: { xs: "100%", sm: "214px" },
