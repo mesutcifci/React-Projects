@@ -1,14 +1,26 @@
-import * as React from "react";
+import { useState } from "react";
 import { ProductLogo } from "../../ui";
 
-import { AppBar, Box, Toolbar, Typography, IconButton } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  Typography,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+} from "@mui/material";
 import {
   Menu as MenuIcon,
   Search as SearchIcon,
   ShoppingCartOutlined as ShoppingCartOutlinedIcon,
 } from "@mui/icons-material";
+import NavbarMobileMenu from "../NavbarMobileMenu";
 
 const Navbar = () => {
+  const [isMenuOpened, setIsMenuOpened] = useState(false);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -25,6 +37,10 @@ const Navbar = () => {
             />
             <Typography color="black">E-Shop</Typography>
           </Box>
+          <NavbarMobileMenu
+            isMenuOpened={isMenuOpened}
+            setIsMenuOpened={setIsMenuOpened}
+          />
           <Box
             sx={{
               display: "flex",
@@ -40,7 +56,12 @@ const Navbar = () => {
             <IconButton size="small" color="inherit">
               <ShoppingCartOutlinedIcon />
             </IconButton>
-            <IconButton size="small" color="inherit" aria-label="menu">
+            <IconButton
+              size="small"
+              color="inherit"
+              aria-label="menu"
+              onClick={() => setIsMenuOpened(true)}
+            >
               <MenuIcon />
             </IconButton>
           </Box>

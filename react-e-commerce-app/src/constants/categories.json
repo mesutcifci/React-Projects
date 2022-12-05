@@ -1,0 +1,111 @@
+[
+  {
+    "name": "men",
+    "displayName": "Men",
+    "secondaryCategories": [
+      {
+        "name": "shoes",
+        "displayName": "SHOES",
+        "tertiaryCategories": [
+          { "name": "sneakers", "displayName": "Sneakers" },
+          { "name": "dressShoes", "displayName": "Dress Shoes" },
+          { "name": "boots", "displayName": "Boots" },
+          { "name": "sandals", "displayName": "Sandals" }
+        ]
+      },
+      {
+        "name": "clothing",
+        "displayName": "Clothing",
+        "tertiaryCategories": [
+          { "name": "shirts", "displayName": "Shirts" },
+          { "name": "tShirts", "displayName": "T-Shirts" },
+          { "name": "pants", "displayName": "Pants" },
+          { "name": "jackets", "displayName": "Jackets" },
+          { "name": "sweaters", "displayName": "Sweaters" }
+        ]
+      },
+      {
+        "name": "accessories",
+        "displayName": "Accessories",
+        "tertiaryCategories": [
+          { "name": "watches", "displayName": "Watches" },
+          { "name": "sunglasses", "displayName": "Sunglasses" },
+          { "name": "belts", "displayName": "Belts" },
+          { "name": "hats", "displayName": "Hats" }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "women",
+    "displayName": "Women",
+    "secondaryCategories": [
+      {
+        "name": "shoes",
+        "displayName": "SHOES",
+        "tertiaryCategories": [
+          { "name": "sneakers", "displayName": "Sneakers" },
+          { "name": "heels", "displayName": "Heels" },
+          { "name": "boots", "displayName": "Boots" },
+          { "name": "sandals", "displayName": "Sandals" }
+        ]
+      },
+      {
+        "name": "clothing",
+        "displayName": "Clothing",
+        "tertiaryCategories": [
+          { "name": "dresses", "displayName": "Dresses" },
+          { "name": "tops", "displayName": "Tops" },
+          { "name": "skirts", "displayName": "Skirts" },
+          { "name": "jeans", "displayName": "Jeans" }
+        ]
+      },
+      {
+        "name": "accessories",
+        "displayName": "Accessories",
+        "tertiaryCategories": [
+          { "name": "handbags", "displayName": "Handbags" },
+          { "name": "jewelry", "displayName": "Jewelry" },
+          { "name": "scarves", "displayName": "Scarves" },
+          { "name": "hats", "displayName": "Hats" }
+        ]
+      },
+      {
+        "name": "beauty",
+        "displayName": "Beauty",
+        "tertiaryCategories": [
+          { "name": "skincare", "displayName": "Skincare" },
+          { "name": "makeup", "displayName": "Makeup" },
+          { "name": "fragrance", "displayName": "Fragrance" },
+          { "name": "hairCare", "displayName": "Hair Care" }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "kids",
+    "displayName": "Kids",
+    "secondaryCategories": [
+      {
+        "name": "shoes",
+        "displayName": "SHOES",
+        "tertiaryCategories": [
+          { "name": "sneakers", "displayName": "Sneakers" },
+          { "name": "dressShoes", "displayName": "Dress Shoes" },
+          { "name": "boots", "displayName": "Boots" },
+          { "name": "sandals", "displayName": "Sandals" }
+        ]
+      },
+      {
+        "name": "clothing",
+        "displayName": "Clothing",
+        "tertiaryCategories": [
+          { "name": "shirts", "displayName": "Shirts" },
+          { "name": "pants", "displayName": "Pants" },
+          { "name": "jackets", "displayName": "Jackets" },
+          { "name": "sweaters", "displayName": "Sweaters" }
+        ]
+      }
+    ]
+  }
+]
