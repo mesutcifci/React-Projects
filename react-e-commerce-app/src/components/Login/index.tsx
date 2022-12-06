@@ -76,6 +76,7 @@ const Login = () => {
         };
         await setDoc(doc(db, "users", user.uid), userData);
       }
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -93,6 +94,7 @@ const Login = () => {
         values.email,
         values.password
       );
+      navigate("/");
     } catch (error) {
       console.log(error);
     }

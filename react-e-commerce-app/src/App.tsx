@@ -5,8 +5,8 @@ import { Home, Auth } from "./pages";
 function App() {
   return (
     <div>
-      <Navbar />
       <BrowserRouter>
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/auth/:key" element={<Auth />} />

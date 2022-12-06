@@ -21,11 +21,11 @@ interface ITertiaryCategory {
 }
 
 interface IProps {
-  isMenuOpened: boolean;
-  setIsMenuOpened: React.Dispatch<React.SetStateAction<boolean>>;
+  isDrawerOpened: boolean;
+  setIsDrawerOpened: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const NavbarMobileMenu = ({ isMenuOpened, setIsMenuOpened }: IProps) => {
+const NavbarMobileMenu = ({ isDrawerOpened, setIsDrawerOpened }: IProps) => {
   const [selectedPrimaryCategory, setSelectedPrimaryCategory] =
     useState<ICategory>();
   const [selectedSecondaryCategory, setSelectedSelectedSecondaryCategory] =
@@ -102,8 +102,8 @@ const NavbarMobileMenu = ({ isMenuOpened, setIsMenuOpened }: IProps) => {
   return (
     <Drawer
       anchor="right"
-      open={isMenuOpened}
-      onClose={() => setIsMenuOpened(false)}
+      open={isDrawerOpened}
+      onClose={() => setIsDrawerOpened(false)}
       sx={{
         display: { md: "none" },
         "& .MuiDrawer-paperAnchorRight": { width: "100%", maxWidth: "300px" },
@@ -124,7 +124,7 @@ const NavbarMobileMenu = ({ isMenuOpened, setIsMenuOpened }: IProps) => {
         )}
         <Close
           sx={{ cursor: "pointer", marginLeft: "auto" }}
-          onClick={() => setIsMenuOpened(false)}
+          onClick={() => setIsDrawerOpened(false)}
         />
       </Stack>
       <List>{renderCategories()}</List>
