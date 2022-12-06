@@ -54,8 +54,9 @@
         "name": "clothing",
         "displayName": "Clothing",
         "tertiaryCategories": [
+          { "name": "shirts", "displayName": "Shirts" },
           { "name": "dresses", "displayName": "Dresses" },
-          { "name": "tops", "displayName": "Tops" },
+          { "name": "tShirts", "displayName": "T-Shirts" },
           { "name": "skirts", "displayName": "Skirts" },
           { "name": "jeans", "displayName": "Jeans" }
         ]
@@ -101,9 +102,10 @@
         "displayName": "Clothing",
         "tertiaryCategories": [
           { "name": "shirts", "displayName": "Shirts" },
-          { "name": "pants", "displayName": "Pants" },
-          { "name": "jackets", "displayName": "Jackets" },
-          { "name": "sweaters", "displayName": "Sweaters" }
+          { "name": "dresses", "displayName": "Dresses" },
+          { "name": "tShirts", "displayName": "T-Shirts" },
+          { "name": "skirts", "displayName": "Skirts" },
+          { "name": "jeans", "displayName": "Jeans" }
         ]
       }
     ]
