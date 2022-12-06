@@ -1,9 +1,14 @@
 import Navbar from "../index";
 import { render, screen } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
 
 describe("Navbar", () => {
   beforeEach(() => {
-    render(<Navbar />);
+    render(
+      <BrowserRouter>
+        <Navbar />
+      </BrowserRouter>
+    );
   });
   test("main heading element should visible", () => {
     expect(screen.getByTestId("productLogo")).toBeInTheDocument();
