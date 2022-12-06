@@ -68,7 +68,10 @@ const Navbar = () => {
         sx={{ backgroundColor: "white", "& svg": { color: "black" } }}
       >
         <Toolbar>
-          <Box sx={{ display: "flex", columnGap: "17px" }}>
+          <Box
+            sx={{ display: "flex", columnGap: "17px", cursor: "pointer" }}
+            onClick={() => navigate("/")}
+          >
             <ProductLogo
               width="42.996"
               height="32.879"
