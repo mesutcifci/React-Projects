@@ -21,13 +21,12 @@ export interface ICollection extends IBase {}
 export interface IProduct {
   id: string;
   displayName: string;
+  imageUrl: string;
   colors: string[];
   sizes: string[];
   price: number;
   stockAmount: number;
   amount: number;
-  isFavorite: boolean;
-  isInCart: boolean;
   discountRate: number;
   description: IProductDescription;
   primaryCategories: IPrimaryCategory[];
