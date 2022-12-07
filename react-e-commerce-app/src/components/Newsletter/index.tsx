@@ -21,9 +21,11 @@ const Newsletter = () => {
         backgroundPosition: "top center",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        gap: "20px 46px",
         backgroundColor: "rgba(0, 0, 0, 0.5)",
+        gap: "20px 46px",
         height: "262px",
+        marginTop: { xs: "40px", md: "90px" },
+        marginBottom: { xs: "40px", md: "90px" },
         padding: "16px",
         width: "100%",
       }}
