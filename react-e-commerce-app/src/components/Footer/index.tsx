@@ -77,8 +77,16 @@ const Footer = () => {
           xl={2}
         >
           {[
-            { link: "", imageUrl: "./images/common/google-play-badge.png" },
-            { link: "", imageUrl: "./images/common/app-store-badge.png" },
+            {
+              link: "",
+              imageUrl: "./images/common/google-play-badge.png",
+              altText: "Google Play Badge",
+            },
+            {
+              link: "",
+              imageUrl: "./images/common/app-store-badge.png",
+              altText: "Apple Store Badge",
+            },
           ].map((item) => (
             <Link
               key={item.imageUrl}
@@ -91,7 +99,7 @@ const Footer = () => {
                 },
               }}
             >
-              <img src={item.imageUrl} />
+              <img src={item.imageUrl} alt={item.altText} />
             </Link>
           ))}
         </Grid>
