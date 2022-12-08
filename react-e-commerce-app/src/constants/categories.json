@@ -5,10 +5,16 @@
     "secondaryCategories": [
       {
         "name": "shoes",
-        "displayName": "SHOES",
+        "displayName": "Shoes",
         "tertiaryCategories": [
+          { "name": "lifestyle", "displayName": "Lifestyle" },
+          { "name": "running", "displayName": "Running" },
+          { "name": "soccer", "displayName": "Soccer" },
+          { "name": "basketball", "displayName": "Basketball" },
+          { "name": "football", "displayName": "Football" },
+          { "name": "golf", "displayName": "Golf" },
+          { "name": "baseball", "displayName": "Baseball" },
           { "name": "sneakers", "displayName": "Sneakers" },
-          { "name": "dressShoes", "displayName": "Dress Shoes" },
           { "name": "boots", "displayName": "Boots" },
           { "name": "sandals", "displayName": "Sandals" }
         ]
@@ -17,9 +23,15 @@
         "name": "clothing",
         "displayName": "Clothing",
         "tertiaryCategories": [
+          {
+            "name": "hoodiesAndSweatshirts",
+            "displayName": "Hoodies & Sweatshirts"
+          },
+          { "name": "trackSuits", "displayName": "Track Suits" },
+          { "name": "jerseys", "displayName": "Jerseys" },
+          { "name": "pants", "displayName": "Pants" },
           { "name": "shirts", "displayName": "Shirts" },
           { "name": "tShirts", "displayName": "T-Shirts" },
-          { "name": "pants", "displayName": "Pants" },
           { "name": "jackets", "displayName": "Jackets" },
           { "name": "sweaters", "displayName": "Sweaters" }
         ]
@@ -31,7 +43,14 @@
           { "name": "watches", "displayName": "Watches" },
           { "name": "sunglasses", "displayName": "Sunglasses" },
           { "name": "belts", "displayName": "Belts" },
-          { "name": "hats", "displayName": "Hats" }
+          { "name": "hats", "displayName": "Hats" },
+          { "name": "scarves", "displayName": "Scarves" },
+          { "name": "gloves", "displayName": "Gloves" },
+          { "name": "ties", "displayName": "Ties" },
+          { "name": "pocketSquares", "displayName": "Pocket Squares" },
+          { "name": "sunglassCases", "displayName": "Sunglass Cases" },
+          { "name": "umbrellas", "displayName": "Umbrellas" },
+          { "name": "keychains", "displayName": "Keychains" }
         ]
       }
     ]
@@ -42,18 +61,28 @@
     "secondaryCategories": [
       {
         "name": "shoes",
-        "displayName": "SHOES",
+        "displayName": "Shoes",
         "tertiaryCategories": [
+          { "name": "lifestyle", "displayName": "Lifestyle" },
+          { "name": "running", "displayName": "Running" },
+          { "name": "soccer", "displayName": "Soccer" },
+          { "name": "basketball", "displayName": "Basketball" },
+          { "name": "football", "displayName": "Football" },
+          { "name": "golf", "displayName": "Golf" },
+          { "name": "baseball", "displayName": "Baseball" },
           { "name": "sneakers", "displayName": "Sneakers" },
           { "name": "heels", "displayName": "Heels" },
           { "name": "boots", "displayName": "Boots" },
-          { "name": "sandals", "displayName": "Sandals" }
+          { "name": "sandals", "displayName": "Sandals" },
+          { "name": "dressShoes", "displayName": "Dress Shoes" }
         ]
       },
       {
         "name": "clothing",
         "displayName": "Clothing",
         "tertiaryCategories": [
+          { "name": "trackSuits", "displayName": "Track Suits" },
+          { "name": "jerseys", "displayName": "Jerseys" },
           { "name": "shirts", "displayName": "Shirts" },
           { "name": "dresses", "displayName": "Dresses" },
           { "name": "tShirts", "displayName": "T-Shirts" },
@@ -78,7 +107,18 @@
           { "name": "skincare", "displayName": "Skincare" },
           { "name": "makeup", "displayName": "Makeup" },
           { "name": "fragrance", "displayName": "Fragrance" },
-          { "name": "hairCare", "displayName": "Hair Care" }
+          { "name": "hairCare", "displayName": "Hair Care" },
+          { "name": "nailCare", "displayName": "Nail Care" },
+          { "name": "oralCare", "displayName": "Oral Care" },
+          { "name": "bodyCare", "displayName": "Body Care" },
+          { "name": "sunCare", "displayName": "Sun Care" },
+          { "name": "lipCare", "displayName": "Lip Care" },
+          { "name": "footCare", "displayName": "Foot Care" },
+          { "name": "handCare", "displayName": "Hand Care" },
+          { "name": "selfTanner", "displayName": "Self Tanner" },
+          { "name": "hairRemoval", "displayName": "Hair Removal" },
+          { "name": "eyeCare", "displayName": "Eye Care" },
+          { "name": "travelSize", "displayName": "Travel Size" }
         ]
       }
     ]
@@ -89,8 +129,15 @@
     "secondaryCategories": [
       {
         "name": "shoes",
-        "displayName": "SHOES",
+        "displayName": "Shoes",
         "tertiaryCategories": [
+          { "name": "lifestyle", "displayName": "Lifestyle" },
+          { "name": "running", "displayName": "Running" },
+          { "name": "soccer", "displayName": "Soccer" },
+          { "name": "basketball", "displayName": "Basketball" },
+          { "name": "football", "displayName": "Football" },
+          { "name": "golf", "displayName": "Golf" },
+          { "name": "baseball", "displayName": "Baseball" },
           { "name": "sneakers", "displayName": "Sneakers" },
           { "name": "dressShoes", "displayName": "Dress Shoes" },
           { "name": "boots", "displayName": "Boots" },
@@ -101,6 +148,8 @@
         "name": "clothing",
         "displayName": "Clothing",
         "tertiaryCategories": [
+          { "name": "trackSuits", "displayName": "Track Suits" },
+          { "name": "jerseys", "displayName": "Jerseys" },
           { "name": "shirts", "displayName": "Shirts" },
           { "name": "dresses", "displayName": "Dresses" },
           { "name": "tShirts", "displayName": "T-Shirts" },

@@ -1,6 +1,6 @@
-import { Box, Drawer, List, ListItem, Stack } from "@mui/material";
+import { Box, Divider, Drawer, List, ListItem, Stack } from "@mui/material";
 import { ArrowBack, Close } from "@mui/icons-material";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import categories from "../../constants/categories.json";
 
 interface ICategory {
@@ -32,18 +32,6 @@ const NavbarMobileMenu = ({ isDrawerOpened, setIsDrawerOpened }: IProps) => {
     useState<ISecondaryCategory>();
   const [shownCategory, setShownCategory] = useState("primary");
 
-  useEffect(() => {
-    if (selectedPrimaryCategory) {
-      setShownCategory("secondary");
-    }
-  }, [selectedPrimaryCategory]);
-
-  useEffect(() => {
-    if (selectedSecondaryCategory) {
-      setShownCategory("tertiary");
-    }
-  }, [selectedSecondaryCategory]);
-
   const setCategoryObject = () => {
     let categoryObject:
       | ICategory[]
@@ -51,39 +39,48 @@ const NavbarMobileMenu = ({ isDrawerOpened, setIsDrawerOpened }: IProps) => {
       | ITertiaryCategory[] = [];
     switch (shownCategory) {
       case "primary":
-        return (categoryObject = categories || []);
+        categoryObject = categories;
+        break;
 
       case "secondary":
-        return (categoryObject =
-          selectedPrimaryCategory?.secondaryCategories || []);
+        categoryObject = selectedPrimaryCategory?.secondaryCategories || [];
+        break;
 
       case "tertiary":
-        return (categoryObject =
-          selectedSecondaryCategory?.tertiaryCategories || []);
+        categoryObject = selectedSecondaryCategory?.tertiaryCategories || [];
+        break;
     }
+    return categoryObject;
   };
 
   const renderCategories = () => {
     const categoryObject = setCategoryObject();
     return categoryObject?.map((category) => {
       return (
-        <ListItem
-          key={category.name}
-          sx={{ cursor: "pointer" }}
-          onClick={() => {
-            if (shownCategory === "primary") {
-              setSelectedPrimaryCategory(category as ICategory);
-            } else if (shownCategory === "secondary") {
-              setSelectedSelectedSecondaryCategory(
-                category as ISecondaryCategory
-              );
-            } else {
-              console.log(category);
-            }
-          }}
-        >
-          {category.displayName}
-        </ListItem>
+        <Box key={category.name}>
+          <ListItem
+            sx={{
+              cursor: "pointer",
+              fontSize: "30px",
+              color: "rgba(0, 0, 0, 0.7)",
+            }}
+            onClick={() => {
+              if (shownCategory === "primary") {
+                setSelectedPrimaryCategory(category as ICategory);
+                setShownCategory("secondary");
+              } else if (shownCategory === "secondary") {
+                setSelectedSelectedSecondaryCategory(
+                  category as ISecondaryCategory
+                );
+                setShownCategory("tertiary");
+              } else {
+              }
+            }}
+          >
+            {category.displayName}
+          </ListItem>
+          <Divider />
+        </Box>
       );
     });
   };
@@ -127,7 +124,7 @@ const NavbarMobileMenu = ({ isDrawerOpened, setIsDrawerOpened }: IProps) => {
           onClick={() => setIsDrawerOpened(false)}
         />
       </Stack>
-      <List>{renderCategories()}</List>
+      <List sx={{ marginTop: "30px" }}>{renderCategories()}</List>
     </Drawer>
   );
 };
