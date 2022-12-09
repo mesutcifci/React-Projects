@@ -106,6 +106,7 @@ const NavbarMobileMenu = ({ isDrawerOpened, setIsDrawerOpened }: IProps) => {
         "& .MuiDrawer-paperAnchorRight": { width: "100%", maxWidth: "300px" },
         padding: "20px",
       }}
+      data-testid="mobileMenu"
     >
       <Stack
         direction="row"

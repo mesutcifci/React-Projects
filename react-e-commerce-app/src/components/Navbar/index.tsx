@@ -138,6 +138,8 @@ const Navbar = () => {
               color="inherit"
               aria-label="menu"
               onClick={() => setIsDrawerOpened(true)}
+              sx={{ display: { md: "none" } }}
+              data-testid="hamburgerMenu"
             >
               <MenuIcon />
             </IconButton>
