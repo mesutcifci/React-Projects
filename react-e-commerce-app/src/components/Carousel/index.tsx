@@ -3,7 +3,9 @@ import {
   ArrowBack as ArrowBackIcon,
   ArrowForward as ArrowForwardIcon,
 } from "@mui/icons-material";
-import { IconButton, Typography, Box } from "@mui/material";
+import { IconButton, Typography, Box, Stack } from "@mui/material";
+import carouselBottomData from "./carouselBottomData.json";
+import { MoneyBackIcon, ShippingIcon, SmileIconWithBackground } from "../../ui";
 
 interface ICarouselItemType {
   id: number;
@@ -14,7 +16,7 @@ interface ICarouselItemType {
 }
 
 interface ICarouselProps {
-  variant: string;
+  variant: "mobile" | "desktop";
   data: ICarouselItemType[];
 }
 
@@ -29,12 +31,56 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
     }
   };
 
+  const renderIcon = (id: string) => {
+    switch (id) {
+      case "carouselShipping":
+        return <ShippingIcon id={id} sx={{ width: "39px", height: "39px" }} />;
+      case "carouselCustomer":
+        return (
+          <SmileIconWithBackground
+            id={id}
+            sx={{ width: "39px", height: "39px" }}
+            width="39"
+            height="39"
+            viewBox="0 0 39 39"
+          />
+        );
+      case "Originality Guaranteed":
+        return <MoneyBackIcon id={id} sx={{ width: "39px", height: "39px" }} />;
+    }
+  };
+
+  const renderCarouselBottomData = () => {
+    return carouselBottomData.map((data) => (
+      <Box key={data.id} sx={{ display: "flex", columnGap: "27px" }}>
+        {renderIcon(data.id)}
+        <Stack rowGap="9px">
+          <Typography
+            component="h3"
+            sx={{
+              fontSize: "16px",
+              fontWeight: "600",
+            }}
+          >
+            {data.title}
+          </Typography>
+          <Typography sx={{ fontSize: "12px", maxWidth: "160px" }}>
+            {data.description}
+          </Typography>
+        </Stack>
+      </Box>
+    ));
+  };
+
   return (
     <Box
       sx={{
-        display: "flex",
+        display: {
+          xs: `${variant === "mobile" ? "flex" : "none"}`,
+          lg: `${variant === "mobile" ? "none" : "flex"}`,
+        },
         position: "relative",
-        height: "501px",
+        height: { xs: "501px", lg: "100vh" },
         overflow: "hidden",
       }}
     >
@@ -44,7 +90,7 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
             data-testid={`carouselItem${item.id}`}
             sx={{
               flexShrink: "0",
-              height: "501px",
+              height: { xs: "501px", lg: "100vh" },
               width: "100%",
               "& img": {
                 width: "100%",
@@ -70,15 +116,15 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
             <Typography
               sx={{
                 position: "absolute",
-                fontSize: "43px",
+                fontSize: { xs: "43px", lg: "66px" },
                 fontWeight: "bold",
-                lineHeight: "42px",
+                lineHeight: { xs: "42px", lg: "77px" },
                 color: "white",
-                transform: "translateY(-50%)",
-                top: "50%",
-                left: "35px",
+                transform: { xs: "translateY(-50%)", lg: "initial" },
+                top: { xs: "50%", lg: "188px" },
+                left: { xs: "35px", lg: "263px", xl: "363px" },
                 zIndex: 2,
-                width: "80%",
+                width: { xs: "80%", lg: "365px" },
               }}
             >
               {item.text}
@@ -86,11 +132,11 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
             <Box
               sx={{
                 position: "absolute",
-                bottom: "74px",
+                bottom: { xs: "74px", lg: "265px" },
                 display: "flex",
                 columnGap: "22px",
                 zIndex: 2,
-                left: "35px",
+                left: { xs: "35px", lg: "263px", xl: "363px" },
                 alignItems: "center",
               }}
             >
@@ -110,13 +156,33 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
               </Typography>
             </Box>
             <img src={item.src + (index + 1) + "." + item.imageType} />
+            <Box
+              sx={{
+                backgroundColor: "#ffffff",
+                borderTopRightRadius: "131px",
+                color: "#000000",
+                columnGap: "56px",
+                display: { xs: "none", lg: "flex" },
+                alignItems: "center",
+                height: "131px",
+                justifyContent: "space-evenly",
+                paddingLeft: { lg: "129px", xl: "298px" },
+                paddingRight: { lg: "49px", xl: "97px" },
+                position: "absolute",
+                bottom: "0px",
+                maxWidth: "1221px",
+                width: "90%",
+              }}
+            >
+              {renderCarouselBottomData()}
+            </Box>
           </Box>
         );
       })}
       <Box
         sx={{
           position: "absolute",
-          bottom: "10px",
+          bottom: { xs: "10px", lg: "75px", xl: "59px" },
           right: "30px",
           "& .Mui-disabled": {
             backgroundColor: "rgba(255,255,255, 0.2) !important",
