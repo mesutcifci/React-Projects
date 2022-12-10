@@ -31,7 +31,7 @@ const WhyChooseUs = () => {
         <Typography
           component="h3"
           sx={{
-            marginTop: "43px",
+            marginTop: { xs: "22px", sm: "43px" },
             marginBottom: "20px",
             fontSize: "16px",
             fontWeight: "600",
@@ -39,7 +39,7 @@ const WhyChooseUs = () => {
         >
           {item.title}
         </Typography>
-        <Typography>{item.description}</Typography>
+        <Typography sx={{ height: "96px" }}>{item.description}</Typography>
       </Stack>
     ));
   };
@@ -49,8 +49,8 @@ const WhyChooseUs = () => {
       component="section"
       sx={{
         alignItems: "center",
-        rowGap: { xs: "30px" },
-        marginTop: { xs: "30px" },
+        rowGap: "30px",
+        marginTop: "30px",
       }}
     >
       <Box component="header" sx={{ width: "100%" }}>
@@ -59,7 +59,7 @@ const WhyChooseUs = () => {
           component="h2"
           sx={{
             fontSize: { xs: "21px" },
-            fontWeight: "lighter",
+            fontWeight: "400",
           }}
         >
           Why should you choose us?
@@ -71,8 +71,10 @@ const WhyChooseUs = () => {
           flexWrap: "wrap",
           alignItems: "center",
           justifyContent: "center",
-          columnGap: "93px",
+          columnGap: { xs: "20px", sm: "40px", lg: "50px", xl: "93px" },
           rowGap: "50px",
+          maxWidth: { xs: "700px", lg: "initial" },
+          padding: { xs: "20px", lg: "30px" },
         }}
       >
         {renderList()}
