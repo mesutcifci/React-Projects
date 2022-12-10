@@ -2,26 +2,26 @@ import { Box, Tab, Tabs } from "@mui/material";
 import categories from "../../constants/categories.json";
 
 interface IProps {
-  tabIndex: number | boolean;
+  selectedTabIndex: number | boolean;
   handleTabChange: (
     event: React.SyntheticEvent<Element, Event>,
     index: number
   ) => void;
   selectedTabText: string;
-  setTabIndex: React.Dispatch<React.SetStateAction<number | boolean>>;
+  setSelectedTabIndex: React.Dispatch<React.SetStateAction<number | boolean>>;
 }
 
 const NavbarDesktopMenu = ({
-  tabIndex,
+  selectedTabIndex,
   handleTabChange,
   selectedTabText,
-  setTabIndex,
+  setSelectedTabIndex,
 }: IProps) => {
   const handleClickTab = (newIndex: number) => {
-    if (newIndex === tabIndex) {
-      setTabIndex(false);
+    if (newIndex === selectedTabIndex) {
+      setSelectedTabIndex(false);
     } else {
-      setTabIndex(newIndex);
+      setSelectedTabIndex(newIndex);
     }
   };
 
@@ -33,9 +33,9 @@ const NavbarDesktopMenu = ({
       }}
     >
       <Tabs
-        value={tabIndex}
+        value={selectedTabIndex}
         onChange={handleTabChange}
-        {...(tabIndex !== false && {
+        {...(selectedTabIndex !== false && {
           TabIndicatorProps: {
             children: (
               <span className="MuiTabs-indicatorSpan">{selectedTabText}</span>
@@ -65,10 +65,10 @@ const NavbarDesktopMenu = ({
             sx={{
               fontSize: "14px !important",
               fontWeight: "500 !important",
-              color: "rgba(0,0,0,.7)",
+              color: { xs: "rgba(0,0,0,.7)", lg: "#ffffff" },
               textTransform: "capitalize",
               "&.Mui-selected": {
-                color: "#000000",
+                color: { xs: "#000000", lg: "#ffffff" },
               },
               "&.Mui-focusVisible": {
                 backgroundColor: "rgba(100, 95, 228, 0.32)",

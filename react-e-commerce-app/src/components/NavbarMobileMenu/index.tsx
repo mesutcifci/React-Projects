@@ -62,7 +62,7 @@ const NavbarMobileMenu = ({ isDrawerOpened, setIsDrawerOpened }: IProps) => {
             sx={{
               cursor: "pointer",
               fontSize: "30px",
-              color: "rgba(0, 0, 0, 0.7)",
+              color: { xs: "rgba(0, 0, 0, 0.7)", lg: "#ffffff" },
             }}
             onClick={() => {
               if (shownCategory === "primary") {

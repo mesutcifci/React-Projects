@@ -12,6 +12,7 @@ import {
   MenuItem,
   SxProps,
   Theme,
+  Stack,
 } from "@mui/material";
 import {
   Menu as MenuIcon,
@@ -30,15 +31,17 @@ import { ProductLogo } from "../../ui";
 // Data
 import { auth } from "../../firebase";
 import { User } from "firebase/auth";
+import categories from "../../constants/categories.json";
 
 const tabPanelStyles: SxProps<Theme> | undefined = {
-  position: "absolute",
-  bottom: "-72px",
-  left: "0",
-  right: "0",
-  color: "black",
   backgroundColor: "#ffffff",
-  zIndex: "99",
+  boxSizing: "border-box",
+  height: "max-content",
+  color: "black",
+  columnGap: "30px",
+  display: { xs: "none", md: "flex" },
+  justifyContent: "space-evenly",
+  padding: "33px 20% 36px 20%",
 };
 
 const Navbar = () => {
@@ -48,7 +51,9 @@ const Navbar = () => {
   const [isDrawerOpened, setIsDrawerOpened] = useState(false);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
-  const [tabIndex, setTabIndex] = useState<number | boolean>(false);
+  const [selectedTabIndex, setSelectedTabIndex] = useState<number | boolean>(
+    false
+  );
   const [selectedTabText, setSelectedTabText] = useState("Men");
 
   const handleTabChange = (
@@ -89,14 +94,68 @@ const Navbar = () => {
     navigate("/auth/register");
   };
 
+  const renderTabPanels = () => {
+    return categories.map((category, index) => {
+      const secondaryCategories = category.secondaryCategories;
+      return (
+        <TabPanel
+          value={selectedTabIndex}
+          index={index}
+          sx={tabPanelStyles}
+          key={category.name}
+        >
+          {secondaryCategories.map((secondaryCategory) => {
+            const tertiaryCategories = secondaryCategory.tertiaryCategories;
+            return (
+              <Stack
+                key={secondaryCategory.name}
+                rowGap="15px"
+                sx={{ minWidth: "140px" }}
+              >
+                <Typography
+                  fontSize="14px"
+                  fontWeight="600"
+                  textTransform="uppercase"
+                  sx={{ cursor: "pointer", "&:hover": { color: "#FBB03B" } }}
+                >
+                  {secondaryCategory.displayName}
+                </Typography>
+                {tertiaryCategories.map((tertiaryCategory) => (
+                  <Typography
+                    key={tertiaryCategory.name}
+                    fontSize="12px"
+                    fontWeight="400"
+                    sx={{ cursor: "pointer", "&:hover": { color: "#FBB03B" } }}
+                  >
+                    {tertiaryCategory.displayName}
+                  </Typography>
+                ))}
+              </Stack>
+            );
+          })}
+        </TabPanel>
+      );
+    });
+  };
+
   return (
-    <Box sx={{ flexGrow: 1, position: "relative" }}>
+    <Box
+      sx={{
+        flexGrow: 1,
+        position: { xs: "relative", lg: "absolute" },
+        zIndex: "99",
+        left: "0",
+        right: "0",
+      }}
+    >
       <AppBar
         position="static"
         sx={{
-          backgroundColor: "white",
-          "& svg": { color: "black" },
+          backgroundColor: { xs: "white", lg: "transparent" },
+          "& svg": { color: { xs: "#000000", lg: "#ffffff" } },
           height: "70px",
+          paddingLeft: { md: "80px", lg: "160px" },
+          paddingRight: { md: "80px", lg: "160px" },
         }}
       >
         <Toolbar sx={{ justifyContent: "space-between" }}>
@@ -110,7 +169,9 @@ const Navbar = () => {
               viewBox="0 0 42.996 32.879"
               data-testid="productLogo"
             />
-            <Typography color="black">E-Shop</Typography>
+            <Typography sx={{ color: { xs: "#000000", lg: "#ffffff" } }}>
+              E-Shop
+            </Typography>
           </Box>
 
           <NavbarMobileMenu
@@ -120,9 +181,9 @@ const Navbar = () => {
 
           <NavbarDesktopMenu
             handleTabChange={handleTabChange}
-            tabIndex={tabIndex}
+            selectedTabIndex={selectedTabIndex}
             selectedTabText={selectedTabText}
-            setTabIndex={setTabIndex}
+            setSelectedTabIndex={setSelectedTabIndex}
           />
 
           <Box
@@ -187,15 +248,7 @@ const Navbar = () => {
           </Box>
         </Toolbar>
       </AppBar>
-      <TabPanel value={tabIndex} index={0} sx={tabPanelStyles}>
-        Item One
-      </TabPanel>
-      <TabPanel value={tabIndex} index={1} sx={tabPanelStyles}>
-        Item Two
-      </TabPanel>
-      <TabPanel value={tabIndex} index={2} sx={tabPanelStyles}>
-        Item Three
-      </TabPanel>
+      {renderTabPanels()}
     </Box>
   );
 };

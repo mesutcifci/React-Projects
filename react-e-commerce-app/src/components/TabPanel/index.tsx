@@ -8,7 +8,7 @@ interface TabPanelProps {
 }
 
 const TabPanel = (props: TabPanelProps) => {
-  const { children, value, index } = props;
+  const { children, value, index, sx } = props;
 
   return (
     <Box
@@ -16,12 +16,9 @@ const TabPanel = (props: TabPanelProps) => {
       hidden={value !== index}
       id={`tabpanel-${index}`}
       aria-labelledby={`tab-${index}`}
+      sx={{ ...sx, ...(value !== index && { display: "none" }) }}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <>{children}</>}
     </Box>
   );
 };
