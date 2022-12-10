@@ -102,7 +102,7 @@ const NavbarMobileMenu = ({ isDrawerOpened, setIsDrawerOpened }: IProps) => {
       open={isDrawerOpened}
       onClose={() => setIsDrawerOpened(false)}
       sx={{
-        display: { md: "none" },
+        display: { lg: "none" },
         "& .MuiDrawer-paperAnchorRight": { width: "100%", maxWidth: "300px" },
         padding: "20px",
       }}

@@ -35,6 +35,7 @@ import categories from "../../constants/categories.json";
 
 const tabPanelStyles: SxProps<Theme> | undefined = {
   backgroundColor: "#ffffff",
+  borderTop: "1px solid #E5E5E5",
   boxSizing: "border-box",
   height: "max-content",
   color: "black",
@@ -151,11 +152,20 @@ const Navbar = () => {
       <AppBar
         position="static"
         sx={{
-          backgroundColor: { xs: "white", lg: "transparent" },
-          "& svg": { color: { xs: "#000000", lg: "#ffffff" } },
+          boxShadow: "none",
+          backgroundColor: {
+            xs: "white",
+            lg: `${selectedTabIndex === false && "transparent"}`,
+          },
+          "& svg": {
+            color: {
+              xs: "#000000",
+              lg: `${selectedTabIndex === false && "#ffffff"}`,
+            },
+          },
           height: "70px",
-          paddingLeft: { md: "80px", lg: "160px" },
-          paddingRight: { md: "80px", lg: "160px" },
+          paddingLeft: { lg: "160px" },
+          paddingRight: { lg: "160px" },
         }}
       >
         <Toolbar sx={{ justifyContent: "space-between" }}>
@@ -169,7 +179,14 @@ const Navbar = () => {
               viewBox="0 0 42.996 32.879"
               data-testid="productLogo"
             />
-            <Typography sx={{ color: { xs: "#000000", lg: "#ffffff" } }}>
+            <Typography
+              sx={{
+                color: {
+                  xs: "#000000",
+                  lg: `${selectedTabIndex === false && "#ffffff"}`,
+                },
+              }}
+            >
               E-Shop
             </Typography>
           </Box>
@@ -240,7 +257,7 @@ const Navbar = () => {
               color="inherit"
               aria-label="menu"
               onClick={() => setIsDrawerOpened(true)}
-              sx={{ display: { md: "none" } }}
+              sx={{ display: { lg: "none" } }}
               data-testid="hamburgerMenu"
             >
               <MenuIcon />

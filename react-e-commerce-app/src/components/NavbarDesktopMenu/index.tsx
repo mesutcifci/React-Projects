@@ -28,7 +28,7 @@ const NavbarDesktopMenu = ({
   return (
     <Box
       sx={{
-        display: { xs: "none", md: "initial" },
+        display: { xs: "none", lg: "initial" },
         position: "relative",
       }}
     >
@@ -65,10 +65,16 @@ const NavbarDesktopMenu = ({
             sx={{
               fontSize: "14px !important",
               fontWeight: "500 !important",
-              color: { xs: "rgba(0,0,0,.7)", lg: "#ffffff" },
+              color: {
+                xs: "rgba(0,0,0,.7)",
+                lg: `${selectedTabIndex === false && "#ffffff"}`,
+              },
               textTransform: "capitalize",
               "&.Mui-selected": {
-                color: { xs: "#000000", lg: "#ffffff" },
+                color: {
+                  xs: "#000000",
+                  lg: `${selectedTabIndex === false && "#ffffff"}`,
+                },
               },
               "&.Mui-focusVisible": {
                 backgroundColor: "rgba(100, 95, 228, 0.32)",
