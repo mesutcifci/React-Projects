@@ -1,4 +1,4 @@
-import { Carousel, WhyChooseUs } from "../../components";
+import { Carousel, Collections, WhyChooseUs } from "../../components";
 import mobileCarouselData from "../../constants/mainCarouselMobileData.json";
 import desktopCarouselData from "../../constants/mainCarouselDesktopData.json";
 
@@ -10,7 +10,7 @@ const Home = () => {
       <Box>
         <Carousel variant={"mobile"} data={mobileCarouselData} />
         <Carousel variant={"desktop"} data={desktopCarouselData} />
-
+        <Collections />
         <WhyChooseUs />
       </Box>
     </main>
