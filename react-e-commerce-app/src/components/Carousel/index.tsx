@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowBack as ArrowBackIcon,
   ArrowForward as ArrowForwardIcon,
@@ -12,7 +12,6 @@ interface ICarouselItemType {
   src: string;
   text: string;
   link: string;
-  imageType: string;
 }
 
 interface ICarouselProps {
@@ -83,6 +82,11 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
     ));
   };
 
+  const returnSliderTrackPosition = () => {
+    const height = 353 / data.length;
+    return { top: height * (currentImageIndex - 1) + "px" };
+  };
+
   return (
     <Box
       sx={{
@@ -127,19 +131,58 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
             <Typography
               sx={{
                 position: "absolute",
-                fontSize: { xs: "43px", lg: "66px" },
+                fontSize: { xs: "36px", sm: "46px", md: "56px", lg: "66px" },
                 fontWeight: "bold",
-                lineHeight: { xs: "42px", lg: "77px" },
+                lineHeight: { xs: "46px", sm: "56px", md: "66px", lg: "72px" },
                 color: "white",
                 transform: { xs: "translateY(-50%)", lg: "initial" },
                 top: { xs: "50%", lg: "188px" },
                 left: { xs: "35px", lg: "263px", xl: "363px" },
                 zIndex: 2,
-                width: { xs: "80%", lg: "365px" },
+                maxWidth: "500px",
+                width: { xs: "80%", lg: "480px" },
               }}
             >
               {item.text}
             </Typography>
+            <Box
+              sx={{
+                display: { xs: "none", lg: "flex" },
+                alignItems: "center",
+                flexDirection: "column",
+                rowGap: "18px",
+                position: "absolute",
+                bottom: { lg: "250px", xl: "189px" },
+                left: "160px",
+                zIndex: "99",
+              }}
+            >
+              <Typography sx={{ color: "#ffffff", fontWeight: "600" }}>
+                01
+              </Typography>
+              <Box
+                sx={{
+                  width: "2px",
+                  height: "353px",
+                  backgroundColor: "rgba(255,255,255,.27)",
+                  position: "relative",
+                }}
+              >
+                <Box
+                  sx={{
+                    backgroundColor: "#ffffff",
+                    height: `calc(100% / ${data.length})`,
+                    position: "absolute",
+                    ...returnSliderTrackPosition(),
+                    width: "2px",
+                    zIndex: "100",
+                  }}
+                ></Box>
+              </Box>
+              <Typography sx={{ color: "#ffffff", fontWeight: "600" }}>
+                {data.length < 10 ? "0" + data.length : data.length}
+              </Typography>
+            </Box>
             <Box
               sx={{
                 position: "absolute",
@@ -166,7 +209,7 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
                 SHOP NOW
               </Typography>
             </Box>
-            <img src={item.src + (index + 1) + "." + item.imageType} />
+            <img src={item.src} />
             <Box
               sx={{
                 backgroundColor: "#ffffff",
