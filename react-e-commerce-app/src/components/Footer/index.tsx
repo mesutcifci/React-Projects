@@ -48,7 +48,7 @@ const Footer = () => {
                 fontSize: "13px",
                 color: "#000000",
                 textDecoration: "none",
-                "&:hover": { color: "#FF6666" },
+                "&:hover": { color: "#FBB03B" },
               }}
             >
               {child.name}
