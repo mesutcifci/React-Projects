@@ -64,7 +64,18 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
           >
             {data.title}
           </Typography>
-          <Typography sx={{ fontSize: "12px", maxWidth: "160px" }}>
+          <Typography
+            sx={{
+              fontSize: "12px",
+              height: "55px",
+              maxWidth: "160px",
+              WebkitLineClamp: "3",
+              display: "-webkit-box",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              WebkitBoxOrient: "vertical",
+            }}
+          >
             {data.description}
           </Typography>
         </Stack>
@@ -163,9 +174,10 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
                 color: "#000000",
                 columnGap: "56px",
                 display: { xs: "none", lg: "flex" },
-                alignItems: "center",
+                alignItems: "flex-start",
                 height: "131px",
                 justifyContent: "space-evenly",
+                paddingTop: "36px",
                 paddingLeft: { lg: "129px", xl: "298px" },
                 paddingRight: { lg: "49px", xl: "97px" },
                 position: "absolute",
