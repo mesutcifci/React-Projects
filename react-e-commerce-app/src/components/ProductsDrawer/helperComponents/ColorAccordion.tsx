@@ -32,6 +32,7 @@ const ColorAccordion = () => {
       >
         {colors.map((color, index) => (
           <Box
+            key={color}
             sx={{
               border: "1px solid #D4D4D4",
               borderRight: `${index + 1 !== colors.length && "0px"}`,

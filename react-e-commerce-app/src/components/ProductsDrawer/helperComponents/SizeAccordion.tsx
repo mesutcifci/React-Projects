@@ -25,6 +25,7 @@ const SizeAccordion = () => {
       >
         {sizes.map((size, index) => (
           <Box
+            key={size}
             sx={{
               border: "1px solid #D4D4D4",
               borderRight: `${index + 1 !== sizes.length && "0px"}`,
