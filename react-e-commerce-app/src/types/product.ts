@@ -6,21 +6,13 @@ export interface IProductDescription {
 }
 
 export interface IBase {
+  id: string;
   name: string;
-  displayName: string;
 }
-
-export interface IPrimaryCategory extends IBase {}
-
-export interface ISecondaryCategory extends IBase {}
-
-export interface ITertiaryCategory extends IBase {}
-
-export interface ICollection extends IBase {}
 
 export interface IProduct {
   id: string;
-  displayName: string;
+  name: string;
   imageUrl: string;
   colors: string[];
   sizes: string[];
@@ -29,8 +21,8 @@ export interface IProduct {
   amount: number;
   discountRate: number;
   description: IProductDescription;
-  primaryCategories: IPrimaryCategory[];
-  secondaryCategories: ISecondaryCategory[];
-  tertiaryCategories: ITertiaryCategory[];
-  collections: ICollection[];
+  primaryCategories: IBase[];
+  secondaryCategories: IBase[];
+  tertiaryCategories: IBase[];
+  collections: IBase[];
 }

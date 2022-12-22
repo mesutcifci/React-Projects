@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import NavbarMobileMenu from "../index";
 import categories from "../../../constants/categories.json";
 
-const primaryCategoryNames = categories.map((category) => category.displayName);
+const primaryCategoryNames = categories.map((category) => category.name);
 const findElementsGetByText = (data: string[]) => {
   data.forEach((item) => {
     expect(screen.getByText(item)).toBeInTheDocument();
@@ -27,13 +27,13 @@ describe("NavbarMobile", () => {
     primaryCategoryNames.forEach((primaryCategoryName) => {
       // find current primary category
       const filteredPrimaryCategory = categories.find(
-        (category) => category.displayName === primaryCategoryName
+        (category) => category.name === primaryCategoryName
       );
 
-      // get displayName of secondary categories of current primary category
+      // get name of secondary categories of current primary category
       let secondaryCategoryNames =
         filteredPrimaryCategory?.secondaryCategories.map(
-          (category) => category.displayName
+          (category) => category.name
         );
 
       // get primaryCategoryElement with current primaryCategoryName
@@ -50,13 +50,13 @@ describe("NavbarMobile", () => {
         // find current secondary category
         const filteredSecondaryCategory =
           filteredPrimaryCategory?.secondaryCategories.find(
-            (category) => category.displayName === secondaryCategoryName
+            (category) => category.name === secondaryCategoryName
           );
 
         // get display name of tertiary categories of current secondary category
         const tertiaryCategoryNames =
           filteredSecondaryCategory?.tertiaryCategories.map(
-            (category) => category.displayName
+            (category) => category.name
           );
 
         // get secondaryCategoryElement with current secondaryCategoryName

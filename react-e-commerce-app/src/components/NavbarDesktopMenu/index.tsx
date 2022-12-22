@@ -60,7 +60,7 @@ const NavbarDesktopMenu = ({
             disableRipple
             key={category.name}
             id={`navbar-tab-${category.name}`}
-            label={category.displayName}
+            label={category.name}
             onClick={() => handleClickTab(index)}
             sx={{
               fontSize: "14px !important",

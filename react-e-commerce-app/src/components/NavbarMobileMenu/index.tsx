@@ -2,23 +2,11 @@ import { Box, Divider, Drawer, List, ListItem, Stack } from "@mui/material";
 import { ArrowBack, Close } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import categories from "../../constants/categories.json";
-
-interface ICategory {
-  name: string;
-  displayName: string;
-  secondaryCategories: ISecondaryCategory[];
-}
-
-interface ISecondaryCategory {
-  name: string;
-  displayName: string;
-  tertiaryCategories: ITertiaryCategory[];
-}
-
-interface ITertiaryCategory {
-  name: string;
-  displayName: string;
-}
+import {
+  ICategory,
+  ISecondaryCategory,
+  ITertiaryCategory,
+} from "../../types/categories";
 
 interface IProps {
   isDrawerOpened: boolean;
@@ -77,7 +65,7 @@ const NavbarMobileMenu = ({ isDrawerOpened, setIsDrawerOpened }: IProps) => {
               }
             }}
           >
-            {category.displayName}
+            {category.name}
           </ListItem>
           <Divider />
         </Box>

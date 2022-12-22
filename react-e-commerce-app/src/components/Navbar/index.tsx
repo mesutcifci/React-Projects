@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // Styles
 import {
@@ -47,6 +47,7 @@ const tabPanelStyles: SxProps<Theme> | undefined = {
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [user, setUser] = useState<User | null>(null);
 
   const [isDrawerOpened, setIsDrawerOpened] = useState(false);
@@ -119,7 +120,7 @@ const Navbar = () => {
                   textTransform="uppercase"
                   sx={{ cursor: "pointer", "&:hover": { color: "#FBB03B" } }}
                 >
-                  {secondaryCategory.displayName}
+                  {secondaryCategory.name}
                 </Typography>
                 {tertiaryCategories.map((tertiaryCategory) => (
                   <Typography
@@ -128,7 +129,7 @@ const Navbar = () => {
                     fontWeight="400"
                     sx={{ cursor: "pointer", "&:hover": { color: "#FBB03B" } }}
                   >
-                    {tertiaryCategory.displayName}
+                    {tertiaryCategory.name}
                   </Typography>
                 ))}
               </Stack>
@@ -143,7 +144,10 @@ const Navbar = () => {
     <Box
       sx={{
         flexGrow: 1,
-        position: { xs: "relative", lg: "absolute" },
+        position: {
+          xs: "relative",
+          lg: `${location.pathname === "/" ? "absolute" : "relative"}`,
+        },
         zIndex: "99",
         left: "0",
         right: "0",

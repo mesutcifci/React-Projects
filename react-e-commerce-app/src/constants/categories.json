@@ -1,160 +1,173 @@
 [
   {
-    "name": "men",
-    "displayName": "Men",
+    "id": "men",
+    "name": "Men",
+    "isSelected": false,
     "secondaryCategories": [
       {
-        "name": "shoes",
-        "displayName": "Shoes",
+        "id": "sho",
+        "name": "Shoes",
+        "isSelected": false,
         "tertiaryCategories": [
-          { "name": "lifestyle", "displayName": "Lifestyle" },
-          { "name": "running", "displayName": "Running" },
-          { "name": "soccer", "displayName": "Soccer" },
-          { "name": "basketball", "displayName": "Basketball" },
-          { "name": "football", "displayName": "Football" },
-          { "name": "golf", "displayName": "Golf" },
-          { "name": "baseball", "displayName": "Baseball" },
-          { "name": "sneakers", "displayName": "Sneakers" },
-          { "name": "boots", "displayName": "Boots" },
-          { "name": "sandals", "displayName": "Sandals" }
+          { "id": "ls", "name": "Lifestyle", "isSelected": false },
+          { "id": "rn", "name": "Running", "isSelected": false },
+          { "id": "sc", "name": "Soccer", "isSelected": false },
+          { "id": "bb", "name": "Basketball", "isSelected": false },
+          { "id": "fb", "name": "Football", "isSelected": false },
+          { "id": "gf", "name": "Golf", "isSelected": false },
+          { "id": "bs", "name": "Baseball", "isSelected": false },
+          { "id": "sn", "name": "Sneakers", "isSelected": false },
+          { "id": "bt", "name": "Boots", "isSelected": false },
+          { "id": "sd", "name": "Sandals", "isSelected": false }
         ]
       },
       {
-        "name": "clothing",
-        "displayName": "Clothing",
+        "id": "clo",
+        "name": "Clothing",
+        "isSelected": false,
         "tertiaryCategories": [
           {
-            "name": "hoodiesAndSweatshirts",
-            "displayName": "Hoodies & Sweatshirts"
+            "id": "hs",
+            "name": "Hoodies & Sweatshirts",
+            "isSelected": false
           },
-          { "name": "trackSuits", "displayName": "Track Suits" },
-          { "name": "jerseys", "displayName": "Jerseys" },
-          { "name": "pants", "displayName": "Pants" },
-          { "name": "shirts", "displayName": "Shirts" },
-          { "name": "tShirts", "displayName": "T-Shirts" },
-          { "name": "jackets", "displayName": "Jackets" },
-          { "name": "sweaters", "displayName": "Sweaters" }
+          { "id": "ts", "name": "Track Suits", "isSelected": false },
+          { "id": "jy", "name": "Jerseys", "isSelected": false },
+          { "id": "pn", "name": "Pants", "isSelected": false },
+          { "id": "sh", "name": "Shirts", "isSelected": false },
+          { "id": "tt", "name": "T-Shirts", "isSelected": false },
+          { "id": "jt", "name": "Jackets", "isSelected": false },
+          { "id": "sw", "name": "Sweaters", "isSelected": false }
         ]
       },
       {
-        "name": "accessories",
-        "displayName": "Accessories",
+        "id": "acc",
+        "name": "Accessories",
+        "isSelected": false,
         "tertiaryCategories": [
-          { "name": "watches", "displayName": "Watches" },
-          { "name": "sunglasses", "displayName": "Sunglasses" },
-          { "name": "belts", "displayName": "Belts" },
-          { "name": "hats", "displayName": "Hats" },
-          { "name": "scarves", "displayName": "Scarves" },
-          { "name": "gloves", "displayName": "Gloves" },
-          { "name": "ties", "displayName": "Ties" },
-          { "name": "pocketSquares", "displayName": "Pocket Squares" },
-          { "name": "sunglassCases", "displayName": "Sunglass Cases" },
-          { "name": "umbrellas", "displayName": "Umbrellas" },
-          { "name": "keychains", "displayName": "Keychains" }
+          { "id": "wh", "name": "Watches", "isSelected": false },
+          { "id": "sg", "name": "Sunglasses", "isSelected": false },
+          { "id": "bt", "name": "Belts", "isSelected": false },
+          { "id": "ht", "name": "Hats", "isSelected": false },
+          { "id": "sv", "name": "Scarves", "isSelected": false },
+          { "id": "gl", "name": "Gloves", "isSelected": false },
+          { "id": "ti", "name": "Ties", "isSelected": false },
+          { "id": "ps", "name": "Pocket Squares", "isSelected": false },
+          { "id": "sc", "name": "Sunglass Cases", "isSelected": false },
+          { "id": "um", "name": "Umbrellas", "isSelected": false },
+          { "id": "kc", "name": "Keychains", "isSelected": false }
         ]
       }
     ]
   },
   {
-    "name": "women",
-    "displayName": "Women",
+    "id": "women",
+    "name": "Women",
+    "isSelected": false,
     "secondaryCategories": [
       {
-        "name": "shoes",
-        "displayName": "Shoes",
+        "id": "sho",
+        "name": "Shoes",
+        "isSelected": false,
         "tertiaryCategories": [
-          { "name": "lifestyle", "displayName": "Lifestyle" },
-          { "name": "running", "displayName": "Running" },
-          { "name": "soccer", "displayName": "Soccer" },
-          { "name": "basketball", "displayName": "Basketball" },
-          { "name": "football", "displayName": "Football" },
-          { "name": "golf", "displayName": "Golf" },
-          { "name": "baseball", "displayName": "Baseball" },
-          { "name": "sneakers", "displayName": "Sneakers" },
-          { "name": "heels", "displayName": "Heels" },
-          { "name": "boots", "displayName": "Boots" },
-          { "name": "sandals", "displayName": "Sandals" },
-          { "name": "dressShoes", "displayName": "Dress Shoes" }
+          { "id": "ls", "name": "Lifestyle", "isSelected": false },
+          { "id": "rn", "name": "Running", "isSelected": false },
+          { "id": "sc", "name": "Soccer", "isSelected": false },
+          { "id": "bb", "name": "Basketball", "isSelected": false },
+          { "id": "fb", "name": "Football", "isSelected": false },
+          { "id": "gf", "name": "Golf", "isSelected": false },
+          { "id": "bs", "name": "Baseball", "isSelected": false },
+          { "id": "sn", "name": "Sneakers", "isSelected": false },
+          { "id": "hl", "name": "Heels", "isSelected": false },
+          { "id": "bt", "name": "Boots", "isSelected": false },
+          { "id": "sd", "name": "Sandals", "isSelected": false },
+          { "id": "ds", "name": "Dress Shoes", "isSelected": false }
         ]
       },
       {
-        "name": "clothing",
-        "displayName": "Clothing",
+        "id": "clo",
+        "name": "Clothing",
+        "isSelected": false,
         "tertiaryCategories": [
-          { "name": "trackSuits", "displayName": "Track Suits" },
-          { "name": "jerseys", "displayName": "Jerseys" },
-          { "name": "shirts", "displayName": "Shirts" },
-          { "name": "dresses", "displayName": "Dresses" },
-          { "name": "tShirts", "displayName": "T-Shirts" },
-          { "name": "skirts", "displayName": "Skirts" },
-          { "name": "jeans", "displayName": "Jeans" }
+          { "id": "ts", "name": "Track Suits", "isSelected": false },
+          { "id": "jy", "name": "Jerseys", "isSelected": false },
+          { "id": "sh", "name": "Shirts", "isSelected": false },
+          { "id": "dr", "name": "Dresses", "isSelected": false },
+          { "id": "tt", "name": "T-Shirts", "isSelected": false },
+          { "id": "sk", "name": "Skirts", "isSelected": false },
+          { "id": "jn", "name": "Jeans", "isSelected": false }
         ]
       },
       {
-        "name": "accessories",
-        "displayName": "Accessories",
+        "id": "acc",
+        "name": "Accessories",
+        "isSelected": false,
         "tertiaryCategories": [
-          { "name": "handbags", "displayName": "Handbags" },
-          { "name": "jewelry", "displayName": "Jewelry" },
-          { "name": "scarves", "displayName": "Scarves" },
-          { "name": "hats", "displayName": "Hats" }
+          { "id": "hb", "name": "Handbags", "isSelected": false },
+          { "id": "jw", "name": "Jewelry", "isSelected": false },
+          { "id": "sv", "name": "Scarves", "isSelected": false },
+          { "id": "ht", "name": "Hats", "isSelected": false }
         ]
       },
       {
-        "name": "beauty",
-        "displayName": "Beauty",
+        "id": "bea",
+        "name": "Beauty",
+        "isSelected": false,
         "tertiaryCategories": [
-          { "name": "skincare", "displayName": "Skincare" },
-          { "name": "makeup", "displayName": "Makeup" },
-          { "name": "fragrance", "displayName": "Fragrance" },
-          { "name": "hairCare", "displayName": "Hair Care" },
-          { "name": "nailCare", "displayName": "Nail Care" },
-          { "name": "oralCare", "displayName": "Oral Care" },
-          { "name": "bodyCare", "displayName": "Body Care" },
-          { "name": "sunCare", "displayName": "Sun Care" },
-          { "name": "lipCare", "displayName": "Lip Care" },
-          { "name": "footCare", "displayName": "Foot Care" },
-          { "name": "handCare", "displayName": "Hand Care" },
-          { "name": "selfTanner", "displayName": "Self Tanner" },
-          { "name": "hairRemoval", "displayName": "Hair Removal" },
-          { "name": "eyeCare", "displayName": "Eye Care" },
-          { "name": "travelSize", "displayName": "Travel Size" }
+          { "id": "sk", "name": "Skincare", "isSelected": false },
+          { "id": "mk", "name": "Makeup", "isSelected": false },
+          { "id": "fg", "name": "Fragrance", "isSelected": false },
+          { "id": "hc", "name": "Hair Care", "isSelected": false },
+          { "id": "nc", "name": "Nail Care", "isSelected": false },
+          { "id": "oc", "name": "Oral Care", "isSelected": false },
+          { "id": "bc", "name": "Body Care", "isSelected": false },
+          { "id": "sc", "name": "Sun Care", "isSelected": false },
+          { "id": "lc", "name": "Lip Care", "isSelected": false },
+          { "id": "ft", "name": "Foot Care", "isSelected": false },
+          { "id": "he", "name": "Hand Care", "isSelected": false },
+          { "id": "st", "name": "Self Tanner", "isSelected": false },
+          { "id": "hr", "name": "Hair Removal", "isSelected": false },
+          { "id": "ey", "name": "Eye Care", "isSelected": false },
+          { "id": "ts", "name": "Travel Size", "isSelected": false }
         ]
       }
     ]
   },
   {
-    "name": "kids",
-    "displayName": "Kids",
+    "id": "kids",
+    "name": "Kids",
+    "isSelected": false,
     "secondaryCategories": [
       {
-        "name": "shoes",
-        "displayName": "Shoes",
+        "id": "sho",
+        "name": "Shoes",
+        "isSelected": false,
         "tertiaryCategories": [
-          { "name": "lifestyle", "displayName": "Lifestyle" },
-          { "name": "running", "displayName": "Running" },
-          { "name": "soccer", "displayName": "Soccer" },
-          { "name": "basketball", "displayName": "Basketball" },
-          { "name": "football", "displayName": "Football" },
-          { "name": "golf", "displayName": "Golf" },
-          { "name": "baseball", "displayName": "Baseball" },
-          { "name": "sneakers", "displayName": "Sneakers" },
-          { "name": "dressShoes", "displayName": "Dress Shoes" },
-          { "name": "boots", "displayName": "Boots" },
-          { "name": "sandals", "displayName": "Sandals" }
+          { "id": "ls", "name": "Lifestyle", "isSelected": false },
+          { "id": "rn", "name": "Running", "isSelected": false },
+          { "id": "sc", "name": "Soccer", "isSelected": false },
+          { "id": "bb", "name": "Basketball", "isSelected": false },
+          { "id": "fb", "name": "Football", "isSelected": false },
+          { "id": "gf", "name": "Golf", "isSelected": false },
+          { "id": "bs", "name": "Baseball", "isSelected": false },
+          { "id": "sn", "name": "Sneakers", "isSelected": false },
+          { "id": "ds", "name": "Dress Shoes", "isSelected": false },
+          { "id": "bt", "name": "Boots", "isSelected": false },
+          { "id": "sd", "name": "Sandals", "isSelected": false }
         ]
       },
       {
-        "name": "clothing",
-        "displayName": "Clothing",
+        "id": "clo",
+        "name": "Clothing",
+        "isSelected": false,
         "tertiaryCategories": [
-          { "name": "trackSuits", "displayName": "Track Suits" },
-          { "name": "jerseys", "displayName": "Jerseys" },
-          { "name": "shirts", "displayName": "Shirts" },
-          { "name": "dresses", "displayName": "Dresses" },
-          { "name": "tShirts", "displayName": "T-Shirts" },
-          { "name": "skirts", "displayName": "Skirts" },
-          { "name": "jeans", "displayName": "Jeans" }
+          { "id": "ts", "name": "Track Suits", "isSelected": false },
+          { "id": "jy", "name": "Jerseys", "isSelected": false },
+          { "id": "sh", "name": "Shirts", "isSelected": false },
+          { "id": "dr", "name": "Dresses", "isSelected": false },
+          { "id": "tt", "name": "T-Shirts", "isSelected": false },
+          { "id": "sk", "name": "Skirts", "isSelected": false },
+          { "id": "jn", "name": "Jeans", "isSelected": false }
         ]
       }
     ]
