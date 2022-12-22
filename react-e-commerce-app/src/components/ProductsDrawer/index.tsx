@@ -1,23 +1,14 @@
 import { useState } from "react";
 
 // material ui
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-  CssBaseline,
-  Divider,
-  IconButton,
-  Typography,
-} from "@mui/material";
-import { ChevronLeft, ChevronRight, ExpandMore } from "@mui/icons-material";
+import { Box, CssBaseline, Divider, IconButton } from "@mui/material";
+import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 
 // components
 import DrawerHeader from "./helperComponents/DrawerHeader";
 import Drawer from "./helperComponents/Drawer";
-import CategoryRenderer from "./helperComponents/ProductTypeAccordion";
 import ProductTypeAccordion from "./helperComponents/ProductTypeAccordion";
+import PriceAccordion from "./helperComponents/PriceAccordion";
 
 const ProductsDrawer = () => {
   const [open, setOpen] = useState(false);
@@ -58,6 +49,7 @@ const ProductsDrawer = () => {
         <Divider />
 
         <ProductTypeAccordion />
+        <PriceAccordion />
       </Drawer>
     </Box>
   );
