@@ -16,7 +16,8 @@ import { ChevronLeft, ChevronRight, ExpandMore } from "@mui/icons-material";
 // components
 import DrawerHeader from "./helperComponents/DrawerHeader";
 import Drawer from "./helperComponents/Drawer";
-import CategoryRenderer from "./helperComponents/CategoryRenderer";
+import CategoryRenderer from "./helperComponents/ProductTypeAccordion";
+import ProductTypeAccordion from "./helperComponents/ProductTypeAccordion";
 
 const ProductsDrawer = () => {
   const [open, setOpen] = useState(false);
@@ -56,17 +57,7 @@ const ProductsDrawer = () => {
         </DrawerHeader>
         <Divider />
 
-        {/* PRODUCT TYPE */}
-        <Accordion sx={{ padding: "0" }}>
-          <AccordionSummary expandIcon={<ExpandMore />}>
-            <Typography sx={{ fontSize: "16px", fontWeight: "500" }}>
-              PRODUCT TYPE
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails sx={{ padding: "0" }}>
-            <CategoryRenderer />
-          </AccordionDetails>
-        </Accordion>
+        <ProductTypeAccordion />
       </Drawer>
     </Box>
   );

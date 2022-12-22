@@ -12,7 +12,7 @@ import {
 import { Category, ExpandMore } from "@mui/icons-material";
 import { ITertiaryCategory } from "../../../types/categories";
 
-const CategoryRenderer = () => {
+const ProductTypeAccordion = () => {
   const { mapCategoriesWithSearchParameters, mappedCategories } =
     useGetMappedCategories();
   const { parameters } = useGetSearchParameters();
@@ -51,35 +51,42 @@ const CategoryRenderer = () => {
   };
 
   return (
-    <Stack>
-      {mappedCategories.secondaryCategories.map((secondaryCategory) => (
-        <Accordion
-          key={secondaryCategory.name}
-          disableGutters
-          sx={{ boxShadow: "none", paddingLeft: "20px" }}
-        >
-          <Stack direction="row" alignItems="center">
-            <Checkbox sx={{ height: "30px", width: "30px" }} />
+    <Accordion sx={{ padding: "0" }}>
+      <AccordionSummary expandIcon={<ExpandMore />}>
+        <Typography sx={{ fontSize: "16px", fontWeight: "500" }}>
+          PRODUCT TYPE
+        </Typography>
+      </AccordionSummary>
+      <AccordionDetails sx={{ padding: "0" }}>
+        {mappedCategories.secondaryCategories.map((secondaryCategory) => (
+          <Accordion
+            key={secondaryCategory.name}
+            disableGutters
+            sx={{ boxShadow: "none", paddingLeft: "20px" }}
+          >
+            <Stack direction="row" alignItems="center">
+              <Checkbox sx={{ height: "30px", width: "30px" }} />
 
-            <AccordionSummary
-              expandIcon={<ExpandMore />}
-              sx={{
-                boxShadow: "none",
-                paddingLeft: "5px",
-                height: "30px",
-                width: "calc(100% - 30px)",
-              }}
-            >
-              <Typography>{secondaryCategory.name}</Typography>
-            </AccordionSummary>
-          </Stack>
-          <AccordionDetails sx={{ paddingLeft: "31px", paddingRight: "0px" }}>
-            {renderTertiaryCategories(secondaryCategory.tertiaryCategories)}
-          </AccordionDetails>
-        </Accordion>
-      ))}
-    </Stack>
+              <AccordionSummary
+                expandIcon={<ExpandMore />}
+                sx={{
+                  boxShadow: "none",
+                  paddingLeft: "5px",
+                  height: "30px",
+                  width: "calc(100% - 30px)",
+                }}
+              >
+                <Typography>{secondaryCategory.name}</Typography>
+              </AccordionSummary>
+            </Stack>
+            <AccordionDetails sx={{ paddingLeft: "31px", paddingRight: "0px" }}>
+              {renderTertiaryCategories(secondaryCategory.tertiaryCategories)}
+            </AccordionDetails>
+          </Accordion>
+        ))}
+      </AccordionDetails>
+    </Accordion>
   );
 };
 
-export default CategoryRenderer;
+export default ProductTypeAccordion;
