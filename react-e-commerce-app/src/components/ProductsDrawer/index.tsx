@@ -9,6 +9,7 @@ import DrawerHeader from "./helperComponents/DrawerHeader";
 import Drawer from "./helperComponents/Drawer";
 import ProductTypeAccordion from "./helperComponents/ProductTypeAccordion";
 import PriceAccordion from "./helperComponents/PriceAccordion";
+import CollectionAccordion from "./helperComponents/CollectionAccordion";
 
 const ProductsDrawer = () => {
   const [open, setOpen] = useState(false);
@@ -50,6 +51,7 @@ const ProductsDrawer = () => {
 
         <ProductTypeAccordion />
         <PriceAccordion />
+        <CollectionAccordion />
       </Drawer>
     </Box>
   );
