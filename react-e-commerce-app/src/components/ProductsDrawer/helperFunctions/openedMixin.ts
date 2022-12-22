@@ -1,7 +1,7 @@
 import { CSSObject, Theme } from "@mui/material";
 
 const openedMixin = (theme: Theme): CSSObject => ({
-  width: "240px",
+  width: "300px",
   transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -13,7 +13,7 @@ const openedMixin = (theme: Theme): CSSObject => ({
   borderLeft: "0px",
   [theme.breakpoints.up("lg")]: {
     position: "static",
-    width: "250px",
+    width: "310px",
   },
 });
 
