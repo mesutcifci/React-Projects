@@ -1,5 +1,6 @@
 import { Box, Tab, Tabs } from "@mui/material";
 import categories from "../../constants/categories.json";
+import { useLocation } from "react-router-dom";
 
 interface IProps {
   selectedTabIndex: number | boolean;
@@ -17,6 +18,8 @@ const NavbarDesktopMenu = ({
   selectedTabText,
   setSelectedTabIndex,
 }: IProps) => {
+  const { pathname } = useLocation();
+
   const handleClickTab = (newIndex: number) => {
     if (newIndex === selectedTabIndex) {
       setSelectedTabIndex(false);
@@ -67,7 +70,9 @@ const NavbarDesktopMenu = ({
               fontWeight: "500 !important",
               color: {
                 xs: "rgba(0,0,0,.7)",
-                lg: `${selectedTabIndex === false && "#ffffff"}`,
+                lg: `${
+                  selectedTabIndex === false && pathname === "/" && "#ffffff"
+                }`,
               },
               textTransform: "capitalize",
               "&.Mui-selected": {

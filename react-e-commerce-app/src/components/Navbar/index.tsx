@@ -33,7 +33,7 @@ import { auth } from "../../firebase";
 import { User } from "firebase/auth";
 import categories from "../../constants/categories.json";
 
-const tabPanelStyles: SxProps<Theme> | undefined = {
+const tabPanelStyles: SxProps<Theme> = {
   backgroundColor: "#ffffff",
   borderTop: "1px solid #E5E5E5",
   boxSizing: "border-box",
@@ -47,7 +47,7 @@ const tabPanelStyles: SxProps<Theme> | undefined = {
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const location = useLocation();
+  const { pathname } = useLocation();
   const [user, setUser] = useState<User | null>(null);
 
   const [isDrawerOpened, setIsDrawerOpened] = useState(false);
@@ -58,10 +58,7 @@ const Navbar = () => {
   );
   const [selectedTabText, setSelectedTabText] = useState("Men");
 
-  const handleTabChange = (
-    event: React.SyntheticEvent<Element, Event>,
-    index: number
-  ) => {
+  const handleTabChange = (event: React.SyntheticEvent<Element, Event>) => {
     setSelectedTabText(event.currentTarget.textContent!);
   };
 
@@ -103,7 +100,15 @@ const Navbar = () => {
         <TabPanel
           value={selectedTabIndex}
           index={index}
-          sx={tabPanelStyles}
+          sx={{
+            ...tabPanelStyles,
+            ...(pathname !== "/" && {
+              borderBottom: "1px solid #e5e5e5",
+              position: "absolute",
+              left: 0,
+              right: 0,
+            }),
+          }}
           key={category.name}
         >
           {secondaryCategories.map((secondaryCategory) => {
@@ -146,7 +151,7 @@ const Navbar = () => {
         flexGrow: 1,
         position: {
           xs: "relative",
-          lg: `${location.pathname === "/" ? "absolute" : "relative"}`,
+          lg: `${pathname === "/" ? "absolute" : "relative"}`,
         },
         zIndex: "99",
         left: "0",
@@ -164,7 +169,9 @@ const Navbar = () => {
           "& svg": {
             color: {
               xs: "#000000",
-              lg: `${selectedTabIndex === false && "#ffffff"}`,
+              lg: `${
+                selectedTabIndex === false && pathname === "/" && "#ffffff"
+              }`,
             },
           },
           height: "70px",
@@ -187,7 +194,9 @@ const Navbar = () => {
               sx={{
                 color: {
                   xs: "#000000",
-                  lg: `${selectedTabIndex === false && "#ffffff"}`,
+                  lg: `${
+                    selectedTabIndex === false && pathname === "/" && "#ffffff"
+                  }`,
                 },
               }}
             >
