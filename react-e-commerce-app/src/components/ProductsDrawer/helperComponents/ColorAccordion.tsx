@@ -6,6 +6,7 @@ import {
   Box,
   Typography,
 } from "@mui/material";
+import { IAccordionProps } from "../../../types/accordion";
 
 const colors = [
   "#000000",
@@ -16,9 +17,9 @@ const colors = [
   "#0F73AD",
 ];
 
-const ColorAccordion = () => {
+const ColorAccordion = ({ accordionStyles }: IAccordionProps) => {
   return (
-    <Accordion>
+    <Accordion sx={{ ...accordionStyles }} disableGutters>
       <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography sx={{ fontSize: "16px", fontWeight: "500" }}>
           COLOR

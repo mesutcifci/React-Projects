@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 // material ui
-import { Box, CssBaseline, Divider, IconButton } from "@mui/material";
+import { Box, CssBaseline, Divider, IconButton, Stack } from "@mui/material";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 
 // components
@@ -12,6 +12,13 @@ import PriceAccordion from "./helperComponents/PriceAccordion";
 import CollectionAccordion from "./helperComponents/CollectionAccordion";
 import SizeAccordion from "./helperComponents/SizeAccordion";
 import ColorAccordion from "./helperComponents/ColorAccordion";
+
+const accordionStyles = {
+  "&.MuiPaper-root::before": {
+    display: { lg: "none !important" },
+  },
+  border: { lg: "1px solid #E6E6E6 !important" },
+};
 
 const ProductsDrawer = () => {
   const [open, setOpen] = useState(false);
@@ -51,11 +58,13 @@ const ProductsDrawer = () => {
         </DrawerHeader>
         <Divider />
 
-        <ProductTypeAccordion />
-        <PriceAccordion />
-        <CollectionAccordion />
-        <SizeAccordion />
-        <ColorAccordion />
+        <Stack rowGap="13px">
+          <ProductTypeAccordion accordionStyles={accordionStyles} />
+          <PriceAccordion accordionStyles={accordionStyles} />
+          <CollectionAccordion accordionStyles={accordionStyles} />
+          <SizeAccordion accordionStyles={accordionStyles} />
+          <ColorAccordion accordionStyles={accordionStyles} />
+        </Stack>
       </Drawer>
     </Box>
   );

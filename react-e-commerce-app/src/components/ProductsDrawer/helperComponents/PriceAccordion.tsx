@@ -8,12 +8,12 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
+import { IAccordionProps } from "../../../types/accordion";
 
 const minDistance = 100;
 
-const PriceAccordion = () => {
+const PriceAccordion = ({ accordionStyles }: IAccordionProps) => {
   const [sliderValue, setSliderValue] = useState<number[]>([0, 500]);
-
   const handleChangeSlider = (
     event: Event,
     newValue: number | number[],
@@ -36,7 +36,11 @@ const PriceAccordion = () => {
     }
   };
   return (
-    <Accordion>
+    <Accordion
+      sx={{ ...accordionStyles }}
+      disableGutters
+      defaultExpanded={true}
+    >
       <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography sx={{ fontSize: "16px", fontWeight: "500" }}>
           PRICE

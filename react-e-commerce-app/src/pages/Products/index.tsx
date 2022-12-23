@@ -6,7 +6,7 @@ const Products = () => {
   const {} = useGetSearchParameters();
 
   return (
-    <Box>
+    <Box sx={{ marginTop: "83px", paddingLeft: "184px" }}>
       <ProductsDrawer />
     </Box>
   );

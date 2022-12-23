@@ -9,10 +9,11 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { Category, ExpandMore } from "@mui/icons-material";
+import { ExpandMore } from "@mui/icons-material";
 import { ITertiaryCategory } from "../../../types/categories";
+import { IAccordionProps } from "../../../types/accordion";
 
-const ProductTypeAccordion = () => {
+const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
   const { mapCategoriesWithSearchParameters, mappedCategories } =
     useGetMappedCategories();
   const { parameters } = useGetSearchParameters();
@@ -51,7 +52,11 @@ const ProductTypeAccordion = () => {
   };
 
   return (
-    <Accordion sx={{ padding: "0" }}>
+    <Accordion
+      sx={{ padding: "0", ...accordionStyles }}
+      disableGutters
+      defaultExpanded={true}
+    >
       <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography sx={{ fontSize: "16px", fontWeight: "500" }}>
           PRODUCT TYPE
@@ -62,7 +67,11 @@ const ProductTypeAccordion = () => {
           <Accordion
             key={secondaryCategory.name}
             disableGutters
-            sx={{ boxShadow: "none", paddingLeft: "20px" }}
+            sx={{
+              boxShadow: "none",
+              paddingLeft: "20px",
+              "&.MuiAccordion-root::before": { opacity: "1 !important" },
+            }}
           >
             <Stack direction="row" alignItems="center">
               <Checkbox sx={{ height: "30px", width: "30px" }} />

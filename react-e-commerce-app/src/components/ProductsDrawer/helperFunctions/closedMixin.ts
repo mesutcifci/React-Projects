@@ -20,8 +20,8 @@ const closedMixin = (theme: Theme): CSSObject => ({
     left: "0px",
     borderRadius: "0px",
     position: "static",
-    border: "1px solid rgba(0, 0, 0, 0.12)",
-    borderLeft: "0px",
+    border: "none !important",
+    "& hr": { display: "none" },
   },
   top: "100px",
 });

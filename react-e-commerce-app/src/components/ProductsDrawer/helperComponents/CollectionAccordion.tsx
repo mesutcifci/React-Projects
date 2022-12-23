@@ -3,15 +3,13 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Box,
-  Slider,
-  Stack,
   Typography,
 } from "@mui/material";
+import { IAccordionProps } from "../../../types/accordion";
 
-const CollectionAccordion = () => {
+const CollectionAccordion = ({ accordionStyles }: IAccordionProps) => {
   return (
-    <Accordion>
+    <Accordion sx={{ ...accordionStyles }} disableGutters>
       <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography sx={{ fontSize: "16px", fontWeight: "500" }}>
           COLLECTION
