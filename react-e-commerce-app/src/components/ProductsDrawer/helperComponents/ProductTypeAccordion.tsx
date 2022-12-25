@@ -1,6 +1,4 @@
 import { useEffect } from "react";
-import useGetMappedCategories from "../../../hooks/useGetMappedCategories";
-import useGetSearchParameters from "../../../hooks/useGetSearchParameters";
 import {
   Accordion,
   AccordionDetails,
@@ -10,24 +8,34 @@ import {
   Typography,
 } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
-import { ITertiaryCategory } from "../../../types/categories";
+import {
+  ISecondaryCategory,
+  ITertiaryCategory,
+} from "../../../types/categories";
 import { IAccordionProps } from "../../../types/accordion";
+import { useGetMappedCategories, useSearchParameters } from "../../../hooks";
+import { useNavigate } from "react-router-dom";
 
 const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
   const { mapCategoriesWithSearchParameters, mappedCategories } =
     useGetMappedCategories();
-  const { parameters } = useGetSearchParameters();
+  const { modifiedParameters } = useSearchParameters();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    mapCategoriesWithSearchParameters(parameters);
-  }, [parameters]);
+    mapCategoriesWithSearchParameters(modifiedParameters);
+  }, [modifiedParameters]);
 
   const renderTertiaryCategories = (
-    tertiaryCategories: ITertiaryCategory[]
+    tertiaryCategories: ITertiaryCategory[],
+    secondaryCategoryId: string
   ) => {
     return tertiaryCategories.map((category) => (
       <Stack direction="row" alignItems="center" key={category.name}>
-        <Checkbox sx={{ height: "30px", width: "30px" }} />
+        <Checkbox
+          sx={{ height: "30px", width: "30px" }}
+          checked={category.isSelected}
+        />
 
         <Typography
           sx={{
@@ -49,6 +57,35 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
         </Typography>
       </Stack>
     ));
+  };
+
+  const handleClickCategoryCheckbox = ({
+    id: secondaryCategoryId,
+    tertiaryCategories,
+    isSelected,
+  }: ISecondaryCategory) => {
+    const { primary, secondary } = modifiedParameters;
+    let parameterString = "?secondary=";
+
+    secondary.forEach((item, index) => {
+      parameterString = `${parameterString}${item}`;
+      if (index + 1 < secondary.length) {
+        parameterString += ",";
+      }
+    });
+
+    parameterString += "," + secondaryCategoryId;
+
+    parameterString += "&tertiary=";
+
+    tertiaryCategories.forEach((tertiaryCategory, index) => {
+      parameterString += tertiaryCategory.id + ":" + secondaryCategoryId;
+      if (index + 1 < tertiaryCategories.length) {
+        parameterString += ",";
+      }
+    });
+
+    navigate({ pathname: "/" + primary, search: parameterString });
   };
 
   return (
@@ -74,7 +111,11 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
             }}
           >
             <Stack direction="row" alignItems="center">
-              <Checkbox sx={{ height: "30px", width: "30px" }} />
+              <Checkbox
+                sx={{ height: "30px", width: "30px" }}
+                checked={secondaryCategory.isSelected}
+                onClick={() => handleClickCategoryCheckbox(secondaryCategory)}
+              />
 
               <AccordionSummary
                 expandIcon={<ExpandMore />}
@@ -89,7 +130,10 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
               </AccordionSummary>
             </Stack>
             <AccordionDetails sx={{ paddingLeft: "31px", paddingRight: "0px" }}>
-              {renderTertiaryCategories(secondaryCategory.tertiaryCategories)}
+              {renderTertiaryCategories(
+                secondaryCategory.tertiaryCategories,
+                secondaryCategory.id
+              )}
             </AccordionDetails>
           </Accordion>
         ))}

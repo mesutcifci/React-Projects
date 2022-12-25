@@ -40,7 +40,7 @@ const useGetMappedCategories = () => {
           });
         }
       });
-      setMappedCategories(filteredCategory);
+      setMappedCategories({ ...filteredCategory });
     }
   };
 
