@@ -8,13 +8,17 @@ const initialState = {
   tertiary: [],
 };
 
-const useGetSearchParameters = () => {
+const useSearchParameters = () => {
   const [searchParams] = useSearchParams();
-  const location = useLocation();
-  const [parameters, setParameters] = useState<IParameter>(initialState);
+  const { pathname } = useLocation();
+
+  const [modifiedParameters, setModifiedParameters] =
+    useState<IParameter>(initialState);
+
+  let primary = pathname.substring(1);
 
   useEffect(() => {
-    let primary = location.pathname.substring(1);
+    primary = pathname.substring(1);
     let secondary = searchParams.get("secondary")?.split(",");
     const tertiary = searchParams
       .get("tertiary")
@@ -24,14 +28,18 @@ const useGetSearchParameters = () => {
         return { [key]: value };
       });
 
-    setParameters({
+    setModifiedParameters({
       primary,
       secondary: secondary || [],
       tertiary: tertiary || [],
     });
   }, [searchParams]);
 
-  return { parameters };
+  return {
+    modifiedParameters,
+    searchParams,
+    primary,
+  };
 };
 
-export default useGetSearchParameters;
+export default useSearchParameters;
