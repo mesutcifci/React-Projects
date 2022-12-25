@@ -6,7 +6,7 @@ const Collections = () => {
   return (
     <Box
       sx={{
-        display: "flex",
+        display: { xs: "none", md: "flex" },
         columnGap: "34px",
         marginTop: "73px",
         maxWidth: { lg: "1000px", xl: "1280px" },
@@ -61,7 +61,7 @@ const Collections = () => {
                 padding: "5px",
                 position: "absolute",
                 top: "118px",
-                left: "52px",
+                left: { md: "40px", lg: "52px" },
                 zIndex: 3,
               }}
             >
@@ -74,7 +74,7 @@ const Collections = () => {
               fontSize: "25px",
               position: "absolute",
               top: "163px",
-              left: "56px",
+              left: { md: "40px", lg: "52px" },
               width: "165px",
               zIndex: 3,
             }}
@@ -89,7 +89,7 @@ const Collections = () => {
               fontSize: "13px",
               height: "49px",
               position: "absolute",
-              left: "56px",
+              left: { md: "40px", lg: "52px" },
               bottom: "62px",
               minWidth: "111px",
               padding: "20px",
