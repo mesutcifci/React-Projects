@@ -30,7 +30,6 @@ import { GmailIcon } from "../../ui/";
 import * as yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { TextField } from "formik-mui";
-import { resolve } from "path";
 
 const validationSchema = yup.object({
   email: yup
@@ -89,11 +88,7 @@ const Login = () => {
   }) => {
     setLoading(true);
     try {
-      const userCredentials = await signInWithEmailAndPassword(
-        auth,
-        values.email,
-        values.password
-      );
+      await signInWithEmailAndPassword(auth, values.email, values.password);
       navigate("/");
     } catch (error) {
       console.log(error);

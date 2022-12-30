@@ -15,7 +15,7 @@ import {
 import { IAccordionProps } from "../../../types/accordion";
 import { useGetMappedCategories, useSearchParameters } from "../../../hooks";
 import { useNavigate } from "react-router-dom";
-import { IParameter, ITertiaryParameter } from "../../../types/parameters";
+import { IParameter } from "../../../types/parameters";
 
 const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
   const { mapCategoriesWithSearchParameters, mappedCategories } =
@@ -124,10 +124,7 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
   };
 
   const handleClickTertiaryCategory = (
-    {
-      id: secondaryCategoryId,
-      isSelected: isSecondaryCategoryPreviouslySelected,
-    }: ISecondaryCategory,
+    { id: secondaryCategoryId }: ISecondaryCategory,
     {
       id: tertiaryCategoryId,
       isSelected: isTertiaryCategoryPreviouslySelected,

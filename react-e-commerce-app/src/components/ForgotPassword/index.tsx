@@ -18,7 +18,6 @@ const ForgotPassword = () => {
   const [phone, setPhone] = useState("");
 
   const handleChangePhoneNumber = (newPhone: string) => {
-    console.log(newPhone);
     setPhone(newPhone);
   };
   return (
@@ -59,9 +58,7 @@ const ForgotPassword = () => {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-          console.log(values);
-        }}
+        onSubmit={() => {}}
       >
         {() => (
           <Form>

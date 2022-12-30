@@ -1,6 +1,6 @@
 import { Box, Divider, Drawer, List, ListItem, Stack } from "@mui/material";
 import { ArrowBack, Close } from "@mui/icons-material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import categories from "../../constants/categories.json";
 import {
   ICategory,

@@ -1,4 +1,4 @@
-import { Badge, Button, Stack, Typography } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import collectionData from "./collectionData.json";
 

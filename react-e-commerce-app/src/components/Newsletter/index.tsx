@@ -43,9 +43,7 @@ const Newsletter = () => {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-          console.log(values);
-        }}
+        onSubmit={() => {}}
       >
         {({ errors }) => (
           <Form>
