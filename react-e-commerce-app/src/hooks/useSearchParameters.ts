@@ -24,8 +24,9 @@ const useSearchParameters = () => {
       .get("tertiary")
       ?.split(",")
       .map((item) => {
-        const [value, key] = item.split(":");
-        return { [key]: value };
+        // ["ls", "sho"];
+        const [tertiaryCategoryId, secondaryCategoryId] = item.split(":");
+        return { [secondaryCategoryId]: tertiaryCategoryId };
       });
 
     setModifiedParameters({

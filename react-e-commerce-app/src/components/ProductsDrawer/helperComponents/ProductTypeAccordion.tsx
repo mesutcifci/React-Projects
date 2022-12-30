@@ -15,6 +15,7 @@ import {
 import { IAccordionProps } from "../../../types/accordion";
 import { useGetMappedCategories, useSearchParameters } from "../../../hooks";
 import { useNavigate } from "react-router-dom";
+import { IParameter, ITertiaryParameter } from "../../../types/parameters";
 
 const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
   const { mapCategoriesWithSearchParameters, mappedCategories } =
@@ -26,15 +27,187 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
     mapCategoriesWithSearchParameters(modifiedParameters);
   }, [modifiedParameters]);
 
-  const renderTertiaryCategories = (
-    tertiaryCategories: ITertiaryCategory[],
+  const removeUnselectedCategories = (
+    { primary, secondary, tertiary }: IParameter,
+    categoryId: string,
+    isSecondaryCategoryPreviouslySelected: boolean
+  ) => {
+    // if secondary category already selected, it's mean user unselected the checkbox
+    // in this case we should remove this secondary category and its tertiary categories from url
+    if (isSecondaryCategoryPreviouslySelected) {
+      secondary = secondary.filter((item) => item !== categoryId);
+      tertiary = tertiary.filter((item) => !item[categoryId]);
+    }
+
+    return { primary, secondary, tertiary };
+  };
+
+  const createParameterStringWithSecondaryCategories = (
+    secondary: string[],
+    isSecondaryCategoryPreviouslySelected: boolean,
     secondaryCategoryId: string
   ) => {
+    // if there is not length of secondary array and user unchecked a checkbox
+    // it is mean the user unchecked the last selected secondary category
+    // in this case we should remove all secondary and tertiary categories from url
+    if (!secondary.length && isSecondaryCategoryPreviouslySelected) {
+      return "";
+    }
+
+    let searchParameterString = "?secondary=";
+    secondary.forEach((item, index) => {
+      searchParameterString = `${searchParameterString}${item}`;
+      // Do not add comma after last item
+      if (index + 1 < secondary.length) {
+        searchParameterString += ",";
+      }
+    });
+
+    // if the user selected a secondary category and secondary categories are all unselected before
+    // we should not add comma because it will visible like that ?secondary=,clo
+    if (!isSecondaryCategoryPreviouslySelected && !secondary.length) {
+      searchParameterString += secondaryCategoryId;
+    } else if (!isSecondaryCategoryPreviouslySelected && secondary.length) {
+      searchParameterString += "," + secondaryCategoryId;
+    }
+
+    return searchParameterString;
+  };
+
+  const handleClickSecondaryCategoryCheckbox = ({
+    id: secondaryCategoryId,
+    tertiaryCategories,
+    isSelected: isSecondaryCategoryPreviouslySelected,
+  }: ISecondaryCategory) => {
+    let { primary, secondary, tertiary } = removeUnselectedCategories(
+      { ...modifiedParameters },
+      secondaryCategoryId,
+      isSecondaryCategoryPreviouslySelected
+    );
+    let searchParameterString: string;
+
+    searchParameterString = createParameterStringWithSecondaryCategories(
+      secondary,
+      isSecondaryCategoryPreviouslySelected,
+      secondaryCategoryId
+    );
+
+    if (searchParameterString.length > 0) {
+      searchParameterString += "&tertiary=";
+
+      // if length of parameter string bigger than zero it's mean there are selected secondary category/ies
+      // so we should keep these
+      tertiary.forEach((item, index) => {
+        // ["clo", "jy"]
+        const [key, value] = Object.entries(item).flat();
+        searchParameterString += value + ":" + key;
+        if (index + 1 < tertiary.length) {
+          searchParameterString += ",";
+        }
+      });
+
+      // if user select a secondary category we should select all of its tertiary categories
+      if (!isSecondaryCategoryPreviouslySelected) {
+        searchParameterString += ",";
+
+        tertiaryCategories.forEach((tertiaryCategory, index) => {
+          searchParameterString +=
+            tertiaryCategory.id + ":" + secondaryCategoryId;
+          if (index + 1 < tertiaryCategories.length) {
+            searchParameterString += ",";
+          }
+        });
+      }
+    }
+
+    navigate({ pathname: `/${primary}`, search: searchParameterString });
+  };
+
+  const handleClickTertiaryCategory = (
+    {
+      id: secondaryCategoryId,
+      isSelected: isSecondaryCategoryPreviouslySelected,
+    }: ISecondaryCategory,
+    {
+      id: tertiaryCategoryId,
+      isSelected: isTertiaryCategoryPreviouslySelected,
+    }: ITertiaryCategory
+  ) => {
+    let { primary, secondary, tertiary } = { ...modifiedParameters };
+    let searchParameterString = "";
+
+    // if there are only one selected category and the user unselected it then search parameters should be empty
+    if (
+      secondary.length === 1 &&
+      tertiary.length === 1 &&
+      isTertiaryCategoryPreviouslySelected
+    ) {
+      navigate({ pathname: `/${primary}`, search: searchParameterString });
+      return;
+    }
+
+    // if there aren't any selected secondary category and the user selected a tertiary category
+    // should parent secondary category of selected tertiary category also selected
+    if (!secondary.length && !isTertiaryCategoryPreviouslySelected) {
+      searchParameterString += `?secondary=${secondaryCategoryId}&tertiary=${tertiaryCategoryId}:${secondaryCategoryId}`;
+      navigate({ pathname: `/${primary}`, search: searchParameterString });
+      return;
+    }
+
+    // remove unselected tertiary category
+    if (isTertiaryCategoryPreviouslySelected) {
+      tertiary = tertiary = tertiary.filter(
+        (item) => item[secondaryCategoryId] !== tertiaryCategoryId
+      );
+    }
+
+    searchParameterString += `?secondary=`;
+
+    secondary.forEach((item, index) => {
+      searchParameterString = `${searchParameterString}${item}`;
+      // Do not add comma after last item
+      if (index + 1 < secondary.length) {
+        searchParameterString += ",";
+      }
+    });
+
+    if (!secondary.length) {
+      searchParameterString += secondaryCategoryId;
+    } else {
+      searchParameterString += "," + secondaryCategoryId;
+    }
+
+    searchParameterString += "&tertiary=";
+    tertiary.forEach((item, index) => {
+      // ["clo", "jy"]
+      const [key, value] = Object.entries(item).flat();
+      searchParameterString += value + ":" + key;
+      if (index + 1 < tertiary.length) {
+        searchParameterString += ",";
+      }
+    });
+
+    if (
+      searchParameterString.length > 0 &&
+      !isTertiaryCategoryPreviouslySelected
+    ) {
+      searchParameterString += `,${tertiaryCategoryId}:${secondaryCategoryId}`;
+    } else if (!isTertiaryCategoryPreviouslySelected) {
+      searchParameterString += `${tertiaryCategoryId}:${secondaryCategoryId}`;
+    }
+    navigate({ pathname: `/${primary}`, search: searchParameterString });
+  };
+
+  const renderTertiaryCategories = (secondaryCategory: ISecondaryCategory) => {
+    const { tertiaryCategories } = secondaryCategory;
     return tertiaryCategories.map((category) => (
       <Stack direction="row" alignItems="center" key={category.name}>
         <Checkbox
           sx={{ height: "30px", width: "30px" }}
           checked={category.isSelected}
+          onClick={() =>
+            handleClickTertiaryCategory(secondaryCategory, category)
+          }
         />
 
         <Typography
@@ -43,6 +216,9 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
             "&:hover": { color: "#FBB03B" },
             fontSize: "14px",
           }}
+          onClick={() =>
+            handleClickTertiaryCategory(secondaryCategory, category)
+          }
         >
           {category.name}
         </Typography>
@@ -57,35 +233,6 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
         </Typography>
       </Stack>
     ));
-  };
-
-  const handleClickCategoryCheckbox = ({
-    id: secondaryCategoryId,
-    tertiaryCategories,
-    isSelected,
-  }: ISecondaryCategory) => {
-    const { primary, secondary } = modifiedParameters;
-    let parameterString = "?secondary=";
-
-    secondary.forEach((item, index) => {
-      parameterString = `${parameterString}${item}`;
-      if (index + 1 < secondary.length) {
-        parameterString += ",";
-      }
-    });
-
-    parameterString += "," + secondaryCategoryId;
-
-    parameterString += "&tertiary=";
-
-    tertiaryCategories.forEach((tertiaryCategory, index) => {
-      parameterString += tertiaryCategory.id + ":" + secondaryCategoryId;
-      if (index + 1 < tertiaryCategories.length) {
-        parameterString += ",";
-      }
-    });
-
-    navigate({ pathname: "/" + primary, search: parameterString });
   };
 
   return (
@@ -114,7 +261,9 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
               <Checkbox
                 sx={{ height: "30px", width: "30px" }}
                 checked={secondaryCategory.isSelected}
-                onClick={() => handleClickCategoryCheckbox(secondaryCategory)}
+                onClick={() =>
+                  handleClickSecondaryCategoryCheckbox({ ...secondaryCategory })
+                }
               />
 
               <AccordionSummary
@@ -130,10 +279,7 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
               </AccordionSummary>
             </Stack>
             <AccordionDetails sx={{ paddingLeft: "31px", paddingRight: "0px" }}>
-              {renderTertiaryCategories(
-                secondaryCategory.tertiaryCategories,
-                secondaryCategory.id
-              )}
+              {renderTertiaryCategories(secondaryCategory)}
             </AccordionDetails>
           </Accordion>
         ))}

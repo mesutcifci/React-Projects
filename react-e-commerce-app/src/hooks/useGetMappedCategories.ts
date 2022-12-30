@@ -10,12 +10,9 @@ const useGetMappedCategories = () => {
 
   const mapCategoriesWithSearchParameters = (parameters: IParameter) => {
     const { primary, secondary, tertiary } = parameters;
+    const filteredCategory = { ...mappedCategories };
 
-    const filteredCategory = categories.find(
-      (category) => category.id === primary
-    );
-
-    if (filteredCategory) {
+    if (filteredCategory.id === primary) {
       filteredCategory.isSelected = true;
 
       filteredCategory.secondaryCategories.forEach((secondaryCategory) => {
@@ -36,12 +33,19 @@ const useGetMappedCategories = () => {
 
             if (isTertiaryCategorySelected) {
               tertiaryCategory.isSelected = true;
+            } else {
+              tertiaryCategory.isSelected = false;
             }
           });
+        } else {
+          secondaryCategory.isSelected = false;
+          secondaryCategory.tertiaryCategories.forEach(
+            (tertiaryCategory) => (tertiaryCategory.isSelected = false)
+          );
         }
       });
-      setMappedCategories({ ...filteredCategory });
     }
+    setMappedCategories(JSON.parse(JSON.stringify(filteredCategory)));
   };
 
   return { mappedCategories, mapCategoriesWithSearchParameters };
