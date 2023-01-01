@@ -13,18 +13,27 @@ import {
   ITertiaryCategory,
 } from "../../../types/categories";
 import { IAccordionProps } from "../../../types/accordion";
-import { useGetMappedCategories, useSearchParameters } from "../../../hooks";
+import {
+  useFetchProducts,
+  useGetMappedCategories,
+  useSearchParameters,
+} from "../../../hooks";
 import { useNavigate } from "react-router-dom";
 import { IParameter } from "../../../types/parameters";
 
 const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
   const { mapCategoriesWithSearchParameters, mappedCategories } =
     useGetMappedCategories();
+  const { getProductsFromFirebase } = useFetchProducts();
   const { modifiedParameters } = useSearchParameters();
   const navigate = useNavigate();
 
   useEffect(() => {
     mapCategoriesWithSearchParameters(modifiedParameters);
+  }, [modifiedParameters]);
+
+  useEffect(() => {
+    getProductsFromFirebase(modifiedParameters);
   }, [modifiedParameters]);
 
   const removeUnselectedCategories = (
