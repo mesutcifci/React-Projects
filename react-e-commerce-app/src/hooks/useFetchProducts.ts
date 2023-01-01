@@ -7,6 +7,22 @@ import { IParameter, ITertiaryParameter } from "../types/parameters";
 const useFetchProducts = () => {
   const [productsData, setProductsData] = useState<IProduct[]>();
 
+  const filterBySearchParameters = (
+    secondary: string[],
+    tertiaryIds: string[],
+    data: IProduct[]
+  ) => {
+    let filteredData: IProduct[] = [];
+
+    filteredData = data.filter(
+      (item) =>
+        secondary.includes(item.secondaryCategory) &&
+        tertiaryIds.includes(item.tertiaryCategory)
+    );
+
+    setProductsData(JSON.parse(JSON.stringify(data)));
+  };
+
   const getProductsFromFirebase = async ({
     primary,
     secondary,
@@ -16,7 +32,7 @@ const useFetchProducts = () => {
 
     q = query(
       collection(db, "products"),
-      where("primaryCategory", "array-contains-any", [primary])
+      where("primaryCategories", "array-contains-any", [primary])
     );
 
     const querySnapshot = await getDocs(q);
@@ -25,7 +41,13 @@ const useFetchProducts = () => {
       data.push(doc.data() as IProduct);
     });
 
-    setProductsData(JSON.parse(JSON.stringify(data)));
+    if (secondary.length) {
+      const tertiaryIds = tertiary.flatMap((item) => Object.values(item));
+
+      filterBySearchParameters(secondary, tertiaryIds, data);
+    } else {
+      setProductsData(JSON.parse(JSON.stringify(data)));
+    }
   };
 
   return {
