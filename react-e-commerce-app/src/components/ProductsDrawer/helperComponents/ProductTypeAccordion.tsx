@@ -20,20 +20,18 @@ import {
 } from "../../../hooks";
 import { useNavigate } from "react-router-dom";
 import { IParameter } from "../../../types/parameters";
+import Loading from "../../Loading";
 
 const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
   const { mapCategoriesWithSearchParameters, mappedCategories } =
     useGetMappedCategories();
-  const { getProductsFromFirebase } = useFetchProducts();
   const { modifiedParameters } = useSearchParameters();
+  const { getProductsFromFirebase, isLoading } =
+    useFetchProducts(modifiedParameters);
   const navigate = useNavigate();
 
   useEffect(() => {
     mapCategoriesWithSearchParameters(modifiedParameters);
-  }, [modifiedParameters]);
-
-  useEffect(() => {
-    getProductsFromFirebase(modifiedParameters);
   }, [modifiedParameters]);
 
   const removeUnselectedCategories = (
@@ -242,55 +240,62 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
   };
 
   return (
-    <Accordion
-      sx={{ padding: "0", ...accordionStyles }}
-      disableGutters
-      defaultExpanded={true}
-    >
-      <AccordionSummary expandIcon={<ExpandMore />}>
-        <Typography sx={{ fontSize: "16px", fontWeight: "500" }}>
-          PRODUCT TYPE
-        </Typography>
-      </AccordionSummary>
-      <AccordionDetails sx={{ padding: "0" }}>
-        {mappedCategories.secondaryCategories.map((secondaryCategory) => (
-          <Accordion
-            key={secondaryCategory.name}
-            disableGutters
-            sx={{
-              boxShadow: "none",
-              paddingLeft: "20px",
-              "&.MuiAccordion-root::before": { opacity: "1 !important" },
-            }}
-          >
-            <Stack direction="row" alignItems="center">
-              <Checkbox
-                sx={{ height: "30px", width: "30px" }}
-                checked={secondaryCategory.isSelected}
-                onClick={() =>
-                  handleClickSecondaryCategoryCheckbox({ ...secondaryCategory })
-                }
-              />
+    <>
+      <Loading isLoading={isLoading} />
+      <Accordion
+        sx={{ padding: "0", ...accordionStyles }}
+        disableGutters
+        defaultExpanded={true}
+      >
+        <AccordionSummary expandIcon={<ExpandMore />}>
+          <Typography sx={{ fontSize: "16px", fontWeight: "500" }}>
+            PRODUCT TYPE
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails sx={{ padding: "0" }}>
+          {mappedCategories.secondaryCategories.map((secondaryCategory) => (
+            <Accordion
+              key={secondaryCategory.name}
+              disableGutters
+              sx={{
+                boxShadow: "none",
+                paddingLeft: "20px",
+                "&.MuiAccordion-root::before": { opacity: "1 !important" },
+              }}
+            >
+              <Stack direction="row" alignItems="center">
+                <Checkbox
+                  sx={{ height: "30px", width: "30px" }}
+                  checked={secondaryCategory.isSelected}
+                  onClick={() =>
+                    handleClickSecondaryCategoryCheckbox({
+                      ...secondaryCategory,
+                    })
+                  }
+                />
 
-              <AccordionSummary
-                expandIcon={<ExpandMore />}
-                sx={{
-                  boxShadow: "none",
-                  paddingLeft: "5px",
-                  height: "30px",
-                  width: "calc(100% - 30px)",
-                }}
+                <AccordionSummary
+                  expandIcon={<ExpandMore />}
+                  sx={{
+                    boxShadow: "none",
+                    paddingLeft: "5px",
+                    height: "30px",
+                    width: "calc(100% - 30px)",
+                  }}
+                >
+                  <Typography>{secondaryCategory.name}</Typography>
+                </AccordionSummary>
+              </Stack>
+              <AccordionDetails
+                sx={{ paddingLeft: "31px", paddingRight: "0px" }}
               >
-                <Typography>{secondaryCategory.name}</Typography>
-              </AccordionSummary>
-            </Stack>
-            <AccordionDetails sx={{ paddingLeft: "31px", paddingRight: "0px" }}>
-              {renderTertiaryCategories(secondaryCategory)}
-            </AccordionDetails>
-          </Accordion>
-        ))}
-      </AccordionDetails>
-    </Accordion>
+                {renderTertiaryCategories(secondaryCategory)}
+              </AccordionDetails>
+            </Accordion>
+          ))}
+        </AccordionDetails>
+      </Accordion>
+    </>
   );
 };
 

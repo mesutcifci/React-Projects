@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 import { IProduct } from "../types/product";
-import { IParameter, ITertiaryParameter } from "../types/parameters";
+import { IParameter } from "../types/parameters";
 
-const useFetchProducts = () => {
+const useFetchProducts = (parameters: IParameter) => {
   const [productsData, setProductsData] = useState<IProduct[]>();
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    getProductsFromFirebase();
+  }, [parameters]);
 
   const filterBySearchParameters = (
-    secondary: string[],
     tertiaryIds: string[],
     data: IProduct[]
   ) => {
@@ -16,20 +20,18 @@ const useFetchProducts = () => {
 
     filteredData = data.filter(
       (item) =>
-        secondary.includes(item.secondaryCategory) &&
+        parameters.secondary.includes(item.secondaryCategory) &&
         tertiaryIds.includes(item.tertiaryCategory)
     );
 
     setProductsData(JSON.parse(JSON.stringify(data)));
   };
 
-  const getProductsFromFirebase = async ({
-    primary,
-    secondary,
-    tertiary,
-  }: IParameter) => {
-    let q;
+  const getProductsFromFirebase = async () => {
+    setIsLoading(true);
+    const { primary, secondary, tertiary } = parameters;
 
+    let q;
     q = query(
       collection(db, "products"),
       where("primaryCategories", "array-contains-any", [primary])
@@ -41,18 +43,20 @@ const useFetchProducts = () => {
       data.push(doc.data() as IProduct);
     });
 
+    // TODO find a workaround for firebase limitations
     if (secondary.length) {
       const tertiaryIds = tertiary.flatMap((item) => Object.values(item));
-
-      filterBySearchParameters(secondary, tertiaryIds, data);
+      filterBySearchParameters(tertiaryIds, data);
     } else {
       setProductsData(JSON.parse(JSON.stringify(data)));
     }
+    setIsLoading(false);
   };
 
   return {
     productsData,
     getProductsFromFirebase,
+    isLoading,
   };
 };
 
