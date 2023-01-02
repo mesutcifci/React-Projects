@@ -8,7 +8,7 @@ const Drawer = styled(MuiDrawer, {
   flexShrink: 0,
   whiteSpace: "nowrap",
   boxSizing: "border-box",
-  [theme.breakpoints.up("lg")]: {
+  [theme.breakpoints.up("md")]: {
     "& .MuiDrawer-paperAnchorDockedLeft": {
       overflowY: "auto !important",
     },

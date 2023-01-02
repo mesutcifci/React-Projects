@@ -15,9 +15,9 @@ import ColorAccordion from "./helperComponents/ColorAccordion";
 
 const accordionStyles = {
   "&.MuiPaper-root::before": {
-    display: { lg: "none !important" },
+    display: { md: "none !important" },
   },
-  border: { lg: "1px solid #E6E6E6 !important" },
+  border: { md: "1px solid #E6E6E6 !important" },
 };
 
 const ProductsDrawer = () => {
@@ -37,7 +37,7 @@ const ProductsDrawer = () => {
       <Drawer variant="permanent" open={open}>
         <DrawerHeader
           sx={{
-            display: { lg: "none" },
+            display: { md: "none" },
             ...(!open && {
               minHeight: "50px !important",
               padding: "0",

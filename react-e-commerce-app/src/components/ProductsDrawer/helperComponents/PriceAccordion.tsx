@@ -36,11 +36,7 @@ const PriceAccordion = ({ accordionStyles }: IAccordionProps) => {
     }
   };
   return (
-    <Accordion
-      sx={{ ...accordionStyles }}
-      disableGutters
-      defaultExpanded={true}
-    >
+    <Accordion sx={{ ...accordionStyles }} disableGutters>
       <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography sx={{ fontSize: "16px", fontWeight: "500" }}>
           PRICE
