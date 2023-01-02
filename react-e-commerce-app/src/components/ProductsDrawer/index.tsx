@@ -12,6 +12,7 @@ import PriceAccordion from "./helperComponents/PriceAccordion";
 import CollectionAccordion from "./helperComponents/CollectionAccordion";
 import SizeAccordion from "./helperComponents/SizeAccordion";
 import ColorAccordion from "./helperComponents/ColorAccordion";
+import ProductBreadcrumbs from "../ProductBreadcrumbs";
 
 const accordionStyles = {
   "&.MuiPaper-root::before": {
@@ -37,7 +38,8 @@ const ProductsDrawer = () => {
       <Drawer variant="permanent" open={open}>
         <DrawerHeader
           sx={{
-            display: { md: "none" },
+            display: { xs: "flex", md: "none" },
+            justifyContent: "space-between",
             ...(!open && {
               minHeight: "50px !important",
               padding: "0",
@@ -47,9 +49,12 @@ const ProductsDrawer = () => {
           }}
         >
           {open ? (
-            <IconButton onClick={handleDrawerClose}>
-              <ChevronLeft />
-            </IconButton>
+            <>
+              <ProductBreadcrumbs />
+              <IconButton onClick={handleDrawerClose}>
+                <ChevronLeft />
+              </IconButton>
+            </>
           ) : (
             <IconButton onClick={handleDrawerOpen}>
               <ChevronRight />

@@ -1,19 +1,30 @@
-import { Box } from "@mui/material";
-import { ProductList, ProductsDrawer } from "../../components";
+import { Box, Stack } from "@mui/material";
+import {
+  ProductBreadcrumbs,
+  ProductList,
+  ProductsDrawer,
+} from "../../components";
 
 const Products = () => {
   return (
     <Box
       sx={{
-        marginTop: "83px",
-        display: "flex",
+        marginTop: { xs: "83px", md: "29px" },
         paddingLeft: { xs: "16px", lg: "160px" },
         paddingRight: { xs: "16px", lg: "160px" },
-        columnGap: { md: "14px", lg: "34px" },
       }}
     >
-      <ProductsDrawer />
-      <ProductList />
+      <ProductBreadcrumbs
+        sx={{
+          display: { xs: "none", md: "block" },
+          marginBottom: "35px",
+          width: "max-content",
+        }}
+      />
+      <Stack direction="row" sx={{ columnGap: { md: "14px", lg: "34px" } }}>
+        <ProductsDrawer />
+        <ProductList />
+      </Stack>
     </Box>
   );
 };
