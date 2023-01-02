@@ -13,26 +13,59 @@ import {
   ITertiaryCategory,
 } from "../../../types/categories";
 import { IAccordionProps } from "../../../types/accordion";
-import {
-  useFetchProducts,
-  useGetMappedCategories,
-  useSearchParameters,
-} from "../../../hooks";
+import { useGetMappedCategories, useSearchParameters } from "../../../hooks";
 import { useNavigate } from "react-router-dom";
-import { IParameter } from "../../../types/parameters";
-import Loading from "../../Loading";
+import { IParameter, ITertiaryParameter } from "../../../types/parameters";
 
 const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
   const { mapCategoriesWithSearchParameters, mappedCategories } =
     useGetMappedCategories();
   const { modifiedParameters } = useSearchParameters();
-  const { getProductsFromFirebase, isLoading } =
-    useFetchProducts(modifiedParameters);
   const navigate = useNavigate();
 
   useEffect(() => {
     mapCategoriesWithSearchParameters(modifiedParameters);
   }, [modifiedParameters]);
+
+  const addCategoriesToParameterString = (
+    searchParameterString: string,
+    objectType: string,
+    categoryObject: string[] | ITertiaryParameter[] | ITertiaryCategory[],
+    secondaryCategoryId?: string
+  ) => {
+    switch (objectType) {
+      case "secondary":
+        categoryObject.forEach((item, index) => {
+          searchParameterString = `${searchParameterString}${item}`;
+          // Do not add comma after last item
+          if (index + 1 < categoryObject.length) {
+            searchParameterString += ",";
+          }
+        });
+        return searchParameterString;
+      case "tertiary":
+        categoryObject.forEach((item, index) => {
+          // ["clo", "jy"]
+          const [key, value] = Object.entries(item).flat();
+          searchParameterString += value + ":" + key;
+          if (index + 1 < categoryObject.length) {
+            searchParameterString += ",";
+          }
+        });
+        return searchParameterString;
+      case "tertiaryCategory":
+        categoryObject.forEach((item, index) => {
+          item = item as ITertiaryCategory;
+          searchParameterString += item.id + ":" + secondaryCategoryId;
+          if (index + 1 < categoryObject.length) {
+            searchParameterString += ",";
+          }
+        });
+        return searchParameterString;
+      default:
+        return searchParameterString;
+    }
+  };
 
   const removeUnselectedCategories = (
     { primary, secondary, tertiary }: IParameter,
@@ -49,7 +82,7 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
     return { primary, secondary, tertiary };
   };
 
-  const createParameterStringWithSecondaryCategories = (
+  const configureParameterStringBySecondaryCategories = (
     secondary: string[],
     isSecondaryCategoryPreviouslySelected: boolean,
     secondaryCategoryId: string
@@ -62,13 +95,11 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
     }
 
     let searchParameterString = "?secondary=";
-    secondary.forEach((item, index) => {
-      searchParameterString = `${searchParameterString}${item}`;
-      // Do not add comma after last item
-      if (index + 1 < secondary.length) {
-        searchParameterString += ",";
-      }
-    });
+    searchParameterString = addCategoriesToParameterString(
+      searchParameterString,
+      "secondary",
+      secondary
+    );
 
     // if the user selected a secondary category and secondary categories are all unselected before
     // we should not add comma because it will visible like that ?secondary=,clo
@@ -93,37 +124,36 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
     );
     let searchParameterString: string;
 
-    searchParameterString = createParameterStringWithSecondaryCategories(
+    searchParameterString = configureParameterStringBySecondaryCategories(
       secondary,
       isSecondaryCategoryPreviouslySelected,
       secondaryCategoryId
     );
 
+    // if length of parameter string bigger than zero it's mean there are selected secondary category/ies
+    // so we should keep these
     if (searchParameterString.length > 0) {
       searchParameterString += "&tertiary=";
 
-      // if length of parameter string bigger than zero it's mean there are selected secondary category/ies
-      // so we should keep these
-      tertiary.forEach((item, index) => {
-        // ["clo", "jy"]
-        const [key, value] = Object.entries(item).flat();
-        searchParameterString += value + ":" + key;
-        if (index + 1 < tertiary.length) {
-          searchParameterString += ",";
-        }
-      });
+      searchParameterString = addCategoriesToParameterString(
+        searchParameterString,
+        "tertiary",
+        tertiary
+      );
 
       // if user select a secondary category we should select all of its tertiary categories
       if (!isSecondaryCategoryPreviouslySelected) {
-        searchParameterString += ",";
+        // add comma only if there are previously selected tertiary categories
+        if (tertiary.length) {
+          searchParameterString += ",";
+        }
 
-        tertiaryCategories.forEach((tertiaryCategory, index) => {
-          searchParameterString +=
-            tertiaryCategory.id + ":" + secondaryCategoryId;
-          if (index + 1 < tertiaryCategories.length) {
-            searchParameterString += ",";
-          }
-        });
+        searchParameterString = addCategoriesToParameterString(
+          searchParameterString,
+          "tertiaryCategory",
+          tertiaryCategories,
+          secondaryCategoryId
+        );
       }
     }
 
@@ -131,7 +161,10 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
   };
 
   const handleClickTertiaryCategory = (
-    { id: secondaryCategoryId }: ISecondaryCategory,
+    {
+      id: secondaryCategoryId,
+      isSelected: isSecondaryCategoryPreviouslySelected,
+    }: ISecondaryCategory,
     {
       id: tertiaryCategoryId,
       isSelected: isTertiaryCategoryPreviouslySelected,
@@ -150,46 +183,65 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
       return;
     }
 
-    // if there aren't any selected secondary category and the user selected a tertiary category
-    // should parent secondary category of selected tertiary category also selected
-    if (!secondary.length && !isTertiaryCategoryPreviouslySelected) {
-      searchParameterString += `?secondary=${secondaryCategoryId}&tertiary=${tertiaryCategoryId}:${secondaryCategoryId}`;
+    // if the secondary category didn't selected and the user selected a tertiary category
+    //  parent secondary category of selected tertiary category must also be selected
+    if (
+      !isSecondaryCategoryPreviouslySelected &&
+      !isTertiaryCategoryPreviouslySelected
+    ) {
+      searchParameterString = "?secondary=";
+      searchParameterString = addCategoriesToParameterString(
+        searchParameterString,
+        "secondary",
+        secondary
+      );
+
+      if (secondary.length) {
+        searchParameterString += ",";
+      }
+
+      searchParameterString += secondaryCategoryId;
+
+      searchParameterString += "&tertiary=";
+
+      searchParameterString = addCategoriesToParameterString(
+        searchParameterString,
+        "tertiary",
+        tertiary
+      );
+
+      if (tertiary.length) {
+        searchParameterString += ",";
+      }
+
+      searchParameterString =
+        searchParameterString += `${tertiaryCategoryId}:${secondaryCategoryId}`;
       navigate({ pathname: `/${primary}`, search: searchParameterString });
       return;
     }
 
     // remove unselected tertiary category
     if (isTertiaryCategoryPreviouslySelected) {
-      tertiary = tertiary = tertiary.filter(
+      tertiary = tertiary.filter(
         (item) => item[secondaryCategoryId] !== tertiaryCategoryId
       );
     }
 
     searchParameterString += `?secondary=`;
 
-    secondary.forEach((item, index) => {
-      searchParameterString = `${searchParameterString}${item}`;
-      // Do not add comma after last item
-      if (index + 1 < secondary.length) {
-        searchParameterString += ",";
-      }
-    });
-
-    if (!secondary.length) {
-      searchParameterString += secondaryCategoryId;
-    } else {
-      searchParameterString += "," + secondaryCategoryId;
-    }
+    searchParameterString = addCategoriesToParameterString(
+      searchParameterString,
+      "secondary",
+      secondary
+    );
 
     searchParameterString += "&tertiary=";
-    tertiary.forEach((item, index) => {
-      // ["clo", "jy"]
-      const [key, value] = Object.entries(item).flat();
-      searchParameterString += value + ":" + key;
-      if (index + 1 < tertiary.length) {
-        searchParameterString += ",";
-      }
-    });
+
+    searchParameterString = addCategoriesToParameterString(
+      searchParameterString,
+      "tertiary",
+      tertiary
+    );
 
     if (
       searchParameterString.length > 0 &&
@@ -240,62 +292,57 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
   };
 
   return (
-    <>
-      <Loading isLoading={isLoading} />
-      <Accordion
-        sx={{ padding: "0", ...accordionStyles }}
-        disableGutters
-        defaultExpanded={true}
-      >
-        <AccordionSummary expandIcon={<ExpandMore />}>
-          <Typography sx={{ fontSize: "16px", fontWeight: "500" }}>
-            PRODUCT TYPE
-          </Typography>
-        </AccordionSummary>
-        <AccordionDetails sx={{ padding: "0" }}>
-          {mappedCategories.secondaryCategories.map((secondaryCategory) => (
-            <Accordion
-              key={secondaryCategory.name}
-              disableGutters
-              sx={{
-                boxShadow: "none",
-                paddingLeft: "20px",
-                "&.MuiAccordion-root::before": { opacity: "1 !important" },
-              }}
-            >
-              <Stack direction="row" alignItems="center">
-                <Checkbox
-                  sx={{ height: "30px", width: "30px" }}
-                  checked={secondaryCategory.isSelected}
-                  onClick={() =>
-                    handleClickSecondaryCategoryCheckbox({
-                      ...secondaryCategory,
-                    })
-                  }
-                />
+    <Accordion
+      sx={{ padding: "0", ...accordionStyles }}
+      disableGutters
+      defaultExpanded={true}
+    >
+      <AccordionSummary expandIcon={<ExpandMore />}>
+        <Typography sx={{ fontSize: "16px", fontWeight: "500" }}>
+          PRODUCT TYPE
+        </Typography>
+      </AccordionSummary>
+      <AccordionDetails sx={{ padding: "0" }}>
+        {mappedCategories.secondaryCategories.map((secondaryCategory) => (
+          <Accordion
+            key={secondaryCategory.name}
+            disableGutters
+            sx={{
+              boxShadow: "none",
+              paddingLeft: "20px",
+              "&.MuiAccordion-root::before": { opacity: "1 !important" },
+            }}
+          >
+            <Stack direction="row" alignItems="center">
+              <Checkbox
+                sx={{ height: "30px", width: "30px" }}
+                checked={secondaryCategory.isSelected}
+                onClick={() =>
+                  handleClickSecondaryCategoryCheckbox({
+                    ...secondaryCategory,
+                  })
+                }
+              />
 
-                <AccordionSummary
-                  expandIcon={<ExpandMore />}
-                  sx={{
-                    boxShadow: "none",
-                    paddingLeft: "5px",
-                    height: "30px",
-                    width: "calc(100% - 30px)",
-                  }}
-                >
-                  <Typography>{secondaryCategory.name}</Typography>
-                </AccordionSummary>
-              </Stack>
-              <AccordionDetails
-                sx={{ paddingLeft: "31px", paddingRight: "0px" }}
+              <AccordionSummary
+                expandIcon={<ExpandMore />}
+                sx={{
+                  boxShadow: "none",
+                  paddingLeft: "5px",
+                  height: "30px",
+                  width: "calc(100% - 30px)",
+                }}
               >
-                {renderTertiaryCategories(secondaryCategory)}
-              </AccordionDetails>
-            </Accordion>
-          ))}
-        </AccordionDetails>
-      </Accordion>
-    </>
+                <Typography>{secondaryCategory.name}</Typography>
+              </AccordionSummary>
+            </Stack>
+            <AccordionDetails sx={{ paddingLeft: "31px", paddingRight: "0px" }}>
+              {renderTertiaryCategories(secondaryCategory)}
+            </AccordionDetails>
+          </Accordion>
+        ))}
+      </AccordionDetails>
+    </Accordion>
   );
 };
 

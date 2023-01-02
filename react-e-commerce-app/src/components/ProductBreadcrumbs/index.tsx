@@ -1,4 +1,4 @@
-import { Breadcrumbs, Link, Stack, SxProps } from "@mui/material";
+import { Breadcrumbs, Link, SxProps } from "@mui/material";
 import { HomeOutlined as HomeIcon } from "@mui/icons-material";
 
 interface IProps {

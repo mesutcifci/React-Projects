@@ -24,7 +24,7 @@ const useFetchProducts = (parameters: IParameter) => {
         tertiaryIds.includes(item.tertiaryCategory)
     );
 
-    setProductsData(JSON.parse(JSON.stringify(data)));
+    setProductsData(JSON.parse(JSON.stringify(filteredData)));
   };
 
   const getProductsFromFirebase = async () => {
@@ -55,7 +55,6 @@ const useFetchProducts = (parameters: IParameter) => {
 
   return {
     productsData,
-    getProductsFromFirebase,
     isLoading,
   };
 };
