@@ -9,3 +9,4 @@ export { default as Collections } from "./Collections";
 export { default as ProductsDrawer } from "./ProductsDrawer";
 export { default as ProductList } from "./ProductList";
 export { default as ProductBreadcrumbs } from "./ProductBreadcrumbs";
+export { default as ProductCard } from "./ProductCard";

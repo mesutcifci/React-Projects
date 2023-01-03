@@ -1,6 +1,7 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useFetchProducts, useSearchParameters } from "../../hooks";
 import Loading from "../Loading";
+import ProductCard from "../ProductCard";
 
 const ProductList = () => {
   const { modifiedParameters } = useSearchParameters();
@@ -16,7 +17,15 @@ const ProductList = () => {
           width: { xs: "100%", lg: "calc(100% - 310px)" },
           maxWidth: "944px",
         }}
-      ></Box>
+      >
+        {productsData?.length
+          ? productsData.map((product, index) => (
+              <ProductCard product={product} key={index} />
+            ))
+          : !isLoading && (
+              <Typography>No products available for your selection</Typography>
+            )}
+      </Box>
     </>
   );
 };
