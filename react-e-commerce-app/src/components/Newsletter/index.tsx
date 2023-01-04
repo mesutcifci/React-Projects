@@ -92,7 +92,7 @@ const Newsletter = () => {
                   display: "flex",
                   alignItems: "center",
                   fontSize: "13px",
-                  height: "48x",
+                  height: "48px",
                   maxWidth: { xs: "400px", sm: "448px" },
                   padding: "15px 24px 14px 25px",
                   textAlign: "center",

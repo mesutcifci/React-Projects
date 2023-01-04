@@ -7,6 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { IAccordionProps } from "../../../types/accordion";
+import ColorPalette from "../../ColorPalette";
 
 const colors = [
   "#000000",
@@ -31,30 +32,7 @@ const ColorAccordion = ({ accordionStyles }: IAccordionProps) => {
           justifyContent: "center",
         }}
       >
-        {colors.map((color, index) => (
-          <Box
-            key={color}
-            sx={{
-              border: "1px solid #D4D4D4",
-              borderRight: `${index + 1 !== colors.length && "0px"}`,
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              height: "42px",
-              width: "42px",
-            }}
-          >
-            <Box
-              sx={{
-                width: "25px",
-                height: "25px",
-                backgroundColor: color,
-                border: `${color === "#FFFFFF" && "1px solid #E6E6E6"}`,
-              }}
-            ></Box>
-          </Box>
-        ))}
+        <ColorPalette colors={colors} />
       </AccordionDetails>
     </Accordion>
   );

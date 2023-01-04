@@ -1,7 +1,7 @@
-import { FavoriteBorderOutlined } from "@mui/icons-material";
 import { Box, Stack, Typography } from "@mui/material";
 import { IProduct } from "../../types/product";
 import { useNavigate } from "react-router-dom";
+import FavoriteButton from "../FavoriteButton";
 
 interface IProps {
   product: IProduct;
@@ -9,12 +9,6 @@ interface IProps {
 
 const ProductCard = ({ product }: IProps) => {
   const navigate = useNavigate();
-
-  const handleClickFavorite = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
-    event.stopPropagation();
-  };
 
   const handleClickCard = () => {
     navigate({
@@ -53,28 +47,7 @@ const ProductCard = ({ product }: IProps) => {
         }}
       >
         <img className="product-image" src={product.imageUrl} />
-        <Box
-          sx={{
-            backgroundColor: "#ffffff",
-            border: "1px solid #9e9e9e",
-            borderRadius: "50%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            position: "absolute",
-            right: "23px",
-            top: "19px",
-            height: "38px",
-            width: "38px",
-            "&:hover svg": {
-              fill: "#FBB03B",
-              transition: "fill 0.2s linear",
-            },
-          }}
-          onClick={handleClickFavorite}
-        >
-          <FavoriteBorderOutlined />
-        </Box>
+        <FavoriteButton />
       </Box>
       <Stack sx={{ paddingLeft: "5px", paddingRight: "5px" }}>
         <Typography fontSize="13px" fontWeight="400">

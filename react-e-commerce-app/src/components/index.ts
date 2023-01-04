@@ -10,3 +10,5 @@ export { default as ProductsDrawer } from "./ProductsDrawer";
 export { default as ProductList } from "./ProductList";
 export { default as ProductBreadcrumbs } from "./ProductBreadcrumbs";
 export { default as ProductCard } from "./ProductCard";
+export { default as FavoriteButton } from "./FavoriteButton";
+export { default as ColorPalette } from "./ColorPalette";
