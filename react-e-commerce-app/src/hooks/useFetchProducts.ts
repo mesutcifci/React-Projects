@@ -40,7 +40,9 @@ const useFetchProducts = (parameters: IParameter) => {
     const querySnapshot = await getDocs(q);
     const data: IProduct[] = [];
     querySnapshot.forEach((doc) => {
-      data.push(doc.data() as IProduct);
+      let docData = doc.data() as IProduct;
+      docData.id = doc.id;
+      data.push(docData);
     });
 
     // TODO find a workaround for firebase limitations

@@ -1,12 +1,28 @@
 import { FavoriteBorderOutlined } from "@mui/icons-material";
 import { Box, Stack, Typography } from "@mui/material";
 import { IProduct } from "../../types/product";
+import { useNavigate } from "react-router-dom";
 
 interface IProps {
   product: IProduct;
 }
 
 const ProductCard = ({ product }: IProps) => {
+  const navigate = useNavigate();
+
+  const handleClickFavorite = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    event.stopPropagation();
+  };
+
+  const handleClickCard = () => {
+    navigate({
+      pathname: `/product-detail`,
+      search: `?name=${product.name.toLowerCase()}&id=${product.id}`,
+    });
+  };
+
   return (
     <Stack
       sx={{
@@ -21,6 +37,7 @@ const ProductCard = ({ product }: IProps) => {
           boxShadow: "1px 5px 7px 0px rgba(175,171,171,.7)",
         },
       }}
+      onClick={handleClickCard}
     >
       <Box
         sx={{
@@ -54,6 +71,7 @@ const ProductCard = ({ product }: IProps) => {
               transition: "fill 0.2s linear",
             },
           }}
+          onClick={handleClickFavorite}
         >
           <FavoriteBorderOutlined />
         </Box>
