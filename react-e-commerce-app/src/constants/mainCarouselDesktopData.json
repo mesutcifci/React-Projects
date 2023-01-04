@@ -17,24 +17,5 @@
     "src": "./images/desktop/main-carousel/image3.png",
     "text": "Free shipping on all orders over $100",
     "link": ""
-  },
-  {
-    "id": 4,
-    "src": "./images/desktop/main-carousel/image2.png",
-    "text": "Sale of the summer collection",
-    "link": ""
-  },
-  {
-    "id": 5,
-    "src": "./images/desktop/main-carousel/image1.png",
-    "text": "Up to 50% off on selected items",
-    "link": ""
-  },
-
-  {
-    "id": 6,
-    "src": "./images/desktop/main-carousel/image3.png",
-    "text": "Free shipping on all orders over $100",
-    "link": ""
   }
 ]

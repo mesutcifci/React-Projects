@@ -119,7 +119,7 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
                 transition: "transform 800ms ease",
               },
               transition: "transform 800ms ease",
-              "&.hide": { transform: `translateX(calc(100vw * ${index + 1}))` },
+              "&.hide": { transform: `translateX(calc(100vw))` },
             }}
             key={item.id}
             className={`${
