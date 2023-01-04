@@ -11,7 +11,6 @@ export interface IProduct {
   sizes: string[];
   price: number;
   stockAmount: number;
-  amount: number;
   discountRate: number;
   description: IProductDescription;
   primaryCategories: string[];

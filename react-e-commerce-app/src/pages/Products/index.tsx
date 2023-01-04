@@ -10,8 +10,8 @@ const Products = () => {
     <Box
       sx={{
         marginTop: { xs: "83px", md: "29px" },
-        paddingLeft: { xs: "16px", lg: "184px" },
-        paddingRight: { xs: "16px", lg: "184px" },
+        paddingLeft: { xs: "16px", lg: "116px" },
+        paddingRight: { xs: "16px", lg: "116px" },
       }}
     >
       <ProductBreadcrumbs

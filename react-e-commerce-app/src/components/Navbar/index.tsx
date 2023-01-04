@@ -175,8 +175,8 @@ const Navbar = () => {
             },
           },
           height: "70px",
-          paddingLeft: { lg: "160px" },
-          paddingRight: { lg: "160px" },
+          paddingLeft: { lg: "100px" },
+          paddingRight: { lg: "100px" },
         }}
       >
         <Toolbar sx={{ justifyContent: "space-between" }}>

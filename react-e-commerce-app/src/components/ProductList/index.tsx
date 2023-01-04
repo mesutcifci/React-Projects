@@ -12,7 +12,17 @@ const ProductList = () => {
       <Loading isLoading={isLoading} />
       <Box
         sx={{
-          border: "1px solid ",
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: { xs: "center", sm: "flex-start" },
+          columnGap: {
+            xs: "13px",
+            md: "25px",
+          },
+          rowGap: {
+            xs: "35px",
+            md: "70px",
+          },
           minHeight: "500px",
           width: { xs: "100%", lg: "calc(100% - 310px)" },
           maxWidth: "944px",
