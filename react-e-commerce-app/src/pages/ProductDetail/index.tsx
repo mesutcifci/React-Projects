@@ -1,4 +1,11 @@
-import { Box, Button, IconButton, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  Rating,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 import { useFetchProduct } from "../../hooks";
 import { ColorPalette, FavoriteButton, Loading } from "../../components";
@@ -7,9 +14,12 @@ import {
   Remove as RemoveIcon,
   ChevronRight,
   DescriptionOutlined,
+  Star,
+  Person2Outlined,
 } from "@mui/icons-material";
 import { useState } from "react";
 import { ProductCareIcon, ProductMaterialsIcon } from "../../ui";
+import { height } from "@mui/system";
 
 const ProductDetail = () => {
   const [searchParams] = useSearchParams();
@@ -18,6 +28,8 @@ const ProductDetail = () => {
   const [selectedTab, setSelectedTab] = useState<"description" | "reviews">(
     "reviews"
   );
+
+  const renderComments = () => {};
 
   const renderProductDescription = () => {
     return (
@@ -86,7 +98,102 @@ const ProductDetail = () => {
   };
 
   const renderProductReviews = () => {
-    return <Stack></Stack>;
+    return (
+      <Stack direction="row" flexWrap="wrap" rowGap="40px">
+        {/* RATING*/}
+        <Stack rowGap="40px" alignItems="center">
+          <Stack
+            gap="40px"
+            direction="row"
+            flexWrap="wrap"
+            justifyContent="center"
+            alignItems="center"
+          >
+            {/* RATING POINTS */}
+            <Stack alignItems="center">
+              <Typography fontSize="59px" fontWeight="600">
+                4.5
+              </Typography>
+              <Rating
+                name="read-only"
+                defaultValue={4.5}
+                precision={0.5}
+                readOnly
+                size="small"
+                sx={{ marginBottom: "14px" }}
+              />
+              <Typography
+                fontSize="12px"
+                color="#B9B9B9"
+                sx={{ display: "flex", alignItems: "center", gap: "4px" }}
+              >
+                <Person2Outlined sx={{ height: "15px" }} /> 81 all opinions
+              </Typography>
+            </Stack>
+
+            {/* RATING CHART */}
+            <Stack rowGap="7px">
+              {[1, 2, 3, 4, 5].map((number, index) => (
+                <Stack direction="row" alignItems="center" key={number}>
+                  <Star sx={{ fill: "#ffb53d" }} />
+                  <Typography
+                    sx={{
+                      marginLeft: "9px",
+                      marginRight: "18px",
+                      width: "4px",
+                    }}
+                  >
+                    {number}
+                  </Typography>
+                  <Box
+                    sx={{
+                      width: "142px",
+                      height: "2px",
+                      background: "#DBDBDB",
+                      borderRadius: "2px",
+                      position: "relative",
+                      "&:before": {
+                        background: "#ffb53d",
+                        borderRadius: "2px",
+                        content: '""',
+                        height: "2px",
+                        position: "absolute",
+                        left: "0px",
+                        right: `calc(${Math.floor(Math.random() * 101)}%)`,
+                        zIndex: 2,
+                      },
+                    }}
+                  ></Box>
+                </Stack>
+              ))}
+            </Stack>
+          </Stack>
+
+          <Button
+            sx={{
+              backgroundColor: "#FBB03B",
+              borderRadius: "56px",
+              color: "#000000",
+              display: "flex",
+              alignItems: "center",
+              fontSize: "13px",
+              height: "49px",
+              maxWidth: { xs: "400px", sm: "448px" },
+              textAlign: "center",
+              width: "189px",
+              "&:hover": {
+                backgroundColor: "#ffb53d",
+              },
+            }}
+          >
+            ADD TO OPINION
+          </Button>
+        </Stack>
+
+        {/* COMMENT */}
+        <Stack></Stack>
+      </Stack>
+    );
   };
 
   return (
