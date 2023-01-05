@@ -69,13 +69,16 @@ const ProductDetail = () => {
   const renderProductDescription = () => {
     return (
       <Stack
-        direction="row"
-        flexWrap="wrap"
         justifyContent="center"
+        alignItems="center"
         rowGap="40px"
+        sx={{
+          flexDirection: { md: "row" },
+          columnGap: { xs: "60px", xl: "177px" },
+        }}
       >
         {/* DESCRIPTION */}
-        <Stack alignItems="center">
+        <Stack alignItems="center" sx={{ width: { md: "50%" } }}>
           <DescriptionOutlined
             sx={{
               marginBottom: "49px",
@@ -98,7 +101,7 @@ const ProductDetail = () => {
         </Stack>
 
         {/* MATERIALS */}
-        <Stack alignItems="center">
+        <Stack alignItems="center" sx={{ width: { md: "50%" } }}>
           <ProductMaterialsIcon
             sx={{
               marginBottom: "49px",
@@ -134,16 +137,17 @@ const ProductDetail = () => {
 
   const renderProductReviews = () => {
     return (
-      <Stack direction="row" flexWrap="wrap" rowGap="40px">
+      <Stack
+        rowGap="40px"
+        sx={{
+          columnGap: { xs: "60px", xl: "177px" },
+          flexDirection: { md: "row" },
+          alignItems: "center",
+        }}
+      >
         {/* RATING*/}
-        <Stack rowGap="40px" alignItems="center">
-          <Stack
-            gap="40px"
-            direction="row"
-            flexWrap="wrap"
-            justifyContent="center"
-            alignItems="center"
-          >
+        <Stack rowGap="40px" sx={{ width: { md: "50%" } }}>
+          <Stack gap="40px" direction="row" flexWrap="wrap" alignItems="center">
             {/* RATING POINTS */}
             <Stack alignItems="center">
               <Typography fontSize="59px" fontWeight="600">
@@ -226,7 +230,9 @@ const ProductDetail = () => {
         </Stack>
 
         {/* COMMENT */}
-        <Stack rowGap="37px">{renderComments()}</Stack>
+        <Stack rowGap="37px" sx={{ width: { md: "50%" } }}>
+          {renderComments()}
+        </Stack>
       </Stack>
     );
   };
@@ -234,206 +240,238 @@ const ProductDetail = () => {
   return (
     <>
       <Loading isLoading={isLoading} />
-      <Stack sx={{ minHeight: "500px" }}>
+      <Stack
+        sx={{
+          minHeight: "500px",
+          width: "100%",
+          marginTop: { xs: "83px", md: "29px" },
+          paddingLeft: { lg: "116px" },
+          paddingRight: { lg: "116px" },
+        }}
+      >
         {product ? (
           <>
-            {/* PRODUCT IMAGE */}
-            <Box
-              sx={{
-                position: "relative",
-                maxHeight: "375px",
-                width: "100%",
-                "& .product-detail-image": { maxWidth: "100%" },
-              }}
-            >
-              <img src={product.imageUrl} className="product-detail-image" />
-              <FavoriteButton />
-            </Box>
-
-            {/* PRICE - COLOR - BUTTONS */}
             <Stack
-              sx={{
-                padding: "36px",
-                marginTop: "33px",
-                rowGap: "39px",
-              }}
+              sx={{ flexDirection: { xs: "column", lg: "row" } }}
+              columnGap="110px"
             >
-              {/* NAME AND PRICE */}
-              <Box>
-                <Typography fontSize="21px" fontWeight="400">
-                  {product.name}
-                </Typography>
-                <Typography fontSize="21px" fontWeight="400">
-                  ${product.price}
-                </Typography>
-              </Box>
+              {/* PRODUCT IMAGE */}
+              <Stack direction="row" justifyContent="center">
+                <Box
+                  sx={{
+                    position: "relative",
+                    width: "max-content",
+                    maxWidth: { xs: "100%", sm768: "601px", lg: "476px" },
+                    "& .product-detail-image": { maxWidth: "100%" },
+                  }}
+                >
+                  <img
+                    src={product.imageUrl}
+                    className="product-detail-image"
+                  />
+                  <FavoriteButton
+                    sx={{ display: { xs: "flex", lg: "none" } }}
+                  />
+                </Box>
+              </Stack>
 
-              {/* COLOR PALETTE */}
-              <Box>
+              {/* PRICE - COLOR - BUTTONS */}
+              <Stack
+                sx={{
+                  padding: "36px",
+                  paddingTop: { lg: "0px" },
+                  rowGap: "39px",
+                }}
+              >
+                {/* NAME AND PRICE */}
+                <Box>
+                  <Typography fontSize="21px" fontWeight="400">
+                    {product.name}
+                  </Typography>
+                  <Typography fontSize="21px" fontWeight="400">
+                    ${product.price}
+                  </Typography>
+                </Box>
+
+                {/* COLOR PALETTE */}
+                <Box>
+                  <Typography
+                    fontSize="13px"
+                    fontWeight="300"
+                    marginBottom="17px"
+                  >
+                    Color:
+                  </Typography>
+                  <ColorPalette
+                    colors={product.colors}
+                    sx={{
+                      columnGap: "13px",
+                      "& .colorBox": { border: "1px solid #E6E6E6 !important" },
+                    }}
+                  />
+                </Box>
+
+                {/* SIZE */}
+                <Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      marginBottom: "17px",
+                    }}
+                  >
+                    <Typography fontSize="13" fontWeight="300">
+                      Size:{" "}
+                    </Typography>
+                    <Typography
+                      fontSize="13"
+                      sx={{
+                        cursor: "pointer",
+                        fontWeight: { xs: "400", sm: "600" },
+                      }}
+                    >
+                      See size table
+                    </Typography>
+                  </Box>
+                  <IconButton
+                    component="button"
+                    sx={{
+                      border: "1px solid #D8D8D8",
+                      borderRadius: "49px",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      padding: "15px 26.9px 15px 31px",
+                      height: "49px",
+                      width: "184px",
+                    }}
+                  >
+                    <Typography
+                      color="#AAAAAA"
+                      fontSize="13px"
+                      fontWeight="500"
+                      textTransform="uppercase"
+                    >
+                      Choose size
+                    </Typography>
+                    <ChevronRight sx={{ fontSize: "20px", fill: "#B5B5B5" }} />
+                  </IconButton>
+                </Box>
+
                 <Typography
                   fontSize="13px"
                   fontWeight="300"
-                  marginBottom="17px"
+                  marginBottom="-17px"
                 >
-                  Color:
+                  Quantity:
                 </Typography>
-                <ColorPalette
-                  colors={product.colors}
-                  sx={{
-                    columnGap: "13px",
-                    "& .colorBox": { border: "1px solid #E6E6E6 !important" },
-                  }}
-                />
-              </Box>
 
-              {/* SIZE */}
-              <Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginBottom: "17px",
-                  }}
-                >
-                  <Typography fontSize="13" fontWeight="300">
-                    Size:{" "}
-                  </Typography>
-                  <Typography
-                    fontSize="13"
-                    sx={{
-                      cursor: "pointer",
-                      fontWeight: { xs: "400", sm: "600" },
-                    }}
-                  >
-                    See size table
-                  </Typography>
-                </Box>
-                <IconButton
-                  component="button"
-                  sx={{
-                    border: "1px solid #D8D8D8",
-                    borderRadius: "49px",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    padding: "15px 26.9px 15px 31px",
-                    height: "49px",
-                    width: "184px",
-                  }}
-                >
-                  <Typography
-                    color="#AAAAAA"
-                    fontSize="13px"
-                    fontWeight="500"
-                    textTransform="uppercase"
-                  >
-                    Choose size
-                  </Typography>
-                  <ChevronRight sx={{ fontSize: "20px", fill: "#B5B5B5" }} />
-                </IconButton>
-              </Box>
-
-              <Typography fontSize="13px" fontWeight="300" marginBottom="-17px">
-                Quantity:
-              </Typography>
-
-              {/* BUTTONS  */}
-              <Stack
-                direction="row"
-                gap="15px"
-                flexWrap="wrap"
-                alignItems="center"
-              >
-                {/* QUANTITY */}
+                {/* BUTTONS  */}
                 <Stack
                   direction="row"
+                  gap="15px"
+                  flexWrap="wrap"
                   alignItems="center"
-                  justifyContent="space-between"
-                  columnGap="21px"
-                  sx={{
-                    border: "1px solid #D8D8D8",
-                    borderRadius: "49px",
-                    padding: "15px",
-                    height: "49px",
-                    width: "184px",
-                  }}
                 >
-                  <IconButton
-                    component="button"
+                  {/* QUANTITY */}
+                  <Stack
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    columnGap="21px"
                     sx={{
-                      color: `${productQuantity > 1 ? "#000000" : "#D8D8D8"}`,
-                    }}
-                    {...(productQuantity === 1 && { disabled: true })}
-                    onClick={() =>
-                      setProductQuantity((prevState) => prevState - 1)
-                    }
-                  >
-                    <RemoveIcon />
-                  </IconButton>
-                  <Typography
-                    color="#000000"
-                    fontSize="16px"
-                    fontWeight="500"
-                    textAlign="center"
-                    sx={{ width: "10px" }}
-                  >
-                    {productQuantity}
-                  </Typography>
-                  <IconButton
-                    component="button"
-                    sx={{
-                      color: `${
-                        productQuantity >= product.stockAmount
-                          ? "#D8D8D8"
-                          : "#000000"
-                      }`,
-                    }}
-                    {...(productQuantity >= product.stockAmount && {
-                      disabled: true,
-                    })}
-                    onClick={() =>
-                      setProductQuantity((prevState) => prevState + 1)
-                    }
-                  >
-                    <AddIcon />
-                  </IconButton>
-                </Stack>
-
-                {/* ADD TO CART - FAVORITE */}
-                <Stack direction="row" gap="15px" alignItems="center">
-                  <Button
-                    sx={{
-                      backgroundColor: "#FBB03B",
-                      borderRadius: "56px",
-                      color: "#000000",
-                      display: "flex",
-                      alignItems: "center",
-                      fontSize: "13px",
+                      border: "1px solid #D8D8D8",
+                      borderRadius: "49px",
+                      padding: "15px",
                       height: "49px",
-                      maxWidth: { xs: "400px", sm: "448px" },
-                      textAlign: "center",
                       width: "189px",
-                      "&:hover": {
-                        backgroundColor: "#ffb53d",
-                      },
                     }}
                   >
-                    ADD TO CART
-                  </Button>
-                  <FavoriteButton position="static" />
+                    <IconButton
+                      component="button"
+                      sx={{
+                        color: `${productQuantity > 1 ? "#000000" : "#D8D8D8"}`,
+                      }}
+                      {...(productQuantity === 1 && { disabled: true })}
+                      onClick={() =>
+                        setProductQuantity((prevState) => prevState - 1)
+                      }
+                    >
+                      <RemoveIcon />
+                    </IconButton>
+                    <Typography
+                      color="#000000"
+                      fontSize="16px"
+                      fontWeight="500"
+                      textAlign="center"
+                      sx={{ width: "10px" }}
+                    >
+                      {productQuantity}
+                    </Typography>
+                    <IconButton
+                      component="button"
+                      sx={{
+                        color: `${
+                          productQuantity >= product.stockAmount
+                            ? "#D8D8D8"
+                            : "#000000"
+                        }`,
+                      }}
+                      {...(productQuantity >= product.stockAmount && {
+                        disabled: true,
+                      })}
+                      onClick={() =>
+                        setProductQuantity((prevState) => prevState + 1)
+                      }
+                    >
+                      <AddIcon />
+                    </IconButton>
+                  </Stack>
+
+                  {/* ADD TO CART - FAVORITE */}
+                  <Stack direction="row" gap="15px" alignItems="center">
+                    <Button
+                      sx={{
+                        backgroundColor: "#FBB03B",
+                        borderRadius: "56px",
+                        color: "#000000",
+                        display: "flex",
+                        alignItems: "center",
+                        fontSize: "13px",
+                        height: "49px",
+                        maxWidth: { xs: "400px", sm: "448px" },
+                        textAlign: "center",
+                        width: "189px",
+                        "&:hover": {
+                          backgroundColor: "#ffb53d",
+                        },
+                      }}
+                    >
+                      ADD TO CART
+                    </Button>
+                    <FavoriteButton
+                      position="static"
+                      sx={{ display: { xs: "none", lg: "flex" } }}
+                    />
+                  </Stack>
                 </Stack>
               </Stack>
             </Stack>
 
             {/* DESCRIPTION - REVIEWS */}
             <Stack
-              sx={{
-                padding: "36px",
-                marginTop: "33px",
-                rowGap: "39px",
-              }}
+              padding="36px"
+              marginTop="33px"
+              rowGap="39px"
+              maxWidth="1500px"
             >
-              <Stack direction="row" sx={{ columnGap: { xs: "10px" } }}>
+              <Stack
+                direction="row"
+                sx={{
+                  columnGap: { xs: "10px", md: "40px" },
+                  justifyContent: { sm: "center" },
+                }}
+              >
                 <Button
                   sx={{
                     height: "49px",

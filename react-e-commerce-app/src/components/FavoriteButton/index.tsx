@@ -1,11 +1,12 @@
 import { FavoriteBorderOutlined } from "@mui/icons-material";
-import { Box } from "@mui/material";
+import { Box, SxProps, Theme } from "@mui/material";
 
 interface IProps {
   position?: "absolute" | "static";
+  sx?: SxProps<Theme>;
 }
 
-const FavoriteButton = ({ position = "absolute" }: IProps) => {
+const FavoriteButton = ({ position = "absolute", sx }: IProps) => {
   const handleClickFavorite = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
@@ -30,6 +31,7 @@ const FavoriteButton = ({ position = "absolute" }: IProps) => {
         position: position,
         right: "23px",
         top: "19px",
+        ...sx,
       }}
       onClick={handleClickFavorite}
     >
