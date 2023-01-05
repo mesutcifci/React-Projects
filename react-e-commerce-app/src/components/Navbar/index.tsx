@@ -110,6 +110,7 @@ const Navbar = () => {
             }),
           }}
           key={category.name}
+          handleCloseTabPanel={() => setSelectedTabIndex(false)}
         >
           {secondaryCategories.map((secondaryCategory) => {
             const tertiaryCategories = secondaryCategory.tertiaryCategories;

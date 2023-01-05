@@ -20,12 +20,8 @@ const NavbarDesktopMenu = ({
 }: IProps) => {
   const { pathname } = useLocation();
 
-  const handleClickTab = (newIndex: number) => {
-    if (newIndex === selectedTabIndex) {
-      setSelectedTabIndex(false);
-    } else {
-      setSelectedTabIndex(newIndex);
-    }
+  const handleHoverTab = (newIndex: number) => {
+    setSelectedTabIndex(newIndex);
   };
 
   return (
@@ -64,7 +60,7 @@ const NavbarDesktopMenu = ({
             key={category.name}
             id={`navbar-tab-${category.name}`}
             label={category.name}
-            onClick={() => handleClickTab(index)}
+            onMouseOver={() => handleHoverTab(index)}
             sx={{
               fontSize: "14px !important",
               fontWeight: "500 !important",
