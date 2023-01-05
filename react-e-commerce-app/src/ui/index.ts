@@ -5,3 +5,5 @@ export { default as ProductLogo } from "./ProductLogo";
 export { default as ShippingIcon } from "./ShippingIcon";
 export { default as SmileIconWithBackground } from "./SmileIconWithBackground";
 export { default as GmailIcon } from "./GmailIcon";
+export { default as ProductMaterialsIcon } from "./ProductMaterialsIcon";
+export { default as ProductCareIcon } from "./ProductCareIcon";

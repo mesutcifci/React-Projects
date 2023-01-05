@@ -6,8 +6,10 @@ import {
   Add as AddIcon,
   Remove as RemoveIcon,
   ChevronRight,
+  DescriptionOutlined,
 } from "@mui/icons-material";
 import { useState } from "react";
+import { ProductCareIcon, ProductMaterialsIcon } from "../../ui";
 
 const ProductDetail = () => {
   const [searchParams] = useSearchParams();
@@ -18,7 +20,69 @@ const ProductDetail = () => {
   );
 
   const renderProductDescription = () => {
-    return <Stack></Stack>;
+    return (
+      <Stack
+        direction="row"
+        flexWrap="wrap"
+        justifyContent="center"
+        rowGap="40px"
+      >
+        {/* DESCRIPTION */}
+        <Stack alignItems="center">
+          <DescriptionOutlined
+            sx={{
+              marginBottom: "49px",
+              height: "67px",
+              width: "52.2px",
+              opacity: "0.1",
+            }}
+          />
+          <Typography
+            fontSize="16px"
+            fontWeight="600"
+            textAlign="center"
+            sx={{ marginBottom: "35px" }}
+          >
+            Details and product description
+          </Typography>
+          <Typography fontSize="14px">
+            {product?.description.details}
+          </Typography>
+        </Stack>
+
+        {/* MATERIALS */}
+        <Stack alignItems="center">
+          <ProductMaterialsIcon
+            sx={{
+              marginBottom: "49px",
+              height: "67px",
+              width: "52.2px",
+            }}
+            viewBox="0 0 30.15 67"
+            data-testid="productMaterials"
+          />
+          <Typography
+            fontSize="16px"
+            fontWeight="600"
+            textAlign="center"
+            sx={{ marginBottom: "35px" }}
+          >
+            Material(s) and care
+          </Typography>
+          <Typography fontSize="14px" sx={{ marginBottom: "10px" }}>
+            {product?.description.materials}
+          </Typography>
+          <ProductCareIcon
+            sx={{
+              height: "28px",
+              width: "215px",
+            }}
+            viewBox="0 0 215 28"
+            data-testid="productMaterials"
+          />
+        </Stack>
+      </Stack>
+    );
   };
 
   const renderProductReviews = () => {
@@ -43,6 +107,7 @@ const ProductDetail = () => {
               <img src={product.imageUrl} className="product-detail-image" />
               <FavoriteButton />
             </Box>
+
             {/* PRICE - COLOR - BUTTONS */}
             <Stack
               sx={{
@@ -60,6 +125,7 @@ const ProductDetail = () => {
                   ${product.price}
                 </Typography>
               </Box>
+
               {/* COLOR PALETTE */}
               <Box>
                 <Typography
@@ -77,6 +143,7 @@ const ProductDetail = () => {
                   }}
                 />
               </Box>
+
               {/* SIZE */}
               <Box>
                 <Box
@@ -123,9 +190,11 @@ const ProductDetail = () => {
                   <ChevronRight sx={{ fontSize: "20px", fill: "#B5B5B5" }} />
                 </IconButton>
               </Box>
+
               <Typography fontSize="13px" fontWeight="300" marginBottom="-17px">
                 Quantity:
               </Typography>
+
               {/* BUTTONS  */}
               <Stack
                 direction="row"
@@ -187,7 +256,8 @@ const ProductDetail = () => {
                     <AddIcon />
                   </IconButton>
                 </Stack>
-                {/* ADD TO CART */}
+
+                {/* ADD TO CART - FAVORITE */}
                 <Stack direction="row" gap="15px" alignItems="center">
                   <Button
                     sx={{
@@ -212,8 +282,8 @@ const ProductDetail = () => {
                 </Stack>
               </Stack>
             </Stack>
-            {/* DESCRIPTION - REVIEWS */}
 
+            {/* DESCRIPTION - REVIEWS */}
             <Stack
               sx={{
                 padding: "36px",
@@ -221,8 +291,51 @@ const ProductDetail = () => {
                 rowGap: "39px",
               }}
             >
-              <Stack direction="row"></Stack>
-              <Stack>
+              <Stack direction="row" sx={{ columnGap: { xs: "10px" } }}>
+                <Button
+                  sx={{
+                    height: "49px",
+                    width: "189px",
+                    border: `1px solid ${
+                      selectedTab === "description" ? "#FBB03B" : "#D8D8D8"
+                    }`,
+                    borderRadius: "49px",
+                    color: `${
+                      selectedTab === "description" ? "#000000" : "#D4D4D4"
+                    }`,
+                    textAlign: "center",
+                    "&:hover": {
+                      background: `${
+                        selectedTab === "description" && "#FBB03B"
+                      }`,
+                    },
+                  }}
+                  onClick={() => setSelectedTab("description")}
+                >
+                  DESCRIPTION
+                </Button>
+                <Button
+                  sx={{
+                    height: "49px",
+                    width: "189px",
+                    border: `1px solid ${
+                      selectedTab === "reviews" ? "#FBB03B" : "#D8D8D8"
+                    }`,
+                    borderRadius: "49px",
+                    color: `${
+                      selectedTab === "reviews" ? "#000000" : "#D4D4D4"
+                    }`,
+                    textAlign: "center",
+                    "&:hover": {
+                      background: `${selectedTab === "reviews" && "#FBB03B"}`,
+                    },
+                  }}
+                  onClick={() => setSelectedTab("reviews")}
+                >
+                  REVIEWS &nbsp; (3)
+                </Button>
+              </Stack>
+              <Stack rowGap="20px">
                 {selectedTab === "reviews"
                   ? renderProductReviews()
                   : renderProductDescription()}
