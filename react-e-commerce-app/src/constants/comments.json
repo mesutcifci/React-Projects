@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "owner": "John Doe",
+    "avatarUrl": "/images/comments/user1.jpg",
+    "ratingPoint": 4.5,
+    "comment": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
+  },
+  {
+    "id": 2,
+    "owner": "Eveline Gosok",
+    "avatarUrl": "/images/comments/user2.jpg",
+    "ratingPoint": 4,
+    "comment": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's"
+  },
+  {
+    "id": 3,
+    "owner": "Anne Okombo",
+    "avatarUrl": "/images/comments/user3.jpg",
+    "ratingPoint": 3.5,
+    "comment": "Lorem Ipsum is simply dummy text of the printing"
+  }
+]

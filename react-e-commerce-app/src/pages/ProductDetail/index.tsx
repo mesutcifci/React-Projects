@@ -1,4 +1,8 @@
+import { useState } from "react";
+
+// Styles
 import {
+  Avatar,
   Box,
   Button,
   IconButton,
@@ -6,9 +10,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useSearchParams } from "react-router-dom";
-import { useFetchProduct } from "../../hooks";
-import { ColorPalette, FavoriteButton, Loading } from "../../components";
+
 import {
   Add as AddIcon,
   Remove as RemoveIcon,
@@ -17,9 +19,18 @@ import {
   Star,
   Person2Outlined,
 } from "@mui/icons-material";
-import { useState } from "react";
+
+// Components
+import { ColorPalette, FavoriteButton, Loading } from "../../components";
 import { ProductCareIcon, ProductMaterialsIcon } from "../../ui";
-import { height } from "@mui/system";
+
+// Hooks
+import { useSearchParams } from "react-router-dom";
+import { useFetchProduct } from "../../hooks";
+
+// Data
+import comments from "../../constants/comments.json";
+import { IComment } from "../../types/comments";
 
 const ProductDetail = () => {
   const [searchParams] = useSearchParams();
@@ -29,7 +40,31 @@ const ProductDetail = () => {
     "reviews"
   );
 
-  const renderComments = () => {};
+  const renderComments = () => {
+    return comments.map((comment: IComment) => (
+      <Stack key={comment.id} direction="row" columnGap="27px">
+        <Avatar
+          src={comment.avatarUrl}
+          sx={{ width: "40px", height: "40px" }}
+          alt={comment.owner}
+        />
+        <Stack justifyContent="flex-start">
+          <Typography fontSize="12px" fontWeight="600" marginBottom="5.5px">
+            {comment.owner}
+          </Typography>
+          <Rating
+            readOnly
+            value={comment.ratingPoint}
+            precision={0.5}
+            sx={{ marginBottom: "12.1px" }}
+          />
+          <Typography fontSize="12px" sx={{ width: "100%", maxWidth: "500px" }}>
+            {comment.comment}
+          </Typography>
+        </Stack>
+      </Stack>
+    ));
+  };
 
   const renderProductDescription = () => {
     return (
@@ -191,7 +226,7 @@ const ProductDetail = () => {
         </Stack>
 
         {/* COMMENT */}
-        <Stack></Stack>
+        <Stack rowGap="37px">{renderComments()}</Stack>
       </Stack>
     );
   };
