@@ -34,7 +34,7 @@ const useSearchParameters = () => {
       secondary: secondary || [],
       tertiary: tertiary || [],
     });
-  }, [searchParams]);
+  }, [searchParams, primary]);
 
   return {
     modifiedParameters,

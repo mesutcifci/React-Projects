@@ -32,6 +32,7 @@ import { ProductLogo } from "../../ui";
 import { auth } from "../../firebase";
 import { User } from "firebase/auth";
 import categories from "../../constants/categories.json";
+import { ISecondaryCategory, ITertiaryCategory } from "../../types/categories";
 
 const tabPanelStyles: SxProps<Theme> = {
   backgroundColor: "#ffffff",
@@ -58,10 +59,6 @@ const Navbar = () => {
   );
   const [selectedTabText, setSelectedTabText] = useState("Men");
 
-  const handleTabChange = (event: React.SyntheticEvent<Element, Event>) => {
-    setSelectedTabText(event.currentTarget.textContent!);
-  };
-
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
@@ -70,7 +67,7 @@ const Navbar = () => {
     return () => unsubscribe();
   }, []);
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClickProfileIcon = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -91,6 +88,38 @@ const Navbar = () => {
   const handleRegister = () => {
     setAnchorEl(null);
     navigate("/auth/register");
+  };
+
+  const handleClickSecondaryCategory = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    secondaryCategory: ISecondaryCategory
+  ) => {
+    let parameterString = `?secondary=${secondaryCategory.id}&tertiary=`;
+
+    secondaryCategory.tertiaryCategories.forEach((tertiaryCategory, index) => {
+      parameterString += `${tertiaryCategory.id}:${secondaryCategory.id}`;
+      if (index + 1 < secondaryCategory.tertiaryCategories.length) {
+        parameterString += ",";
+      }
+    });
+
+    navigate({
+      pathname: `/${selectedTabText.toLowerCase()}`,
+      search: parameterString,
+    });
+  };
+
+  const handleClickTertiaryCategory = (
+    event: React.MouseEvent<HTMLSpanElement, MouseEvent>,
+    secondaryCategoryId: string,
+    tertiaryCategory: ITertiaryCategory
+  ) => {
+    event.stopPropagation();
+    let parameterString = `?secondary=${secondaryCategoryId}&tertiary=${tertiaryCategory.id}:${secondaryCategoryId}`;
+    navigate({
+      pathname: `/${selectedTabText.toLowerCase()}`,
+      search: parameterString,
+    });
   };
 
   const renderTabPanels = () => {
@@ -119,6 +148,9 @@ const Navbar = () => {
                 key={secondaryCategory.name}
                 rowGap="15px"
                 sx={{ minWidth: "140px" }}
+                onClick={(event) =>
+                  handleClickSecondaryCategory(event, secondaryCategory)
+                }
               >
                 <Typography
                   fontSize="14px"
@@ -134,6 +166,13 @@ const Navbar = () => {
                     fontSize="12px"
                     fontWeight="400"
                     sx={{ cursor: "pointer", "&:hover": { color: "#FBB03B" } }}
+                    onClick={(event) =>
+                      handleClickTertiaryCategory(
+                        event,
+                        secondaryCategory.id,
+                        tertiaryCategory
+                      )
+                    }
                   >
                     {tertiaryCategory.name}
                   </Typography>
@@ -211,9 +250,9 @@ const Navbar = () => {
           />
 
           <NavbarDesktopMenu
-            handleTabChange={handleTabChange}
             selectedTabIndex={selectedTabIndex}
             selectedTabText={selectedTabText}
+            setSelectedTabText={setSelectedTabText}
             setSelectedTabIndex={setSelectedTabIndex}
           />
 
@@ -262,7 +301,7 @@ const Navbar = () => {
               aria-label="account of current user"
               aria-controls="menu"
               aria-haspopup="true"
-              onClick={handleClick}
+              onClick={handleClickProfileIcon}
             >
               {user ? <Person /> : <PersonOutlined />}
             </IconButton>

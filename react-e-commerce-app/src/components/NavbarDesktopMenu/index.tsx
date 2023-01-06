@@ -1,27 +1,31 @@
 import { Box, Tab, Tabs } from "@mui/material";
 import categories from "../../constants/categories.json";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface IProps {
   selectedTabIndex: number | boolean;
-  handleTabChange: (
-    event: React.SyntheticEvent<Element, Event>,
-    index: number
-  ) => void;
   selectedTabText: string;
+  setSelectedTabText: React.Dispatch<React.SetStateAction<string>>;
   setSelectedTabIndex: React.Dispatch<React.SetStateAction<number | boolean>>;
 }
 
 const NavbarDesktopMenu = ({
   selectedTabIndex,
-  handleTabChange,
   selectedTabText,
+  setSelectedTabText,
   setSelectedTabIndex,
 }: IProps) => {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
 
-  const handleHoverTab = (newIndex: number) => {
+  const handleHoverTab = (newIndex: number, tabText: string) => {
+    setSelectedTabText(tabText);
     setSelectedTabIndex(newIndex);
+  };
+
+  const handleClickPrimaryCategory = (categoryName: string) => {
+    navigate({ pathname: `/${categoryName.toLowerCase()}` });
+    setSelectedTabIndex(false);
   };
 
   return (
@@ -33,7 +37,6 @@ const NavbarDesktopMenu = ({
     >
       <Tabs
         value={selectedTabIndex}
-        onChange={handleTabChange}
         {...(selectedTabIndex !== false && {
           TabIndicatorProps: {
             children: (
@@ -60,7 +63,8 @@ const NavbarDesktopMenu = ({
             key={category.name}
             id={`navbar-tab-${category.name}`}
             label={category.name}
-            onMouseOver={() => handleHoverTab(index)}
+            onMouseOver={() => handleHoverTab(index, category.name)}
+            onClick={() => handleClickPrimaryCategory(category.name)}
             sx={{
               fontSize: "14px !important",
               fontWeight: "500 !important",
