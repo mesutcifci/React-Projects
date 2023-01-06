@@ -1,6 +1,8 @@
 export { default as Loading } from "./Loading";
 export { default as Carousel } from "./Carousel";
 export { default as Navbar } from "./Navbar";
+export { default as Footer } from "./Footer";
+export { default as Newsletter } from "./Newsletter";
 export { default as WhyChooseUs } from "./WhyChooseUs";
 export { default as Login } from "./Login";
 export { default as Register } from "./Register";

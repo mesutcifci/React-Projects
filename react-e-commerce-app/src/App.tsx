@@ -1,7 +1,5 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import { Navbar } from "./components";
-import Footer from "./components/Footer";
-import Newsletter from "./components/Newsletter";
+import { Footer, Navbar, Newsletter } from "./components";
 import { Home, Auth, Products, ProductDetail } from "./pages";
 
 function App() {
