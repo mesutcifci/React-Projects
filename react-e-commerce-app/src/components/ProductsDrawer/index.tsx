@@ -5,14 +5,16 @@ import { Box, CssBaseline, Divider, IconButton, Stack } from "@mui/material";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 
 // components
-import DrawerHeader from "./helperComponents/DrawerHeader";
-import Drawer from "./helperComponents/Drawer";
-import ProductTypeAccordion from "./helperComponents/ProductTypeAccordion";
-import PriceAccordion from "./helperComponents/PriceAccordion";
-import CollectionAccordion from "./helperComponents/CollectionAccordion";
-import SizeAccordion from "./helperComponents/SizeAccordion";
-import ColorAccordion from "./helperComponents/ColorAccordion";
-import ProductBreadcrumbs from "../ProductBreadcrumbs";
+import {
+  CollectionAccordion,
+  ColorAccordion,
+  Drawer,
+  DrawerHeader,
+  PriceAccordion,
+  ProductBreadcrumbs,
+  ProductTypeAccordion,
+  SizeAccordion,
+} from "../";
 
 const accordionStyles = {
   "&.MuiPaper-root::before": {

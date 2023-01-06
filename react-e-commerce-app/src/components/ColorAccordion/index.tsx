@@ -6,8 +6,8 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-import { IAccordionProps } from "../../../types/accordion";
-import ColorPalette from "../../ColorPalette";
+import { IAccordionProps } from "../../types/accordion";
+import ColorPalette from "../ColorPalette";
 
 const colors = [
   "#000000",

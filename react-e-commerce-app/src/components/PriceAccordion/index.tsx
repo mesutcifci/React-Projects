@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { IAccordionProps } from "../../../types/accordion";
+import { IAccordionProps } from "../../types/accordion";
 
 const minDistance = 100;
 

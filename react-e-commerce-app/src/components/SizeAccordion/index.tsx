@@ -6,7 +6,7 @@ import {
   Box,
   Typography,
 } from "@mui/material";
-import { IAccordionProps } from "../../../types/accordion";
+import { IAccordionProps } from "../../types/accordion";
 
 const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
 

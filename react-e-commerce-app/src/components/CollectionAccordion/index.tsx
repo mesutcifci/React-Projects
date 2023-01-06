@@ -5,7 +5,7 @@ import {
   AccordionSummary,
   Typography,
 } from "@mui/material";
-import { IAccordionProps } from "../../../types/accordion";
+import { IAccordionProps } from "../../types/accordion";
 
 const CollectionAccordion = ({ accordionStyles }: IAccordionProps) => {
   return (

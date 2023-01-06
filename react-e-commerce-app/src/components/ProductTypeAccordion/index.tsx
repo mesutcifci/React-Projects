@@ -8,14 +8,12 @@ import {
   Typography,
 } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
-import {
-  ISecondaryCategory,
-  ITertiaryCategory,
-} from "../../../types/categories";
-import { IAccordionProps } from "../../../types/accordion";
-import { useGetMappedCategories, useSearchParameters } from "../../../hooks";
+
 import { useNavigate } from "react-router-dom";
-import { IParameter, ITertiaryParameter } from "../../../types/parameters";
+import { IAccordionProps } from "../../types/accordion";
+import { useGetMappedCategories, useSearchParameters } from "../../hooks";
+import { ISecondaryCategory, ITertiaryCategory } from "../../types/categories";
+import { IParameter, ITertiaryParameter } from "../../types/parameters";
 
 const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
   const { mapCategoriesWithSearchParameters, mappedCategories } =
