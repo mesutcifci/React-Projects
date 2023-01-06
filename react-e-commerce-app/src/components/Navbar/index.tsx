@@ -90,6 +90,10 @@ const Navbar = () => {
     navigate("/auth/register");
   };
 
+  const handleClickShoppingCart = () => {
+    navigate({ pathname: "/cart" });
+  };
+
   const handleClickSecondaryCategory = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     secondaryCategory: ISecondaryCategory
@@ -292,7 +296,11 @@ const Navbar = () => {
             <IconButton size="small" color="inherit">
               <Search />
             </IconButton>
-            <IconButton size="small" color="inherit">
+            <IconButton
+              size="small"
+              color="inherit"
+              onClick={handleClickShoppingCart}
+            >
               <ShoppingCartOutlined />
             </IconButton>
             <IconButton
