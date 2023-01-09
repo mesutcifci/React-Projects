@@ -241,7 +241,9 @@ const ProductDetail = () => {
   };
 
   const handleClickAddToCartButton = () => {
-    addProductToCart(product!.id, productQuantity);
+    if (product) {
+      addProductToCart(product.id, productQuantity);
+    }
   };
 
   return (

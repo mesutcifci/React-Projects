@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
 import { IProduct } from "../types/product";
-import { doc, getDocFromCache, getDocFromServer } from "firebase/firestore";
+import { doc, getDocFromServer } from "firebase/firestore";
 import { db } from "../firebase";
 
 const useFetchProduct = (productId: string) => {
@@ -14,12 +13,11 @@ const useFetchProduct = (productId: string) => {
 
   const getProductFromFirebase = async () => {
     setIsLoading(true);
-
     const docRef = doc(db, "products", productId);
     const docData = await getDocFromServer(docRef);
     if (docData.exists()) {
       let fetchedProduct = docData.data() as IProduct;
-      fetchedProduct.id = docData.data().id;
+      fetchedProduct.id = docData.id;
       setProduct(fetchedProduct);
     }
 

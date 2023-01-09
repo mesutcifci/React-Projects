@@ -1,8 +1,13 @@
+export interface IUserProduct {
+  id: string;
+  amount: number;
+}
+
 export interface IUser {
   id: string;
   email: string;
   fullName: string;
-  productsForUser: string[];
-  favoriteProducts: string[];
-  productsInCart: string[];
+  productsForUser: IUserProduct[];
+  favoriteProducts: IUserProduct[];
+  productsInCart: IUserProduct[];
 }
