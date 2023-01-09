@@ -26,7 +26,7 @@ import { ProductCareIcon, ProductMaterialsIcon } from "../../ui";
 
 // Hooks
 import { useSearchParams } from "react-router-dom";
-import { useFetchProduct } from "../../hooks";
+import { useFetchProduct, useUser } from "../../hooks";
 
 // Data
 import comments from "../../constants/comments.json";
@@ -34,7 +34,10 @@ import { IComment } from "../../types/comments";
 
 const ProductDetail = () => {
   const [searchParams] = useSearchParams();
+
   const { isLoading, product } = useFetchProduct(searchParams.get("id") || "");
+  const { addProductToCart, isLoading: loadingForUserActions } = useUser();
+
   const [productQuantity, setProductQuantity] = useState(1);
   const [selectedTab, setSelectedTab] = useState<"description" | "reviews">(
     "reviews"
@@ -237,9 +240,13 @@ const ProductDetail = () => {
     );
   };
 
+  const handleClickAddToCartButton = () => {
+    addProductToCart(product!.id, productQuantity);
+  };
+
   return (
     <>
-      <Loading isLoading={isLoading} />
+      <Loading isLoading={isLoading || loadingForUserActions} />
       <Stack
         sx={{
           minHeight: "500px",
@@ -446,6 +453,7 @@ const ProductDetail = () => {
                           backgroundColor: "#ffb53d",
                         },
                       }}
+                      onClick={handleClickAddToCartButton}
                     >
                       ADD TO CART
                     </Button>

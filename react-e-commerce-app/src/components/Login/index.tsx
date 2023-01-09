@@ -70,7 +70,7 @@ const Login = () => {
           email: user.email,
           fullName: user.displayName,
           productsForUser: [],
-          favoriteProductIds: [],
+          favoriteProducts: [],
           productsInCart: [],
         };
         await setDoc(doc(db, "users", user.uid), userData);

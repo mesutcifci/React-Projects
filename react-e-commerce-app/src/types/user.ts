@@ -1,4 +1,8 @@
 export interface IUser {
-  name: string;
-  avatarUrl: string;
+  id: string;
+  email: string;
+  fullName: string;
+  productsForUser: string[];
+  favoriteProducts: string[];
+  productsInCart: string[];
 }

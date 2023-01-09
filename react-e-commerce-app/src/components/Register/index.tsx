@@ -17,7 +17,6 @@ import {
   FormGroup,
   Button,
   InputAdornment,
-  Alert,
 } from "@mui/material";
 
 import { Visibility, VisibilityOff } from "@mui/icons-material";
@@ -103,7 +102,7 @@ const Register = () => {
         email: values.email,
         fullName: `${values.firstName} ${values.lastName}`,
         productsForUser: [],
-        favoriteProductIds: [],
+        favoriteProducts: [],
         productsInCart: [],
       });
 
