@@ -1,11 +1,18 @@
+import { useState } from "react";
+
 import {
   LocalShippingOutlined,
   PaymentOutlined,
   ShoppingCartOutlined,
 } from "@mui/icons-material";
-import { Step, Stepper, Typography } from "@mui/material";
-import { Stack } from "@mui/system";
-import { useState } from "react";
+import { Stack, Step, Stepper, Typography } from "@mui/material";
+
+import {
+  AddressAndDelivery,
+  CartProductsRenderer,
+  CartSummary,
+} from "../../components";
+import { auth } from "../../firebase";
 
 const Cart = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -19,7 +26,16 @@ const Cart = () => {
     setActiveStep(index);
   };
 
-  const renderPageContent = () => {};
+  const renderPageContent = () => {
+    switch (activeStep) {
+      case 0:
+        return <CartProductsRenderer />;
+      case 1:
+        return <AddressAndDelivery />;
+      case 2:
+        return <CartSummary />;
+    }
+  };
 
   const renderStepperIcon = (index: number) => {
     switch (index) {
@@ -111,6 +127,7 @@ const Cart = () => {
           })}
         </Stepper>
       </Stack>
+      {renderPageContent()}
     </Stack>
   );
 };
