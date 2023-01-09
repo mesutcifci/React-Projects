@@ -1,6 +1,9 @@
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { Box, Divider, Drawer, List, ListItem, Stack } from "@mui/material";
 import { ArrowBack, Close } from "@mui/icons-material";
-import React, { useState } from "react";
+
 import categories from "../../constants/categories.json";
 import {
   ICategory,
@@ -14,11 +17,17 @@ interface IProps {
 }
 
 const NavbarMobileMenu = ({ isDrawerOpened, setIsDrawerOpened }: IProps) => {
+  const navigate = useNavigate();
   const [selectedPrimaryCategory, setSelectedPrimaryCategory] =
     useState<ICategory>();
   const [selectedSecondaryCategory, setSelectedSelectedSecondaryCategory] =
     useState<ISecondaryCategory>();
   const [shownCategory, setShownCategory] = useState("primary");
+
+  const handleCloseDrawer = () => {
+    setIsDrawerOpened(false);
+    setShownCategory("primary");
+  };
 
   const setCategoryObject = () => {
     let categoryObject:
@@ -62,6 +71,7 @@ const NavbarMobileMenu = ({ isDrawerOpened, setIsDrawerOpened }: IProps) => {
                 );
                 setShownCategory("tertiary");
               } else {
+                handleClickTertiaryCategory(category as ITertiaryCategory);
               }
             }}
           >
@@ -84,11 +94,22 @@ const NavbarMobileMenu = ({ isDrawerOpened, setIsDrawerOpened }: IProps) => {
     }
   };
 
+  const handleClickTertiaryCategory = (category: ITertiaryCategory) => {
+    const parameterString = `?secondary=${
+      selectedSecondaryCategory!.id
+    }&tertiary=${category.id}:${selectedSecondaryCategory!.id}`;
+
+    navigate({
+      pathname: `/${selectedPrimaryCategory!.id}`,
+      search: parameterString,
+    });
+  };
+
   return (
     <Drawer
       anchor="right"
       open={isDrawerOpened}
-      onClose={() => setIsDrawerOpened(false)}
+      onClose={handleCloseDrawer}
       sx={{
         display: { lg: "none" },
         "& .MuiDrawer-paperAnchorRight": { width: "100%", maxWidth: "300px" },
@@ -110,7 +131,7 @@ const NavbarMobileMenu = ({ isDrawerOpened, setIsDrawerOpened }: IProps) => {
         )}
         <Close
           sx={{ cursor: "pointer", marginLeft: "auto" }}
-          onClick={() => setIsDrawerOpened(false)}
+          onClick={handleCloseDrawer}
         />
       </Stack>
       <List sx={{ marginTop: "30px" }}>{renderCategories()}</List>
