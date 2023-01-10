@@ -18,3 +18,7 @@ export interface IProduct {
   tertiaryCategory: string;
   collections: string[];
 }
+
+export interface IModifiedProduct extends IProduct {
+  amount: number;
+}

@@ -5,13 +5,27 @@ import {
   onSnapshot,
   updateDoc,
 } from "firebase/firestore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { auth, db } from "../firebase";
 import { IUser, IUserProduct } from "../types/user";
+import { User } from "firebase/auth";
 
 const useUser = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState<IUser | null>();
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setIsLoading(true);
+      setCurrentUser(user);
+      setIsLoading(false);
+    });
+  }, []);
+
+  useEffect(() => {
+    fetchUser();
+  }, [currentUser]);
 
   const fetchUser = async () => {
     const currentUser = auth.currentUser;
@@ -64,7 +78,7 @@ const useUser = () => {
     setIsLoading(false);
   };
 
-  return { addProductToCart, isLoading, user, fetchUser };
+  return { addProductToCart, isLoading, user, fetchUser, currentUser };
 };
 
 export default useUser;

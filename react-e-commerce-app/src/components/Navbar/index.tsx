@@ -52,8 +52,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  const { user: userData, fetchUser } = useUser();
-  const [user, setUser] = useState<User | null>(null);
+  const { user, currentUser } = useUser();
 
   const [isDrawerOpened, setIsDrawerOpened] = useState(false);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
@@ -62,16 +61,6 @@ const Navbar = () => {
     false
   );
   const [selectedTabText, setSelectedTabText] = useState("Men");
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user);
-    });
-
-    fetchUser();
-
-    return () => unsubscribe();
-  }, []);
 
   const handleClickProfileIcon = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -287,7 +276,7 @@ const Navbar = () => {
                 },
               }}
             >
-              {user ? (
+              {currentUser ? (
                 <Box>
                   <MenuItem onClick={handleClose}>Profile</MenuItem>
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
@@ -308,8 +297,8 @@ const Navbar = () => {
               onClick={handleClickShoppingCart}
               sx={{ "& .MuiBadge-badge": { background: "#FBB03B" } }}
             >
-              {userData?.productsInCart.length ? (
-                <Badge badgeContent={userData.productsInCart.length}>
+              {user?.productsInCart.length ? (
+                <Badge badgeContent={user.productsInCart.length}>
                   <ShoppingCartOutlined />
                 </Badge>
               ) : (
@@ -324,7 +313,7 @@ const Navbar = () => {
               aria-haspopup="true"
               onClick={handleClickProfileIcon}
             >
-              {user ? <Person /> : <PersonOutlined />}
+              {currentUser ? <Person /> : <PersonOutlined />}
             </IconButton>
             <IconButton
               size="small"
