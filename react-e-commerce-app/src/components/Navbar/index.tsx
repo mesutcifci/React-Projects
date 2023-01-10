@@ -13,6 +13,7 @@ import {
   SxProps,
   Theme,
   Stack,
+  Badge,
 } from "@mui/material";
 import {
   Menu as MenuIcon,
@@ -33,6 +34,7 @@ import { auth } from "../../firebase";
 import { User } from "firebase/auth";
 import categories from "../../constants/categories.json";
 import { ISecondaryCategory, ITertiaryCategory } from "../../types/categories";
+import { useUser } from "../../hooks";
 
 const tabPanelStyles: SxProps<Theme> = {
   backgroundColor: "#ffffff",
@@ -49,6 +51,8 @@ const tabPanelStyles: SxProps<Theme> = {
 const Navbar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+
+  const { user: userData, fetchUser } = useUser();
   const [user, setUser] = useState<User | null>(null);
 
   const [isDrawerOpened, setIsDrawerOpened] = useState(false);
@@ -63,6 +67,8 @@ const Navbar = () => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
     });
+
+    fetchUser();
 
     return () => unsubscribe();
   }, []);
@@ -300,8 +306,15 @@ const Navbar = () => {
               size="small"
               color="inherit"
               onClick={handleClickShoppingCart}
+              sx={{ "& .MuiBadge-badge": { background: "#FBB03B" } }}
             >
-              <ShoppingCartOutlined />
+              {userData?.productsInCart.length ? (
+                <Badge badgeContent={userData.productsInCart.length}>
+                  <ShoppingCartOutlined />
+                </Badge>
+              ) : (
+                <ShoppingCartOutlined />
+              )}
             </IconButton>
             <IconButton
               size="small"

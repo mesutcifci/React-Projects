@@ -2,9 +2,10 @@ import {
   arrayUnion,
   doc,
   getDocFromServer,
+  onSnapshot,
   updateDoc,
 } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { auth, db } from "../firebase";
 import { IUser, IUserProduct } from "../types/user";
 
@@ -12,16 +13,12 @@ const useUser = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState<IUser | null>();
 
-  useEffect(() => {
-    fetchUser();
-  }, []);
-
   const fetchUser = async () => {
     const currentUser = auth.currentUser;
     if (currentUser) {
-      const userRef = doc(db, "users", currentUser.uid);
-      const docData = await getDocFromServer(userRef);
-      setUser(docData.data() as IUser);
+      onSnapshot(doc(db, "users", currentUser.uid), (doc) => {
+        setUser(doc.data() as IUser);
+      });
     }
   };
 
@@ -49,7 +46,7 @@ const useUser = () => {
 
         if (isProductExist) {
           productsInCart.forEach((product) => {
-            if (product.id === productId) {
+            if (product.id === productId && amount > product.amount) {
               product.amount = amount;
             }
           });
@@ -57,7 +54,7 @@ const useUser = () => {
         } else {
           await updateDoc(userRef, {
             productsInCart: arrayUnion({ id: productId, amount }),
-          }).then((result) => console.log(result));
+          });
         }
 
         docData = await getDocFromServer(userRef);
@@ -67,7 +64,7 @@ const useUser = () => {
     setIsLoading(false);
   };
 
-  return { addProductToCart, isLoading, user };
+  return { addProductToCart, isLoading, user, fetchUser };
 };
 
 export default useUser;
