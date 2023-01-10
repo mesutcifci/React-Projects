@@ -2,6 +2,7 @@ export { default as Loading } from "./Loading";
 export { default as Carousel } from "./Carousel";
 export { default as FavoriteButton } from "./FavoriteButton";
 export { default as ColorPalette } from "./ColorPalette";
+export { default as Counter } from "./Counter";
 
 export { default as Navbar } from "./Navbar";
 export { default as Footer } from "./Footer";

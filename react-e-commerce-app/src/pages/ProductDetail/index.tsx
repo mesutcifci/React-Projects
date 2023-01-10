@@ -12,8 +12,6 @@ import {
 } from "@mui/material";
 
 import {
-  Add as AddIcon,
-  Remove as RemoveIcon,
   ChevronRight,
   DescriptionOutlined,
   Star,
@@ -21,7 +19,12 @@ import {
 } from "@mui/icons-material";
 
 // Components
-import { ColorPalette, FavoriteButton, Loading } from "../../components";
+import {
+  ColorPalette,
+  Counter,
+  FavoriteButton,
+  Loading,
+} from "../../components";
 import { ProductCareIcon, ProductMaterialsIcon } from "../../ui";
 
 // Hooks
@@ -248,6 +251,14 @@ const ProductDetail = () => {
     }
   };
 
+  const handleClickDecreaseButton = () => {
+    setProductQuantity((prevState) => prevState - 1);
+  };
+
+  const handleClickIncreaseButton = () => {
+    setProductQuantity((prevState) => prevState + 1);
+  };
+
   return (
     <>
       <Loading isLoading={isLoading || loadingForUserActions} />
@@ -386,59 +397,12 @@ const ProductDetail = () => {
                   alignItems="center"
                 >
                   {/* QUANTITY */}
-                  <Stack
-                    direction="row"
-                    alignItems="center"
-                    justifyContent="space-between"
-                    columnGap="21px"
-                    sx={{
-                      border: "1px solid #D8D8D8",
-                      borderRadius: "49px",
-                      padding: "15px",
-                      height: "49px",
-                      width: "189px",
-                    }}
-                  >
-                    <IconButton
-                      component="button"
-                      sx={{
-                        color: `${productQuantity > 1 ? "#000000" : "#D8D8D8"}`,
-                      }}
-                      {...(productQuantity === 1 && { disabled: true })}
-                      onClick={() =>
-                        setProductQuantity((prevState) => prevState - 1)
-                      }
-                    >
-                      <RemoveIcon />
-                    </IconButton>
-                    <Typography
-                      color="#000000"
-                      fontSize="16px"
-                      fontWeight="500"
-                      textAlign="center"
-                      sx={{ width: "10px" }}
-                    >
-                      {productQuantity}
-                    </Typography>
-                    <IconButton
-                      component="button"
-                      sx={{
-                        color: `${
-                          productQuantity >= product.stockAmount
-                            ? "#D8D8D8"
-                            : "#000000"
-                        }`,
-                      }}
-                      {...(productQuantity >= product.stockAmount && {
-                        disabled: true,
-                      })}
-                      onClick={() =>
-                        setProductQuantity((prevState) => prevState + 1)
-                      }
-                    >
-                      <AddIcon />
-                    </IconButton>
-                  </Stack>
+                  <Counter
+                    counterValue={productQuantity}
+                    handleClickDecreaseButton={handleClickDecreaseButton}
+                    handleClickIncreaseButton={handleClickIncreaseButton}
+                    maxValue={product.stockAmount}
+                  />
 
                   {/* ADD TO CART - FAVORITE */}
                   <Stack direction="row" gap="15px" alignItems="center">
