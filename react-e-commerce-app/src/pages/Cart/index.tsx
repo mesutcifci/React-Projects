@@ -66,7 +66,12 @@ const Cart = () => {
   const renderPageContent = () => {
     switch (activeStep) {
       case 0:
-        return <CartProductsRenderer products={modifiedProducts || []} />;
+        return (
+          <CartProductsRenderer
+            modifiedProducts={modifiedProducts || []}
+            setProducts={setModifiedProducts}
+          />
+        );
       case 1:
         return <AddressAndDelivery />;
       case 2:
