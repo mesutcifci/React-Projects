@@ -3,7 +3,7 @@ import { IProduct } from "../types/product";
 import { doc, getDocFromServer } from "firebase/firestore";
 import { db } from "../firebase";
 
-const useFetchProduct = (productId: string) => {
+const useFetchProductById = (productId: string) => {
   const [isLoading, setIsLoading] = useState(false);
   const [product, setProduct] = useState<IProduct>();
 
@@ -30,4 +30,4 @@ const useFetchProduct = (productId: string) => {
   };
 };
 
-export default useFetchProduct;
+export default useFetchProductById;

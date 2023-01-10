@@ -12,7 +12,6 @@ import {
   CartProductsRenderer,
   CartSummary,
 } from "../../components";
-import { auth } from "../../firebase";
 
 const Cart = () => {
   const [activeStep, setActiveStep] = useState(0);

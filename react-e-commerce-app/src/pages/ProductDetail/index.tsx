@@ -26,7 +26,7 @@ import { ProductCareIcon, ProductMaterialsIcon } from "../../ui";
 
 // Hooks
 import { useSearchParams } from "react-router-dom";
-import { useFetchProduct, useUser } from "../../hooks";
+import { useFetchProductById, useUser } from "../../hooks";
 
 // Data
 import comments from "../../constants/comments.json";
@@ -35,7 +35,9 @@ import { IComment } from "../../types/comments";
 const ProductDetail = () => {
   const [searchParams] = useSearchParams();
 
-  const { isLoading, product } = useFetchProduct(searchParams.get("id") || "");
+  const { isLoading, product } = useFetchProductById(
+    searchParams.get("id") || ""
+  );
   const { addProductToCart, isLoading: loadingForUserActions } = useUser();
 
   const [productQuantity, setProductQuantity] = useState(1);
@@ -277,6 +279,7 @@ const ProductDetail = () => {
                   <img
                     src={product.imageUrl}
                     className="product-detail-image"
+                    alt={product.name}
                   />
                   <FavoriteButton
                     sx={{ display: { xs: "flex", lg: "none" } }}

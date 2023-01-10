@@ -4,7 +4,7 @@ import { db } from "../firebase";
 import { IProduct } from "../types/product";
 import { IParameter } from "../types/parameters";
 
-const useFetchProducts = (parameters: IParameter) => {
+const useFetchProductsBySearchParameters = (parameters: IParameter) => {
   const [productsData, setProductsData] = useState<IProduct[]>();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -61,4 +61,4 @@ const useFetchProducts = (parameters: IParameter) => {
   };
 };
 
-export default useFetchProducts;
+export default useFetchProductsBySearchParameters;

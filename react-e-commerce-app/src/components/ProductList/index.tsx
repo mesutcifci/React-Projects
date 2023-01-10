@@ -1,11 +1,15 @@
 import { Box, Typography } from "@mui/material";
-import { useFetchProducts, useSearchParameters } from "../../hooks";
+import {
+  useFetchProductsBySearchParameters,
+  useSearchParameters,
+} from "../../hooks";
 import Loading from "../Loading";
 import ProductCard from "../ProductCard";
 
 const ProductList = () => {
   const { modifiedParameters } = useSearchParameters();
-  const { productsData, isLoading } = useFetchProducts(modifiedParameters);
+  const { productsData, isLoading } =
+    useFetchProductsBySearchParameters(modifiedParameters);
 
   return (
     <>
