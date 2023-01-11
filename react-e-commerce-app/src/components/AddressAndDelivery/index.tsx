@@ -16,6 +16,7 @@ import { MuiTelInput } from "mui-tel-input";
 import { Field, Form, Formik } from "formik";
 import { Autocomplete, TextField } from "formik-mui";
 import { ICountry } from "../../types/country";
+import { DeliveryIconDHL, DeliveryIconDPD, DeliveryIconInPost } from "../../ui";
 
 interface IinitialValues {
   firstName: string;
@@ -43,6 +44,7 @@ const inputContainerStyles: SxProps<Theme> = {
 
 const inputLabelStyles: SxProps<Theme> = {
   color: "#000000",
+  cursor: "pointer",
   fontSize: "14px",
   fontWeight: "600",
   marginBottom: "12px",
