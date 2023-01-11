@@ -98,13 +98,14 @@ const Cart = () => {
           paddingLeft: { xs: "16px", lg: "116px" },
           paddingRight: { xs: "16px", lg: "116px" },
         }}
+        rowGap="63px"
       >
         <Stack
           direction="row"
           flexWrap="wrap"
           alignItems="center"
           columnGap="10px"
-          sx={{ justifyContent: { xs: "center", sm768: "space-between" } }}
+          sx={{ justifyContent: { xs: "center", lg: "space-between" } }}
         >
           <Typography
             sx={{
@@ -113,7 +114,7 @@ const Cart = () => {
               justifyContent: { xs: "center", sm768: "initial" },
               fontSize: "20px",
               fontWeight: "500",
-              maxWidth: { sm768: "288px" },
+              maxWidth: { sm768: "288px", md: "343px" },
               width: "100%",
               height: "60px",
               textAlign: { xs: "center", sm768: "initial" },

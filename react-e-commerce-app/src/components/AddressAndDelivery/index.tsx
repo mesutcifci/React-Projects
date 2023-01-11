@@ -21,6 +21,7 @@ import countries from "../../constants/countries.json";
 import delivery from "../../constants/delivery.json";
 import { DeliveryIconDHL, DeliveryIconDPD, DeliveryIconInPost } from "../../ui";
 import DeliveryCard from "../DeliveryCard";
+import { ICardData } from "../../types/deliveryCard";
 
 interface IinitialValues {
   firstName: string;
@@ -42,9 +43,7 @@ const initialValues: IinitialValues = {
   email: "",
 };
 
-const inputContainerStyles: SxProps<Theme> = {
-  marginBottom: "27px",
-};
+const inputContainerStyles: SxProps<Theme> = {};
 
 const inputLabelStyles: SxProps<Theme> = {
   color: "#000000",
@@ -66,6 +65,7 @@ const AddressAndDelivery = () => {
   const [phone, setPhone] = useState("");
   const [selectedCountry, setSelectedCountry] = useState(countries[230]);
   const [openAutoComplete, setOpenAutoComplete] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(delivery[0]);
 
   const handleChangePhoneNumber = (newPhone: string) => {
     setPhone(newPhone);
@@ -82,25 +82,58 @@ const AddressAndDelivery = () => {
     }
   };
 
+  const handleSelectCard = (item: ICardData) => {
+    setSelectedCard(item);
+  };
+
   const renderDeliveryCards = () => {
     return delivery.map((item) => {
       const icon = setAndReturnCardIcon(item.iconName);
-      return <DeliveryCard cardData={item} icon={icon!} />;
+      return (
+        <DeliveryCard
+          key={item.id}
+          cardData={item}
+          icon={icon!}
+          sx={{
+            border: `1px solid ${
+              selectedCard.id === item.id ? "#FBB03B" : "#D8D8D8"
+            }`,
+            opacity: selectedCard.id === item.id ? 1 : 0.5,
+            transition: "scale 200ms linear",
+            "&:hover": { scale: `1.05` },
+          }}
+          onClick={() => handleSelectCard(item)}
+        />
+      );
     });
   };
 
   return (
-    <Stack direction="row" flexWrap="wrap" alignItems="center">
+    <Stack
+      direction="row"
+      flexWrap="wrap"
+      alignItems="flex-start"
+      rowGap="60px"
+      sx={{
+        justifyContent: { xs: "center", lg: "space-between" },
+        columnGap: { xs: "10px", xl: "45px" },
+      }}
+    >
       <Stack
         direction="row"
         flexWrap="wrap"
         alignItems="center"
-        sx={{ width: "100%", maxWidth: "760px" }}
+        sx={{ width: "100%", maxWidth: { xs: "710px", xl: "760px" } }}
       >
         <Formik initialValues={initialValues} onSubmit={() => {}}>
           {() => (
             <Form id="addressAndDeliveryForm" noValidate>
-              <Stack direction="row" flexWrap="wrap" justifyContent="center">
+              <Stack
+                direction="row"
+                flexWrap="wrap"
+                justifyContent="center"
+                sx={{ gap: { xs: "25px", xl: "25px 87px" } }}
+              >
                 {/* FIRST NAME */}
                 <Box sx={{ ...inputContainerStyles }}>
                   <InputLabel htmlFor="firstName" sx={{ ...inputLabelStyles }}>
@@ -286,7 +319,20 @@ const AddressAndDelivery = () => {
         </Formik>
       </Stack>
 
-      <Stack>{renderDeliveryCards()}</Stack>
+      <Stack
+        direction="row"
+        flexWrap="wrap"
+        justifyContent="center"
+        sx={{
+          width: "100%",
+          maxWidth: "470px",
+          rowGap: "16px",
+          columnGap: "19px",
+          marginTop: { lg: "33px" },
+        }}
+      >
+        {renderDeliveryCards()}
+      </Stack>
     </Stack>
   );
 };

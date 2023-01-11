@@ -1,35 +1,42 @@
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Typography,
-} from "@mui/material";
-
-interface ICardData {
-  id: string;
-  price: string;
-  description: string;
-  iconName: string;
-}
+import { Box, Stack, SxProps, Theme, Typography } from "@mui/material";
+import { ICardData } from "../../types/deliveryCard";
 
 interface IProps {
   cardData: ICardData;
   icon: JSX.Element;
+  sx?: SxProps<Theme>;
+  onClick: () => void;
 }
 
-const DeliveryCard = ({ cardData, icon }: IProps) => {
+const DeliveryCard = ({ cardData, icon, sx, onClick }: IProps) => {
   return (
-    <Card sx={{ width: "143px", height: "188px" }}>
-      <CardContent>
-        {icon}
-        <Typography sx={{ mb: 1.5 }}>{`$${cardData.price}`}</Typography>
-        <Typography variant="body2">{cardData.description}</Typography>
-      </CardContent>
-      {/* <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions> */}
-    </Card>
+    <Stack
+      sx={{
+        ...sx,
+        alignItems: "center",
+        borderRadius: "10px",
+        cursor: "pointer",
+        padding: "25px 15px 24px 15px",
+        height: "188px",
+        width: "143px",
+      }}
+      onClick={onClick}
+    >
+      <Box sx={{ marginBottom: "31px" }}>{icon}</Box>
+      <Typography
+        sx={{ marginBottom: "14px" }}
+      >{`$${cardData.price}`}</Typography>
+      <Typography
+        sx={{
+          color: "#A1A1A1",
+          fontSize: "13px",
+          width: "100%",
+          textAlign: "center",
+        }}
+      >
+        {cardData.description}
+      </Typography>
+    </Stack>
   );
 };
 
