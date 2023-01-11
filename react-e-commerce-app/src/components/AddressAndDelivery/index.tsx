@@ -1,5 +1,4 @@
 import { useState } from "react";
-import countries from "../../constants/countries.json";
 
 import {
   AutocompleteRenderInputParams,
@@ -13,10 +12,15 @@ import {
   InputAdornment,
 } from "@mui/material";
 import { MuiTelInput } from "mui-tel-input";
+
 import { Field, Form, Formik } from "formik";
 import { Autocomplete, TextField } from "formik-mui";
+
 import { ICountry } from "../../types/country";
+import countries from "../../constants/countries.json";
+import delivery from "../../constants/delivery.json";
 import { DeliveryIconDHL, DeliveryIconDPD, DeliveryIconInPost } from "../../ui";
+import DeliveryCard from "../DeliveryCard";
 
 interface IinitialValues {
   firstName: string;
@@ -66,6 +70,25 @@ const AddressAndDelivery = () => {
   const handleChangePhoneNumber = (newPhone: string) => {
     setPhone(newPhone);
   };
+
+  const setAndReturnCardIcon = (iconName: string) => {
+    switch (iconName) {
+      case "inPost":
+        return <DeliveryIconInPost />;
+      case "dhl":
+        return <DeliveryIconDHL />;
+      case "dpd":
+        return <DeliveryIconDPD />;
+    }
+  };
+
+  const renderDeliveryCards = () => {
+    return delivery.map((item) => {
+      const icon = setAndReturnCardIcon(item.iconName);
+      return <DeliveryCard cardData={item} icon={icon!} />;
+    });
+  };
+
   return (
     <Stack direction="row" flexWrap="wrap" alignItems="center">
       <Stack
@@ -262,6 +285,8 @@ const AddressAndDelivery = () => {
           )}
         </Formik>
       </Stack>
+
+      <Stack>{renderDeliveryCards()}</Stack>
     </Stack>
   );
 };
