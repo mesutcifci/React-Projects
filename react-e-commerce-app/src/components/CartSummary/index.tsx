@@ -1,7 +1,12 @@
-import { Stack } from "@mui/material";
+import { Grid, Stack } from "@mui/material";
+import { PaymentMethodsRenderer } from "..";
 
 const CartSummary = () => {
-  return <Stack></Stack>;
+  return (
+    <Stack>
+      <PaymentMethodsRenderer />
+    </Stack>
+  );
 };
 
 export default CartSummary;
