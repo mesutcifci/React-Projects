@@ -115,15 +115,15 @@ const AddressAndDelivery = () => {
       alignItems="flex-start"
       rowGap="60px"
       sx={{
-        justifyContent: { xs: "center", lg: "space-between" },
-        columnGap: { xs: "10px", xl: "45px" },
+        justifyContent: { xs: "center", lg1300: "space-between" },
+        columnGap: { xs: "10px", lg: "25px", xl: "54px" },
       }}
     >
       <Stack
         direction="row"
         flexWrap="wrap"
         alignItems="center"
-        sx={{ width: "100%", maxWidth: { xs: "710px", xl: "760px" } }}
+        sx={{ width: "100%", maxWidth: { xs: "705px", xl: "760px" } }}
       >
         <Formik initialValues={initialValues} onSubmit={() => {}}>
           {() => (

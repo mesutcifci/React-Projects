@@ -35,6 +35,7 @@ import { User } from "firebase/auth";
 import categories from "../../constants/categories.json";
 import { ISecondaryCategory, ITertiaryCategory } from "../../types/categories";
 import { useUser } from "../../hooks";
+import theme from "../../theme";
 
 const tabPanelStyles: SxProps<Theme> = {
   backgroundColor: "#ffffff",
@@ -202,7 +203,7 @@ const Navbar = () => {
         sx={{
           boxShadow: "none",
           backgroundColor: {
-            xs: "white",
+            xs: "#ffffff",
             lg: `${selectedTabIndex === false && "transparent"}`,
           },
           "& svg": {
@@ -213,9 +214,20 @@ const Navbar = () => {
               }`,
             },
           },
+          "& .MuiToolbar-root": {
+            padding: 0,
+          },
           height: "70px",
-          paddingLeft: { lg: "100px" },
-          paddingRight: { lg: "100px" },
+          paddingLeft: {
+            xs: theme.padding?.pagePaddingXS + "px",
+            lg: theme.padding?.pagePaddingLG + "px",
+            xl: theme.padding?.pagePaddingXL + "px",
+          },
+          paddingRight: {
+            xs: theme.padding?.pagePaddingXS + "px",
+            lg: theme.padding?.pagePaddingLG + "px",
+            xl: theme.padding?.pagePaddingXL + "px",
+          },
         }}
       >
         <Toolbar sx={{ justifyContent: "space-between" }}>

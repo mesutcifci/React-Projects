@@ -1,3 +1,5 @@
+export { default as AppWrapper } from "./AppWrapper";
+
 export { default as Loading } from "./Loading";
 export { default as Carousel } from "./Carousel";
 export { default as FavoriteButton } from "./FavoriteButton";

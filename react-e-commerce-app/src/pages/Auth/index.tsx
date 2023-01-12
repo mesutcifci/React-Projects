@@ -2,6 +2,7 @@ import { Login, Register, ForgotPassword } from "../../components";
 import { useParams, useNavigate } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
 import { ArrowBack as ArrowBackIcon } from "@mui/icons-material";
+import theme from "../../theme";
 
 const Auth = () => {
   const params = useParams();
@@ -31,7 +32,16 @@ const Auth = () => {
           alignItems: "center",
           justifyContent: "center",
           width: "max-content",
-          paddingLeft: "16px",
+          paddingLeft: {
+            xs: theme.padding?.pagePaddingXS + "px",
+            lg: theme.padding?.pagePaddingLG + "px",
+            xl: theme.padding?.pagePaddingXL + "px",
+          },
+          paddingRight: {
+            xs: theme.padding?.pagePaddingXS + "px",
+            lg: theme.padding?.pagePaddingLG + "px",
+            xl: theme.padding?.pagePaddingXL + "px",
+          },
           marginBottom: "27px",
         }}
         onClick={handleClick}

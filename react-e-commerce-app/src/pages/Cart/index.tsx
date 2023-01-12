@@ -6,6 +6,7 @@ import {
   ShoppingCartOutlined,
 } from "@mui/icons-material";
 import { Stack, Step, Stepper, Typography } from "@mui/material";
+import theme from "../../theme";
 
 import {
   AddressAndDelivery,
@@ -95,8 +96,16 @@ const Cart = () => {
       <Loading isLoading={isLoading} />
       <Stack
         sx={{
-          paddingLeft: { xs: "16px", lg: "116px" },
-          paddingRight: { xs: "16px", lg: "116px" },
+          paddingLeft: {
+            xs: theme.padding?.pagePaddingXS + "px",
+            lg: theme.padding?.pagePaddingLG + "px",
+            xl: theme.padding?.pagePaddingXL + "px",
+          },
+          paddingRight: {
+            xs: theme.padding?.pagePaddingXS + "px",
+            lg: theme.padding?.pagePaddingLG + "px",
+            xl: theme.padding?.pagePaddingXL + "px",
+          },
         }}
         rowGap="63px"
       >

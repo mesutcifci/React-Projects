@@ -8,6 +8,7 @@ import {
 import { Box, Grid, Link, Stack, Typography } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import footerItems from "../../constants/footer.json";
+import theme from "../../theme";
 
 const Footer = () => {
   const renderFooterItems = () => {
@@ -60,7 +61,7 @@ const Footer = () => {
   };
   return (
     <>
-      <Grid container rowGap="40px" sx={{ padding: "16px" }}>
+      <Grid container rowGap="40px">
         {renderFooterItems()}
         <Grid
           item

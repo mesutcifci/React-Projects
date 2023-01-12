@@ -1,4 +1,5 @@
 import { Box, Stack } from "@mui/material";
+import theme from "../../theme";
 import {
   ProductBreadcrumbs,
   ProductList,
@@ -10,8 +11,16 @@ const Products = () => {
     <Box
       sx={{
         marginTop: { xs: "83px", md: "29px" },
-        paddingLeft: { xs: "16px", lg: "116px" },
-        paddingRight: { xs: "16px", lg: "116px" },
+        paddingLeft: {
+          xs: theme.padding?.pagePaddingXS + "px",
+          lg: theme.padding?.pagePaddingLG + "px",
+          xl: theme.padding?.pagePaddingXL + "px",
+        },
+        paddingRight: {
+          xs: theme.padding?.pagePaddingXS + "px",
+          lg: theme.padding?.pagePaddingLG + "px",
+          xl: theme.padding?.pagePaddingXL + "px",
+        },
       }}
     >
       <ProductBreadcrumbs

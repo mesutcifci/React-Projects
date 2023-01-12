@@ -17,6 +17,7 @@ import {
   Star,
   Person2Outlined,
 } from "@mui/icons-material";
+import theme from "../../theme";
 
 // Components
 import {
@@ -267,8 +268,16 @@ const ProductDetail = () => {
           minHeight: "500px",
           width: "100%",
           marginTop: { xs: "83px", md: "29px" },
-          paddingLeft: { lg: "116px" },
-          paddingRight: { lg: "116px" },
+          paddingLeft: {
+            xs: theme.padding?.pagePaddingXS + "px",
+            lg: theme.padding?.pagePaddingLG + "px",
+            xl: theme.padding?.pagePaddingXL + "px",
+          },
+          paddingRight: {
+            xs: theme.padding?.pagePaddingXS + "px",
+            lg: theme.padding?.pagePaddingLG + "px",
+            xl: theme.padding?.pagePaddingXL + "px",
+          },
         }}
       >
         {product ? (
