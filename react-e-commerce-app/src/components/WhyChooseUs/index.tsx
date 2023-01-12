@@ -1,3 +1,4 @@
+import theme from "../../theme";
 import {
   FinestQualityIcon,
   MoneyBackIcon,
@@ -34,12 +35,21 @@ const WhyChooseUs = () => {
             marginTop: { xs: "22px", sm: "43px" },
             marginBottom: "20px",
             fontSize: "16px",
-            fontWeight: "600",
+            fontWeight: theme.fontWeight.semiBold,
           }}
         >
           {item.title}
         </Typography>
-        <Typography sx={{ height: "96px" }}>{item.description}</Typography>
+        <Typography
+          sx={{
+            color: "#808080",
+            height: "96px",
+            fontWeight: theme.fontWeight.regular,
+            fontSize: "13px",
+          }}
+        >
+          {item.description}
+        </Typography>
       </Stack>
     ));
   };
@@ -58,8 +68,8 @@ const WhyChooseUs = () => {
           align="center"
           component="h2"
           sx={{
-            fontSize: { xs: "21px" },
-            fontWeight: "400",
+            fontSize: { xs: "21px", lg: "29px" },
+            fontWeight: theme.fontWeight.light,
           }}
         >
           Why should you choose us?

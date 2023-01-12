@@ -18,6 +18,15 @@ declare module "@mui/material/styles" {
       pagePaddingLG?: number;
       pagePaddingXL?: number;
     };
+    fontWeight: {
+      light: number;
+      regular: number;
+      medium: number;
+      semiBold: number;
+      bold: number;
+      extraBold: number;
+      black: number;
+    };
   }
 
   interface ThemeOptions {
@@ -25,6 +34,15 @@ declare module "@mui/material/styles" {
       pagePaddingXS?: number;
       pagePaddingLG?: number;
       pagePaddingXL?: number;
+    };
+    fontWeight: {
+      light: number;
+      regular: number;
+      medium: number;
+      semiBold: number;
+      bold: number;
+      extraBold: number;
+      black: number;
     };
   }
 }
@@ -50,6 +68,15 @@ const theme = createTheme({
     pagePaddingXS: 16,
     pagePaddingLG: 50,
     pagePaddingXL: 80,
+  },
+  fontWeight: {
+    light: 300,
+    regular: 400,
+    medium: 500,
+    semiBold: 600,
+    bold: 700,
+    extraBold: 800,
+    black: 900,
   },
 });
 

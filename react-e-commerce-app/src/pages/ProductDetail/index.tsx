@@ -58,7 +58,11 @@ const ProductDetail = () => {
           alt={comment.owner}
         />
         <Stack justifyContent="flex-start">
-          <Typography fontSize="12px" fontWeight="600" marginBottom="5.5px">
+          <Typography
+            fontSize="12px"
+            fontWeight={theme.fontWeight.semiBold}
+            marginBottom="5.5px"
+          >
             {comment.owner}
           </Typography>
           <Rating
@@ -67,7 +71,11 @@ const ProductDetail = () => {
             precision={0.5}
             sx={{ marginBottom: "12.1px" }}
           />
-          <Typography fontSize="12px" sx={{ width: "100%", maxWidth: "500px" }}>
+          <Typography
+            fontSize="12px"
+            fontWeight={theme.fontWeight.regular}
+            sx={{ width: "100%", maxWidth: "500px" }}
+          >
             {comment.comment}
           </Typography>
         </Stack>
@@ -98,13 +106,13 @@ const ProductDetail = () => {
           />
           <Typography
             fontSize="16px"
-            fontWeight="600"
+            fontWeight={theme.fontWeight.semiBold}
             textAlign="center"
             sx={{ marginBottom: "35px" }}
           >
             Details and product description
           </Typography>
-          <Typography fontSize="14px">
+          <Typography fontSize="14px" fontWeight={theme.fontWeight.regular}>
             {product?.description.details}
           </Typography>
         </Stack>
@@ -122,13 +130,17 @@ const ProductDetail = () => {
           />
           <Typography
             fontSize="16px"
-            fontWeight="600"
+            fontWeight={theme.fontWeight.semiBold}
             textAlign="center"
             sx={{ marginBottom: "35px" }}
           >
             Material(s) and care
           </Typography>
-          <Typography fontSize="14px" sx={{ marginBottom: "10px" }}>
+          <Typography
+            fontSize="14px"
+            fontWeight={theme.fontWeight.regular}
+            sx={{ marginBottom: "10px" }}
+          >
             {product?.description.materials}
           </Typography>
           <ProductCareIcon
@@ -159,7 +171,10 @@ const ProductDetail = () => {
           <Stack gap="40px" direction="row" flexWrap="wrap" alignItems="center">
             {/* RATING POINTS */}
             <Stack alignItems="center">
-              <Typography fontSize="59px" fontWeight="600">
+              <Typography
+                fontSize="59px"
+                fontWeight={theme.fontWeight.semiBold}
+              >
                 4.5
               </Typography>
               <Rating
@@ -172,6 +187,7 @@ const ProductDetail = () => {
               />
               <Typography
                 fontSize="12px"
+                fontWeight={theme.fontWeight.regular}
                 color="#B9B9B9"
                 sx={{ display: "flex", alignItems: "center", gap: "4px" }}
               >
@@ -186,6 +202,8 @@ const ProductDetail = () => {
                   <Star sx={{ fill: "#ffb53d" }} />
                   <Typography
                     sx={{
+                      fontSize: "12px",
+                      fontWeight: theme.fontWeight.regular,
                       marginLeft: "9px",
                       marginRight: "18px",
                       width: "4px",
@@ -225,6 +243,7 @@ const ProductDetail = () => {
               display: "flex",
               alignItems: "center",
               fontSize: "13px",
+              fontWeight: theme.fontWeight.semiBold,
               height: "49px",
               maxWidth: { xs: "400px", sm: "448px" },
               textAlign: "center",
@@ -317,10 +336,20 @@ const ProductDetail = () => {
               >
                 {/* NAME AND PRICE */}
                 <Box>
-                  <Typography fontSize="21px" fontWeight="400">
+                  <Typography
+                    sx={{
+                      fontSize: { xs: "21px", sm768: "25px", lg: "30px" },
+                      fontWeight: theme.fontWeight.light,
+                    }}
+                  >
                     {product.name}
                   </Typography>
-                  <Typography fontSize="21px" fontWeight="400">
+                  <Typography
+                    sx={{
+                      fontSize: { xs: "21px", sm768: "25px", lg: "30px" },
+                      fontWeight: theme.fontWeight.regular,
+                    }}
+                  >
                     ${product.price}
                   </Typography>
                 </Box>
@@ -329,7 +358,7 @@ const ProductDetail = () => {
                 <Box>
                   <Typography
                     fontSize="13px"
-                    fontWeight="300"
+                    fontWeight={theme.fontWeight.light}
                     marginBottom="17px"
                   >
                     Color:
@@ -352,14 +381,17 @@ const ProductDetail = () => {
                       marginBottom: "17px",
                     }}
                   >
-                    <Typography fontSize="13" fontWeight="300">
+                    <Typography
+                      fontSize="13"
+                      fontWeight={theme.fontWeight.light}
+                    >
                       Size:{" "}
                     </Typography>
                     <Typography
-                      fontSize="13"
+                      fontSize="13px"
+                      fontWeight={theme.fontWeight.semiBold}
                       sx={{
                         cursor: "pointer",
-                        fontWeight: { xs: "400", sm: "600" },
                       }}
                     >
                       See size table
@@ -381,7 +413,7 @@ const ProductDetail = () => {
                     <Typography
                       color="#AAAAAA"
                       fontSize="13px"
-                      fontWeight="500"
+                      fontWeight={theme.fontWeight.regular}
                       textTransform="uppercase"
                     >
                       Choose size
@@ -392,7 +424,7 @@ const ProductDetail = () => {
 
                 <Typography
                   fontSize="13px"
-                  fontWeight="300"
+                  fontWeight={theme.fontWeight.light}
                   marginBottom="-17px"
                 >
                   Quantity:
@@ -423,6 +455,7 @@ const ProductDetail = () => {
                         display: "flex",
                         alignItems: "center",
                         fontSize: "13px",
+                        fontWeight: theme.fontWeight.semiBold,
                         height: "49px",
                         maxWidth: { xs: "400px", sm: "448px" },
                         textAlign: "center",
@@ -469,6 +502,12 @@ const ProductDetail = () => {
                     color: `${
                       selectedTab === "description" ? "#000000" : "#D4D4D4"
                     }`,
+                    fontSize: "13px",
+                    fontWeight: `${
+                      selectedTab === "description"
+                        ? theme.fontWeight.semiBold
+                        : theme.fontWeight.regular
+                    }`,
                     textAlign: "center",
                     "&:hover": {
                       background: `${
@@ -490,6 +529,12 @@ const ProductDetail = () => {
                     borderRadius: "49px",
                     color: `${
                       selectedTab === "reviews" ? "#000000" : "#D4D4D4"
+                    }`,
+                    fontSize: "13px",
+                    fontWeight: `${
+                      selectedTab === "reviews"
+                        ? theme.fontWeight.semiBold
+                        : theme.fontWeight.regular
                     }`,
                     textAlign: "center",
                     "&:hover": {

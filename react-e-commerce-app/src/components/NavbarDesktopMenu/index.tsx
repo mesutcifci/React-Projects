@@ -1,6 +1,7 @@
 import { Box, Tab, Tabs } from "@mui/material";
 import categories from "../../constants/categories.json";
 import { useLocation, useNavigate } from "react-router-dom";
+import theme from "../../theme";
 
 interface IProps {
   selectedTabIndex: number | boolean;
@@ -67,7 +68,7 @@ const NavbarDesktopMenu = ({
             onClick={() => handleClickPrimaryCategory(category.name)}
             sx={{
               fontSize: "14px !important",
-              fontWeight: "500 !important",
+              fontWeight: theme.fontWeight.semiBold,
               color: {
                 xs: "rgba(0,0,0,.7)",
                 lg: `${

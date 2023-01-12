@@ -7,6 +7,7 @@ import { TextField } from "formik-mui";
 import { MuiTelInput } from "mui-tel-input";
 
 import * as yup from "yup";
+import theme from "../../theme";
 
 const validationSchema = yup.object({
   email: yup.string().email("Enter a valid email"),
@@ -39,14 +40,19 @@ const ForgotPassword = () => {
       }}
     >
       <Typography
-        sx={{ fontSize: "22px", fontWeight: "500", marginBottom: "24px" }}
+        sx={{
+          fontSize: "22px",
+          fontWeight: theme.fontWeight.semiBold,
+          marginBottom: "24px",
+        }}
       >
         Forgot your password?
       </Typography>
       <Typography
         sx={{
+          color: "#7D7D7D",
           fontSize: "13px",
-          fontWeight: "200",
+          fontWeight: theme.fontWeight.regular,
           lineHeight: "25px",
           maxWidth: "358px",
           textAlign: "center",
@@ -67,6 +73,13 @@ const ForgotPassword = () => {
               type="email"
               name="email"
               label="Email"
+              sx={{
+                "& .MuiFormLabel-root": {
+                  color: "#808080",
+                  fontSize: "13px",
+                  fontWeight: theme.fontWeight.regular,
+                },
+              }}
             />
             <Divider
               sx={{
@@ -83,7 +96,11 @@ const ForgotPassword = () => {
               }}
             >
               <Typography
-                sx={{ fontSize: "13px", fontWeight: "400", color: "#BEBEBE" }}
+                sx={{
+                  fontSize: "13px",
+                  fontWeight: theme.fontWeight.regular,
+                  color: "#BEBEBE",
+                }}
               >
                 OR
               </Typography>
@@ -113,6 +130,7 @@ const ForgotPassword = () => {
             backgroundColor: "#ffb53d",
           },
           fontSize: "13px",
+          fontWeight: theme.fontWeight.semiBold,
         }}
       >
         Reset password

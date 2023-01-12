@@ -32,7 +32,7 @@ const Footer = () => {
           variant="h1"
           sx={{
             fontSize: "16px",
-            fontWeight: "600",
+            fontWeight: theme.fontWeight.semiBold,
             marginBottom: { xs: "10px", md: "28px" },
             width: "150px",
           }}
@@ -47,6 +47,7 @@ const Footer = () => {
               key={child.name}
               sx={{
                 fontSize: "13px",
+                fontWeight: theme.fontWeight.regular,
                 color: "#000000",
                 textDecoration: "none",
                 "&:hover": { color: "#FBB03B" },
@@ -174,6 +175,7 @@ const Footer = () => {
       <Typography
         sx={{
           fontSize: "12px",
+          fontWeight: theme.fontWeight.regular,
           color: "#AEAEAE",
           marginLeft: "auto",
           marginRight: "auto",

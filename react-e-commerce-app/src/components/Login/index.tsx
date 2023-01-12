@@ -24,6 +24,8 @@ import {
   VisibilityOff,
 } from "@mui/icons-material";
 
+import theme from "../../theme";
+
 import { GmailIcon } from "../../ui/";
 
 // formik
@@ -115,14 +117,19 @@ const Login = () => {
       }}
     >
       <Typography
-        sx={{ fontSize: "22px", fontWeight: "500", marginBottom: "24px" }}
+        sx={{
+          fontSize: "22px",
+          fontWeight: theme.fontWeight.semiBold,
+          marginBottom: "24px",
+        }}
       >
         Login
       </Typography>
       <Typography
         sx={{
+          color: "#7D7D7D",
           fontSize: "13px",
-          fontWeight: "200",
+          fontWeight: theme.fontWeight.regular,
           lineHeight: "25px",
           maxWidth: "358px",
           textAlign: "center",
@@ -145,6 +152,13 @@ const Login = () => {
               type="email"
               name="email"
               label="Email"
+              sx={{
+                "& .MuiFormLabel-root": {
+                  color: "#808080",
+                  fontSize: "13px",
+                  fontWeight: theme.fontWeight.regular,
+                },
+              }}
             />
             <Field
               disabled={loading}
@@ -163,6 +177,13 @@ const Login = () => {
                   </InputAdornment>
                 ),
               }}
+              sx={{
+                "& .MuiFormLabel-root": {
+                  color: "#808080",
+                  fontSize: "13px",
+                  fontWeight: theme.fontWeight.regular,
+                },
+              }}
             />
             <FormGroup
               sx={{
@@ -177,13 +198,18 @@ const Login = () => {
                 component={FormControlLabel}
                 control={<Checkbox />}
                 label="Keep me signed in"
-                sx={{ "& span": { fontSize: "13px", fontWeight: "300" } }}
+                sx={{
+                  "& span": {
+                    fontSize: "13px",
+                    fontWeight: theme.fontWeight.regular,
+                  },
+                }}
               />
               <Typography
                 sx={{
                   fontSize: "13px",
                   width: "max-content",
-                  fontWeight: "300",
+                  fontWeight: theme.fontWeight.regular,
                   color: "#808080",
                   cursor: "pointer",
                 }}
@@ -223,7 +249,7 @@ const Login = () => {
           <Typography
             sx={{
               textTransform: "capitalize",
-              fontWeight: "500",
+              fontWeight: theme.fontWeight.semiBold,
               fontSize: "13px",
             }}
           >
@@ -258,7 +284,7 @@ const Login = () => {
             sx={{
               textTransform: "capitalize",
               color: "#000000",
-              fontWeight: "500",
+              fontWeight: theme.fontWeight.semiBold,
               fontSize: "13px",
             }}
           >
@@ -271,20 +297,21 @@ const Login = () => {
         form="loginForm"
         type="submit"
         sx={{
-          width: "100%",
-          maxWidth: { xs: "400px", sm: "448px" },
-          height: "56px",
+          backgroundColor: "#FBB03B",
           borderRadius: "56px",
           display: "flex",
           alignItems: "center",
-          textAlign: "center",
-          backgroundColor: "#FBB03B",
+          fontSize: "13px",
+          fontWeight: theme.fontWeight.semiBold,
           marginTop: "20px",
+          maxWidth: { xs: "400px", sm: "448px" },
+          textAlign: "center",
           textTransform: "none",
           "&:hover": {
             backgroundColor: "#ffb53d",
           },
-          fontSize: "13px",
+          height: "56px",
+          width: "100%",
         }}
       >
         Sign in
@@ -298,7 +325,9 @@ const Login = () => {
           marginTop: "22px",
         }}
       >
-        <Typography sx={{ fontSize: "14px", fontWeight: "300" }}>
+        <Typography
+          sx={{ fontSize: "14px", fontWeight: theme.fontWeight.regular }}
+        >
           Not a member yet?
         </Typography>
         <Typography

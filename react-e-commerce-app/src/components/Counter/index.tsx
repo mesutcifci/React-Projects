@@ -3,6 +3,7 @@ import {
   Add as IncreaseButtonIcon,
   Remove as DecreaseButtonIcon,
 } from "@mui/icons-material";
+import theme from "../../theme";
 
 interface IProps {
   counterValue: number;
@@ -44,7 +45,7 @@ const Counter = ({
       <Typography
         color="#000000"
         fontSize="16px"
-        fontWeight="500"
+        fontWeight={theme.fontWeight.semiBold}
         textAlign="center"
         sx={{ width: "10px" }}
       >

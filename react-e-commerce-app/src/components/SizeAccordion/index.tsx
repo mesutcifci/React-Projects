@@ -7,6 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { IAccordionProps } from "../../types/accordion";
+import theme from "../../theme";
 
 const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
 
@@ -14,7 +15,9 @@ const SizeAccordion = ({ accordionStyles }: IAccordionProps) => {
   return (
     <Accordion sx={{ ...accordionStyles }} disableGutters>
       <AccordionSummary expandIcon={<ExpandMore />}>
-        <Typography sx={{ fontSize: "16px", fontWeight: "500" }}>
+        <Typography
+          sx={{ fontSize: "12px", fontWeight: theme.fontWeight.semiBold }}
+        >
           SIZE
         </Typography>
       </AccordionSummary>
@@ -38,7 +41,11 @@ const SizeAccordion = ({ accordionStyles }: IAccordionProps) => {
               width: "42px",
             }}
           >
-            <Typography sx={{ fontSize: "13px" }}>{size}</Typography>
+            <Typography
+              sx={{ fontSize: "13px", fontWeight: theme.fontWeight.regular }}
+            >
+              {size}
+            </Typography>
           </Box>
         ))}
       </AccordionDetails>

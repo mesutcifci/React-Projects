@@ -14,6 +14,7 @@ import { IAccordionProps } from "../../types/accordion";
 import { useGetMappedCategories, useSearchParameters } from "../../hooks";
 import { ISecondaryCategory, ITertiaryCategory } from "../../types/categories";
 import { IParameter, ITertiaryParameter } from "../../types/parameters";
+import theme from "../../theme";
 
 const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
   const { mapCategoriesWithSearchParameters, mappedCategories } =
@@ -269,21 +270,13 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
             cursor: "pointer",
             "&:hover": { color: "#FBB03B" },
             fontSize: "14px",
+            fontWeight: theme.fontWeight.regular,
           }}
           onClick={() =>
             handleClickTertiaryCategory(secondaryCategory, category)
           }
         >
           {category.name}
-        </Typography>
-        <Typography
-          sx={{
-            cursor: "pointer",
-            fontSize: "14px",
-            color: "#C4C4C4",
-          }}
-        >
-          (16)
         </Typography>
       </Stack>
     ));
@@ -296,7 +289,9 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
       defaultExpanded={true}
     >
       <AccordionSummary expandIcon={<ExpandMore />}>
-        <Typography sx={{ fontSize: "16px", fontWeight: "500" }}>
+        <Typography
+          sx={{ fontSize: "12px", fontWeight: theme.fontWeight.semiBold }}
+        >
           PRODUCT TYPE
         </Typography>
       </AccordionSummary>
@@ -331,7 +326,12 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
                   width: "calc(100% - 30px)",
                 }}
               >
-                <Typography>{secondaryCategory.name}</Typography>
+                <Typography
+                  fontSize="12px"
+                  fontWeight={theme.fontWeight.semiBold}
+                >
+                  {secondaryCategory.name}
+                </Typography>
               </AccordionSummary>
             </Stack>
             <AccordionDetails sx={{ paddingLeft: "31px", paddingRight: "0px" }}>

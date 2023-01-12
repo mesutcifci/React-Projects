@@ -122,7 +122,7 @@ const Cart = () => {
               alignItems: "center",
               justifyContent: { xs: "center", sm768: "initial" },
               fontSize: "20px",
-              fontWeight: "500",
+              fontWeight: theme.fontWeight.semiBold,
               maxWidth: { sm768: "288px", md: "343px" },
               width: "100%",
               height: "60px",

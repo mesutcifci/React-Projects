@@ -52,7 +52,7 @@ const Auth = () => {
             cursor: "pointer",
             marginLeft: "24px",
             fontSize: "14px",
-            fontWeight: "600",
+            fontWeight: theme.fontWeight.semiBold,
           }}
         >
           Back to store

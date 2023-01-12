@@ -9,6 +9,7 @@ import {
 import { Avatar, Box, LinearProgress, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import Counter from "../Counter";
+import theme from "../../theme";
 
 interface IProps {
   modifiedProducts: IModifiedProduct[];
@@ -44,18 +45,13 @@ const CartProductsRenderer = ({ modifiedProducts, setProducts }: IProps) => {
       headerName: "Product",
       renderCell: (params: GridRenderCellParams) => {
         return (
-          <Stack
-            direction="row"
-            alignItems="center"
-            fontWeight="600"
-            columnGap="24px"
-          >
+          <Stack direction="row" alignItems="center" columnGap="24px">
             <Avatar
               src={params.row.product?.img}
               sx={{ width: "70px", height: "70px" }}
               alt={params.row?.product?.name}
             />
-            <Typography fontSize="16px" fontWeight="500">
+            <Typography fontSize="16px" fontWeight={theme.fontWeight.semiBold}>
               {params.row.product?.name}
             </Typography>
           </Stack>
@@ -115,7 +111,7 @@ const CartProductsRenderer = ({ modifiedProducts, setProducts }: IProps) => {
       headerAlign: "center",
       align: "center",
       renderCell: (params) => (
-        <Typography fontSize="16px" fontWeight="500">
+        <Typography fontSize="14px" fontWeight={theme.fontWeight.regular}>
           {params.row.price}
         </Typography>
       ),

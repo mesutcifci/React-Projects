@@ -2,6 +2,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import { IProduct } from "../../types/product";
 import { useNavigate } from "react-router-dom";
 import FavoriteButton from "../FavoriteButton";
+import theme from "../../theme";
 
 interface IProps {
   product: IProduct;
@@ -50,10 +51,22 @@ const ProductCard = ({ product }: IProps) => {
         <FavoriteButton />
       </Box>
       <Stack sx={{ paddingLeft: "5px", paddingRight: "5px" }}>
-        <Typography fontSize="13px" fontWeight="400">
+        <Typography
+          sx={{
+            fontSize: { xs: "12px", sm768: "14px" },
+            fontWeight: theme.fontWeight.light,
+          }}
+        >
           {product.name}
         </Typography>
-        <Typography>${product.price}</Typography>
+        <Typography
+          sx={{
+            fontSize: { xs: "12px", sm768: "16px" },
+            fontWeight: theme.fontWeight.regular,
+          }}
+        >
+          ${product.price}
+        </Typography>
       </Stack>
     </Stack>
   );

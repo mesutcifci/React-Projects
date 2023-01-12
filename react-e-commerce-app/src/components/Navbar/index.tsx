@@ -154,7 +154,7 @@ const Navbar = () => {
               >
                 <Typography
                   fontSize="14px"
-                  fontWeight="600"
+                  fontWeight={theme.fontWeight.semiBold}
                   textTransform="uppercase"
                   sx={{ cursor: "pointer", "&:hover": { color: "#FBB03B" } }}
                 >
@@ -164,7 +164,7 @@ const Navbar = () => {
                   <Typography
                     key={tertiaryCategory.name}
                     fontSize="12px"
-                    fontWeight="400"
+                    fontWeight={theme.fontWeight.regular}
                     sx={{ cursor: "pointer", "&:hover": { color: "#FBB03B" } }}
                     onClick={(event) =>
                       handleClickTertiaryCategory(

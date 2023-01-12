@@ -6,12 +6,15 @@ import {
   Typography,
 } from "@mui/material";
 import { IAccordionProps } from "../../types/accordion";
+import theme from "../../theme";
 
 const CollectionAccordion = ({ accordionStyles }: IAccordionProps) => {
   return (
     <Accordion sx={{ ...accordionStyles }} disableGutters>
       <AccordionSummary expandIcon={<ExpandMore />}>
-        <Typography sx={{ fontSize: "16px", fontWeight: "500" }}>
+        <Typography
+          sx={{ fontSize: "12px", fontWeight: theme.fontWeight.semiBold }}
+        >
           COLLECTION
         </Typography>
       </AccordionSummary>
@@ -28,7 +31,8 @@ const CollectionAccordion = ({ accordionStyles }: IAccordionProps) => {
             sx={{
               cursor: "pointer",
               "&:hover": { color: "#FBB03B" },
-              fontSize: "16px",
+              fontSize: "14px",
+              fontWeight: theme.fontWeight.regular,
               paddingLeft: "14px",
             }}
           >{`Collection - ${index + 1}`}</Typography>

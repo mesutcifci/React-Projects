@@ -6,6 +6,7 @@ import {
 import { IconButton, Typography, Box, Stack } from "@mui/material";
 import carouselBottomData from "./carouselBottomData.json";
 import { MoneyBackIcon, ShippingIcon, SmileIconWithBackground } from "../../ui";
+import theme from "../../theme";
 
 interface ICarouselItemType {
   id: number;
@@ -57,15 +58,17 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
           <Typography
             component="h3"
             sx={{
-              fontSize: "16px",
-              fontWeight: "600",
+              fontSize: "14px",
+              fontWeight: theme.fontWeight.semiBold,
             }}
           >
             {data.title}
           </Typography>
           <Typography
             sx={{
+              color: "#A8A8A8",
               fontSize: "12px",
+              fontWeight: theme.fontWeight.regular,
               height: "55px",
               maxWidth: "160px",
               WebkitLineClamp: "3",
@@ -132,7 +135,7 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
               sx={{
                 position: "absolute",
                 fontSize: { xs: "36px", sm: "46px", md: "56px", lg: "66px" },
-                fontWeight: "bold",
+                fontWeight: theme.fontWeight.bold,
                 lineHeight: { xs: "46px", sm: "56px", md: "66px", lg: "72px" },
                 color: "white",
                 transform: { xs: "translateY(-50%)", lg: "initial" },
@@ -157,7 +160,13 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
                 zIndex: "99",
               }}
             >
-              <Typography sx={{ color: "#ffffff", fontWeight: "600" }}>
+              <Typography
+                sx={{
+                  color: "#ffffff",
+                  fontWeight: theme.fontWeight.semiBold,
+                  fontSize: "12px",
+                }}
+              >
                 01
               </Typography>
               <Box
@@ -179,7 +188,13 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
                   }}
                 ></Box>
               </Box>
-              <Typography sx={{ color: "#ffffff", fontWeight: "600" }}>
+              <Typography
+                sx={{
+                  color: "#ffffff",
+                  fontWeight: theme.fontWeight.semiBold,
+                  fontSize: "12px",
+                }}
+              >
                 {data.length < 10 ? "0" + data.length : data.length}
               </Typography>
             </Box>
@@ -204,7 +219,11 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
                 <ArrowForwardIcon data-testid="shopIcon" />
               </IconButton>
               <Typography
-                sx={{ fontSize: "13px", color: "white", fontWeight: "bold" }}
+                sx={{
+                  fontSize: "13px",
+                  color: "white",
+                  fontWeight: theme.fontWeight.semiBold,
+                }}
               >
                 SHOP NOW
               </Typography>

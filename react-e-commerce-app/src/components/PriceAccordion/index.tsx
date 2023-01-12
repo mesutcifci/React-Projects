@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { IAccordionProps } from "../../types/accordion";
+import theme from "../../theme";
 
 const minDistance = 100;
 
@@ -38,7 +39,9 @@ const PriceAccordion = ({ accordionStyles }: IAccordionProps) => {
   return (
     <Accordion sx={{ ...accordionStyles }} disableGutters>
       <AccordionSummary expandIcon={<ExpandMore />}>
-        <Typography sx={{ fontSize: "16px", fontWeight: "500" }}>
+        <Typography
+          sx={{ fontSize: "12px", fontWeight: theme.fontWeight.semiBold }}
+        >
           PRICE
         </Typography>
       </AccordionSummary>
@@ -54,6 +57,7 @@ const PriceAccordion = ({ accordionStyles }: IAccordionProps) => {
             <Typography
               sx={{
                 fontSize: "11px",
+                fontWeight: theme.fontWeight.regular,
                 width: "67px",
                 height: "24px",
                 background: "#F4F4F4",
@@ -67,6 +71,7 @@ const PriceAccordion = ({ accordionStyles }: IAccordionProps) => {
             <Typography
               sx={{
                 fontSize: "11px",
+                fontWeight: theme.fontWeight.regular,
                 width: "67px",
                 height: "24px",
                 background: "#F4F4F4",

@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { IAccordionProps } from "../../types/accordion";
 import ColorPalette from "../ColorPalette";
+import theme from "../../theme";
 
 const colors = [
   "#000000",
@@ -22,7 +23,9 @@ const ColorAccordion = ({ accordionStyles }: IAccordionProps) => {
   return (
     <Accordion sx={{ ...accordionStyles }} disableGutters>
       <AccordionSummary expandIcon={<ExpandMore />}>
-        <Typography sx={{ fontSize: "16px", fontWeight: "500" }}>
+        <Typography
+          sx={{ fontSize: "12px", fontWeight: theme.fontWeight.semiBold }}
+        >
           COLOR
         </Typography>
       </AccordionSummary>

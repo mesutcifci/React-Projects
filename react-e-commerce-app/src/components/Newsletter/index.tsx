@@ -2,6 +2,7 @@ import { Box, Button, Stack, Typography } from "@mui/material";
 import { Field, Form, Formik } from "formik";
 import { TextField } from "formik-mui";
 import * as yup from "yup";
+import theme from "../../theme";
 
 const validationSchema = yup.object({
   email: yup.string().email("Enter a valid email"),
@@ -32,7 +33,8 @@ const Newsletter = () => {
     >
       <Typography
         sx={{
-          fontSize: { xs: "20px", sm: "24px", lg: "29px" },
+          fontSize: { xs: "20px", sm: "25px" },
+          fontWeight: theme.fontWeight.regular,
           maxWidth: { xs: "350px", sm: "420px", lg: "505px" },
           width: "100%",
         }}
@@ -82,6 +84,11 @@ const Newsletter = () => {
                   "& *": {
                     border: "0px !important",
                   },
+                  "& .MuiFormLabel-root": {
+                    color: "#808080",
+                    fontSize: "13px",
+                    fontWeight: theme.fontWeight.regular,
+                  },
                 }}
               />
               <Button
@@ -92,6 +99,7 @@ const Newsletter = () => {
                   display: "flex",
                   alignItems: "center",
                   fontSize: "13px",
+                  fontWeight: theme.fontWeight.semiBold,
                   height: "48px",
                   maxWidth: { xs: "400px", sm: "448px" },
                   padding: "15px 24px 14px 25px",

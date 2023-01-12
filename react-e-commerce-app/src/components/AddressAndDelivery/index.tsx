@@ -22,6 +22,7 @@ import delivery from "../../constants/delivery.json";
 import { DeliveryIconDHL, DeliveryIconDPD, DeliveryIconInPost } from "../../ui";
 import DeliveryCard from "../DeliveryCard";
 import { ICardData } from "../../types/deliveryCard";
+import theme from "../../theme";
 
 interface IinitialValues {
   firstName: string;
@@ -49,7 +50,7 @@ const inputLabelStyles: SxProps<Theme> = {
   color: "#000000",
   cursor: "pointer",
   fontSize: "14px",
-  fontWeight: "600",
+  fontWeight: theme.fontWeight.semiBold,
   marginBottom: "12px",
 };
 
@@ -58,6 +59,12 @@ const inputStyles: SxProps<Theme> = {
     borderRadius: "56px",
     width: "100%",
     maxWidth: "336px",
+    minWidth: { sm: "336px" },
+  },
+
+  "& .MuiInputBase-input": {
+    fontSize: { sm: "13px" },
+    fontWeight: { sm: theme.fontWeight.regular },
   },
 };
 

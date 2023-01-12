@@ -24,6 +24,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 // formik
 import { Formik, Form, Field } from "formik";
 import { TextField } from "formik-mui";
+import theme from "../../theme";
 
 const validationSchema = yup.object({
   firstName: yup
@@ -133,15 +134,20 @@ const Register = () => {
       }}
     >
       <Typography
-        sx={{ fontSize: "22px", fontWeight: "500", marginBottom: "24px" }}
+        sx={{
+          fontSize: "22px",
+          fontWeight: theme.fontWeight.semiBold,
+          marginBottom: "24px",
+        }}
       >
         Create an account and discover the benefits
       </Typography>
 
       <Typography
         sx={{
+          color: "#7D7D7D",
           fontSize: "13px",
-          fontWeight: "200",
+          fontWeight: theme.fontWeight.regular,
           lineHeight: "25px",
           maxWidth: "358px",
           textAlign: "center",
@@ -166,6 +172,13 @@ const Register = () => {
               type="text"
               name="firstName"
               label="First Name"
+              sx={{
+                "& .MuiFormLabel-root": {
+                  color: "#808080",
+                  fontSize: "13px",
+                  fontWeight: theme.fontWeight.regular,
+                },
+              }}
             />
             <Field
               disabled={loading}
@@ -173,6 +186,13 @@ const Register = () => {
               type="text"
               name="lastName"
               label="Last Name"
+              sx={{
+                "& .MuiFormLabel-root": {
+                  color: "#808080",
+                  fontSize: "13px",
+                  fontWeight: theme.fontWeight.regular,
+                },
+              }}
             />
             <Field
               disabled={loading}
@@ -180,6 +200,13 @@ const Register = () => {
               type="email"
               name="email"
               label="Email"
+              sx={{
+                "& .MuiFormLabel-root": {
+                  color: "#808080",
+                  fontSize: "13px",
+                  fontWeight: theme.fontWeight.regular,
+                },
+              }}
             />
             <Field
               disabled={loading}
@@ -187,6 +214,13 @@ const Register = () => {
               type={isPasswordShown.password ? "text" : "password"}
               name="password"
               label="Password"
+              sx={{
+                "& .MuiFormLabel-root": {
+                  color: "#808080",
+                  fontSize: "13px",
+                  fontWeight: theme.fontWeight.regular,
+                },
+              }}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end" sx={{ cursor: "pointer" }}>
@@ -209,6 +243,13 @@ const Register = () => {
               type={isPasswordShown.confirmPassword ? "text" : "password"}
               name="confirmPassword"
               label="Confirm Password"
+              sx={{
+                "& .MuiFormLabel-root": {
+                  color: "#808080",
+                  fontSize: "13px",
+                  fontWeight: theme.fontWeight.regular,
+                },
+              }}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end" sx={{ cursor: "pointer" }}>
@@ -243,7 +284,12 @@ const Register = () => {
                 component={FormControlLabel}
                 control={<Checkbox />}
                 label="I agree to the Google Terms of Service and Privacy Policy"
-                sx={{ "& span": { fontSize: "13px", fontWeight: "300" } }}
+                sx={{
+                  "& span": {
+                    fontSize: "13px",
+                    fontWeight: theme.fontWeight.regular,
+                  },
+                }}
               />
             </FormGroup>
           </Form>
@@ -256,20 +302,21 @@ const Register = () => {
         form="registerForm"
         disabled={loading}
         sx={{
-          width: "100%",
-          maxWidth: { xs: "400px", sm: "448px" },
-          height: "56px",
+          backgroundColor: "#FBB03B",
           borderRadius: "56px",
           display: "flex",
           alignItems: "center",
-          textAlign: "center",
-          backgroundColor: "#FBB03B",
+          fontSize: "13px",
+          fontWeight: theme.fontWeight.semiBold,
           marginTop: "20px",
+          maxWidth: { xs: "400px", sm: "448px" },
+          textAlign: "center",
           textTransform: "none",
           "&:hover": {
             backgroundColor: "#ffb53d",
           },
-          fontSize: "13px",
+          height: "56px",
+          width: "100%",
         }}
       >
         Sign up
