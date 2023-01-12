@@ -1,26 +1,33 @@
 import { Stack } from "@mui/material";
 
 interface IProps {
-  methodName: string;
   icon: JSX.Element;
   isSelected: boolean;
   onClick: () => void;
 }
 
-const PaymentMethodCard = ({
-  methodName,
-  icon,
-  isSelected,
-  onClick,
-}: IProps) => {
+const PaymentMethodCard = ({ icon, isSelected, onClick }: IProps) => {
   return (
     <Stack
       onClick={onClick}
-      sx={{ width: "130px", height: "54px" }}
+      sx={{
+        border: `1px solid ${isSelected ? "#FBB03B" : "#D8D8D8"}`,
+        borderRadius: "22px",
+        cursor: "pointer",
+        opacity: `${isSelected ? 1 : 0.5}`,
+        height: "54px",
+        width: "130px",
+        transition: "scale 200ms linear",
+        "&:hover": {
+          scale: "1.05",
+        },
+      }}
       direction="row"
       alignItems="center"
       justifyContent="center"
-    ></Stack>
+    >
+      {icon}
+    </Stack>
   );
 };
 

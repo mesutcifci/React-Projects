@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Grid, Stack } from "@mui/material";
 import paymentMethodNames from "../../constants/paymentMethodNames.json";
 import {
   DiscoverIcon,
@@ -42,7 +42,6 @@ const PaymentMethodsRenderer = () => {
       const icon = findAndReturnPaymentIcon(methodName);
       return (
         <PaymentMethodCard
-          methodName={methodName}
           icon={icon!}
           isSelected={methodName === selectedPaymentMethod}
           onClick={() => {
@@ -52,7 +51,18 @@ const PaymentMethodsRenderer = () => {
       );
     });
   };
-  return <Grid container>{renderMethods()}</Grid>;
+
+  return (
+    <Stack
+      direction="row"
+      flexWrap="wrap"
+      justifyContent="center"
+      gap="10px"
+      sx={{ maxWidth: "410px" }}
+    >
+      {renderMethods()}
+    </Stack>
+  );
 };
 
 export default PaymentMethodsRenderer;
