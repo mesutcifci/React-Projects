@@ -1,7 +1,7 @@
 import { Stack } from "@mui/material";
 
-const CartSummary = () => {
+const PaymentMethod = () => {
   return <Stack></Stack>;
 };
 
-export default CartSummary;
+export default PaymentMethod;

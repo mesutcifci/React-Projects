@@ -13,3 +13,10 @@ export { default as ProductCareIcon } from "./ProductCareIcon";
 export { default as DeliveryIconInPost } from "./DeliveryIconInPost";
 export { default as DeliveryIconDPD } from "./DeliveryIconDPD";
 export { default as DeliveryIconDHL } from "./DeliveryIconDHL";
+
+export { default as PayPalIcon } from "./PayPalIcon";
+export { default as VISAIcon } from "./VISAIcon";
+export { default as MastercardIcon } from "./MastercardIcon";
+export { default as MaestroIcon } from "./MaestroIcon";
+export { default as DiscoverIcon } from "./DiscoverIcon";
+export { default as IdealIcon } from "./IdealIcon";
