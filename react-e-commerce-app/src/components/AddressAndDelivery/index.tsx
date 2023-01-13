@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import { MuiTelInput, matchIsValidTel } from "mui-tel-input";
 
-import { Field, Form, Formik, FormikHelpers } from "formik";
+import { Field, Form, Formik, FormikHelpers, FormikTouched } from "formik";
 import { Autocomplete, TextField } from "formik-mui";
 
 import { ICountry } from "../../types/country";
@@ -34,6 +34,8 @@ interface IinitialValues {
   address: string;
   city: string;
   postalCode: string;
+  phone: string;
+  country: string;
   email: string;
 }
 
@@ -43,6 +45,8 @@ const initialValues: IinitialValues = {
   address: "",
   city: "",
   postalCode: "",
+  phone: "",
+  country: "",
   email: "",
 };
 
@@ -88,11 +92,12 @@ const validationSchema = yup.object({
     .string()
     .trim()
     .matches(/^[\p{L}\p{M}-]+$/u, "Last name cannot contain a number")
-    .min(2, "First name should be of minimum 2 characters length")
+    .min(2, "Last name should be of minimum 2 characters length")
     .required("Last name is required"),
   address: yup.string().required("Address is required"),
   city: yup.string().required("City is required"),
-  postalCode: yup.string().required("Postal Code is required"),
+  phone: yup.string().required("Phone number is required"),
+  postalCode: yup.string().required("Postal code is required"),
   email: yup
     .string()
     .email("Enter a valid email")
@@ -100,14 +105,13 @@ const validationSchema = yup.object({
 });
 
 const AddressAndDelivery = ({ setActiveStep }: IProps) => {
-  const [phone, setPhone] = useState("");
-  const [selectedCountry, setSelectedCountry] = useState<ICountry | null>(null);
+  const [selectedCountry, setSelectedCountry] = useState<ICountry | null>(
+    countries[230]
+  );
   const [openAutoComplete, setOpenAutoComplete] = useState(false);
   const [selectedCard, setSelectedCard] = useState(delivery[0]);
 
-  const handleChangePhoneNumber = (newPhone: string) => {
-    setPhone(newPhone);
-  };
+  const [phoneNumberHelperText, setPhoneNumberHelperText] = useState("");
 
   const setAndReturnCardIcon = (iconName: string) => {
     switch (iconName) {
@@ -153,8 +157,12 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
     const addressData = {
       ...values,
       selectedCountry,
-      phone,
     };
+
+    if (!selectedCountry) {
+      setFieldError("country", "Country is required");
+    }
+
     // localStorage.setItem("addressData", JSON.stringify(addressData));
     // localStorage.setItem("selectedDeliveryCard", JSON.stringify(selectedCard));
   };
@@ -181,7 +189,7 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
           onSubmit={handleSubmitForm}
           validationSchema={validationSchema}
         >
-          {({}) => {
+          {({ errors, setFieldValue, values, status, setStatus }) => {
             return (
               <Form id="addressAndDeliveryForm" noValidate>
                 <Stack
@@ -204,6 +212,7 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
                       name="firstName"
                       id="firstName"
                       sx={{ ...inputStyles }}
+                      disabled={false}
                     />
                   </Box>
 
@@ -218,6 +227,7 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
                       name="lastName"
                       id="lastName"
                       sx={{ ...inputStyles }}
+                      disabled={false}
                     />
                   </Box>
 
@@ -232,6 +242,7 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
                       name="address"
                       id="address"
                       sx={{ ...inputStyles }}
+                      disabled={false}
                     />
                   </Box>
 
@@ -246,6 +257,7 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
                       name="city"
                       id="city"
                       sx={{ ...inputStyles }}
+                      disabled={false}
                     />
                   </Box>
 
@@ -263,30 +275,44 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
                       name="postalCode"
                       id="postalCode"
                       sx={{ ...inputStyles }}
+                      disabled={false}
                     />
                   </Box>
 
                   {/*  Phone number */}
                   <Box sx={{ ...inputContainerStyles }}>
-                    <InputLabel
-                      htmlFor="phoneNumber"
-                      sx={{ ...inputLabelStyles }}
-                    >
+                    <InputLabel htmlFor="phone" sx={{ ...inputLabelStyles }}>
                       Phone number
                     </InputLabel>
-                    <MuiTelInput
+                    <Field
+                      component={MuiTelInput}
+                      name="phone"
+                      id="phone"
                       focusOnSelectCountry
                       defaultCountry="US"
-                      value={phone}
-                      onChange={handleChangePhoneNumber}
+                      value={values.phone}
+                      onChange={(newPhone: string) => {
+                        setFieldValue("phone", newPhone);
+
+                        if (
+                          newPhone.length !== 0 &&
+                          !matchIsValidTel(newPhone)
+                        ) {
+                          setStatus({ phone: "Enter a valid phone number" });
+                        } else {
+                          setStatus({ phone: "" });
+                        }
+                      }}
                       sx={{
                         ...inputStyles,
                         "& .MuiOutlinedInput-notchedOutline": {
-                          borderColor: `${
-                            !matchIsValidTel(phone) && "#d32f2f"
-                          }`,
+                          borderColor: `${status?.phone && "#d32f2f"}`,
+                        },
+                        "& .MuiFormHelperText-root": {
+                          color: "#d32f2f",
                         },
                       }}
+                      helperText={errors.phone || status?.phone}
                     />
                   </Box>
 
@@ -302,22 +328,20 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
                       Country
                     </InputLabel>
                     <Field
+                      disabled={false}
                       component={Autocomplete}
                       name="country"
                       id="country"
                       options={countries}
-                      getOptionLabel={(option: ICountry) =>
-                        option?.label || countries[230].label
-                      }
+                      value={selectedCountry?.label}
                       isOptionEqualToValue={() => true}
+                      open={openAutoComplete}
+                      onOpen={() => setOpenAutoComplete(true)}
+                      onClose={() => setOpenAutoComplete(false)}
                       sx={{
                         ...inputStyles,
                         "& .MuiInputAdornment-root ": { paddingLeft: "14.2px" },
                       }}
-                      open={openAutoComplete}
-                      onOpen={() => setOpenAutoComplete(true)}
-                      onClose={() => setOpenAutoComplete(false)}
-                      value={selectedCountry?.label}
                       onChange={(event: any, newValue: ICountry) => {
                         setSelectedCountry(newValue);
                       }}
@@ -382,6 +406,7 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
                       name="email"
                       id="email"
                       sx={{ ...inputStyles }}
+                      disabled={false}
                     />
                   </Box>
                 </Stack>
