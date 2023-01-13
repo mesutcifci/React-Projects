@@ -10,6 +10,7 @@ import theme from "../../theme";
 
 import {
   AddressAndDelivery,
+  CartFooter,
   CartProductsRenderer,
   CartSummary,
   Loading,
@@ -23,12 +24,24 @@ const Cart = () => {
   const { isLoading, getProductsByIds, products } = useFetchProductsByIds();
   const [modifiedProducts, setModifiedProducts] =
     useState<IModifiedProduct[]>();
+  const [totalCost, setTotalCost] = useState<number>(-1);
 
   const steps = [
     "Shopping Cart",
     "Address data and type of delivery",
     "Summary",
   ];
+
+  useEffect(() => {
+    if (modifiedProducts) {
+      let total = modifiedProducts.reduce(
+        (previousValue, currentValue) => previousValue + currentValue.price,
+        0
+      );
+      total = parseFloat(total.toFixed(4));
+      setTotalCost(total);
+    }
+  }, [modifiedProducts]);
 
   useEffect(() => {
     if (user?.productsInCart.length) {
@@ -89,6 +102,10 @@ const Cart = () => {
       case 2:
         return <PaymentOutlined />;
     }
+  };
+
+  const handleClickBackButton = () => {
+    setActiveStep((previousState) => previousState - 1);
   };
 
   return (
@@ -182,6 +199,12 @@ const Cart = () => {
           </Stepper>
         </Stack>
         {renderPageContent()}
+        <CartFooter
+          steps={steps}
+          activeStep={activeStep}
+          totalCost={totalCost}
+          handleClickBackButton={handleClickBackButton}
+        />
       </Stack>
     </>
   );
