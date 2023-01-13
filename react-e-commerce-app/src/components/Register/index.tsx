@@ -37,7 +37,7 @@ const validationSchema = yup.object({
     .string()
     .trim()
     .matches(/^[\p{L}\p{M}-]+$/u, "Last name cannot contain a number")
-    .min(2, "First name should be of minimum 2 characters length")
+    .min(2, "Last name should be of minimum 2 characters length")
     .required("Last name is required"),
   email: yup
     .string()
