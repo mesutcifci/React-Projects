@@ -24,7 +24,7 @@ const Cart = () => {
   const { isLoading, getProductsByIds, products } = useFetchProductsByIds();
   const [modifiedProducts, setModifiedProducts] =
     useState<IModifiedProduct[]>();
-  const [totalCost, setTotalCost] = useState<number>(-1);
+  const [totalCost, setTotalCost] = useState<number>(0);
 
   const steps = [
     "Shopping Cart",
@@ -87,7 +87,7 @@ const Cart = () => {
           />
         );
       case 1:
-        return <AddressAndDelivery />;
+        return <AddressAndDelivery setActiveStep={setActiveStep} />;
       case 2:
         return <CartSummary />;
     }
@@ -106,6 +106,10 @@ const Cart = () => {
 
   const handleClickBackButton = () => {
     setActiveStep((previousState) => previousState - 1);
+  };
+
+  const handleClickNextStepButton = () => {
+    setActiveStep((previousState) => previousState + 1);
   };
 
   return (
@@ -204,6 +208,7 @@ const Cart = () => {
           activeStep={activeStep}
           totalCost={totalCost}
           handleClickBackButton={handleClickBackButton}
+          handleClickNextStepButton={handleClickNextStepButton}
         />
       </Stack>
     </>

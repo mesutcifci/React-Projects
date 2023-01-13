@@ -8,7 +8,9 @@ import {
   IconButton,
   InputAdornment,
   Stack,
+  SxProps,
   TextField,
+  Theme,
   Typography,
 } from "@mui/material";
 import theme from "../../theme";
@@ -19,13 +21,29 @@ interface IProps {
   activeStep: number;
   totalCost: number;
   handleClickBackButton: () => void;
+  handleClickNextStepButton: () => void;
 }
+
+const stepperButtonStyles: SxProps<Theme> = {
+  backgroundColor: "#FBB03B",
+  borderRadius: "49px",
+  color: "#000000",
+  fontSize: "13px",
+  fontWeight: theme.fontWeight.semiBold,
+  textAlign: "center",
+  height: "49px",
+  width: "203px",
+  "&:hover": {
+    backgroundColor: "#ffb53d",
+  },
+};
 
 const CartFooter = ({
   steps,
   activeStep,
   totalCost,
   handleClickBackButton,
+  handleClickNextStepButton,
 }: IProps) => {
   const navigate = useNavigate();
 
@@ -33,14 +51,52 @@ const CartFooter = ({
     navigate({ pathname: "/" });
   };
 
+  const renderStepperButton = () => {
+    switch (activeStep) {
+      case 0:
+        return (
+          <Button
+            sx={{
+              ...stepperButtonStyles,
+            }}
+            onClick={handleClickNextStepButton}
+          >
+            NEXT STEP
+          </Button>
+        );
+      case 1:
+        return (
+          <Button
+            type="submit"
+            form="addressAndDeliveryForm"
+            sx={{
+              ...stepperButtonStyles,
+            }}
+          >
+            NEXT STEP
+          </Button>
+        );
+      case 2:
+        return (
+          <Button
+            sx={{
+              ...stepperButtonStyles,
+            }}
+          >
+            PROCEED TO PAYMENT
+          </Button>
+        );
+    }
+  };
+
   return (
     <Stack
       rowGap="20px"
-      columnGap="10px"
+      columnGap="30px"
       direction="row"
       flexWrap="wrap"
       alignItems="center"
-      sx={{ justifyContent: { xs: "center", md: "space-between" } }}
+      sx={{ justifyContent: { xs: "center", lg: "space-between" } }}
     >
       {activeStep === 0 ? (
         <TextField
@@ -119,7 +175,7 @@ const CartFooter = ({
         </Stack>
       )}
 
-      {activeStep === steps.length && (
+      {activeStep + 1 === steps.length && (
         <Stack direction="row" columnGap="16px" alignItems="center">
           <LocalShippingIcon sx={{ width: "20px", height: "12.56px" }} />
           <Typography fontSize="16px" fontWeight={theme.fontWeight.light}>
@@ -153,25 +209,7 @@ const CartFooter = ({
         >
           CONTINUE SHOPPING
         </Button>
-        <Button
-          sx={{
-            backgroundColor: "#FBB03B",
-            borderRadius: "56px",
-            color: "#000000",
-            display: "flex",
-            alignItems: "center",
-            fontSize: "13px",
-            fontWeight: theme.fontWeight.semiBold,
-            textAlign: "center",
-            height: "49px",
-            width: "116px",
-            "&:hover": {
-              backgroundColor: "#ffb53d",
-            },
-          }}
-        >
-          NEXT STEP
-        </Button>
+        {renderStepperButton()}
       </Stack>
     </Stack>
   );
