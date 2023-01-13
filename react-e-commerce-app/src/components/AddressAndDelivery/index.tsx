@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   AutocompleteRenderInputParams,
@@ -115,6 +115,17 @@ const AddressAndDelivery = () => {
     });
   };
 
+  const handleSubmitForm = (values: IinitialValues) => {
+    const addressData = {
+      ...values,
+      selectedCountry,
+      phone,
+    };
+
+    localStorage.setItem("addressData", JSON.stringify(addressData));
+    localStorage.setItem("selectedDeliveryCard", JSON.stringify(selectedCard));
+  };
+
   return (
     <Stack
       direction="row"
@@ -132,7 +143,7 @@ const AddressAndDelivery = () => {
         alignItems="center"
         sx={{ width: "100%", maxWidth: { xs: "705px", xl: "760px" } }}
       >
-        <Formik initialValues={initialValues} onSubmit={() => {}}>
+        <Formik initialValues={initialValues} onSubmit={handleSubmitForm}>
           {() => (
             <Form id="addressAndDeliveryForm" noValidate>
               <Stack
