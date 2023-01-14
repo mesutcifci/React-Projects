@@ -13,20 +13,41 @@ import { Stack } from "@mui/system";
 import Counter from "../Counter";
 import theme from "../../theme";
 import { Close as CloseIcon } from "@mui/icons-material";
-import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
-import { auth, db } from "../../firebase";
-import { useUser } from "../../hooks";
+import { arrayRemove, doc, updateDoc } from "firebase/firestore";
+import { db } from "../../firebase";
+import {
+  useFetchProductsByIds,
+  useModifiedProducts,
+  useUser,
+} from "../../hooks";
 
-interface IProps {
-  modifiedProducts: IModifiedProduct[];
-  setProducts: React.Dispatch<
-    React.SetStateAction<IModifiedProduct[] | undefined>
-  >;
-}
-
-const CartProductsRenderer = ({ modifiedProducts, setProducts }: IProps) => {
+const CartProductsRenderer = () => {
   const [rows, setRows] = useState<GridRowsProp>();
-  const { currentUser, addProductToCart } = useUser();
+  const {
+    currentUser,
+    addProductToCart,
+    user,
+    isLoading: loadingForUser,
+  } = useUser();
+  const {
+    getProductsByIds,
+    products,
+    isLoading: loadingForProducts,
+  } = useFetchProductsByIds();
+  const { modifiedProducts, modifyProducts } = useModifiedProducts();
+
+  useEffect(() => {
+    if (user?.productsInCart.length) {
+      const productIds = user.productsInCart.map((product) => product.id);
+      getProductsByIds(productIds);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (products && user) {
+      modifyProducts(products, user);
+    }
+  }, [products, user]);
 
   const handleClickAmountButtons = async (
     productId: string,
@@ -159,7 +180,7 @@ const CartProductsRenderer = ({ modifiedProducts, setProducts }: IProps) => {
   }, [modifiedProducts]);
 
   const createGridRows = () => {
-    if (modifiedProducts.length) {
+    if (modifiedProducts?.length) {
       const gridRows = modifiedProducts.map((product) => {
         return {
           id: product.id,
@@ -180,7 +201,9 @@ const CartProductsRenderer = ({ modifiedProducts, setProducts }: IProps) => {
       <DataGrid
         columns={columns}
         rows={rows || []}
-        loading={!modifiedProducts.length}
+        loading={
+          !modifiedProducts?.length || loadingForProducts || loadingForUser
+        }
         autoHeight
         disableColumnSelector
         disableColumnFilter

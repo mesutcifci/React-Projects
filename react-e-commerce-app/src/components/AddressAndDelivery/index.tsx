@@ -13,10 +13,9 @@ import {
 } from "@mui/material";
 import { MuiTelInput, matchIsValidTel } from "mui-tel-input";
 
-import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik";
+import { Field, Form, Formik } from "formik";
 import { TextField } from "formik-mui";
 
-import { ICountry } from "../../types/country";
 import { ICardData } from "../../types/deliveryCard";
 import countries from "../../constants/countries.json";
 import delivery from "../../constants/delivery.json";
@@ -24,19 +23,10 @@ import delivery from "../../constants/delivery.json";
 import { DeliveryIconDHL, DeliveryIconDPD, DeliveryIconInPost } from "../../ui";
 import DeliveryCard from "../DeliveryCard";
 import theme from "../../theme";
+import { ICartAddressData } from "../../types/cartTypes";
 
 interface IProps {
   setActiveStep: React.Dispatch<React.SetStateAction<number>>;
-}
-interface IinitialFormValues {
-  firstName: string;
-  lastName: string;
-  address: string;
-  city: string;
-  postalCode: string;
-  phone: string;
-  country: ICountry;
-  email: string;
 }
 
 const inputContainerStyles: SxProps<Theme> = {
@@ -99,20 +89,23 @@ const validationSchema = yup.object({
 
 const AddressAndDelivery = ({ setActiveStep }: IProps) => {
   const [selectedCard, setSelectedCard] = useState(delivery[0]);
-  const [initialFormValues, setFormInitialValues] =
-    useState<IinitialFormValues>({
-      firstName: "",
-      lastName: "",
-      address: "",
-      city: "",
-      postalCode: "",
-      phone: "+1",
-      country: countries[230],
-      email: "",
-    });
+  const [initialFormValues, setFormInitialValues] = useState<ICartAddressData>({
+    firstName: "",
+    lastName: "",
+    address: "",
+    city: "",
+    postalCode: "",
+    phone: "+1",
+    country: countries[230],
+    email: "",
+  });
 
   useEffect(() => {
     let formValueLocalStorage = localStorage.getItem("addressData") || "";
+    let selectedCardLocalStorage = localStorage.getItem("selectedCard") || "";
+    if (selectedCardLocalStorage) {
+      setSelectedCard(JSON.parse(selectedCardLocalStorage));
+    }
 
     if (formValueLocalStorage) {
       setFormInitialValues(JSON.parse(formValueLocalStorage));
@@ -156,12 +149,10 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
     });
   };
 
-  const handleSubmitForm = (values: IinitialFormValues) => {
+  const handleSubmitForm = (values: ICartAddressData) => {
     if (matchIsValidTel(values.phone)) {
-      localStorage.setItem(
-        "addressData",
-        JSON.stringify({ ...values, selectedCard })
-      );
+      localStorage.setItem("addressData", JSON.stringify({ ...values }));
+      localStorage.setItem("selectedCard", JSON.stringify(selectedCard));
       setActiveStep((previousState) => previousState + 1);
     }
   };

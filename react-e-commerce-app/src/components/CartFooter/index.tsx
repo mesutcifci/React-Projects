@@ -15,11 +15,16 @@ import {
 } from "@mui/material";
 import theme from "../../theme";
 import { useNavigate } from "react-router-dom";
+import {
+  useFetchProductsByIds,
+  useModifiedProducts,
+  useUser,
+} from "../../hooks";
+import { useEffect } from "react";
 
 interface IProps {
   steps: string[];
   activeStep: number;
-  totalCost: number;
   handleClickBackButton: () => void;
   handleClickNextStepButton: () => void;
 }
@@ -41,11 +46,26 @@ const stepperButtonStyles: SxProps<Theme> = {
 const CartFooter = ({
   steps,
   activeStep,
-  totalCost,
   handleClickBackButton,
   handleClickNextStepButton,
 }: IProps) => {
   const navigate = useNavigate();
+  const { user } = useUser();
+  const { getProductsByIds, products } = useFetchProductsByIds();
+  const { totalCost, modifyProducts } = useModifiedProducts();
+
+  useEffect(() => {
+    if (user?.productsInCart.length) {
+      const productIds = user.productsInCart.map((product) => product.id);
+      getProductsByIds(productIds);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (products && user) {
+      modifyProducts(products, user);
+    }
+  }, [products, user]);
 
   const handleClickContinueShoppingButton = () => {
     navigate({ pathname: "/" });

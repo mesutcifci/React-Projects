@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 // Styles
@@ -31,7 +31,6 @@ import { ProductLogo } from "../../ui";
 
 // Data
 import { auth } from "../../firebase";
-import { User } from "firebase/auth";
 import categories from "../../constants/categories.json";
 import { ISecondaryCategory, ITertiaryCategory } from "../../types/categories";
 import { useUser } from "../../hooks";
@@ -74,6 +73,7 @@ const Navbar = () => {
   const handleLogout = () => {
     auth.signOut();
     localStorage.removeItem("addressData");
+    localStorage.removeItem("selectedCard");
     navigate("/");
   };
 

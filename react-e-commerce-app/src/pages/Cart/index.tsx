@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import {
   LocalShippingOutlined,
@@ -13,65 +13,16 @@ import {
   CartFooter,
   CartProductsRenderer,
   CartSummary,
-  Loading,
 } from "../../components";
-import { useFetchProductsByIds, useUser } from "../../hooks";
-import { IModifiedProduct } from "../../types/product";
 
 const Cart = () => {
   const [activeStep, setActiveStep] = useState(0);
-  const { user } = useUser();
-  const { isLoading, getProductsByIds, products } = useFetchProductsByIds();
-  const [modifiedProducts, setModifiedProducts] =
-    useState<IModifiedProduct[]>();
-  const [totalCost, setTotalCost] = useState<number>(0);
 
   const steps = [
     "Shopping Cart",
     "Address data and type of delivery",
     "Summary",
   ];
-
-  useEffect(() => {
-    if (modifiedProducts) {
-      let total = modifiedProducts.reduce(
-        (previousValue, currentValue) => previousValue + currentValue.price,
-        0
-      );
-      total = parseFloat(total.toFixed(4));
-      setTotalCost(total);
-    }
-  }, [modifiedProducts]);
-
-  useEffect(() => {
-    if (user?.productsInCart.length) {
-      const productIds = user.productsInCart.map((product) => product.id);
-      getProductsByIds(productIds);
-    }
-  }, [user]);
-
-  useEffect(() => {
-    modifyProducts();
-  }, [products]);
-
-  // adds additional fields such as amount
-  const modifyProducts = () => {
-    if (products?.length && user?.productsInCart.length) {
-      let copyProducts = [...products];
-      let { productsInCart } = user;
-      const mappedProducts: IModifiedProduct[] = copyProducts.map(
-        (copyProduct) => {
-          const matchedProductInCart = productsInCart.find(
-            (item) => item.id === copyProduct.id
-          );
-
-          return { ...copyProduct, amount: matchedProductInCart!.amount };
-        }
-      );
-
-      setModifiedProducts(mappedProducts);
-    }
-  };
 
   const handleClickStepIcon = (index: number) => {
     const isAddressDataAvailable = !!localStorage.getItem("addressData");
@@ -86,12 +37,7 @@ const Cart = () => {
   const renderPageContent = () => {
     switch (activeStep) {
       case 0:
-        return (
-          <CartProductsRenderer
-            modifiedProducts={modifiedProducts || []}
-            setProducts={setModifiedProducts}
-          />
-        );
+        return <CartProductsRenderer />;
       case 1:
         return <AddressAndDelivery setActiveStep={setActiveStep} />;
       case 2:
@@ -120,7 +66,6 @@ const Cart = () => {
 
   return (
     <>
-      <Loading isLoading={isLoading} />
       <Stack
         sx={{
           paddingLeft: {
@@ -212,7 +157,6 @@ const Cart = () => {
         <CartFooter
           steps={steps}
           activeStep={activeStep}
-          totalCost={totalCost}
           handleClickBackButton={handleClickBackButton}
           handleClickNextStepButton={handleClickNextStepButton}
         />
