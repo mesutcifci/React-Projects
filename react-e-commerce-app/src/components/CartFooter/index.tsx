@@ -1,6 +1,6 @@
 import {
   ArrowBack as ArrowBackIcon,
-  LocalShipping as LocalShippingIcon,
+  LocalShippingOutlined,
   Navigation as NavigationIcon,
 } from "@mui/icons-material";
 import {
@@ -92,11 +92,17 @@ const CartFooter = ({
   return (
     <Stack
       rowGap="20px"
-      columnGap="30px"
+      columnGap="20px"
       direction="row"
       flexWrap="wrap"
       alignItems="center"
-      sx={{ justifyContent: { xs: "center", lg: "space-between" } }}
+      sx={{
+        justifyContent: {
+          xs: `${activeStep === 1 ? "space-between" : "center"}`,
+          md: `${activeStep === 0 ? "center" : "space-between"}`,
+          lg: "space-between",
+        },
+      }}
     >
       {activeStep === 0 ? (
         <TextField
@@ -149,8 +155,7 @@ const CartFooter = ({
             color: "black",
             display: "flex",
             alignItem: "center",
-            columnGap: "24px",
-            marginRight: "5px",
+            columnGap: { xs: "12px", lg: "24px" },
             width: "max-content",
             "&:hover": { color: "black", backgroundColor: "white" },
           }}
@@ -176,10 +181,34 @@ const CartFooter = ({
       )}
 
       {activeStep + 1 === steps.length && (
-        <Stack direction="row" columnGap="16px" alignItems="center">
-          <LocalShippingIcon sx={{ width: "20px", height: "12.56px" }} />
-          <Typography fontSize="16px" fontWeight={theme.fontWeight.light}>
-            You are <Typography>$30,02</Typography> missing for free shipping
+        <Stack
+          direction="row"
+          alignItems="center"
+          sx={{ columnGap: { xs: "10px", lg: "16px" } }}
+        >
+          <LocalShippingOutlined />
+          <Typography
+            fontWeight={theme.fontWeight.light}
+            sx={{
+              fontSize: { xs: "12px", sm: "14px" },
+              display: "flex",
+              alignItems: "center",
+              maxWidth: "285px",
+              width: "max-content",
+            }}
+          >
+            You are
+            <Typography
+              sx={{
+                marginLeft: "4px",
+                marginRight: "4px",
+                fontSize: { xs: "12px", lg: "14px" },
+              }}
+              fontWeight={theme.fontWeight.semiBold}
+            >
+              $30,02
+            </Typography>
+            missing for free shipping
           </Typography>
         </Stack>
       )}
@@ -188,11 +217,11 @@ const CartFooter = ({
         direction="row"
         width="max-content"
         maxWidth="100%"
-        columnGap="26px"
         flexWrap="wrap"
         alignItems="center"
         justifyContent="center"
         rowGap="20px"
+        sx={{ columnGap: { xs: "10px", lg: "26px" } }}
       >
         <Button
           sx={{

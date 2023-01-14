@@ -135,16 +135,16 @@ const Cart = () => {
           flexWrap="wrap"
           alignItems="center"
           columnGap="10px"
-          sx={{ justifyContent: { xs: "center", lg: "space-between" } }}
+          sx={{ justifyContent: { xs: "center", sm768: "space-between" } }}
         >
           <Typography
             sx={{
               display: "inline-flex",
               alignItems: "center",
               justifyContent: { xs: "center", sm768: "initial" },
-              fontSize: "20px",
+              fontSize: { xs: "17px", md: "20px" },
               fontWeight: theme.fontWeight.semiBold,
-              maxWidth: { sm768: "288px", md: "343px" },
+              maxWidth: { sm768: "300px", md: "350px" },
               width: "100%",
               height: "60px",
               textAlign: { xs: "center", sm768: "initial" },
