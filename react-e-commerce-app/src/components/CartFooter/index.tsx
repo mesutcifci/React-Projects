@@ -59,7 +59,10 @@ const CartFooter = ({
             sx={{
               ...stepperButtonStyles,
             }}
-            onClick={handleClickNextStepButton}
+            onClick={(event) => {
+              event.preventDefault();
+              handleClickNextStepButton();
+            }}
           >
             NEXT STEP
           </Button>
