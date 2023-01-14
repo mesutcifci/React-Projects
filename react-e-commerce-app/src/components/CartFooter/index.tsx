@@ -50,22 +50,7 @@ const CartFooter = ({
   handleClickNextStepButton,
 }: IProps) => {
   const navigate = useNavigate();
-  const { user } = useUser();
-  const { getProductsByIds, products } = useFetchProductsByIds();
-  const { totalCost, modifyProducts } = useModifiedProducts();
-
-  useEffect(() => {
-    if (user?.productsInCart.length) {
-      const productIds = user.productsInCart.map((product) => product.id);
-      getProductsByIds(productIds);
-    }
-  }, [user]);
-
-  useEffect(() => {
-    if (products && user) {
-      modifyProducts(products, user);
-    }
-  }, [products, user]);
+  const { totalCost } = useModifiedProducts();
 
   const handleClickContinueShoppingButton = () => {
     navigate({ pathname: "/" });

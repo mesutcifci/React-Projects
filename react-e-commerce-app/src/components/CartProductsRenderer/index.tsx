@@ -15,39 +15,25 @@ import theme from "../../theme";
 import { Close as CloseIcon } from "@mui/icons-material";
 import { arrayRemove, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
-import {
-  useFetchProductsByIds,
-  useModifiedProducts,
-  useUser,
-} from "../../hooks";
+import { useModifiedProducts, useUser } from "../../hooks";
 
 const CartProductsRenderer = () => {
   const [rows, setRows] = useState<GridRowsProp>();
-  const {
-    currentUser,
-    addProductToCart,
-    user,
-    isLoading: loadingForUser,
-  } = useUser();
-  const {
-    getProductsByIds,
-    products,
-    isLoading: loadingForProducts,
-  } = useFetchProductsByIds();
-  const { modifiedProducts, modifyProducts } = useModifiedProducts();
+  const { currentUser, addProductToCart } = useUser();
+  const { modifiedProducts, isLoading } = useModifiedProducts();
 
-  useEffect(() => {
-    if (user?.productsInCart.length) {
-      const productIds = user.productsInCart.map((product) => product.id);
-      getProductsByIds(productIds);
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (user?.productsInCart.length) {
+  //     const productIds = user.productsInCart.map((product) => product.id);
+  //     getProductsByIds(productIds);
+  //   }
+  // }, [user]);
 
-  useEffect(() => {
-    if (products && user) {
-      modifyProducts(products, user);
-    }
-  }, [products, user]);
+  // useEffect(() => {
+  //   if (products && user) {
+  //     modifyProducts(products, user);
+  //   }
+  // }, [products, user]);
 
   const handleClickAmountButtons = async (
     productId: string,
@@ -201,9 +187,7 @@ const CartProductsRenderer = () => {
       <DataGrid
         columns={columns}
         rows={rows || []}
-        loading={
-          !modifiedProducts?.length || loadingForProducts || loadingForUser
-        }
+        loading={!modifiedProducts?.length || isLoading}
         autoHeight
         disableColumnSelector
         disableColumnFilter
