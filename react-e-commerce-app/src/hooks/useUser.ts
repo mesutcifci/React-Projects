@@ -60,7 +60,7 @@ const useUser = () => {
 
         if (isProductExist) {
           productsInCart.forEach((product) => {
-            if (product.id === productId && amount > product.amount) {
+            if (product.id === productId) {
               product.amount = amount;
             }
           });

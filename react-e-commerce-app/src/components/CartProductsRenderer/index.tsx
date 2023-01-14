@@ -13,7 +13,7 @@ import { Stack } from "@mui/system";
 import Counter from "../Counter";
 import theme from "../../theme";
 import { Close as CloseIcon } from "@mui/icons-material";
-import { arrayRemove, doc, updateDoc } from "firebase/firestore";
+import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../../firebase";
 import { useUser } from "../../hooks";
 
@@ -26,9 +26,9 @@ interface IProps {
 
 const CartProductsRenderer = ({ modifiedProducts, setProducts }: IProps) => {
   const [rows, setRows] = useState<GridRowsProp>();
-  const { currentUser } = useUser();
+  const { currentUser, addProductToCart } = useUser();
 
-  const handleClickAmountButtons = (
+  const handleClickAmountButtons = async (
     productId: string,
     operation: "increase" | "decrease"
   ) => {
@@ -43,7 +43,12 @@ const CartProductsRenderer = ({ modifiedProducts, setProducts }: IProps) => {
     } else if (selectedProduct && operation === "decrease") {
       selectedProduct.amount -= 1;
     }
-    setProducts(copyProducts);
+
+    if (currentUser && selectedProduct) {
+      await addProductToCart(productId, selectedProduct.amount);
+    }
+
+    // setProducts(copyProducts);
   };
 
   const handleClickRemoveProductButton = async (params: GridRowParams) => {
