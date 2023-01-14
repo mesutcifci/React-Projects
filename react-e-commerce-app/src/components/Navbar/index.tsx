@@ -73,7 +73,7 @@ const Navbar = () => {
   const handleLogout = () => {
     auth.signOut();
     localStorage.removeItem("addressData");
-    localStorage.removeItem("selectedCard");
+    localStorage.removeItem("selectedDeliveryMethod");
     navigate("/");
   };
 

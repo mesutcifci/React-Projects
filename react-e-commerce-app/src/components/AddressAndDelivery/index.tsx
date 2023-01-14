@@ -88,7 +88,9 @@ const validationSchema = yup.object({
 });
 
 const AddressAndDelivery = ({ setActiveStep }: IProps) => {
-  const [selectedCard, setSelectedCard] = useState(delivery[0]);
+  const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(
+    delivery[0]
+  );
   const [initialFormValues, setFormInitialValues] = useState<ICartAddressData>({
     firstName: "",
     lastName: "",
@@ -101,10 +103,12 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
   });
 
   useEffect(() => {
-    let formValueLocalStorage = localStorage.getItem("addressData") || "";
-    let selectedCardLocalStorage = localStorage.getItem("selectedCard") || "";
-    if (selectedCardLocalStorage) {
-      setSelectedCard(JSON.parse(selectedCardLocalStorage));
+    let formValueLocalStorage = localStorage.getItem("addressData");
+    let selectedDeliveryMethodLocalStorage = localStorage.getItem(
+      "selectedDeliveryMethod"
+    );
+    if (selectedDeliveryMethodLocalStorage) {
+      setSelectedDeliveryMethod(JSON.parse(selectedDeliveryMethodLocalStorage));
     }
 
     if (formValueLocalStorage) {
@@ -124,7 +128,7 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
   };
 
   const handleSelectCard = (item: ICardData) => {
-    setSelectedCard(item);
+    setSelectedDeliveryMethod(item);
   };
 
   const renderDeliveryCards = () => {
@@ -137,9 +141,9 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
           icon={icon!}
           sx={{
             border: `1px solid ${
-              selectedCard.id === item.id ? "#FBB03B" : "#D8D8D8"
+              selectedDeliveryMethod.id === item.id ? "#FBB03B" : "#D8D8D8"
             }`,
-            opacity: selectedCard.id === item.id ? 1 : 0.5,
+            opacity: selectedDeliveryMethod.id === item.id ? 1 : 0.5,
             transition: "scale 200ms linear",
             "&:hover": { scale: `1.05` },
           }}
@@ -152,7 +156,10 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
   const handleSubmitForm = (values: ICartAddressData) => {
     if (matchIsValidTel(values.phone)) {
       localStorage.setItem("addressData", JSON.stringify({ ...values }));
-      localStorage.setItem("selectedCard", JSON.stringify(selectedCard));
+      localStorage.setItem(
+        "selectedDeliveryMethod",
+        JSON.stringify(selectedDeliveryMethod)
+      );
       setActiveStep((previousState) => previousState + 1);
     }
   };

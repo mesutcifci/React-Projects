@@ -11,7 +11,7 @@ export interface ICartAddressData {
   email: string;
 }
 
-export interface ISelectedCard {
+export interface ISelectedDeliveryMethod {
   id: string;
   price: string;
   description: string;
