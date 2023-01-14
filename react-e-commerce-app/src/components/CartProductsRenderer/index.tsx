@@ -2,14 +2,20 @@ import { useEffect, useState } from "react";
 import { IModifiedProduct } from "../../types/product";
 import {
   DataGrid,
-  GridColDef,
+  GridActionsCellItem,
+  GridColumns,
   GridRenderCellParams,
+  GridRowParams,
   GridRowsProp,
 } from "@mui/x-data-grid";
 import { Avatar, Box, LinearProgress, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import Counter from "../Counter";
 import theme from "../../theme";
+import { Close as CloseIcon } from "@mui/icons-material";
+import { arrayRemove, doc, updateDoc } from "firebase/firestore";
+import { auth, db } from "../../firebase";
+import { useUser } from "../../hooks";
 
 interface IProps {
   modifiedProducts: IModifiedProduct[];
@@ -20,6 +26,7 @@ interface IProps {
 
 const CartProductsRenderer = ({ modifiedProducts, setProducts }: IProps) => {
   const [rows, setRows] = useState<GridRowsProp>();
+  const { currentUser } = useUser();
 
   const handleClickAmountButtons = (
     productId: string,
@@ -39,7 +46,19 @@ const CartProductsRenderer = ({ modifiedProducts, setProducts }: IProps) => {
     setProducts(copyProducts);
   };
 
-  const columns: GridColDef[] = [
+  const handleClickRemoveProductButton = async (params: GridRowParams) => {
+    if (currentUser) {
+      const docRef = doc(db, "users", currentUser.uid);
+      await updateDoc(docRef, {
+        productsInCart: arrayRemove({
+          id: params.row.id,
+          amount: params.row.amount,
+        }),
+      });
+    }
+  };
+
+  const columns: GridColumns = [
     {
       field: "product",
       headerName: "Product",
@@ -115,6 +134,18 @@ const CartProductsRenderer = ({ modifiedProducts, setProducts }: IProps) => {
           {params.row.price}
         </Typography>
       ),
+    },
+    {
+      field: "removeProduct",
+      type: "actions",
+      align: "right",
+      getActions: (params: GridRowParams) => [
+        <GridActionsCellItem
+          onClick={() => handleClickRemoveProductButton(params)}
+          icon={<CloseIcon sx={{ color: "#000000" }} />}
+          label="Delete"
+        />,
+      ],
     },
   ];
 
