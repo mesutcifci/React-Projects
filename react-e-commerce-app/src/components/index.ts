@@ -33,7 +33,7 @@ export { default as ProductCard } from "./ProductCard";
 
 export { default as CartProductsRenderer } from "./CartProductsRenderer";
 export { default as AddressAndDelivery } from "./AddressAndDelivery";
-export { default as DeliveryCard } from "./DeliveryCard";
+export { default as DeliveryMethodCard } from "./DeliveryMethodCard";
 export { default as CartSummary } from "./CartSummary";
 export { default as PaymentMethodsRenderer } from "./PaymentMethodsRenderer";
 export { default as PaymentMethodCard } from "./PaymentMethodCard";

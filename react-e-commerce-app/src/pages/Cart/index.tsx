@@ -41,7 +41,7 @@ const Cart = () => {
       case 1:
         return <AddressAndDelivery setActiveStep={setActiveStep} />;
       case 2:
-        return <CartSummary />;
+        return <CartSummary setActiveStep={setActiveStep} />;
     }
   };
 

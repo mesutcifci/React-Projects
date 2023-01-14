@@ -21,9 +21,9 @@ import countries from "../../constants/countries.json";
 import delivery from "../../constants/delivery.json";
 
 import { DeliveryIconDHL, DeliveryIconDPD, DeliveryIconInPost } from "../../ui";
-import DeliveryCard from "../DeliveryCard";
 import theme from "../../theme";
 import { ICartAddressData } from "../../types/cartTypes";
+import { DeliveryMethodCard } from "../";
 
 interface IProps {
   setActiveStep: React.Dispatch<React.SetStateAction<number>>;
@@ -129,13 +129,14 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
 
   const handleSelectCard = (item: ICardData) => {
     setSelectedDeliveryMethod(item);
+    localStorage.setItem("selectedDeliveryMethod", JSON.stringify(item));
   };
 
-  const renderDeliveryCards = () => {
+  const renderDeliveryMethodCards = () => {
     return delivery.map((item) => {
       const icon = setAndReturnCardIcon(item.iconName);
       return (
-        <DeliveryCard
+        <DeliveryMethodCard
           key={item.id}
           cardData={item}
           icon={icon!}
@@ -143,6 +144,7 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
             border: `1px solid ${
               selectedDeliveryMethod.id === item.id ? "#FBB03B" : "#D8D8D8"
             }`,
+            cursor: "pointer",
             opacity: selectedDeliveryMethod.id === item.id ? 1 : 0.5,
             transition: "scale 200ms linear",
             "&:hover": { scale: `1.05` },
@@ -427,7 +429,7 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
           marginTop: { lg: "33px" },
         }}
       >
-        {renderDeliveryCards()}
+        {renderDeliveryMethodCards()}
       </Stack>
     </Stack>
   );
