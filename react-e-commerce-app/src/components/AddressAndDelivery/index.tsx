@@ -1,28 +1,28 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import * as yup from "yup";
 
 import {
-  AutocompleteRenderInputParams,
   Box,
   InputLabel,
   Stack,
   SxProps,
   Theme,
   TextField as MuiTextField,
-  AutocompleteRenderOptionState,
   InputAdornment,
+  Autocomplete as MuiAutocomplete,
 } from "@mui/material";
 import { MuiTelInput, matchIsValidTel } from "mui-tel-input";
 
-import { Field, Form, Formik, FormikHelpers, FormikTouched } from "formik";
-import { Autocomplete, TextField } from "formik-mui";
+import { Field, Form, Formik, FormikHelpers } from "formik";
+import { TextField } from "formik-mui";
 
 import { ICountry } from "../../types/country";
+import { ICardData } from "../../types/deliveryCard";
 import countries from "../../constants/countries.json";
 import delivery from "../../constants/delivery.json";
+
 import { DeliveryIconDHL, DeliveryIconDPD, DeliveryIconInPost } from "../../ui";
 import DeliveryCard from "../DeliveryCard";
-import { ICardData } from "../../types/deliveryCard";
 import theme from "../../theme";
 
 interface IProps {
@@ -35,7 +35,7 @@ interface IinitialValues {
   city: string;
   postalCode: string;
   phone: string;
-  country: string;
+  country: ICountry;
   email: string;
 }
 
@@ -45,8 +45,8 @@ const initialValues: IinitialValues = {
   address: "",
   city: "",
   postalCode: "",
-  phone: "",
-  country: "",
+  phone: "+1",
+  country: countries[230],
   email: "",
 };
 
@@ -96,8 +96,12 @@ const validationSchema = yup.object({
     .required("Last name is required"),
   address: yup.string().required("Address is required"),
   city: yup.string().required("City is required"),
-  phone: yup.string().required("Phone number is required"),
+  phone: yup
+    .string()
+    .min(3, "Enter a valid phone number!")
+    .required("Phone number is required"),
   postalCode: yup.string().required("Postal code is required"),
+  country: yup.object({ label: yup.string().required("Country is required") }),
   email: yup
     .string()
     .email("Enter a valid email")
@@ -105,13 +109,7 @@ const validationSchema = yup.object({
 });
 
 const AddressAndDelivery = ({ setActiveStep }: IProps) => {
-  const [selectedCountry, setSelectedCountry] = useState<ICountry | null>(
-    countries[230]
-  );
-  const [openAutoComplete, setOpenAutoComplete] = useState(false);
   const [selectedCard, setSelectedCard] = useState(delivery[0]);
-
-  const [phoneNumberHelperText, setPhoneNumberHelperText] = useState("");
 
   const setAndReturnCardIcon = (iconName: string) => {
     switch (iconName) {
@@ -154,15 +152,6 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
     values: IinitialValues,
     { setFieldError }: FormikHelpers<IinitialValues>
   ) => {
-    const addressData = {
-      ...values,
-      selectedCountry,
-    };
-
-    if (!selectedCountry) {
-      setFieldError("country", "Country is required");
-    }
-
     // localStorage.setItem("addressData", JSON.stringify(addressData));
     // localStorage.setItem("selectedDeliveryCard", JSON.stringify(selectedCard));
   };
@@ -293,7 +282,6 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
                       value={values.phone}
                       onChange={(newPhone: string) => {
                         setFieldValue("phone", newPhone);
-
                         if (
                           newPhone.length !== 0 &&
                           !matchIsValidTel(newPhone)
@@ -327,28 +315,33 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
                     <InputLabel htmlFor="country" sx={{ ...inputLabelStyles }}>
                       Country
                     </InputLabel>
-                    <Field
+                    <MuiAutocomplete
                       disabled={false}
-                      component={Autocomplete}
-                      name="country"
-                      id="country"
-                      options={countries}
-                      value={selectedCountry?.label}
-                      isOptionEqualToValue={() => true}
-                      open={openAutoComplete}
-                      onOpen={() => setOpenAutoComplete(true)}
-                      onClose={() => setOpenAutoComplete(false)}
                       sx={{
                         ...inputStyles,
                         "& .MuiInputAdornment-root ": { paddingLeft: "14.2px" },
+                        "& .MuiOutlinedInput-notchedOutline": {
+                          borderColor: `${errors.country?.label && "#d32f2f"}`,
+                        },
+                        "& .MuiFormHelperText-root": {
+                          color: "#d32f2f",
+                        },
                       }}
-                      onChange={(event: any, newValue: ICountry) => {
-                        setSelectedCountry(newValue);
+                      defaultValue={countries[230]}
+                      onChange={(_, value) => {
+                        if (value) {
+                          setFieldValue("country", value);
+                        } else {
+                          setFieldValue("country", {
+                            code: "",
+                            label: "",
+                            phone: "",
+                          });
+                        }
                       }}
-                      renderOption={(
-                        props: AutocompleteRenderOptionState,
-                        option: ICountry
-                      ) => (
+                      options={countries}
+                      getOptionLabel={(option) => option.label}
+                      renderOption={(props, option) => (
                         <Box
                           component="li"
                           sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
@@ -359,39 +352,36 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
                             width="20"
                             src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
                             srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-                            alt={option.label}
+                            alt=""
                           />
                           {option.label} ({option.code}) +{option.phone}
                         </Box>
                       )}
-                      renderInput={(params: AutocompleteRenderInputParams) => {
-                        return (
-                          <MuiTextField
-                            {...params}
-                            inputProps={{
-                              ...params.inputProps,
-                              autoComplete: "new-password", // disable autocomplete and autofill
-                            }}
-                            InputProps={{
-                              ...params.InputProps,
-                              startAdornment: selectedCountry ? (
-                                <InputAdornment
-                                  position="start"
-                                  onClick={() => setOpenAutoComplete(true)}
-                                >
-                                  <img
-                                    loading="lazy"
-                                    width="30"
-                                    src={`https://flagcdn.com/w20/${selectedCountry.code.toLowerCase()}.png`}
-                                    srcSet={`https://flagcdn.com/w40/${selectedCountry.code.toLowerCase()}.png 2x`}
-                                    alt={selectedCountry.label}
-                                  />
-                                </InputAdornment>
-                              ) : null,
-                            }}
-                          />
-                        );
-                      }}
+                      renderInput={(params) => (
+                        <MuiTextField
+                          {...params}
+                          InputProps={{
+                            ...params.InputProps,
+                            startAdornment: values?.country?.label && (
+                              <InputAdornment position="start">
+                                <img
+                                  loading="lazy"
+                                  width="30"
+                                  src={`https://flagcdn.com/w20/${values.country.code.toLowerCase()}.png`}
+                                  srcSet={`https://flagcdn.com/w40/${values.country.code.toLowerCase()}.png 2x`}
+                                  alt={values.country.label}
+                                />
+                              </InputAdornment>
+                            ),
+                          }}
+                          {...(errors.country && {
+                            helperText: errors.country,
+                          })}
+                          helperText={
+                            errors.country?.label && errors.country.label
+                          }
+                        />
+                      )}
                     />
                   </Box>
 
