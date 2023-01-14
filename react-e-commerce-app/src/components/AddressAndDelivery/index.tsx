@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as yup from "yup";
 
 import {
@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { MuiTelInput, matchIsValidTel } from "mui-tel-input";
 
-import { Field, Form, Formik, FormikHelpers } from "formik";
+import { Field, Form, Formik, FormikHelpers, FormikProps } from "formik";
 import { TextField } from "formik-mui";
 
 import { ICountry } from "../../types/country";
@@ -28,7 +28,7 @@ import theme from "../../theme";
 interface IProps {
   setActiveStep: React.Dispatch<React.SetStateAction<number>>;
 }
-interface IinitialValues {
+interface IinitialFormValues {
   firstName: string;
   lastName: string;
   address: string;
@@ -38,17 +38,6 @@ interface IinitialValues {
   country: ICountry;
   email: string;
 }
-
-const initialValues: IinitialValues = {
-  firstName: "",
-  lastName: "",
-  address: "",
-  city: "",
-  postalCode: "",
-  phone: "+1",
-  country: countries[230],
-  email: "",
-};
 
 const inputContainerStyles: SxProps<Theme> = {
   height: "130px",
@@ -110,6 +99,26 @@ const validationSchema = yup.object({
 
 const AddressAndDelivery = ({ setActiveStep }: IProps) => {
   const [selectedCard, setSelectedCard] = useState(delivery[0]);
+  const [initialFormValues, setFormInitialValues] =
+    useState<IinitialFormValues>({
+      firstName: "",
+      lastName: "",
+      address: "",
+      city: "",
+      postalCode: "",
+      phone: "+1",
+      country: countries[230],
+      email: "",
+    });
+
+  useEffect(() => {
+    let formValueLocalStorage = JSON.parse(
+      localStorage.getItem("addressData") || ""
+    );
+    if (formValueLocalStorage) {
+      setFormInitialValues(formValueLocalStorage);
+    }
+  }, []);
 
   const setAndReturnCardIcon = (iconName: string) => {
     switch (iconName) {
@@ -148,12 +157,14 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
     });
   };
 
-  const handleSubmitForm = (
-    values: IinitialValues,
-    { setFieldError }: FormikHelpers<IinitialValues>
-  ) => {
-    // localStorage.setItem("addressData", JSON.stringify(addressData));
-    // localStorage.setItem("selectedDeliveryCard", JSON.stringify(selectedCard));
+  const handleSubmitForm = (values: IinitialFormValues) => {
+    if (matchIsValidTel(values.phone)) {
+      localStorage.setItem(
+        "addressData",
+        JSON.stringify({ ...values, selectedCard })
+      );
+      setActiveStep((previousState) => previousState + 1);
+    }
   };
 
   return (
@@ -174,9 +185,10 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
         sx={{ width: "100%", maxWidth: { xs: "705px", xl: "760px" } }}
       >
         <Formik
-          initialValues={initialValues}
+          initialValues={initialFormValues}
           onSubmit={handleSubmitForm}
           validationSchema={validationSchema}
+          enableReinitialize={true}
         >
           {({ errors, setFieldValue, values, status, setStatus }) => {
             return (
