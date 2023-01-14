@@ -74,7 +74,13 @@ const Cart = () => {
   };
 
   const handleClickStepIcon = (index: number) => {
-    setActiveStep(index);
+    const isAddressDataAvailable = !!localStorage.getItem("addressData");
+    const isCurrentStepAddress = index + 1 === steps.length;
+    if (isCurrentStepAddress && isAddressDataAvailable) {
+      setActiveStep(index);
+    } else if (!isCurrentStepAddress) {
+      setActiveStep(index);
+    }
   };
 
   const renderPageContent = () => {

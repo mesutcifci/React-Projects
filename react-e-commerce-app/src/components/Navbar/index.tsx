@@ -73,6 +73,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     auth.signOut();
+    localStorage.removeItem("addressData");
     navigate("/");
   };
 

@@ -112,11 +112,10 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
     });
 
   useEffect(() => {
-    let formValueLocalStorage = JSON.parse(
-      localStorage.getItem("addressData") || ""
-    );
+    let formValueLocalStorage = localStorage.getItem("addressData") || "";
+
     if (formValueLocalStorage) {
-      setFormInitialValues(formValueLocalStorage);
+      setFormInitialValues(JSON.parse(formValueLocalStorage));
     }
   }, []);
 
