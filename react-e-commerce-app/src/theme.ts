@@ -7,6 +7,7 @@ declare module "@mui/material/styles" {
     sm700: true;
     sm768: true;
     md: true;
+    md1000: true;
     lg: true;
     lg1300: true;
     xl: true;
@@ -59,6 +60,7 @@ const theme = createTheme({
       sm700: 700,
       sm768: 768,
       md: 900,
+      md1000: 1000,
       lg: 1200,
       lg1300: 1300,
       xl: 1536,
