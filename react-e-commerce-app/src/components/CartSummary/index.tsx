@@ -1,4 +1,4 @@
-import { Box, Button, Icon, Stack, Typography } from "@mui/material";
+import { Avatar, Box, Button, Icon, Stack, Typography } from "@mui/material";
 import { DeliveryMethodCard, Loading, PaymentMethodsRenderer } from "..";
 import theme from "../../theme";
 import { useEffect, useState } from "react";
@@ -15,8 +15,6 @@ interface IProps {
 interface ICartSummaryData {
   addressData: ICartAddressData;
   selectedDeliveryMethod: ISelectedDeliveryMethod;
-  modifiedProducts: IProduct[];
-  totalCost: number;
 }
 
 const CartSummary = ({ setActiveStep }: IProps) => {
@@ -34,12 +32,10 @@ const CartSummary = ({ setActiveStep }: IProps) => {
         setCartSummaryData({
           addressData: JSON.parse(addressData),
           selectedDeliveryMethod: JSON.parse(selectedDeliveryMethod),
-          modifiedProducts,
-          totalCost,
         });
       }
     }
-  }, [modifiedProducts]);
+  }, []);
 
   const setAndReturnCardIcon = (iconName: string) => {
     switch (iconName) {
@@ -145,6 +141,98 @@ const CartSummary = ({ setActiveStep }: IProps) => {
               CHANGE ADDRESS
             </Button>
           </Box>
+        )}
+
+        {modifiedProducts && totalCost && (
+          <Stack
+            sx={{
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Typography
+              fontWeight={theme.fontWeight.semiBold}
+              marginBottom="29px"
+              textAlign="center"
+            >
+              Your cart
+            </Typography>
+
+            <Stack
+              sx={{ width: "100%", maxWidth: { xs: "570px" } }}
+              alignItems="center"
+              justifyContent="center"
+              rowGap="40px"
+              columnGap="40px"
+            >
+              <Stack
+                rowGap="30px"
+                columnGap="10px"
+                direction="row"
+                flexWrap="wrap"
+                alignItems="center"
+                justifyContent="center"
+                sx={{ justifyContent: { xs: "center", sm: "space-between" } }}
+              >
+                {modifiedProducts.map((product) => (
+                  <Stack
+                    rowGap="20px"
+                    direction="row"
+                    flexWrap="wrap"
+                    columnGap="20px"
+                    alignItems="center"
+                    width="279px"
+                  >
+                    <Avatar
+                      src={product.imageUrl}
+                      sx={{ width: "70px", height: "70px" }}
+                      alt={product.name}
+                    />
+                    <Stack>
+                      <Typography
+                        fontSize="14px"
+                        fontWeight={theme.fontWeight.semiBold}
+                      >
+                        {product.name}
+                      </Typography>
+                      <Typography
+                        fontSize="14px"
+                        fontWeight={theme.fontWeight.regular}
+                      >
+                        White
+                      </Typography>
+                      <Typography
+                        fontSize="14px"
+                        fontWeight={theme.fontWeight.regular}
+                      >
+                        XL
+                      </Typography>
+                      <Stack direction="row" columnGap="10px">
+                        <Typography
+                          fontSize="14px"
+                          fontWeight={theme.fontWeight.semiBold}
+                        >
+                          {product.price}
+                        </Typography>
+                        <Typography
+                          fontSize="14px"
+                          fontWeight={theme.fontWeight.regular}
+                        >
+                          x{product.amount}
+                        </Typography>
+                      </Stack>
+                    </Stack>
+                  </Stack>
+                ))}
+              </Stack>
+
+              <Stack direction="row">
+                <Typography>Total cost:</Typography>
+                <Typography>${totalCost}</Typography>
+              </Stack>
+            </Stack>
+          </Stack>
         )}
       </Stack>
     </>
