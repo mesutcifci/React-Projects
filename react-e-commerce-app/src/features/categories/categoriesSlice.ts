@@ -24,9 +24,8 @@ export const categoriesSlice = createSlice({
         (category) => category.id.toLowerCase() === primary.toLowerCase()
       )[0];
 
-      filteredCategory = JSON.parse(JSON.stringify({ ...filteredCategory }));
-
       if (filteredCategory?.id === primary) {
+        filteredCategory = JSON.parse(JSON.stringify({ ...filteredCategory }));
         filteredCategory.isSelected = true;
 
         filteredCategory.secondaryCategories.forEach((secondaryCategory) => {
@@ -60,9 +59,7 @@ export const categoriesSlice = createSlice({
         });
       }
 
-      if (filteredCategory) {
-        state.value = filteredCategory;
-      }
+      state.value = filteredCategory;
     },
   },
 });

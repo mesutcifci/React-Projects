@@ -16,15 +16,22 @@ import { ISecondaryCategory, ITertiaryCategory } from "../../types/categories";
 import { IParameter, ITertiaryParameter } from "../../types/parameters";
 import theme from "../../theme";
 
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "../../app/store";
+import { updateSelectedCategories } from "../../features/categories/categoriesSlice";
+
 const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
-  const { mapCategoriesWithSearchParameters, mappedCategories } =
-    useGetMappedCategories();
   const { modifiedParameters } = useSearchParameters();
   const navigate = useNavigate();
 
+  const categories = useSelector((state: RootState) => state.categories.value);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    mapCategoriesWithSearchParameters(modifiedParameters);
+    dispatch(updateSelectedCategories(modifiedParameters));
   }, [modifiedParameters]);
+
+  console.log(categories);
 
   const addCategoriesToParameterString = (
     searchParameterString: string,
@@ -296,7 +303,7 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
         </Typography>
       </AccordionSummary>
       <AccordionDetails sx={{ padding: "0" }}>
-        {mappedCategories.secondaryCategories.map((secondaryCategory) => (
+        {categories?.secondaryCategories.map((secondaryCategory) => (
           <Accordion
             key={secondaryCategory.name}
             disableGutters
