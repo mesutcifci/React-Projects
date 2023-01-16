@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from "../../app/store";
+import _ from "lodash";
 
 import categories from "../../constants/categories.json";
+
 import { ICategory } from "../../types/categories";
 import { IParameter } from "../../types/parameters";
 
@@ -10,7 +11,7 @@ interface ICategoriesState {
 }
 
 const initialState: ICategoriesState = {
-  value: JSON.parse(JSON.stringify(categories[0])),
+  value: _.cloneDeep(categories[0]),
 };
 
 export const categoriesSlice = createSlice({
@@ -25,7 +26,8 @@ export const categoriesSlice = createSlice({
       )[0];
 
       if (filteredCategory?.id === primary) {
-        filteredCategory = JSON.parse(JSON.stringify({ ...filteredCategory }));
+        // Clone deeply before change any fields otherwise it gives error "isSelected is read only"
+        filteredCategory = _.cloneDeep(filteredCategory);
         filteredCategory.isSelected = true;
 
         filteredCategory.secondaryCategories.forEach((secondaryCategory) => {

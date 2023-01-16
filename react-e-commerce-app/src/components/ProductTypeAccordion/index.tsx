@@ -31,8 +31,6 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
     dispatch(updateSelectedCategories(modifiedParameters));
   }, [modifiedParameters]);
 
-  console.log(categories);
-
   const addCategoriesToParameterString = (
     searchParameterString: string,
     objectType: string,
