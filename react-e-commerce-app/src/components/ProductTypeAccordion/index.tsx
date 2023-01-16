@@ -11,27 +11,20 @@ import { ExpandMore } from "@mui/icons-material";
 
 import { useNavigate } from "react-router-dom";
 import { IAccordionProps } from "../../types/accordion";
-import { useSearchParameters } from "../../hooks";
+import { useGetMappedCategories, useSearchParameters } from "../../hooks";
 import { ISecondaryCategory, ITertiaryCategory } from "../../types/categories";
 import { IParameter, ITertiaryParameter } from "../../types/parameters";
 import theme from "../../theme";
 
-import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "../../app/store";
-import { updateSelectedCategories } from "../../features/categories/categoriesSlice";
-
 const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
   const { modifiedParameters } = useSearchParameters();
+  const { mapCategoriesWithSearchParameters, mappedCategories } =
+    useGetMappedCategories();
   const navigate = useNavigate();
 
-  const categories = useSelector((state: RootState) => state.categories.value);
-  const dispatch = useDispatch();
-
   useEffect(() => {
-    dispatch(updateSelectedCategories(modifiedParameters));
+    mapCategoriesWithSearchParameters(modifiedParameters);
   }, [modifiedParameters]);
-
-  console.log(categories);
 
   const addCategoriesToParameterString = (
     searchParameterString: string,
@@ -303,7 +296,7 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
         </Typography>
       </AccordionSummary>
       <AccordionDetails sx={{ padding: "0" }}>
-        {categories?.secondaryCategories.map((secondaryCategory) => (
+        {mappedCategories?.secondaryCategories.map((secondaryCategory) => (
           <Accordion
             key={secondaryCategory.name}
             disableGutters
