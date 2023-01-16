@@ -11,7 +11,7 @@ import { ExpandMore } from "@mui/icons-material";
 
 import { useNavigate } from "react-router-dom";
 import { IAccordionProps } from "../../types/accordion";
-import { useGetMappedCategories, useSearchParameters } from "../../hooks";
+import { useSearchParameters } from "../../hooks";
 import { ISecondaryCategory, ITertiaryCategory } from "../../types/categories";
 import { IParameter, ITertiaryParameter } from "../../types/parameters";
 import theme from "../../theme";
