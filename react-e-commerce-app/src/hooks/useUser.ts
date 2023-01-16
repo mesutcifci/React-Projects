@@ -16,11 +16,13 @@ const useUser = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
       setIsLoading(true);
       setCurrentUser(user);
       setIsLoading(false);
     });
+
+    return () => unsubscribe();
   }, []);
 
   useEffect(() => {

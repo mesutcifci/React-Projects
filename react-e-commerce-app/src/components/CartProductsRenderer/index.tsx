@@ -22,19 +22,6 @@ const CartProductsRenderer = () => {
   const { currentUser, addProductToCart } = useUser();
   const { modifiedProducts, isLoading } = useModifiedProducts();
 
-  // useEffect(() => {
-  //   if (user?.productsInCart.length) {
-  //     const productIds = user.productsInCart.map((product) => product.id);
-  //     getProductsByIds(productIds);
-  //   }
-  // }, [user]);
-
-  // useEffect(() => {
-  //   if (products && user) {
-  //     modifyProducts(products, user);
-  //   }
-  // }, [products, user]);
-
   const handleClickAmountButtons = async (
     productId: string,
     operation: "increase" | "decrease"

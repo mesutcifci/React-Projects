@@ -5,12 +5,7 @@ import useUser from "./useUser";
 import { useFetchProductsByIds } from ".";
 
 const useModifiedProducts = () => {
-  const {
-    currentUser,
-    addProductToCart,
-    user,
-    isLoading: loadingForUser,
-  } = useUser();
+  const { user, isLoading: loadingForUser } = useUser();
   const {
     getProductsByIds,
     products,
