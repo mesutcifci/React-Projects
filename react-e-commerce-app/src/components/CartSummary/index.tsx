@@ -16,12 +16,14 @@ import { useModifiedProducts } from "../../hooks";
 
 // Components
 import { DeliveryIconDHL, DeliveryIconDPD, DeliveryIconInPost } from "../../ui";
+import { ICountry } from "../../types/country";
 interface IProps {
   setActiveStep: React.Dispatch<React.SetStateAction<number>>;
 }
 interface ICartSummaryData {
   addressData: ICartAddressData;
   selectedDeliveryMethod: ISelectedDeliveryMethod;
+  selectedCountry: ICountry;
 }
 
 const CartSummary = ({ setActiveStep }: IProps) => {
@@ -29,13 +31,19 @@ const CartSummary = ({ setActiveStep }: IProps) => {
   const { modifiedProducts, totalCost, isLoading } = useModifiedProducts();
 
   useEffect(() => {
-    let addressData = localStorage.getItem("addressData");
-    let selectedDeliveryMethod = localStorage.getItem("selectedDeliveryMethod");
+    let addressData = JSON.parse(localStorage.getItem("addressData") as string);
+    let selectedDeliveryMethod = JSON.parse(
+      localStorage.getItem("selectedDeliveryMethod") as string
+    );
+    let selectedCountry = JSON.parse(
+      localStorage.getItem("selectedCountry") as string
+    );
 
-    if (addressData && selectedDeliveryMethod) {
+    if (addressData && selectedDeliveryMethod && selectedCountry) {
       setCartSummaryData({
-        addressData: JSON.parse(addressData),
-        selectedDeliveryMethod: JSON.parse(selectedDeliveryMethod),
+        addressData,
+        selectedDeliveryMethod,
+        selectedCountry,
       });
     }
   }, []);
@@ -164,7 +172,7 @@ const CartSummary = ({ setActiveStep }: IProps) => {
                 <Stack rowGap="5px" maxWidth="300px">
                   <Typography>{`${cartSummaryData.addressData.firstName} ${cartSummaryData.addressData.lastName}`}</Typography>
                   <Typography>{`${cartSummaryData.addressData.address}. ${cartSummaryData.addressData.city}, ${cartSummaryData.addressData.postalCode}`}</Typography>
-                  <Typography>{`${cartSummaryData.addressData.country.label}`}</Typography>
+                  <Typography>{`${cartSummaryData.selectedCountry.label}`}</Typography>
                   <Typography>{`${cartSummaryData.addressData.phone}`}</Typography>
                   <Typography>{`${cartSummaryData.addressData.email}`}</Typography>
                 </Stack>

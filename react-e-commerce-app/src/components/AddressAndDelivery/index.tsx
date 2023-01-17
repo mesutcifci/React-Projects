@@ -28,6 +28,7 @@ import { ICartAddressData } from "../../types/cartTypes";
 // Components
 import { DeliveryIconDHL, DeliveryIconDPD, DeliveryIconInPost } from "../../ui";
 import { DeliveryMethodCard } from "../";
+import { ICountry } from "../../types/country";
 
 interface IProps {
   setActiveStep: React.Dispatch<React.SetStateAction<number>>;
@@ -84,7 +85,6 @@ const validationSchema = yup.object({
     .min(3, "Enter a valid phone number!")
     .required("Phone number is required"),
   postalCode: yup.string().required("Postal code is required"),
-  country: yup.object({ label: yup.string().required("Country is required") }),
   email: yup
     .string()
     .email("Enter a valid email")
@@ -95,28 +95,37 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
   const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(
     delivery[0]
   );
-  const [initialFormValues, setFormInitialValues] = useState<ICartAddressData>({
+  const [selectedCountry, setSelectedCountry] = useState(countries[230]);
+  const [initialFormValues, setInitialFormValues] = useState<ICartAddressData>({
     firstName: "",
     lastName: "",
     address: "",
     city: "",
     postalCode: "",
     phone: "+1",
-    country: countries[230],
     email: "",
   });
 
   useEffect(() => {
-    let formValueLocalStorage = localStorage.getItem("addressData");
-    let selectedDeliveryMethodLocalStorage = localStorage.getItem(
-      "selectedDeliveryMethod"
+    let selectedDeliveryMethodLocalStorage = JSON.parse(
+      localStorage.getItem("selectedDeliveryMethod") as string
     );
     if (selectedDeliveryMethodLocalStorage) {
-      setSelectedDeliveryMethod(JSON.parse(selectedDeliveryMethodLocalStorage));
+      setSelectedDeliveryMethod(selectedDeliveryMethodLocalStorage);
     }
 
+    let formValueLocalStorage = JSON.parse(
+      localStorage.getItem("addressData") as string
+    );
     if (formValueLocalStorage) {
-      setFormInitialValues(JSON.parse(formValueLocalStorage));
+      setInitialFormValues(formValueLocalStorage);
+    }
+
+    let selectedCountryLocalStorage = JSON.parse(
+      localStorage.getItem("selectedCountry") as string
+    );
+    if (selectedCountryLocalStorage) {
+      setSelectedCountry(selectedCountryLocalStorage);
     }
   }, []);
 
@@ -160,13 +169,24 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
   };
 
   const handleSubmitForm = (values: ICartAddressData) => {
-    if (matchIsValidTel(values.phone)) {
+    if (matchIsValidTel(values.phone) && selectedCountry) {
       localStorage.setItem("addressData", JSON.stringify({ ...values }));
       localStorage.setItem(
         "selectedDeliveryMethod",
         JSON.stringify(selectedDeliveryMethod)
       );
+      localStorage.setItem("selectedCountry", JSON.stringify(selectedCountry));
       setActiveStep((previousState) => previousState + 1);
+    }
+  };
+
+  const handleChangeSelectedCountry = (
+    event: React.SyntheticEvent<Element, Event>,
+    value: ICountry | null
+  ) => {
+    console.log(value);
+    if (value) {
+      setSelectedCountry(value);
     }
   };
 
@@ -286,7 +306,7 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
                   {/*  Phone number */}
                   <Box sx={{ ...inputContainerStyles }}>
                     <InputLabel htmlFor="phone" sx={{ ...inputLabelStyles }}>
-                      Phone number
+                      Phone Number
                     </InputLabel>
                     <Field
                       component={MuiTelInput}
@@ -331,29 +351,20 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
                       Country
                     </InputLabel>
                     <MuiAutocomplete
+                      id="country"
                       disabled={false}
                       sx={{
                         ...inputStyles,
                         "& .MuiInputAdornment-root ": { paddingLeft: "14.2px" },
                         "& .MuiOutlinedInput-notchedOutline": {
-                          borderColor: `${errors.country?.label && "#d32f2f"}`,
+                          borderColor: `${!selectedCountry && "#d32f2f"}`,
                         },
                         "& .MuiFormHelperText-root": {
                           color: "#d32f2f",
                         },
                       }}
-                      defaultValue={countries[230]}
-                      onChange={(_, value) => {
-                        if (value) {
-                          setFieldValue("country", value);
-                        } else {
-                          setFieldValue("country", {
-                            code: "",
-                            label: "",
-                            phone: "",
-                          });
-                        }
-                      }}
+                      value={selectedCountry}
+                      onChange={handleChangeSelectedCountry}
                       options={countries}
                       getOptionLabel={(option) => option.label}
                       renderOption={(props, option) => (
@@ -377,24 +388,19 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
                           {...params}
                           InputProps={{
                             ...params.InputProps,
-                            startAdornment: values?.country?.label && (
+                            startAdornment: selectedCountry && (
                               <InputAdornment position="start">
                                 <img
                                   loading="lazy"
                                   width="30"
-                                  src={`https://flagcdn.com/w20/${values.country.code.toLowerCase()}.png`}
-                                  srcSet={`https://flagcdn.com/w40/${values.country.code.toLowerCase()}.png 2x`}
-                                  alt={values.country.label}
+                                  src={`https://flagcdn.com/w20/${selectedCountry.code.toLowerCase()}.png`}
+                                  srcSet={`https://flagcdn.com/w40/${selectedCountry.code.toLowerCase()}.png 2x`}
+                                  alt={selectedCountry.label}
                                 />
                               </InputAdornment>
                             ),
                           }}
-                          {...(errors.country && {
-                            helperText: errors.country,
-                          })}
-                          helperText={
-                            errors.country?.label && errors.country.label
-                          }
+                          helperText={!selectedCountry && "test"}
                         />
                       )}
                     />

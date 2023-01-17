@@ -1,5 +1,3 @@
-import { ICountry } from "./country";
-
 export interface ICartAddressData {
   firstName: string;
   lastName: string;
@@ -7,7 +5,6 @@ export interface ICartAddressData {
   city: string;
   postalCode: string;
   phone: string;
-  country: ICountry;
   email: string;
 }
 
