@@ -95,7 +95,9 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
   const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(
     delivery[0]
   );
-  const [selectedCountry, setSelectedCountry] = useState(countries[230]);
+  const [selectedCountry, setSelectedCountry] = useState<ICountry | null>(
+    countries[230]
+  );
   const [initialFormValues, setInitialFormValues] = useState<ICartAddressData>({
     firstName: "",
     lastName: "",
@@ -184,10 +186,7 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
     event: React.SyntheticEvent<Element, Event>,
     value: ICountry | null
   ) => {
-    console.log(value);
-    if (value) {
-      setSelectedCountry(value);
-    }
+    setSelectedCountry(value);
   };
 
   return (
@@ -400,7 +399,8 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
                               </InputAdornment>
                             ),
                           }}
-                          helperText={!selectedCountry && "test"}
+                          helperText={!selectedCountry && "Country is required"}
+                          data-testId="countryInput"
                         />
                       )}
                     />

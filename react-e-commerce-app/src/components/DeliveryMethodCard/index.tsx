@@ -34,6 +34,7 @@ const DeliveryMethodCard = ({
         position: "relative",
       }}
       onClick={onClick}
+      data-testId={cardData.id}
     >
       <Box sx={{ marginBottom: "31px" }}>{icon}</Box>
       <Typography
