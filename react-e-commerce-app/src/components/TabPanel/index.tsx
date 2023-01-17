@@ -5,28 +5,24 @@ interface TabPanelProps {
   index: number;
   value: number | boolean;
   sx?: SxProps<Theme> | undefined;
-  handleCloseTabPanel: () => void;
 }
 
 const TabPanel = (props: TabPanelProps) => {
-  const { children, value, index, sx, handleCloseTabPanel } = props;
+  const { children, value, index, sx } = props;
 
   return (
-    <ClickAwayListener onClickAway={handleCloseTabPanel}>
-      <Box
-        role="tabpanel"
-        hidden={value !== index}
-        id={`tabpanel-${index}`}
-        aria-labelledby={`tab-${index}`}
-        sx={{
-          ...sx,
-          ...(value !== index && { display: "none" }),
-        }}
-        onMouseLeave={handleCloseTabPanel}
-      >
-        {value === index && <>{children}</>}
-      </Box>
-    </ClickAwayListener>
+    <Box
+      role="tabpanel"
+      hidden={value !== index}
+      id={`tabpanel-${index}`}
+      aria-labelledby={`tab-${index}`}
+      sx={{
+        ...sx,
+        ...(value !== index && { display: "none" }),
+      }}
+    >
+      {value === index && <>{children}</>}
+    </Box>
   );
 };
 

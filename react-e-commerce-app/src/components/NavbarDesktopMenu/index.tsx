@@ -1,21 +1,44 @@
-import { Box, Tab, Tabs } from "@mui/material";
+import {
+  Box,
+  Stack,
+  SxProps,
+  Tab,
+  Tabs,
+  Theme,
+  Typography,
+} from "@mui/material";
 import categories from "../../constants/categories.json";
 import { useLocation, useNavigate } from "react-router-dom";
 import theme from "../../theme";
+import { useState } from "react";
+import { ISecondaryCategory, ITertiaryCategory } from "../../types/categories";
+import TabPanel from "../TabPanel";
+
+const tabPanelStyles: SxProps<Theme> = {
+  backgroundColor: "#ffffff",
+  borderTop: "1px solid #E5E5E5",
+  boxSizing: "border-box",
+  height: "max-content",
+  color: "black",
+  columnGap: "30px",
+  display: { xs: "none", md: "flex" },
+  justifyContent: "space-evenly",
+  padding: "33px 20% 36px 20%",
+  position: "absolute",
+  left: 0,
+  right: 0,
+};
 
 interface IProps {
   selectedTabIndex: number | boolean;
-  selectedTabText: string;
-  setSelectedTabText: React.Dispatch<React.SetStateAction<string>>;
   setSelectedTabIndex: React.Dispatch<React.SetStateAction<number | boolean>>;
 }
 
 const NavbarDesktopMenu = ({
   selectedTabIndex,
-  selectedTabText,
-  setSelectedTabText,
   setSelectedTabIndex,
 }: IProps) => {
+  const [selectedTabText, setSelectedTabText] = useState("Men");
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -29,11 +52,103 @@ const NavbarDesktopMenu = ({
     setSelectedTabIndex(false);
   };
 
+  const handleClickSecondaryCategory = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    secondaryCategory: ISecondaryCategory
+  ) => {
+    let parameterString = `?secondary=${secondaryCategory.id}&tertiary=`;
+
+    secondaryCategory.tertiaryCategories.forEach((tertiaryCategory, index) => {
+      parameterString += `${tertiaryCategory.id}:${secondaryCategory.id}`;
+      if (index + 1 < secondaryCategory.tertiaryCategories.length) {
+        parameterString += ",";
+      }
+    });
+
+    navigate({
+      pathname: `/${selectedTabText.toLowerCase()}`,
+      search: parameterString,
+    });
+  };
+
+  const handleClickTertiaryCategory = (
+    event: React.MouseEvent<HTMLSpanElement, MouseEvent>,
+    secondaryCategoryId: string,
+    tertiaryCategory: ITertiaryCategory
+  ) => {
+    event.stopPropagation();
+    let parameterString = `?secondary=${secondaryCategoryId}&tertiary=${tertiaryCategory.id}:${secondaryCategoryId}`;
+    navigate({
+      pathname: `/${selectedTabText.toLowerCase()}`,
+      search: parameterString,
+    });
+  };
+
+  const renderTabPanels = () => {
+    return categories.map((category, index) => {
+      const secondaryCategories = category.secondaryCategories;
+      return (
+        <TabPanel
+          value={selectedTabIndex}
+          index={index}
+          sx={{
+            ...tabPanelStyles,
+            ...(pathname !== "/" && {
+              borderBottom: "1px solid #e5e5e5",
+            }),
+          }}
+          key={category.name}
+        >
+          {secondaryCategories.map((secondaryCategory) => {
+            const tertiaryCategories = secondaryCategory.tertiaryCategories;
+            return (
+              <Stack
+                key={secondaryCategory.name}
+                rowGap="15px"
+                sx={{ minWidth: "140px" }}
+                onClick={(event) =>
+                  handleClickSecondaryCategory(event, secondaryCategory)
+                }
+              >
+                <Typography
+                  fontSize="14px"
+                  fontWeight={theme.fontWeight.semiBold}
+                  textTransform="uppercase"
+                  sx={{ cursor: "pointer", "&:hover": { color: "#FBB03B" } }}
+                >
+                  {secondaryCategory.name}
+                </Typography>
+                {tertiaryCategories.map((tertiaryCategory) => (
+                  <Typography
+                    key={tertiaryCategory.name}
+                    fontSize="12px"
+                    fontWeight={theme.fontWeight.regular}
+                    sx={{ cursor: "pointer", "&:hover": { color: "#FBB03B" } }}
+                    onClick={(event) =>
+                      handleClickTertiaryCategory(
+                        event,
+                        secondaryCategory.id,
+                        tertiaryCategory
+                      )
+                    }
+                  >
+                    {tertiaryCategory.name}
+                  </Typography>
+                ))}
+              </Stack>
+            );
+          })}
+        </TabPanel>
+      );
+    });
+  };
+
   return (
     <Box
+      onMouseLeave={() => setSelectedTabIndex(false)}
       sx={{
         display: { xs: "none", lg: "initial" },
-        position: "relative",
+        height: "100%",
       }}
     >
       <Tabs
@@ -46,6 +161,7 @@ const NavbarDesktopMenu = ({
           },
         })}
         sx={{
+          "&.MuiTabs-root": { alignItems: "center" },
           "& .MuiTabs-indicator": {
             display: "flex",
             justifyContent: "center",
@@ -56,6 +172,10 @@ const NavbarDesktopMenu = ({
             paddingInline: "5px",
             backgroundColor: "#FBB03B",
           },
+          "& .MuiTabs-scroller": {
+            height: " max-content",
+          },
+          height: "100%",
         }}
       >
         {categories.map((category, index) => (
@@ -89,6 +209,7 @@ const NavbarDesktopMenu = ({
           />
         ))}
       </Tabs>
+      {renderTabPanels()}
     </Box>
   );
 };

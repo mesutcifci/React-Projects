@@ -22,45 +22,28 @@ import {
   Search,
   ShoppingCartOutlined,
 } from "@mui/icons-material";
+import theme from "../../theme";
 
 // Components
 import NavbarMobileMenu from "../NavbarMobileMenu";
 import NavbarDesktopMenu from "../NavbarDesktopMenu";
-import TabPanel from "../TabPanel";
 import { ProductLogo } from "../../ui";
 
 // Data
 import { auth } from "../../firebase";
-import categories from "../../constants/categories.json";
-import { ISecondaryCategory, ITertiaryCategory } from "../../types/categories";
 import { useUser } from "../../hooks";
-import theme from "../../theme";
-
-const tabPanelStyles: SxProps<Theme> = {
-  backgroundColor: "#ffffff",
-  borderTop: "1px solid #E5E5E5",
-  boxSizing: "border-box",
-  height: "max-content",
-  color: "black",
-  columnGap: "30px",
-  display: { xs: "none", md: "flex" },
-  justifyContent: "space-evenly",
-  padding: "33px 20% 36px 20%",
-};
 
 const Navbar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-
   const { user, currentUser } = useUser();
-
-  const [isDrawerOpened, setIsDrawerOpened] = useState(false);
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   const [selectedTabIndex, setSelectedTabIndex] = useState<number | boolean>(
     false
   );
-  const [selectedTabText, setSelectedTabText] = useState("Men");
+
+  const [isDrawerOpened, setIsDrawerOpened] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
   const handleClickProfileIcon = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -89,101 +72,6 @@ const Navbar = () => {
 
   const handleClickShoppingCart = () => {
     navigate({ pathname: "/cart" });
-  };
-
-  const handleClickSecondaryCategory = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    secondaryCategory: ISecondaryCategory
-  ) => {
-    let parameterString = `?secondary=${secondaryCategory.id}&tertiary=`;
-
-    secondaryCategory.tertiaryCategories.forEach((tertiaryCategory, index) => {
-      parameterString += `${tertiaryCategory.id}:${secondaryCategory.id}`;
-      if (index + 1 < secondaryCategory.tertiaryCategories.length) {
-        parameterString += ",";
-      }
-    });
-
-    navigate({
-      pathname: `/${selectedTabText.toLowerCase()}`,
-      search: parameterString,
-    });
-  };
-
-  const handleClickTertiaryCategory = (
-    event: React.MouseEvent<HTMLSpanElement, MouseEvent>,
-    secondaryCategoryId: string,
-    tertiaryCategory: ITertiaryCategory
-  ) => {
-    event.stopPropagation();
-    let parameterString = `?secondary=${secondaryCategoryId}&tertiary=${tertiaryCategory.id}:${secondaryCategoryId}`;
-    navigate({
-      pathname: `/${selectedTabText.toLowerCase()}`,
-      search: parameterString,
-    });
-  };
-
-  const renderTabPanels = () => {
-    return categories.map((category, index) => {
-      const secondaryCategories = category.secondaryCategories;
-      return (
-        <TabPanel
-          value={selectedTabIndex}
-          index={index}
-          sx={{
-            ...tabPanelStyles,
-            ...(pathname !== "/" && {
-              borderBottom: "1px solid #e5e5e5",
-              position: "absolute",
-              left: 0,
-              right: 0,
-            }),
-          }}
-          key={category.name}
-          handleCloseTabPanel={() => setSelectedTabIndex(false)}
-        >
-          {secondaryCategories.map((secondaryCategory) => {
-            const tertiaryCategories = secondaryCategory.tertiaryCategories;
-            return (
-              <Stack
-                key={secondaryCategory.name}
-                rowGap="15px"
-                sx={{ minWidth: "140px" }}
-                onClick={(event) =>
-                  handleClickSecondaryCategory(event, secondaryCategory)
-                }
-              >
-                <Typography
-                  fontSize="14px"
-                  fontWeight={theme.fontWeight.semiBold}
-                  textTransform="uppercase"
-                  sx={{ cursor: "pointer", "&:hover": { color: "#FBB03B" } }}
-                >
-                  {secondaryCategory.name}
-                </Typography>
-                {tertiaryCategories.map((tertiaryCategory) => (
-                  <Typography
-                    key={tertiaryCategory.name}
-                    fontSize="12px"
-                    fontWeight={theme.fontWeight.regular}
-                    sx={{ cursor: "pointer", "&:hover": { color: "#FBB03B" } }}
-                    onClick={(event) =>
-                      handleClickTertiaryCategory(
-                        event,
-                        secondaryCategory.id,
-                        tertiaryCategory
-                      )
-                    }
-                  >
-                    {tertiaryCategory.name}
-                  </Typography>
-                ))}
-              </Stack>
-            );
-          })}
-        </TabPanel>
-      );
-    });
   };
 
   return (
@@ -231,7 +119,13 @@ const Navbar = () => {
           },
         }}
       >
-        <Toolbar sx={{ justifyContent: "space-between" }}>
+        <Toolbar
+          sx={{
+            justifyContent: "space-between",
+            position: "static",
+            height: "70px",
+          }}
+        >
           <Box
             sx={{ display: "flex", columnGap: "17px", cursor: "pointer" }}
             onClick={() => navigate("/")}
@@ -263,8 +157,6 @@ const Navbar = () => {
 
           <NavbarDesktopMenu
             selectedTabIndex={selectedTabIndex}
-            selectedTabText={selectedTabText}
-            setSelectedTabText={setSelectedTabText}
             setSelectedTabIndex={setSelectedTabIndex}
           />
 
@@ -341,7 +233,6 @@ const Navbar = () => {
           </Box>
         </Toolbar>
       </AppBar>
-      {renderTabPanels()}
     </Box>
   );
 };
