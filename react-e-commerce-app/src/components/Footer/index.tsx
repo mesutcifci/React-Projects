@@ -1,3 +1,6 @@
+import { Link as RouterLink } from "react-router-dom";
+
+// Styles
 import {
   Facebook,
   Instagram,
@@ -6,9 +9,10 @@ import {
   YouTube,
 } from "@mui/icons-material";
 import { Box, Grid, Link, Stack, Typography } from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
-import footerItems from "../../constants/footer.json";
 import theme from "../../theme";
+
+// Data
+import footerItems from "../../constants/footer.json";
 
 const Footer = () => {
   const renderFooterItems = () => {

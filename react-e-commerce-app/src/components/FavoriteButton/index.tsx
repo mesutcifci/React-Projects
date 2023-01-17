@@ -1,3 +1,4 @@
+// Styles
 import { FavoriteBorderOutlined } from "@mui/icons-material";
 import { Box, SxProps, Theme } from "@mui/material";
 

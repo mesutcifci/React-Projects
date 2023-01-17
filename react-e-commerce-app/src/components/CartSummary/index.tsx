@@ -1,13 +1,20 @@
-import { Avatar, Box, Button, Icon, Stack, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+
+// Styles
+import { Avatar, Box, Button, Stack, Typography } from "@mui/material";
 import { DeliveryMethodCard, Loading, PaymentMethodsRenderer } from "..";
 import theme from "../../theme";
-import { useEffect, useState } from "react";
+
+// Data
 import {
   ICartAddressData,
   ISelectedDeliveryMethod,
 } from "../../types/cartTypes";
-import { IProduct } from "../../types/product";
+
+// Hooks
 import { useModifiedProducts } from "../../hooks";
+
+// Components
 import { DeliveryIconDHL, DeliveryIconDPD, DeliveryIconInPost } from "../../ui";
 interface IProps {
   setActiveStep: React.Dispatch<React.SetStateAction<number>>;

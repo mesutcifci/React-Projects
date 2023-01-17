@@ -1,3 +1,4 @@
+// Styles
 import {
   ArrowBack as ArrowBackIcon,
   LocalShippingOutlined,
@@ -14,13 +15,10 @@ import {
   Typography,
 } from "@mui/material";
 import theme from "../../theme";
+
+// Hooks
 import { useNavigate } from "react-router-dom";
-import {
-  useFetchProductsByIds,
-  useModifiedProducts,
-  useUser,
-} from "../../hooks";
-import { useEffect } from "react";
+import { useModifiedProducts } from "../../hooks";
 
 interface IProps {
   steps: string[];

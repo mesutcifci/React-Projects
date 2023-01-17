@@ -1,5 +1,5 @@
-import { Stack } from "@mui/material";
-import { Box, SxProps } from "@mui/system";
+// Styles
+import { Stack, Box, SxProps } from "@mui/material";
 
 interface IProps {
   colors: string[];

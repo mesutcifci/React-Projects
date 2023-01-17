@@ -1,5 +1,9 @@
-import { Login, Register, ForgotPassword } from "../../components";
 import { useParams, useNavigate } from "react-router-dom";
+
+// Components
+import { Login, Register, ForgotPassword } from "../../components";
+
+// Styles
 import { Box, Typography } from "@mui/material";
 import { ArrowBack as ArrowBackIcon } from "@mui/icons-material";
 import theme from "../../theme";

@@ -1,4 +1,6 @@
 import { useEffect } from "react";
+
+// Styles
 import {
   Accordion,
   AccordionDetails,
@@ -8,13 +10,16 @@ import {
   Typography,
 } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
+import theme from "../../theme";
 
-import { useNavigate } from "react-router-dom";
+// Data
 import { IAccordionProps } from "../../types/accordion";
-import { useGetMappedCategories, useSearchParameters } from "../../hooks";
 import { ISecondaryCategory, ITertiaryCategory } from "../../types/categories";
 import { IParameter, ITertiaryParameter } from "../../types/parameters";
-import theme from "../../theme";
+
+// Hooks
+import { useNavigate } from "react-router-dom";
+import { useGetMappedCategories, useSearchParameters } from "../../hooks";
 
 const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
   const { modifiedParameters } = useSearchParameters();

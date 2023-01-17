@@ -1,14 +1,18 @@
+// Styles
 import { ExpandMore } from "@mui/icons-material";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Box,
   Typography,
 } from "@mui/material";
-import { IAccordionProps } from "../../types/accordion";
-import ColorPalette from "../ColorPalette";
 import theme from "../../theme";
+
+// Data
+import { IAccordionProps } from "../../types/accordion";
+
+// Components
+import ColorPalette from "../ColorPalette";
 
 const colors = [
   "#000000",

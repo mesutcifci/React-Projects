@@ -1,5 +1,8 @@
+// Styles
 import { Box, Stack } from "@mui/material";
 import theme from "../../theme";
+
+// Components
 import {
   ProductBreadcrumbs,
   ProductList,

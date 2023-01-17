@@ -1,3 +1,4 @@
+// Styles
 import { ExpandMore } from "@mui/icons-material";
 import {
   Accordion,
@@ -5,8 +6,10 @@ import {
   AccordionSummary,
   Typography,
 } from "@mui/material";
-import { IAccordionProps } from "../../types/accordion";
 import theme from "../../theme";
+
+// Data
+import { IAccordionProps } from "../../types/accordion";
 
 const CollectionAccordion = ({ accordionStyles }: IAccordionProps) => {
   return (

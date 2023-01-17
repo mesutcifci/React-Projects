@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { IModifiedProduct } from "../../types/product";
+
+// Styles
 import {
   DataGrid,
   GridActionsCellItem,
@@ -8,13 +9,19 @@ import {
   GridRowParams,
   GridRowsProp,
 } from "@mui/x-data-grid";
-import { Avatar, Box, LinearProgress, Typography } from "@mui/material";
-import { Stack } from "@mui/system";
-import Counter from "../Counter";
+import { Avatar, Box, LinearProgress, Typography, Stack } from "@mui/material";
 import theme from "../../theme";
 import { Close as CloseIcon } from "@mui/icons-material";
+
+// Data
+import { IModifiedProduct } from "../../types/product";
 import { arrayRemove, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
+
+// Components
+import Counter from "../Counter";
+
+// Hooks
 import { useModifiedProducts, useUser } from "../../hooks";
 
 const CartProductsRenderer = () => {

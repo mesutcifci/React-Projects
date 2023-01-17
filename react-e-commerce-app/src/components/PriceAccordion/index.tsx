@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { ExpandMore } from "@mui/icons-material";
 import {
   Accordion,
@@ -7,9 +9,9 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
-import { IAccordionProps } from "../../types/accordion";
 import theme from "../../theme";
+
+import { IAccordionProps } from "../../types/accordion";
 
 const minDistance = 100;
 

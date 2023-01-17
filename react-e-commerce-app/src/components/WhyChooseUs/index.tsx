@@ -1,4 +1,8 @@
+// Styles
+import { Stack, Box, Typography } from "@mui/material";
 import theme from "../../theme";
+
+// Components
 import {
   FinestQualityIcon,
   MoneyBackIcon,
@@ -6,10 +10,8 @@ import {
   ShippingIcon,
 } from "../../ui";
 
+// Data
 import listData from "./listData.json";
-
-/* Material UI */
-import { Stack, Box, Typography } from "@mui/material";
 
 const WhyChooseUs = () => {
   const renderIcon = (iconName: string) => {

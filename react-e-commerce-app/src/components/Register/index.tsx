@@ -1,13 +1,12 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import * as yup from "yup";
+import { useState } from "react";
 
-// firebase
+// Data
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { db, auth } from "../../firebase";
 
-// styles
+// Styles
 import {
   Stack,
   Box,
@@ -18,13 +17,13 @@ import {
   Button,
   InputAdornment,
 } from "@mui/material";
-
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import theme from "../../theme";
 
-// formik
+// Formik
 import { Formik, Form, Field } from "formik";
 import { TextField } from "formik-mui";
-import theme from "../../theme";
+import * as yup from "yup";
 
 const validationSchema = yup.object({
   firstName: yup
@@ -115,6 +114,10 @@ const Register = () => {
     }
   };
 
+  const handleClickSignIn = () => {
+    navigate({ pathname: "/auth/login" });
+  };
+
   return (
     <Stack
       alignItems="center"
@@ -138,6 +141,7 @@ const Register = () => {
           fontSize: "22px",
           fontWeight: theme.fontWeight.semiBold,
           marginBottom: "24px",
+          textAlign: "center",
         }}
       >
         Create an account and discover the benefits
@@ -332,14 +336,15 @@ const Register = () => {
         }}
       >
         <Typography
-          sx={{ fontSize: "14px", fontWeight: "500", cursor: "pointer" }}
-        >
-          Sign up
-        </Typography>
-        <Typography
           sx={{ fontSize: "14px", fontWeight: "300", cursor: "pointer" }}
         >
-          Not a member yet?
+          Are you already a member?
+        </Typography>
+        <Typography
+          sx={{ fontSize: "14px", fontWeight: "500", cursor: "pointer" }}
+          onClick={handleClickSignIn}
+        >
+          Sign in
         </Typography>
       </Box>
     </Stack>

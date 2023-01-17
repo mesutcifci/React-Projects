@@ -1,10 +1,10 @@
 import { useState } from "react";
 
-// material ui
+// Styles
 import { Box, CssBaseline, Divider, IconButton, Stack } from "@mui/material";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 
-// components
+// Components
 import {
   CollectionAccordion,
   ColorAccordion,

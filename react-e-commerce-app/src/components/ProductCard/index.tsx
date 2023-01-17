@@ -1,8 +1,11 @@
-import { Box, Stack, Typography } from "@mui/material";
-import { IProduct } from "../../types/product";
 import { useNavigate } from "react-router-dom";
-import FavoriteButton from "../FavoriteButton";
+
+import { Box, Stack, Typography } from "@mui/material";
 import theme from "../../theme";
+
+import { IProduct } from "../../types/product";
+
+import FavoriteButton from "../FavoriteButton";
 
 interface IProps {
   product: IProduct;

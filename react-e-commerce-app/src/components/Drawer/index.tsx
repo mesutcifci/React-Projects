@@ -1,4 +1,7 @@
+// Styles
 import { styled, Drawer as MuiDrawer } from "@mui/material";
+
+// Helpers
 import openedMixin from "../ProductsDrawer/helperFunctions/openedMixin";
 import closedMixin from "../ProductsDrawer/helperFunctions/closedMixin";
 

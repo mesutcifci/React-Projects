@@ -1,8 +1,11 @@
+// Styles
 import { Box, Button, Stack, Typography } from "@mui/material";
+import theme from "../../theme";
+
+// Formik
 import { Field, Form, Formik } from "formik";
 import { TextField } from "formik-mui";
 import * as yup from "yup";
-import theme from "../../theme";
 
 const validationSchema = yup.object({
   email: yup.string().email("Enter a valid email"),

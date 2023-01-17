@@ -1,4 +1,4 @@
-import { Box, ClickAwayListener, SxProps, Theme } from "@mui/material";
+import { Box, SxProps, Theme } from "@mui/material";
 
 interface TabPanelProps {
   children?: React.ReactNode;

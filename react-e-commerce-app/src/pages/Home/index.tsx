@@ -1,7 +1,11 @@
+// Components
 import { Carousel, Collections, WhyChooseUs } from "../../components";
+
+// Data
 import mobileCarouselData from "../../constants/mainCarouselMobileData.json";
 import desktopCarouselData from "../../constants/mainCarouselDesktopData.json";
 
+// Styles
 import { Box } from "@mui/material";
 
 const Home = () => {

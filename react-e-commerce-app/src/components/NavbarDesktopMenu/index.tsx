@@ -1,3 +1,7 @@
+import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+
+// Styles
 import {
   Box,
   Stack,
@@ -7,11 +11,13 @@ import {
   Theme,
   Typography,
 } from "@mui/material";
-import categories from "../../constants/categories.json";
-import { useLocation, useNavigate } from "react-router-dom";
 import theme from "../../theme";
-import { useState } from "react";
+
+// Data
+import categories from "../../constants/categories.json";
 import { ISecondaryCategory, ITertiaryCategory } from "../../types/categories";
+
+// Components
 import TabPanel from "../TabPanel";
 
 const tabPanelStyles: SxProps<Theme> = {

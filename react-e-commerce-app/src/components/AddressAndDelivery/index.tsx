@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import * as yup from "yup";
 
+// Styles
 import {
   Box,
   InputLabel,
@@ -12,17 +13,20 @@ import {
   Autocomplete as MuiAutocomplete,
 } from "@mui/material";
 import { MuiTelInput, matchIsValidTel } from "mui-tel-input";
+import theme from "../../theme";
 
+// Formik
 import { Field, Form, Formik } from "formik";
 import { TextField } from "formik-mui";
 
+// Data
 import { ICardData } from "../../types/deliveryCard";
 import countries from "../../constants/countries.json";
 import delivery from "../../constants/delivery.json";
-
-import { DeliveryIconDHL, DeliveryIconDPD, DeliveryIconInPost } from "../../ui";
-import theme from "../../theme";
 import { ICartAddressData } from "../../types/cartTypes";
+
+// Components
+import { DeliveryIconDHL, DeliveryIconDPD, DeliveryIconInPost } from "../../ui";
 import { DeliveryMethodCard } from "../";
 
 interface IProps {

@@ -1,5 +1,7 @@
-import { Button, Stack, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+// Styles
+import { Button, Stack, Typography, Box } from "@mui/material";
+
+// Data
 import collectionData from "./collectionData.json";
 
 const Collections = () => {

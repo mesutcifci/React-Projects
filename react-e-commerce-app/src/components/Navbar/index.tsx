@@ -10,9 +10,6 @@ import {
   IconButton,
   Menu,
   MenuItem,
-  SxProps,
-  Theme,
-  Stack,
   Badge,
 } from "@mui/material";
 import {
@@ -202,7 +199,7 @@ const Navbar = () => {
               onClick={handleClickShoppingCart}
               sx={{ "& .MuiBadge-badge": { background: "#FBB03B" } }}
             >
-              {user?.productsInCart.length ? (
+              {user?.productsInCart.length && currentUser ? (
                 <Badge badgeContent={user.productsInCart.length}>
                   <ShoppingCartOutlined />
                 </Badge>

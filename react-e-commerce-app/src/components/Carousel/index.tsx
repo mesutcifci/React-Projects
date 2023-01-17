@@ -1,12 +1,18 @@
 import { useState } from "react";
+
+// Styles
 import {
   ArrowBack as ArrowBackIcon,
   ArrowForward as ArrowForwardIcon,
 } from "@mui/icons-material";
 import { IconButton, Typography, Box, Stack } from "@mui/material";
-import carouselBottomData from "./carouselBottomData.json";
-import { MoneyBackIcon, ShippingIcon, SmileIconWithBackground } from "../../ui";
 import theme from "../../theme";
+
+// Data
+import carouselBottomData from "./carouselBottomData.json";
+
+// Components
+import { MoneyBackIcon, ShippingIcon, SmileIconWithBackground } from "../../ui";
 
 interface ICarouselItemType {
   id: number;

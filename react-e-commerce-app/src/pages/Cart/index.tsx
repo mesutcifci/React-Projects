@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+// Styles
 import {
   LocalShippingOutlined,
   PaymentOutlined,
@@ -8,6 +9,7 @@ import {
 import { Stack, Step, Stepper, Typography } from "@mui/material";
 import theme from "../../theme";
 
+// Components
 import {
   AddressAndDelivery,
   CartFooter,

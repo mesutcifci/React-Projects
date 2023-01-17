@@ -1,3 +1,4 @@
+// Styles
 import { IconButton, Stack, Typography } from "@mui/material";
 import {
   Add as IncreaseButtonIcon,

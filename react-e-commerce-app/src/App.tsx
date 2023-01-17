@@ -1,4 +1,6 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
+
+// Components
 import {
   AppWrapper,
   Footer,

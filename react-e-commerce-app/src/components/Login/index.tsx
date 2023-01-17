@@ -98,6 +98,14 @@ const Login = () => {
     setLoading(false);
   };
 
+  const handleClickForgotPassword = () => {
+    navigate({ pathname: "/auth/forgot-password" });
+  };
+
+  const handleClickSignUp = () => {
+    navigate({ pathname: "/auth/register" });
+  };
+
   return (
     <Stack
       alignItems="center"
@@ -213,6 +221,7 @@ const Login = () => {
                   color: "#808080",
                   cursor: "pointer",
                 }}
+                onClick={handleClickForgotPassword}
               >
                 Forgot password?
               </Typography>
@@ -232,7 +241,7 @@ const Login = () => {
         }}
       >
         <Button
-          disabled={loading}
+          disabled={true}
           variant="contained"
           sx={{
             width: { xs: "100%", sm: "214px" },
@@ -332,6 +341,7 @@ const Login = () => {
         </Typography>
         <Typography
           sx={{ fontSize: "14px", fontWeight: "500", cursor: "pointer" }}
+          onClick={handleClickSignUp}
         >
           Sign up
         </Typography>

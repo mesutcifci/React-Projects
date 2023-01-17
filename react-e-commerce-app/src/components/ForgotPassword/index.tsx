@@ -1,12 +1,15 @@
 import { useState } from "react";
 
+// Styles
 import { Stack, Divider, Typography, Button } from "@mui/material";
 
+// Formik
 import { Formik, Form, Field } from "formik";
 import { TextField } from "formik-mui";
 import { MuiTelInput } from "mui-tel-input";
-
 import * as yup from "yup";
+
+// Data
 import theme from "../../theme";
 
 const validationSchema = yup.object({

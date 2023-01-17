@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+// Styles
 import { Box, Divider, Drawer, List, ListItem, Stack } from "@mui/material";
 import { ArrowBack, Close } from "@mui/icons-material";
 
+// Data
 import categories from "../../constants/categories.json";
 import {
   ICategory,

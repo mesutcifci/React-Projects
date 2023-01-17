@@ -1,8 +1,10 @@
 import { Box, Typography } from "@mui/material";
+
 import {
   useFetchProductsBySearchParameters,
   useSearchParameters,
 } from "../../hooks";
+
 import Loading from "../Loading";
 import ProductCard from "../ProductCard";
 

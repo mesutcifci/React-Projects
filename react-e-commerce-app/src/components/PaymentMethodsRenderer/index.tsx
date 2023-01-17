@@ -1,5 +1,7 @@
-import { Grid, Stack } from "@mui/material";
-import paymentMethodNames from "../../constants/paymentMethodNames.json";
+import { useState } from "react";
+
+import { Stack } from "@mui/material";
+
 import {
   DiscoverIcon,
   IdealIcon,
@@ -9,7 +11,8 @@ import {
   VISAIcon,
 } from "../../ui";
 import PaymentMethodCard from "../PaymentMethodCard";
-import { useState } from "react";
+
+import paymentMethodNames from "../../constants/paymentMethodNames.json";
 
 const PaymentMethodsRenderer = () => {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(

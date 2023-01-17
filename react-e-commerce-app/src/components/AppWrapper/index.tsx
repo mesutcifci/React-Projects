@@ -1,6 +1,7 @@
-import { Box, SxProps, Theme } from "@mui/material";
 import { ReactNode } from "react";
 import { useLocation } from "react-router-dom";
+
+import { Box, SxProps, Theme } from "@mui/material";
 
 interface IProps {
   children: ReactNode;
