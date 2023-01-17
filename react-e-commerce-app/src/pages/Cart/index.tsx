@@ -13,6 +13,7 @@ import {
   CartFooter,
   CartProductsRenderer,
   CartSummary,
+  ScrollToTop,
 } from "../../components";
 
 const Cart = () => {
@@ -66,6 +67,7 @@ const Cart = () => {
 
   return (
     <>
+      <ScrollToTop params={activeStep} />
       <Stack
         sx={{
           paddingLeft: {

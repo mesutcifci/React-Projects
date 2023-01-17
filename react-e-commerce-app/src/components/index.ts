@@ -1,6 +1,8 @@
 export { default as AppWrapper } from "./AppWrapper";
 
 export { default as Loading } from "./Loading";
+export { default as ScrollToTop } from "./ScrollToTop";
+
 export { default as Carousel } from "./Carousel";
 export { default as FavoriteButton } from "./FavoriteButton";
 export { default as ColorPalette } from "./ColorPalette";

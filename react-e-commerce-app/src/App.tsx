@@ -1,11 +1,18 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import { AppWrapper, Footer, Navbar, Newsletter } from "./components";
+import {
+  AppWrapper,
+  Footer,
+  Navbar,
+  Newsletter,
+  ScrollToTop,
+} from "./components";
 import { Home, Auth, Products, ProductDetail, Cart } from "./pages";
 
 function App() {
   return (
     <div>
       <BrowserRouter>
+        <ScrollToTop />
         <AppWrapper>
           <Navbar />
           <Routes>
