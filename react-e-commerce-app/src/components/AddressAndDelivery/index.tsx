@@ -199,18 +199,18 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
     return errorMessage;
   };
 
-  const validateFields = () => {
+  const validateField = (
+    fieldName: string,
+    value: string | ICountry | null | undefined,
+    callback: (error: string) => void
+  ) => {
     let isValid = true;
-    const phoneError = returnErrorMessage("phone", phone.value);
-    const countryError = returnErrorMessage("country", selectedCountry?.value);
-    if (phoneError || countryError) {
-      setPhone((previousState) => ({ ...previousState, error: phoneError }));
-      setSelectedCountry((previousState) => ({
-        ...(previousState as ISelectedCountry),
-        error: countryError,
-      }));
+    const error = returnErrorMessage(fieldName, value);
+    if (error) {
+      callback(error);
       isValid = false;
     }
+
     return isValid;
   };
 
@@ -273,9 +273,32 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
                   e.preventDefault();
                   validateForm(values).then((error) => {
                     // validate not formik fields
-                    const isValid = validateFields();
+                    const isPhoneValid = validateField(
+                      "phone",
+                      phone.value,
+                      (error) => {
+                        setPhone((previousState) => ({
+                          ...previousState,
+                          error,
+                        }));
+                      }
+                    );
+                    const isCountryValid = validateField(
+                      "country",
+                      selectedCountry?.value,
+                      (error) => {
+                        setSelectedCountry((previousState) => ({
+                          ...(previousState as ISelectedCountry),
+                          error,
+                        }));
+                      }
+                    );
 
-                    if (Object.keys(error).length > 0 || !isValid) {
+                    if (
+                      Object.keys(error).length > 0 ||
+                      !isPhoneValid ||
+                      !isCountryValid
+                    ) {
                       // show all errors
                       setTouched(setNestedObjectValues(error, true));
                     } else {
@@ -383,6 +406,14 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
                       focusOnSelectCountry
                       value={phone.value}
                       onChange={handleChangePhone}
+                      onBlur={() =>
+                        validateField("phone", phone.value, (error) => {
+                          setPhone((previousState) => ({
+                            ...previousState,
+                            error,
+                          }));
+                        })
+                      }
                       sx={{
                         ...inputStyles,
                         "& .MuiOutlinedInput-notchedOutline": {
@@ -423,6 +454,18 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
                       value={selectedCountry?.value}
                       isOptionEqualToValue={() => true}
                       onChange={handleChangeSelectedCountry}
+                      onBlur={() =>
+                        validateField(
+                          "country",
+                          selectedCountry?.value,
+                          (error) => {
+                            setSelectedCountry((previousState) => ({
+                              ...(previousState as ISelectedCountry),
+                              error,
+                            }));
+                          }
+                        )
+                      }
                       options={countries}
                       getOptionLabel={(option) => option.label}
                       renderOption={(props, option) => (
