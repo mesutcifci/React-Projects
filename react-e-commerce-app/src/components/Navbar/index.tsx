@@ -52,8 +52,13 @@ const Navbar = () => {
 
   const handleLogout = () => {
     auth.signOut();
-    localStorage.removeItem("addressData");
-    localStorage.removeItem("selectedDeliveryMethod");
+    const removedItems = [
+      "addressData",
+      "selectedDeliveryMethod",
+      "phone",
+      "selectedCountry",
+    ];
+    removedItems.forEach((item) => localStorage.removeItem(item));
     navigate("/");
   };
 

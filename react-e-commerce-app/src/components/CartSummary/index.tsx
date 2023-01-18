@@ -24,6 +24,7 @@ interface ICartSummaryData {
   addressData: ICartAddressData;
   selectedDeliveryMethod: ISelectedDeliveryMethod;
   selectedCountry: ICountry;
+  phone: string;
 }
 
 const CartSummary = ({ setActiveStep }: IProps) => {
@@ -38,12 +39,13 @@ const CartSummary = ({ setActiveStep }: IProps) => {
     let selectedCountry = JSON.parse(
       localStorage.getItem("selectedCountry") as string
     );
-
-    if (addressData && selectedDeliveryMethod && selectedCountry) {
+    let phone = localStorage.getItem("phone") as string;
+    if (addressData && selectedDeliveryMethod && selectedCountry && phone) {
       setCartSummaryData({
         addressData,
         selectedDeliveryMethod,
         selectedCountry,
+        phone,
       });
     }
   }, []);
@@ -173,7 +175,7 @@ const CartSummary = ({ setActiveStep }: IProps) => {
                   <Typography>{`${cartSummaryData.addressData.firstName} ${cartSummaryData.addressData.lastName}`}</Typography>
                   <Typography>{`${cartSummaryData.addressData.address}. ${cartSummaryData.addressData.city}, ${cartSummaryData.addressData.postalCode}`}</Typography>
                   <Typography>{`${cartSummaryData.selectedCountry.label}`}</Typography>
-                  <Typography>{`${cartSummaryData.addressData.phone}`}</Typography>
+                  <Typography>{`${cartSummaryData.phone}`}</Typography>
                   <Typography>{`${cartSummaryData.addressData.email}`}</Typography>
                 </Stack>
 

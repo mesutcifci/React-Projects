@@ -16,19 +16,23 @@ import { MuiTelInput, matchIsValidTel } from "mui-tel-input";
 import theme from "../../theme";
 
 // Formik
-import { Field, Form, Formik } from "formik";
+import { Field, Form, Formik, setNestedObjectValues } from "formik";
 import { TextField } from "formik-mui";
 
 // Data
 import { ICardData } from "../../types/deliveryCard";
 import countries from "../../constants/countries.json";
 import delivery from "../../constants/delivery.json";
-import { ICartAddressData } from "../../types/cartTypes";
+import {
+  ICartAddressData,
+  IPhone,
+  ISelectedCountry,
+} from "../../types/cartTypes";
+import { ICountry } from "../../types/country";
 
 // Components
 import { DeliveryIconDHL, DeliveryIconDPD, DeliveryIconInPost } from "../../ui";
 import { DeliveryMethodCard } from "../";
-import { ICountry } from "../../types/country";
 
 interface IProps {
   setActiveStep: React.Dispatch<React.SetStateAction<number>>;
@@ -80,10 +84,6 @@ const validationSchema = yup.object({
     .required("Last name is required"),
   address: yup.string().required("Address is required"),
   city: yup.string().required("City is required"),
-  phone: yup
-    .string()
-    .min(3, "Enter a valid phone number!")
-    .required("Phone number is required"),
   postalCode: yup.string().required("Postal code is required"),
   email: yup
     .string()
@@ -95,16 +95,18 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
   const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState(
     delivery[0]
   );
-  const [selectedCountry, setSelectedCountry] = useState<ICountry | null>(
-    countries[230]
-  );
+  const [selectedCountry, setSelectedCountry] =
+    useState<ISelectedCountry | null>({
+      value: JSON.parse(localStorage.getItem("selectedCountry") as string),
+      error: "",
+    });
+  const [phone, setPhone] = useState<IPhone>({ value: "", error: "" });
   const [initialFormValues, setInitialFormValues] = useState<ICartAddressData>({
     firstName: "",
     lastName: "",
     address: "",
     city: "",
     postalCode: "",
-    phone: "+1",
     email: "",
   });
 
@@ -127,11 +129,19 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
       localStorage.getItem("selectedCountry") as string
     );
     if (selectedCountryLocalStorage) {
-      setSelectedCountry(selectedCountryLocalStorage);
+      setSelectedCountry({
+        value: { ...selectedCountryLocalStorage },
+        error: "",
+      });
+    }
+
+    let phoneLocalStorage = localStorage.getItem("phone") as string;
+    if (phoneLocalStorage) {
+      setPhone({ value: phoneLocalStorage, error: "" });
     }
   }, []);
 
-  const setAndReturnCardIcon = (iconName: string) => {
+  const returnCardIcon = (iconName: string) => {
     switch (iconName) {
       case "inPost":
         return <DeliveryIconInPost />;
@@ -149,7 +159,7 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
 
   const renderDeliveryMethodCards = () => {
     return delivery.map((item) => {
-      const icon = setAndReturnCardIcon(item.iconName);
+      const icon = returnCardIcon(item.iconName);
       return (
         <DeliveryMethodCard
           key={item.id}
@@ -170,23 +180,65 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
     });
   };
 
-  const handleSubmitForm = (values: ICartAddressData) => {
-    if (matchIsValidTel(values.phone) && selectedCountry) {
-      localStorage.setItem("addressData", JSON.stringify({ ...values }));
-      localStorage.setItem(
-        "selectedDeliveryMethod",
-        JSON.stringify(selectedDeliveryMethod)
-      );
-      localStorage.setItem("selectedCountry", JSON.stringify(selectedCountry));
-      setActiveStep((previousState) => previousState + 1);
+  const returnErrorMessage = (
+    fieldName: string,
+    value: string | ICountry | null | undefined
+  ) => {
+    let errorMessage = "";
+    if (fieldName === "phone") {
+      if (!value) {
+        errorMessage = "Phone number is required";
+      } else if (!matchIsValidTel(value as string)) {
+        errorMessage = "Enter a valid phone number";
+      }
+    } else if (fieldName === "country") {
+      if (!value) {
+        errorMessage = "Country is required";
+      }
     }
+    return errorMessage;
+  };
+
+  const validateFields = () => {
+    let isValid = true;
+    const phoneError = returnErrorMessage("phone", phone.value);
+    const countryError = returnErrorMessage("country", selectedCountry?.value);
+    if (phoneError || countryError) {
+      setPhone((previousState) => ({ ...previousState, error: phoneError }));
+      setSelectedCountry((previousState) => ({
+        ...(previousState as ISelectedCountry),
+        error: countryError,
+      }));
+      isValid = false;
+    }
+    return isValid;
   };
 
   const handleChangeSelectedCountry = (
     event: React.SyntheticEvent<Element, Event>,
     value: ICountry | null
   ) => {
-    setSelectedCountry(value);
+    const error = returnErrorMessage("country", value);
+    setSelectedCountry({ value, error });
+  };
+
+  const handleChangePhone = (value: string) => {
+    const error = returnErrorMessage("phone", value);
+    setPhone({ value, error });
+  };
+
+  const handleSubmitForm = (values: ICartAddressData) => {
+    localStorage.setItem("addressData", JSON.stringify({ ...values }));
+    localStorage.setItem(
+      "selectedDeliveryMethod",
+      JSON.stringify(selectedDeliveryMethod)
+    );
+    localStorage.setItem(
+      "selectedCountry",
+      JSON.stringify(selectedCountry?.value)
+    );
+    localStorage.setItem("phone", phone.value);
+    setActiveStep((previousState) => previousState + 1);
   };
 
   return (
@@ -208,13 +260,30 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
       >
         <Formik
           initialValues={initialFormValues}
-          onSubmit={handleSubmitForm}
+          onSubmit={() => {}}
           validationSchema={validationSchema}
           enableReinitialize={true}
         >
-          {({ errors, setFieldValue, values, status, setStatus }) => {
+          {({ values, validateForm, setTouched }) => {
             return (
-              <Form id="addressAndDeliveryForm" noValidate>
+              <Form
+                id="addressAndDeliveryForm"
+                noValidate
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  validateForm(values).then((error) => {
+                    // validate not formik fields
+                    const isValid = validateFields();
+
+                    if (Object.keys(error).length > 0 || !isValid) {
+                      // show all errors
+                      setTouched(setNestedObjectValues(error, true));
+                    } else {
+                      handleSubmitForm(values);
+                    }
+                  });
+                }}
+              >
                 <Stack
                   direction="row"
                   flexWrap="wrap"
@@ -312,29 +381,18 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
                       name="phone"
                       id="phone"
                       focusOnSelectCountry
-                      defaultCountry="US"
-                      value={values.phone}
-                      onChange={(newPhone: string) => {
-                        setFieldValue("phone", newPhone);
-                        if (
-                          newPhone.length !== 0 &&
-                          !matchIsValidTel(newPhone)
-                        ) {
-                          setStatus({ phone: "Enter a valid phone number" });
-                        } else {
-                          setStatus({ phone: "" });
-                        }
-                      }}
+                      value={phone.value}
+                      onChange={handleChangePhone}
                       sx={{
                         ...inputStyles,
                         "& .MuiOutlinedInput-notchedOutline": {
-                          borderColor: `${status?.phone && "#d32f2f"}`,
+                          borderColor: `${phone.error && "#d32f2f"}`,
                         },
                         "& .MuiFormHelperText-root": {
                           color: "#d32f2f",
                         },
                       }}
-                      helperText={errors.phone || status?.phone}
+                      helperText={phone.error && phone.error}
                     />
                   </Box>
 
@@ -356,13 +414,14 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
                         ...inputStyles,
                         "& .MuiInputAdornment-root ": { paddingLeft: "14.2px" },
                         "& .MuiOutlinedInput-notchedOutline": {
-                          borderColor: `${!selectedCountry && "#d32f2f"}`,
+                          borderColor: `${selectedCountry?.error && "#d32f2f"}`,
                         },
                         "& .MuiFormHelperText-root": {
                           color: "#d32f2f",
                         },
                       }}
-                      value={selectedCountry}
+                      value={selectedCountry?.value}
+                      isOptionEqualToValue={() => true}
                       onChange={handleChangeSelectedCountry}
                       options={countries}
                       getOptionLabel={(option) => option.label}
@@ -387,19 +446,22 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
                           {...params}
                           InputProps={{
                             ...params.InputProps,
-                            startAdornment: selectedCountry && (
-                              <InputAdornment position="start">
-                                <img
-                                  loading="lazy"
-                                  width="30"
-                                  src={`https://flagcdn.com/w20/${selectedCountry.code.toLowerCase()}.png`}
-                                  srcSet={`https://flagcdn.com/w40/${selectedCountry.code.toLowerCase()}.png 2x`}
-                                  alt={selectedCountry.label}
-                                />
-                              </InputAdornment>
-                            ),
+                            startAdornment: selectedCountry &&
+                              selectedCountry?.value && (
+                                <InputAdornment position="start">
+                                  <img
+                                    loading="lazy"
+                                    width="30"
+                                    src={`https://flagcdn.com/w20/${selectedCountry.value.code.toLowerCase()}.png`}
+                                    srcSet={`https://flagcdn.com/w40/${selectedCountry.value.code.toLowerCase()}.png 2x`}
+                                    alt={selectedCountry.value.label}
+                                  />
+                                </InputAdornment>
+                              ),
                           }}
-                          helperText={!selectedCountry && "Country is required"}
+                          helperText={
+                            selectedCountry?.error && selectedCountry.error
+                          }
                           data-testId="countryInput"
                         />
                       )}
