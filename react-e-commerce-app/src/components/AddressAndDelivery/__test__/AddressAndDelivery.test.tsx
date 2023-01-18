@@ -76,8 +76,53 @@ describe("AddressDataAndDelivery test", () => {
       const inputElement = screen.getByLabelText(data.label);
       fireEvent.focus(inputElement);
       fireEvent.blur(inputElement);
-      const label = await waitFor(() => screen.getByText(data.error));
-      expect(label).toBeInTheDocument();
+
+      const helperTextElement = await waitFor(() =>
+        screen.getByText(data.error)
+      );
+      expect(helperTextElement).toBeInTheDocument();
     });
+  });
+
+  test("Should error messages visible if input value is invalid", async () => {
+    const nameInputsData = [
+      {
+        label: "First Name",
+        errorMinLength: "First name should be of minimum 2 characters length",
+        errorContainNumber: "First name cannot contain a number",
+      },
+      {
+        label: "Last Name",
+        errorMinLength: "Last name should be of minimum 2 characters length",
+        errorContainNumber: "Last name cannot contain a number",
+      },
+    ];
+
+    nameInputsData.forEach(async (data) => {
+      const nameInputElement = screen.getByLabelText(data.label);
+      fireEvent.change(nameInputElement, { target: { value: "ab" } });
+      fireEvent.blur(nameInputElement);
+
+      const helperTextElement = await waitFor(() =>
+        screen.getByText(data.errorMinLength)
+      );
+
+      expect(helperTextElement).toBeInTheDocument();
+
+      fireEvent.change(nameInputElement, { target: { value: "ab1" } });
+      await waitFor(() =>
+        expect(helperTextElement).toHaveTextContent(data.errorContainNumber)
+      );
+    });
+
+    const emailElement = screen.getByLabelText("Email");
+    fireEvent.change(emailElement, { target: { value: "abc@mail" } });
+    fireEvent.blur(emailElement);
+    await waitFor(() => expect(screen.getByText("Enter a valid email")));
+
+    const phoneElement = screen.getByLabelText("Phone Number");
+    fireEvent.change(phoneElement, { target: { value: "+12345678" } });
+    fireEvent.blur(phoneElement);
+    await waitFor(() => expect(screen.getByText("Enter a valid phone number")));
   });
 });
