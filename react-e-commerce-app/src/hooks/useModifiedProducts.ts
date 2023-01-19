@@ -20,6 +20,9 @@ const useModifiedProducts = () => {
     if (user?.productsInCart.length) {
       const productIds = user.productsInCart.map((product) => product.id);
       getProductsByIds(productIds);
+    } else {
+      setModifiedProducts([]);
+      setTotalCost(0);
     }
   }, [user]);
 
@@ -44,20 +47,21 @@ const useModifiedProducts = () => {
     if (products?.length && user?.productsInCart.length) {
       let copyProducts = [...products];
       let { productsInCart } = user;
-      const mappedProducts: IModifiedProduct[] = copyProducts.map(
-        (copyProduct) => {
-          const matchedProductInCart = productsInCart.find(
-            (item) => item.id === copyProduct.id
-          );
+      const mappedProducts: IModifiedProduct[] = [];
 
-          return {
+      copyProducts.forEach((copyProduct) => {
+        const matchedProductInCart = productsInCart.find(
+          (item) => item.id === copyProduct.id
+        );
+
+        if (!!matchedProductInCart) {
+          mappedProducts.push({
             ...copyProduct,
-            amount: matchedProductInCart!.amount,
-            price: matchedProductInCart!.amount * copyProduct.price,
-          };
+            amount: matchedProductInCart.amount,
+            price: matchedProductInCart.amount * copyProduct.price,
+          });
         }
-      );
-
+      });
       setModifiedProducts(mappedProducts);
     }
   };

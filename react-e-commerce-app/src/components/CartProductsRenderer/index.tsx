@@ -174,6 +174,8 @@ const CartProductsRenderer = () => {
       });
 
       setRows(gridRows);
+    } else {
+      setRows(undefined);
     }
   };
   return (
