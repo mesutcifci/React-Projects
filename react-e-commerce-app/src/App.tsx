@@ -7,6 +7,7 @@ import {
   Navbar,
   Newsletter,
   ScrollToTop,
+  Subscribe,
 } from "./components";
 import { Home, Auth, Products, ProductDetail, Cart } from "./pages";
 
@@ -16,6 +17,7 @@ function App() {
       <BrowserRouter>
         <ScrollToTop />
         <AppWrapper>
+          <Subscribe />
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />

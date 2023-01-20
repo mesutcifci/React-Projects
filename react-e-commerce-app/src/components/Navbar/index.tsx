@@ -28,12 +28,16 @@ import { ProductLogo } from "../../ui";
 
 // Data
 import { auth } from "../../firebase";
-import { useUser } from "../../hooks";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const { user, currentUser } = useUser();
+  const {
+    user: { user },
+    currentUser: { currentUser },
+  } = useSelector((state: RootState) => state);
 
   const [selectedTabIndex, setSelectedTabIndex] = useState<number | boolean>(
     false
