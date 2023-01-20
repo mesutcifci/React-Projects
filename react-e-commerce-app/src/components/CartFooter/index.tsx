@@ -18,7 +18,8 @@ import theme from "../../theme";
 
 // Hooks
 import { useNavigate } from "react-router-dom";
-import { useModifiedProducts } from "../../hooks";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
 
 interface IProps {
   steps: string[];
@@ -48,7 +49,9 @@ const CartFooter = ({
   handleClickNextStepButton,
 }: IProps) => {
   const navigate = useNavigate();
-  const { totalCost } = useModifiedProducts();
+  const totalCost = useSelector(
+    (state: RootState) => state.cartProducts.totalCost
+  );
 
   const handleClickContinueShoppingButton = () => {
     navigate({ pathname: "/" });

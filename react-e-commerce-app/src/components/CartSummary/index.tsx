@@ -11,12 +11,11 @@ import {
   ISelectedDeliveryMethod,
 } from "../../types/cartTypes";
 
-// Hooks
-import { useModifiedProducts } from "../../hooks";
-
 // Components
 import { DeliveryIconDHL, DeliveryIconDPD, DeliveryIconInPost } from "../../ui";
 import { ICountry } from "../../types/country";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
 interface IProps {
   setActiveStep: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -29,7 +28,7 @@ interface ICartSummaryData {
 
 const CartSummary = ({ setActiveStep }: IProps) => {
   const [cartSummaryData, setCartSummaryData] = useState<ICartSummaryData>();
-  const { modifiedProducts, totalCost, isLoading } = useModifiedProducts();
+  const cartProducts = useSelector((state: RootState) => state.cartProducts);
 
   useEffect(() => {
     let addressData = JSON.parse(localStorage.getItem("addressData") as string);
@@ -86,8 +85,7 @@ const CartSummary = ({ setActiveStep }: IProps) => {
 
   return (
     <>
-      <Loading isLoading={isLoading} />
-      {cartSummaryData && modifiedProducts && totalCost && (
+      {cartSummaryData && cartProducts.products && (
         <Stack
           rowGap="60px"
           columnGap="40px"
@@ -238,7 +236,7 @@ const CartSummary = ({ setActiveStep }: IProps) => {
                   width: { xs: "100%", lg: "801px" },
                 }}
               >
-                {modifiedProducts.map((product) => (
+                {cartProducts.products.map((product) => (
                   <Stack
                     rowGap="20px"
                     direction="row"
@@ -330,7 +328,7 @@ const CartSummary = ({ setActiveStep }: IProps) => {
                     fontWeight={theme.fontWeight.semiBold}
                     fontSize="16px"
                   >
-                    ${totalCost}
+                    ${cartProducts.totalCost}
                   </Typography>
                 </Stack>
               </Stack>

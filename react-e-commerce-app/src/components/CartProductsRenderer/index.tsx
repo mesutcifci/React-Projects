@@ -22,23 +22,27 @@ import { db } from "../../firebase";
 import Counter from "../Counter";
 
 // Hooks
-import { useModifiedProducts } from "../../hooks";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../app/store";
 import { addUserProduct } from "../../features/user/userSlice";
 
 const CartProductsRenderer = () => {
   const [rows, setRows] = useState<GridRowsProp>();
-  const { user, currentUser } = useSelector((state: RootState) => state);
+  const { user, currentUser, cartProducts } = useSelector(
+    (state: RootState) => state
+  );
   const dispatch = useAppDispatch();
-  const { modifiedProducts, isLoading } = useModifiedProducts();
+
+  useEffect(() => {
+    createGridRows();
+  }, [cartProducts.products]);
 
   const handleClickAmountButtons = async (
     productId: string,
     operation: "increase" | "decrease"
   ) => {
     const copyProducts: IModifiedProduct[] = JSON.parse(
-      JSON.stringify(modifiedProducts)
+      JSON.stringify(cartProducts.products)
     );
     const selectedProduct = copyProducts.find(
       (copyProduct) => copyProduct.id === productId
@@ -163,13 +167,9 @@ const CartProductsRenderer = () => {
     },
   ];
 
-  useEffect(() => {
-    createGridRows();
-  }, [modifiedProducts]);
-
   const createGridRows = () => {
-    if (modifiedProducts?.length) {
-      const gridRows = modifiedProducts.map((product) => {
+    if (cartProducts.products?.length) {
+      const gridRows = cartProducts.products.map((product) => {
         return {
           id: product.id,
           product: { img: product.imageUrl, name: product.name },
@@ -191,7 +191,7 @@ const CartProductsRenderer = () => {
       <DataGrid
         columns={columns}
         rows={rows || []}
-        loading={!modifiedProducts?.length || isLoading}
+        loading={!cartProducts.products?.length}
         autoHeight
         disableColumnSelector
         disableColumnFilter

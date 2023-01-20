@@ -5,5 +5,3 @@ export { default as useFetchProductsByIds } from "./useFetchProductsByIds";
 export { default as useGetMappedCategories } from "./useGetMappedCategories";
 
 export { default as useSearchParameters } from "./useSearchParameters";
-
-export { default as useModifiedProducts } from "./useModifiedProducts";
