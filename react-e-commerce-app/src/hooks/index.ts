@@ -6,6 +6,4 @@ export { default as useGetMappedCategories } from "./useGetMappedCategories";
 
 export { default as useSearchParameters } from "./useSearchParameters";
 
-export { default as useUser } from "./useUser";
-
 export { default as useModifiedProducts } from "./useModifiedProducts";

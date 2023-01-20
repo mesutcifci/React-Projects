@@ -30,19 +30,23 @@ import { ProductCareIcon, ProductMaterialsIcon } from "../../ui";
 
 // Hooks
 import { useSearchParams } from "react-router-dom";
-import { useFetchProductById, useUser } from "../../hooks";
+import { useFetchProductById } from "../../hooks";
 
 // Data
 import comments from "../../constants/comments.json";
 import { IComment } from "../../types/comments";
+import { RootState, useAppDispatch } from "../../app/store";
+import { useSelector } from "react-redux";
+import { addUserProduct } from "../../features/user/userSlice";
 
 const ProductDetail = () => {
   const [searchParams] = useSearchParams();
+  const { user, currentUser } = useSelector((state: RootState) => state);
+  const dispatch = useAppDispatch();
 
   const { isLoading, product } = useFetchProductById(
     searchParams.get("id") || ""
   );
-  const { addProductToCart, isLoading: loadingForUserActions } = useUser();
 
   const [productQuantity, setProductQuantity] = useState(1);
   const [selectedTab, setSelectedTab] = useState<"description" | "reviews">(
@@ -266,8 +270,14 @@ const ProductDetail = () => {
   };
 
   const handleClickAddToCartButton = () => {
-    if (product) {
-      addProductToCart(product.id, productQuantity);
+    if (product && currentUser.currentUser) {
+      dispatch(
+        addUserProduct({
+          productId: product.id,
+          amount: productQuantity,
+          userId: currentUser.currentUser.uid,
+        })
+      );
     }
   };
 
@@ -281,7 +291,7 @@ const ProductDetail = () => {
 
   return (
     <>
-      <Loading isLoading={isLoading || loadingForUserActions} />
+      <Loading isLoading={isLoading || user.loading} />
       <Stack
         sx={{
           minHeight: "500px",

@@ -1,14 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import userReducer from "../features/user/userSlice";
-import authReducer from "../features/currentUser/currentUserSlice";
+import currentUserReducer from "../features/currentUser/currentUserSlice";
 
 import { useDispatch } from "react-redux";
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
-    currentUser: authReducer,
+    currentUser: currentUserReducer,
   },
 });
 

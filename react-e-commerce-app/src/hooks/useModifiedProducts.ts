@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { IModifiedProduct, IProduct } from "../types/product";
 import { IUser } from "../types/user";
-import useUser from "./useUser";
 import { useFetchProductsByIds } from ".";
+import { useSelector } from "react-redux";
+import { RootState } from "../app/store";
 
 const useModifiedProducts = () => {
-  const { user, isLoading: loadingForUser } = useUser();
+  const user = useSelector((state: RootState) => state.user);
   const {
     getProductsByIds,
     products,
@@ -17,8 +18,8 @@ const useModifiedProducts = () => {
   const [totalCost, setTotalCost] = useState<number>(0);
 
   useEffect(() => {
-    if (user?.productsInCart.length) {
-      const productIds = user.productsInCart.map((product) => product.id);
+    if (user?.user?.productsInCart.length) {
+      const productIds = user.user.productsInCart.map((product) => product.id);
       getProductsByIds(productIds);
     } else {
       setModifiedProducts([]);
@@ -27,8 +28,8 @@ const useModifiedProducts = () => {
   }, [user]);
 
   useEffect(() => {
-    if (products && user) {
-      modifyProducts(products, user);
+    if (products && user?.user) {
+      modifyProducts(products, user.user);
     }
   }, [products, user]);
 
@@ -69,7 +70,7 @@ const useModifiedProducts = () => {
   return {
     modifiedProducts,
     totalCost,
-    isLoading: loadingForProducts || loadingForUser,
+    isLoading: loadingForProducts || user.loading,
   };
 };
 

@@ -22,11 +22,15 @@ import { db } from "../../firebase";
 import Counter from "../Counter";
 
 // Hooks
-import { useModifiedProducts, useUser } from "../../hooks";
+import { useModifiedProducts } from "../../hooks";
+import { useSelector } from "react-redux";
+import { RootState, useAppDispatch } from "../../app/store";
+import { addUserProduct } from "../../features/user/userSlice";
 
 const CartProductsRenderer = () => {
   const [rows, setRows] = useState<GridRowsProp>();
-  const { currentUser, addProductToCart } = useUser();
+  const { user, currentUser } = useSelector((state: RootState) => state);
+  const dispatch = useAppDispatch();
   const { modifiedProducts, isLoading } = useModifiedProducts();
 
   const handleClickAmountButtons = async (
@@ -45,16 +49,20 @@ const CartProductsRenderer = () => {
       selectedProduct.amount -= 1;
     }
 
-    if (currentUser && selectedProduct) {
-      await addProductToCart(productId, selectedProduct.amount);
+    if (currentUser.currentUser && selectedProduct) {
+      dispatch(
+        addUserProduct({
+          productId,
+          amount: selectedProduct.amount,
+          userId: currentUser.currentUser.uid,
+        })
+      );
     }
-
-    // setProducts(copyProducts);
   };
 
   const handleClickRemoveProductButton = async (params: GridRowParams) => {
-    if (currentUser) {
-      const docRef = doc(db, "users", currentUser.uid);
+    if (currentUser.currentUser) {
+      const docRef = doc(db, "users", currentUser.currentUser.uid);
       await updateDoc(docRef, {
         productsInCart: arrayRemove({
           id: params.row.id,
