@@ -6,8 +6,10 @@ import { setUser, setUserLoading } from "../../features/user/userSlice";
 import { IUser } from "../../types/user";
 import { useSelector } from "react-redux";
 import { setCurrentUser } from "../../features/currentUser/currentUserSlice";
+import { useSearchParams } from "react-router-dom";
 
 const Subscribe = () => {
+  const [searchParams] = useSearchParams();
   const dispatch = useAppDispatch();
   const currentUser = useSelector(
     (state: RootState) => state.currentUser.currentUser

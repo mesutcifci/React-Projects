@@ -19,17 +19,19 @@ import { IParameter, ITertiaryParameter } from "../../types/parameters";
 
 // Hooks
 import { useNavigate } from "react-router-dom";
-import { useGetMappedCategories, useSearchParameters } from "../../hooks";
+import { useGetMappedCategories } from "../../hooks";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
 
 const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
-  const { modifiedParameters } = useSearchParameters();
+  const { categorySearchParameters } = useSelector((state: RootState) => state);
   const { mapCategoriesWithSearchParameters, mappedCategories } =
     useGetMappedCategories();
   const navigate = useNavigate();
 
   useEffect(() => {
-    mapCategoriesWithSearchParameters(modifiedParameters);
-  }, [modifiedParameters]);
+    mapCategoriesWithSearchParameters(categorySearchParameters);
+  }, [categorySearchParameters]);
 
   const addCategoriesToParameterString = (
     searchParameterString: string,
@@ -122,7 +124,7 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
     isSelected: isSecondaryCategoryPreviouslySelected,
   }: ISecondaryCategory) => {
     let { primary, secondary, tertiary } = removeUnselectedCategories(
-      { ...modifiedParameters },
+      { ...categorySearchParameters },
       secondaryCategoryId,
       isSecondaryCategoryPreviouslySelected
     );
@@ -174,7 +176,7 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
       isSelected: isTertiaryCategoryPreviouslySelected,
     }: ITertiaryCategory
   ) => {
-    let { primary, secondary, tertiary } = { ...modifiedParameters };
+    let { primary, secondary, tertiary } = { ...categorySearchParameters };
     let searchParameterString = "";
 
     // if there are only one selected category and the user unselected it then search parameters should be empty

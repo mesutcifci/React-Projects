@@ -1,7 +1,5 @@
 import { Box, Typography } from "@mui/material";
 
-import { useSearchParameters } from "../../hooks";
-
 import Loading from "../Loading";
 import ProductCard from "../ProductCard";
 import { useSelector } from "react-redux";
@@ -10,15 +8,15 @@ import { useEffect } from "react";
 import { fetProductsByPrimaryCategories } from "../../features/products/productsSlice";
 
 const ProductList = () => {
-  const { modifiedParameters } = useSearchParameters();
+  const { categorySearchParameters } = useSelector((state: RootState) => state);
   const { loading, productsByCategory } = useSelector(
     (state: RootState) => state.products
   );
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetProductsByPrimaryCategories(modifiedParameters));
-  }, [modifiedParameters]);
+    dispatch(fetProductsByPrimaryCategories(categorySearchParameters));
+  }, [categorySearchParameters]);
 
   return (
     <>

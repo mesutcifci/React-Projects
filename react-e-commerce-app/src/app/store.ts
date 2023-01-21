@@ -5,6 +5,7 @@ import currentUserReducer from "../features/currentUser/currentUserSlice";
 import cartProductsReducer from "../features/cartProducts/cartProductsSlice";
 import productsReducer from "../features/products/productsSlice";
 import productReducer from "../features/product/productSlice";
+import categorySearchParametersReducer from "../features/categorySearchParameters/categorySearchParametersSlice";
 
 import { useDispatch } from "react-redux";
 
@@ -15,6 +16,7 @@ export const store = configureStore({
     cartProducts: cartProductsReducer,
     products: productsReducer,
     product: productReducer,
+    categorySearchParameters: categorySearchParametersReducer,
   },
 });
 

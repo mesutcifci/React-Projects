@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 // Styles
 import { Box, Stack } from "@mui/material";
 import theme from "../../theme";
@@ -9,7 +11,19 @@ import {
   ProductsDrawer,
 } from "../../components";
 
+// Hooks
+import { useLocation, useSearchParams } from "react-router-dom";
+import { useAppDispatch } from "../../app/store";
+import { setCategorySearchParameters } from "../../features/categorySearchParameters/categorySearchParametersSlice";
+
 const Products = () => {
+  const [searchParams] = useSearchParams();
+  const { pathname } = useLocation();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setCategorySearchParameters({ searchParams, pathname }));
+  }, [searchParams, pathname]);
   return (
     <Box
       sx={{
