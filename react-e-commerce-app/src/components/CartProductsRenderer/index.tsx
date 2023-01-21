@@ -25,7 +25,7 @@ import Counter from "../Counter";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../app/store";
 import { addUserProduct } from "../../features/user/userSlice";
-import { getAllProducts } from "../../features/products/productsSlice";
+import { fetchAllProducts } from "../../features/products/productsSlice";
 import { setCartProductsAndTotalCost } from "../../features/cartProducts/cartProductsSlice";
 
 const CartProductsRenderer = () => {
@@ -52,7 +52,7 @@ const CartProductsRenderer = () => {
   useEffect(() => {
     const productIds = user?.productsInCart.map((product) => product.id);
     if (productIds) {
-      dispatch(getAllProducts(productIds));
+      dispatch(fetchAllProducts(productIds));
     }
   }, [user]);
 

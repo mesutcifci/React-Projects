@@ -1,21 +1,28 @@
 import { Box, Typography } from "@mui/material";
 
-import {
-  useFetchProductsBySearchParameters,
-  useSearchParameters,
-} from "../../hooks";
+import { useSearchParameters } from "../../hooks";
 
 import Loading from "../Loading";
 import ProductCard from "../ProductCard";
+import { useSelector } from "react-redux";
+import { RootState, useAppDispatch } from "../../app/store";
+import { useEffect } from "react";
+import { fetProductsByPrimaryCategories } from "../../features/products/productsSlice";
 
 const ProductList = () => {
   const { modifiedParameters } = useSearchParameters();
-  const { productsData, isLoading } =
-    useFetchProductsBySearchParameters(modifiedParameters);
+  const { loading, productsByCategory } = useSelector(
+    (state: RootState) => state.products
+  );
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetProductsByPrimaryCategories(modifiedParameters));
+  }, [modifiedParameters]);
 
   return (
     <>
-      <Loading isLoading={isLoading} />
+      <Loading isLoading={loading} />
       <Box
         sx={{
           display: "flex",
@@ -34,11 +41,11 @@ const ProductList = () => {
           maxWidth: "944px",
         }}
       >
-        {productsData?.length
-          ? productsData.map((product, index) => (
+        {productsByCategory?.length
+          ? productsByCategory.map((product, index) => (
               <ProductCard product={product} key={index} />
             ))
-          : !isLoading && (
+          : !loading && (
               <Typography>No products available for your selection</Typography>
             )}
       </Box>
