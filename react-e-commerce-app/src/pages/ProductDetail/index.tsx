@@ -29,7 +29,7 @@ import {
 import { ProductCareIcon, ProductMaterialsIcon } from "../../ui";
 
 // Hooks
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 // Data
 import comments from "../../constants/comments.json";
@@ -41,6 +41,7 @@ import { fetchProduct } from "../../features/product/productSlice";
 
 const ProductDetail = () => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const { user, currentUser, product } = useSelector(
     (state: RootState) => state
   );
@@ -283,6 +284,8 @@ const ProductDetail = () => {
           userId: currentUser.currentUser.uid,
         })
       );
+    } else {
+      navigate("/auth/login");
     }
   };
 

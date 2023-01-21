@@ -77,7 +77,11 @@ const Navbar = () => {
   };
 
   const handleClickShoppingCart = () => {
-    navigate({ pathname: "/cart" });
+    if (currentUser) {
+      navigate({ pathname: "/cart" });
+    } else {
+      navigate("/auth/login");
+    }
   };
 
   return (
