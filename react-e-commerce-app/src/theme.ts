@@ -25,8 +25,6 @@ declare module "@mui/material/styles" {
       medium: number;
       semiBold: number;
       bold: number;
-      extraBold: number;
-      black: number;
     };
   }
 
@@ -42,8 +40,6 @@ declare module "@mui/material/styles" {
       medium: number;
       semiBold: number;
       bold: number;
-      extraBold: number;
-      black: number;
     };
   }
 }
@@ -77,8 +73,6 @@ const theme = createTheme({
     medium: 500,
     semiBold: 600,
     bold: 700,
-    extraBold: 800,
-    black: 900,
   },
 });
 
