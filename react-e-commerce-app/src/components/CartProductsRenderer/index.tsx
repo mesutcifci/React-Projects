@@ -25,13 +25,36 @@ import Counter from "../Counter";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../app/store";
 import { addUserProduct } from "../../features/user/userSlice";
+import { getAllProducts } from "../../features/products/productsSlice";
+import { setCartProductsAndTotalCost } from "../../features/cartProducts/cartProductsSlice";
 
 const CartProductsRenderer = () => {
   const [rows, setRows] = useState<GridRowsProp>();
-  const { user, currentUser, cartProducts } = useSelector(
-    (state: RootState) => state
-  );
+  const {
+    user: { user },
+    currentUser,
+    cartProducts,
+    products: { productsByIds },
+  } = useSelector((state: RootState) => state);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (productsByIds && user) {
+      dispatch(
+        setCartProductsAndTotalCost({
+          products: productsByIds,
+          productsInCart: user.productsInCart,
+        })
+      );
+    }
+  }, [productsByIds, user]);
+
+  useEffect(() => {
+    const productIds = user?.productsInCart.map((product) => product.id);
+    if (productIds) {
+      dispatch(getAllProducts(productIds));
+    }
+  }, [user]);
 
   useEffect(() => {
     createGridRows();

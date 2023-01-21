@@ -28,7 +28,7 @@ interface ICartSummaryData {
 
 const CartSummary = ({ setActiveStep }: IProps) => {
   const [cartSummaryData, setCartSummaryData] = useState<ICartSummaryData>();
-  const cartProducts = useSelector((state: RootState) => state.cartProducts);
+  const { cartProducts, user } = useSelector((state: RootState) => state);
 
   useEffect(() => {
     let addressData = JSON.parse(localStorage.getItem("addressData") as string);

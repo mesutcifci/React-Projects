@@ -16,7 +16,7 @@ const cartProductsSlice = createSlice({
   name: "cartProductsSlice",
   initialState,
   reducers: {
-    setCartProducts(
+    setCartProductsAndTotalCost(
       state,
       actions: PayloadAction<{
         products: IProduct[];
@@ -38,10 +38,11 @@ const cartProductsSlice = createSlice({
           });
         }
       });
-    },
-    setCartTotalCost(state) {
-      if (state.products?.length) {
-        let total = state.products.reduce(
+
+      state.products = mappedProducts;
+
+      if (mappedProducts.length) {
+        let total = mappedProducts.reduce(
           (previousValue, currentValue) => previousValue + currentValue.price,
           0
         );
@@ -55,4 +56,4 @@ const cartProductsSlice = createSlice({
 });
 
 export default cartProductsSlice.reducer;
-export const { setCartProducts, setCartTotalCost } = cartProductsSlice.actions;
+export const { setCartProductsAndTotalCost } = cartProductsSlice.actions;
