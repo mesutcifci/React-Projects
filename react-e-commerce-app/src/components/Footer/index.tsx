@@ -85,12 +85,14 @@ const Footer = () => {
           {[
             {
               link: "",
-              imageUrl: "./images/common/google-play-badge.png",
+              imageUrl:
+                "https://firebasestorage.googleapis.com/v0/b/react-e-commerce-f354a.appspot.com/o/common%2Fgoogle-play-badge.webp?alt=media&token=e1bc73e3-016c-49bd-9cf8-71e224c5651c",
               altText: "Google Play Badge",
             },
             {
               link: "",
-              imageUrl: "./images/common/app-store-badge.png",
+              imageUrl:
+                "https://firebasestorage.googleapis.com/v0/b/react-e-commerce-f354a.appspot.com/o/common%2Fapp-store-badge.webp?alt=media&token=d72ada1a-922a-411a-af99-1b0bea9d4e48",
               altText: "Apple Store Badge",
             },
           ].map((item) => (

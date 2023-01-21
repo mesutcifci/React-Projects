@@ -21,7 +21,8 @@ const Newsletter = () => {
       alignItems="center"
       justifyContent="center"
       sx={{
-        backgroundImage: "url(./images/common/newsletter.png)",
+        backgroundImage:
+          "url(https://firebasestorage.googleapis.com/v0/b/react-e-commerce-f354a.appspot.com/o/common%2Fnewsletter.webp?alt=media&token=2e8c04dc-c700-4d7a-85bf-22e78ebea64f)",
         backgroundPosition: "top center",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
