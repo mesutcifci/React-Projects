@@ -26,8 +26,8 @@ export const userSlice = createSlice({
     setUserLoading(state, actions: PayloadAction<boolean>) {
       state.loading = actions.payload;
     },
-    setUser(state, actions: PayloadAction<IUserState>) {
-      state.user = actions.payload.user;
+    setUser(state, actions: PayloadAction<IUser>) {
+      state.user = actions.payload;
     },
     setUserProduct(state, actions: PayloadAction<IUserProduct[]>) {
       if (state.user) {
@@ -72,9 +72,10 @@ export const addUserProduct = createAsyncThunk(
       if (docData.exists()) {
         const userData = docData.data() as IUser;
         const userProduct = userData.productsForUser;
-        setUserProduct(userProduct);
+        thunkAPI.dispatch(setUserProduct(userProduct));
       }
     }
+    thunkAPI.dispatch(setUserLoading(false));
   }
 );
 

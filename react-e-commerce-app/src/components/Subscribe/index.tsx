@@ -36,7 +36,8 @@ const Subscribe = () => {
         onSnapshot(doc(db, "users", currentUser.uid), (doc) => {
           dispatch(setUserLoading(true));
           let user = doc.data() as IUser;
-          dispatch(setUser({ user, loading: false }));
+          dispatch(setUser(user));
+          dispatch(setUserLoading(false));
         });
       }
     }
