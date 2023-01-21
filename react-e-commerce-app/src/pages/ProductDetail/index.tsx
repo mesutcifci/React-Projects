@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Styles
 import {
@@ -30,7 +30,6 @@ import { ProductCareIcon, ProductMaterialsIcon } from "../../ui";
 
 // Hooks
 import { useSearchParams } from "react-router-dom";
-import { useFetchProductById } from "../../hooks";
 
 // Data
 import comments from "../../constants/comments.json";
@@ -38,20 +37,26 @@ import { IComment } from "../../types/comments";
 import { RootState, useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
 import { addUserProduct } from "../../features/user/userSlice";
+import { fetchProduct } from "../../features/product/productSlice";
 
 const ProductDetail = () => {
   const [searchParams] = useSearchParams();
-  const { user, currentUser } = useSelector((state: RootState) => state);
-  const dispatch = useAppDispatch();
-
-  const { isLoading, product } = useFetchProductById(
-    searchParams.get("id") || ""
+  const { user, currentUser, product } = useSelector(
+    (state: RootState) => state
   );
+  const dispatch = useAppDispatch();
 
   const [productQuantity, setProductQuantity] = useState(1);
   const [selectedTab, setSelectedTab] = useState<"description" | "reviews">(
     "reviews"
   );
+
+  useEffect(() => {
+    const id = searchParams.get("id");
+    if (id) {
+      dispatch(fetchProduct(id));
+    }
+  }, [searchParams.get("id")]);
 
   const renderComments = () => {
     return comments.map((comment: IComment) => (
@@ -117,7 +122,7 @@ const ProductDetail = () => {
             Details and product description
           </Typography>
           <Typography fontSize="14px" fontWeight={theme.fontWeight.regular}>
-            {product?.description.details}
+            {product.product?.description.details}
           </Typography>
         </Stack>
 
@@ -145,7 +150,7 @@ const ProductDetail = () => {
             fontWeight={theme.fontWeight.regular}
             sx={{ marginBottom: "10px" }}
           >
-            {product?.description.materials}
+            {product.product?.description.materials}
           </Typography>
           <ProductCareIcon
             sx={{
@@ -270,10 +275,10 @@ const ProductDetail = () => {
   };
 
   const handleClickAddToCartButton = () => {
-    if (product && currentUser.currentUser) {
+    if (product.product && currentUser.currentUser) {
       dispatch(
         addUserProduct({
-          productId: product.id,
+          productId: product.product.id,
           amount: productQuantity,
           userId: currentUser.currentUser.uid,
         })
@@ -291,7 +296,7 @@ const ProductDetail = () => {
 
   return (
     <>
-      <Loading isLoading={isLoading || user.loading} />
+      <Loading isLoading={product.loading || user.loading} />
       <Stack
         sx={{
           minHeight: "500px",
@@ -309,7 +314,7 @@ const ProductDetail = () => {
           },
         }}
       >
-        {product ? (
+        {product.product ? (
           <>
             <Stack
               sx={{ flexDirection: { xs: "column", lg: "row" } }}
@@ -326,9 +331,9 @@ const ProductDetail = () => {
                   }}
                 >
                   <img
-                    src={product.imageUrl}
+                    src={product.product.imageUrl}
                     className="product-detail-image"
-                    alt={product.name}
+                    alt={product.product.name}
                   />
                   <FavoriteButton
                     sx={{ display: { xs: "flex", lg: "none" } }}
@@ -352,7 +357,7 @@ const ProductDetail = () => {
                       fontWeight: theme.fontWeight.light,
                     }}
                   >
-                    {product.name}
+                    {product.product.name}
                   </Typography>
                   <Typography
                     sx={{
@@ -360,7 +365,7 @@ const ProductDetail = () => {
                       fontWeight: theme.fontWeight.regular,
                     }}
                   >
-                    ${product.price}
+                    ${product.product.price}
                   </Typography>
                 </Box>
 
@@ -374,7 +379,7 @@ const ProductDetail = () => {
                     Color:
                   </Typography>
                   <ColorPalette
-                    colors={product.colors}
+                    colors={product.product.colors}
                     sx={{
                       columnGap: "13px",
                       "& .colorBox": { border: "1px solid #E6E6E6 !important" },
@@ -452,7 +457,7 @@ const ProductDetail = () => {
                     counterValue={productQuantity}
                     handleClickDecreaseButton={handleClickDecreaseButton}
                     handleClickIncreaseButton={handleClickIncreaseButton}
-                    maxValue={product.stockAmount}
+                    maxValue={product.product.stockAmount || 0}
                   />
 
                   {/* ADD TO CART - FAVORITE */}

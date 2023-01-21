@@ -4,6 +4,7 @@ import userReducer from "../features/user/userSlice";
 import currentUserReducer from "../features/currentUser/currentUserSlice";
 import cartProductsReducer from "../features/cartProducts/cartProductsSlice";
 import productsReducer from "../features/products/productsSlice";
+import productReducer from "../features/product/productSlice";
 
 import { useDispatch } from "react-redux";
 
@@ -13,6 +14,7 @@ export const store = configureStore({
     currentUser: currentUserReducer,
     cartProducts: cartProductsReducer,
     products: productsReducer,
+    product: productReducer,
   },
 });
 
