@@ -8,6 +8,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { checkIfProductExist } from "./helpers";
+import { RootState } from "../../app/store";
 
 type IUserState = {
   user: IUser | null;
@@ -44,10 +45,12 @@ export const addUserProductsInCart = createAsyncThunk(
     thunkAPI
   ) => {
     thunkAPI.dispatch(setUserLoading(true));
-    let state = thunkAPI.getState() as IUser;
-    const userRef = doc(db, "users", state.id);
-    let docData = await getDocFromServer(userRef);
+    let {
+      user: { user },
+    } = thunkAPI.getState() as RootState;
 
+    const userRef = doc(db, "users", user!.id);
+    let docData = await getDocFromServer(userRef);
     if (docData.exists()) {
       const { userProductsInCart } = docData.data() as IUser;
       const isProductExist = checkIfProductExist(productId, userProductsInCart);
