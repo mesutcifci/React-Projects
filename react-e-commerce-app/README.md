@@ -1,5 +1,7 @@
 This repo contains a basic e-commerce application built with React. The application allows users to authenticate, browse products, add them to a shopping cart, and proceed to checkout.
 
+See [Live Demo](https://react-firebase-e-commerce.vercel.app/)
+
 # Getting Started
 
 - Clone the repo:
