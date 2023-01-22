@@ -175,7 +175,7 @@ const Navbar = () => {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              columnGap: "17px",
+              columnGap: "10px",
               marginLeft: { xs: "auto", md: "initial" },
             }}
           >

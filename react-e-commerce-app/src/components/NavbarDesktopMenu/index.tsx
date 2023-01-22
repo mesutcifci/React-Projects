@@ -47,15 +47,25 @@ const NavbarDesktopMenu = ({
   const [selectedTabText, setSelectedTabText] = useState("Men");
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  let timer: NodeJS.Timeout;
 
   const handleHoverTab = (newIndex: number, tabText: string) => {
-    setSelectedTabText(tabText);
-    setSelectedTabIndex(newIndex);
+    clearTimeout(timer);
+    if (selectedTabIndex === false) {
+      timer = setTimeout(() => {
+        setSelectedTabText(tabText);
+        setSelectedTabIndex(newIndex);
+      }, 300);
+    } else {
+      setSelectedTabText(tabText);
+      setSelectedTabIndex(newIndex);
+    }
   };
 
   const handleClickPrimaryCategory = (categoryName: string) => {
     navigate({ pathname: `/${categoryName.toLowerCase()}` });
     setSelectedTabIndex(false);
+    clearTimeout(timer);
   };
 
   const handleClickSecondaryCategory = (
@@ -149,9 +159,14 @@ const NavbarDesktopMenu = ({
     });
   };
 
+  const handleMouseLeave = () => {
+    setSelectedTabIndex(false);
+    clearTimeout(timer);
+  };
+
   return (
     <Box
-      onMouseLeave={() => setSelectedTabIndex(false)}
+      onMouseLeave={handleMouseLeave}
       sx={{
         display: { xs: "none", lg: "initial" },
         height: "100%",

@@ -226,6 +226,7 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
               </IconButton>
               <Typography
                 sx={{
+                  cursor: "pointer",
                   fontSize: "13px",
                   color: "white",
                   fontWeight: theme.fontWeight.semiBold,

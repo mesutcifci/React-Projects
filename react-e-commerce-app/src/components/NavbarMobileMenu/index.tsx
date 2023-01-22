@@ -62,6 +62,7 @@ const NavbarMobileMenu = ({ isDrawerOpened, setIsDrawerOpened }: IProps) => {
               cursor: "pointer",
               fontSize: "30px",
               color: { xs: "rgba(0, 0, 0, 0.7)", lg: "#ffffff" },
+              fontFamily: "Poppins, sans-serif",
             }}
             onClick={() => {
               if (shownCategory === "primary") {
@@ -100,6 +101,8 @@ const NavbarMobileMenu = ({ isDrawerOpened, setIsDrawerOpened }: IProps) => {
     const parameterString = `?secondary=${
       selectedSecondaryCategory!.id
     }&tertiary=${category.id}:${selectedSecondaryCategory!.id}`;
+
+    handleCloseDrawer();
 
     navigate({
       pathname: `/${selectedPrimaryCategory!.id}`,
