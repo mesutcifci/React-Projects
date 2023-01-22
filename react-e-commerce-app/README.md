@@ -23,9 +23,17 @@ This repo contains a basic e-commerce application built with React. The applicat
   REACT_APP_FIREBASE_API_KEY=TYPE YOUR VALUE
 ```
 
-- Place your firebase app values.
-  <br />
 - Start project:
+
+`npm start`
+
+- Build project:
+
+`npm run build`
+
+- run tests:
+
+`npm run test`
 
 # Features
 
