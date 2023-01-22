@@ -25,7 +25,7 @@ const ProductCard = ({ product }: IProps) => {
     <Stack
       sx={{
         width: "272px",
-        height: "337px",
+        height: "350px",
         borderRadius: "8px",
         border: "1px solid #e6e6e6",
         cursor: "pointer",
@@ -56,8 +56,14 @@ const ProductCard = ({ product }: IProps) => {
       <Stack sx={{ paddingLeft: "5px", paddingRight: "5px" }}>
         <Typography
           sx={{
-            fontSize: { xs: "12px", sm768: "14px" },
+            display: "-webkit-box",
+            WebkitLineClamp: "2",
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+            fontSize: { xs: "12px", sm768: "13px" },
             fontWeight: theme.fontWeight.light,
+            width: "100%",
+            height: "40px",
           }}
         >
           {product.name}
