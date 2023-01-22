@@ -4,6 +4,8 @@
 
 It's a classic todo app that user can create, edit, complete and delete todo.
 
+See [Live Demo](https://react-todo-app-dev.netlify.app/)
+
 ## Features
 
 - Add todo
