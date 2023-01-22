@@ -2,6 +2,6 @@
 
 A repository containing projects made using React
 
-[Todo App](https://react-todo-app-dev.netlify.app)
+[Todo App](https://github.com/mesutcifci/React-Projects/tree/main/todo-app)
 
-React E-Commerce App - Work In Progress
+[React E-Commerce App](https://github.com/mesutcifci/React-Projects/tree/main/react-e-commerce-app)
