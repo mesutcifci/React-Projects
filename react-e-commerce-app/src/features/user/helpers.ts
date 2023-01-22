@@ -2,9 +2,9 @@ import { IUserProduct } from "../../types/user";
 
 export const checkIfProductExist = (
   productId: string,
-  productsInCart: IUserProduct[]
+  userProductsInCart: IUserProduct[]
 ) => {
-  const isProductExist = productsInCart.some(
+  const isProductExist = userProductsInCart.some(
     (product) => product.id === productId
   );
 

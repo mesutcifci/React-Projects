@@ -3,6 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "../features/user/userSlice";
 import currentUserReducer from "../features/currentUser/currentUserSlice";
 import cartProductsReducer from "../features/cartProducts/cartProductsSlice";
+import favoriteProductsReducer from "../features/favoriteProducts/favoriteProductsSlice";
 import productsReducer from "../features/products/productsSlice";
 import productReducer from "../features/product/productSlice";
 import categorySearchParametersReducer from "../features/categorySearchParameters/categorySearchParametersSlice";
@@ -14,6 +15,7 @@ export const store = configureStore({
     user: userReducer,
     currentUser: currentUserReducer,
     cartProducts: cartProductsReducer,
+    favoriteProducts: favoriteProductsReducer,
     products: productsReducer,
     product: productReducer,
     categorySearchParameters: categorySearchParametersReducer,

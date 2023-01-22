@@ -36,7 +36,7 @@ import comments from "../../constants/comments.json";
 import { IComment } from "../../types/comments";
 import { RootState, useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
-import { addUserProduct } from "../../features/user/userSlice";
+import { addUserProductsInCart } from "../../features/user/userSlice";
 import { fetchProduct } from "../../features/product/productSlice";
 
 const ProductDetail = () => {
@@ -278,10 +278,9 @@ const ProductDetail = () => {
   const handleClickAddToCartButton = () => {
     if (product.product && currentUser.currentUser) {
       dispatch(
-        addUserProduct({
+        addUserProductsInCart({
           productId: product.product.id,
           amount: productQuantity,
-          userId: currentUser.currentUser.uid,
         })
       );
     } else {

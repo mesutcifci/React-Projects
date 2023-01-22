@@ -7,7 +7,6 @@ export interface IUser {
   id: string;
   email: string;
   fullName: string;
-  productsForUser: IUserProduct[];
-  favoriteProducts: IUserProduct[];
-  productsInCart: IUserProduct[];
+  favoriteProductIds: string[];
+  userProductsInCart: IUserProduct[];
 }

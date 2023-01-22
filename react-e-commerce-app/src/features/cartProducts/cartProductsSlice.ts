@@ -20,13 +20,13 @@ const cartProductsSlice = createSlice({
       state,
       actions: PayloadAction<{
         products: IProduct[];
-        productsInCart: IUserProduct[];
+        userProductsInCart: IUserProduct[];
       }>
     ) {
       const mappedProducts: IModifiedProduct[] = [];
 
       actions.payload.products.forEach((product) => {
-        const matchedProductInCart = actions.payload.productsInCart.find(
+        const matchedProductInCart = actions.payload.userProductsInCart.find(
           (item) => item.id === product.id
         );
 

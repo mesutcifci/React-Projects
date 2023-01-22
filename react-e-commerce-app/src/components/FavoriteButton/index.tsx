@@ -5,14 +5,10 @@ import { Box, SxProps, Theme } from "@mui/material";
 interface IProps {
   position?: "absolute" | "static";
   sx?: SxProps<Theme>;
+  onClick?: () => void;
 }
 
-const FavoriteButton = ({ position = "absolute", sx }: IProps) => {
-  const handleClickFavorite = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
-    event.stopPropagation();
-  };
+const FavoriteButton = ({ position = "absolute", sx, onClick }: IProps) => {
   return (
     <Box
       sx={{
@@ -34,7 +30,6 @@ const FavoriteButton = ({ position = "absolute", sx }: IProps) => {
         top: "19px",
         ...sx,
       }}
-      onClick={handleClickFavorite}
     >
       <FavoriteBorderOutlined />
     </Box>

@@ -29,55 +29,58 @@ export const userSlice = createSlice({
     setUser(state, actions: PayloadAction<IUser>) {
       state.user = actions.payload;
     },
-    setUserProduct(state, actions: PayloadAction<IUserProduct[]>) {
+    setUserProductsInCart(state, actions: PayloadAction<IUserProduct[]>) {
       if (state.user) {
-        state.user.productsForUser = actions.payload;
+        state.user.userProductsInCart = actions.payload;
       }
     },
   },
 });
 
-export const addUserProduct = createAsyncThunk(
-  "user/addUserProduct",
+export const addUserProductsInCart = createAsyncThunk(
+  "user/addUserProductsInCart",
   async (
-    {
-      productId,
-      amount,
-      userId,
-    }: { productId: string; amount: number; userId: string },
+    { productId, amount }: { productId: string; amount: number },
     thunkAPI
   ) => {
     thunkAPI.dispatch(setUserLoading(true));
-    const userRef = doc(db, "users", userId);
+    let state = thunkAPI.getState() as IUser;
+    const userRef = doc(db, "users", state.id);
     let docData = await getDocFromServer(userRef);
 
     if (docData.exists()) {
-      const { productsInCart } = docData.data() as IUser;
-      const isProductExist = checkIfProductExist(productId, productsInCart);
+      const { userProductsInCart } = docData.data() as IUser;
+      const isProductExist = checkIfProductExist(productId, userProductsInCart);
 
       if (isProductExist) {
-        productsInCart.forEach((product) => {
+        userProductsInCart.forEach((product) => {
           if (product.id === productId) {
             product.amount = amount;
           }
         });
-        await updateDoc(userRef, { productsInCart });
+        await updateDoc(userRef, { userProductsInCart });
       } else {
         await updateDoc(userRef, {
-          productsInCart: arrayUnion({ id: productId, amount }),
+          userProductsInCart: arrayUnion({ id: productId, amount }),
         });
       }
 
       docData = await getDocFromServer(userRef);
       if (docData.exists()) {
         const userData = docData.data() as IUser;
-        const userProduct = userData.productsForUser;
-        thunkAPI.dispatch(setUserProduct(userProduct));
+        const userProductsInCart = userData.userProductsInCart;
+        thunkAPI.dispatch(setUserProductsInCart(userProductsInCart));
       }
     }
     thunkAPI.dispatch(setUserLoading(false));
   }
 );
 
+export const addProductIdToUserFavoriteProducts = createAsyncThunk(
+  "user/addProductIdToUserFavoriteProducts",
+  (productId) => {}
+);
+
 export default userSlice.reducer;
-export const { setUser, setUserLoading, setUserProduct } = userSlice.actions;
+export const { setUser, setUserLoading, setUserProductsInCart } =
+  userSlice.actions;

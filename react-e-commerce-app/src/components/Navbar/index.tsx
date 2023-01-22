@@ -212,8 +212,8 @@ const Navbar = () => {
               onClick={handleClickShoppingCart}
               sx={{ "& .MuiBadge-badge": { background: "#FBB03B" } }}
             >
-              {user?.productsInCart.length && currentUser ? (
-                <Badge badgeContent={user.productsInCart.length}>
+              {user?.userProductsInCart.length && currentUser ? (
+                <Badge badgeContent={user.userProductsInCart.length}>
                   <ShoppingCartOutlined />
                 </Badge>
               ) : (

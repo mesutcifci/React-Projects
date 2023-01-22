@@ -32,6 +32,7 @@ import { GmailIcon } from "../../ui/";
 import * as yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { TextField } from "formik-mui";
+import { IUser } from "../../types/user";
 
 const validationSchema = yup.object({
   email: yup
@@ -67,13 +68,12 @@ const Login = () => {
       const { user } = await signInWithPopup(auth, provider);
       const isUserExistInDB = await checkUserExistInDB(user.uid);
       if (!isUserExistInDB) {
-        const userData = {
+        const userData: IUser = {
           id: user.uid,
-          email: user.email,
-          fullName: user.displayName,
-          productsForUser: [],
-          favoriteProducts: [],
-          productsInCart: [],
+          email: user.email || "",
+          fullName: user.displayName || "",
+          favoriteProductIds: [],
+          userProductsInCart: [],
         };
         await setDoc(doc(db, "users", user.uid), userData);
       }

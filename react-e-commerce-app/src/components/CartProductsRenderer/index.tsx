@@ -24,7 +24,7 @@ import Counter from "../Counter";
 // Hooks
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../app/store";
-import { addUserProduct } from "../../features/user/userSlice";
+import { addUserProductsInCart } from "../../features/user/userSlice";
 import { fetchAllProducts } from "../../features/products/productsSlice";
 import { setCartProductsAndTotalCost } from "../../features/cartProducts/cartProductsSlice";
 
@@ -43,14 +43,14 @@ const CartProductsRenderer = () => {
       dispatch(
         setCartProductsAndTotalCost({
           products: productsByIds,
-          productsInCart: user.productsInCart,
+          userProductsInCart: user.userProductsInCart,
         })
       );
     }
   }, [productsByIds, user]);
 
   useEffect(() => {
-    const productIds = user?.productsInCart.map((product) => product.id);
+    const productIds = user?.userProductsInCart.map((product) => product.id);
     if (productIds) {
       dispatch(fetchAllProducts(productIds));
     }
@@ -78,10 +78,9 @@ const CartProductsRenderer = () => {
 
     if (currentUser.currentUser && selectedProduct) {
       dispatch(
-        addUserProduct({
+        addUserProductsInCart({
           productId,
           amount: selectedProduct.amount,
-          userId: currentUser.currentUser.uid,
         })
       );
     }
@@ -91,7 +90,7 @@ const CartProductsRenderer = () => {
     if (currentUser.currentUser) {
       const docRef = doc(db, "users", currentUser.currentUser.uid);
       await updateDoc(docRef, {
-        productsInCart: arrayRemove({
+        userProductsInCart: arrayRemove({
           id: params.row.id,
           amount: params.row.amount,
         }),

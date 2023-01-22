@@ -101,9 +101,8 @@ const Register = () => {
         id: user.uid,
         email: values.email,
         fullName: `${values.firstName} ${values.lastName}`,
-        productsForUser: [],
         favoriteProducts: [],
-        productsInCart: [],
+        userProductsInCart: [],
       });
 
       setLoading(false);
