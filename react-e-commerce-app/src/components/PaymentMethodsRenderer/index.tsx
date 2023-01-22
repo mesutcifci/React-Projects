@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 import { Stack } from "@mui/material";
 
@@ -44,13 +44,15 @@ const PaymentMethodsRenderer = () => {
     return paymentMethodNames.map((methodName) => {
       const icon = findAndReturnPaymentIcon(methodName);
       return (
-        <PaymentMethodCard
-          icon={icon!}
-          isSelected={methodName === selectedPaymentMethod}
-          onClick={() => {
-            handleClickPaymentCard(methodName);
-          }}
-        />
+        <React.Fragment key={methodName}>
+          <PaymentMethodCard
+            icon={icon!}
+            isSelected={methodName === selectedPaymentMethod}
+            onClick={() => {
+              handleClickPaymentCard(methodName);
+            }}
+          />
+        </React.Fragment>
       );
     });
   };

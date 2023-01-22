@@ -208,7 +208,9 @@ const CartFooter = ({
           >
             You are
             <Typography
+              component="span"
               sx={{
+                display: "inline-block",
                 marginLeft: "4px",
                 marginRight: "4px",
                 fontSize: { xs: "12px", lg: "14px" },

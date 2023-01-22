@@ -85,6 +85,7 @@ const CartSummary = ({ setActiveStep }: IProps) => {
 
   return (
     <>
+      <Loading isLoading={user.loading} />
       {cartSummaryData && cartProducts.products && (
         <Stack
           rowGap="60px"
@@ -238,6 +239,7 @@ const CartSummary = ({ setActiveStep }: IProps) => {
               >
                 {cartProducts.products.map((product) => (
                   <Stack
+                    key={product.id}
                     rowGap="20px"
                     direction="row"
                     columnGap="20px"
