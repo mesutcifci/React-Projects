@@ -505,7 +505,7 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
                           helperText={
                             selectedCountry?.error && selectedCountry.error
                           }
-                          data-testId="countryInput"
+                          data-testid="countryInput"
                         />
                       )}
                     />

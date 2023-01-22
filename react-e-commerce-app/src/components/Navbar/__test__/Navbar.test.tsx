@@ -1,12 +1,11 @@
 import Navbar from "../index";
 import {
-  render,
   screen,
   fireEvent,
   waitForElementToBeRemoved,
 } from "@testing-library/react";
+import { renderWithProviders } from "../../../utils/test-utils";
 import { BrowserRouter } from "react-router-dom";
-import NavbarMobileMenu from "../../NavbarMobileMenu";
 
 const testIds = [
   "productLogo",
@@ -18,7 +17,7 @@ const testIds = [
 
 describe("Navbar", () => {
   beforeEach(() => {
-    render(
+    renderWithProviders(
       <BrowserRouter>
         <Navbar />
       </BrowserRouter>
@@ -33,7 +32,7 @@ describe("Navbar", () => {
 
 describe("Navbar and NavbarMobileMenu common tests", () => {
   beforeEach(() => {
-    render(
+    renderWithProviders(
       <BrowserRouter>
         <Navbar />
       </BrowserRouter>
