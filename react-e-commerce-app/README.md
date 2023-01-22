@@ -1,46 +1,53 @@
-# Getting Started with Create React App
+This repo contains a basic e-commerce application built with React. The application allows users to authenticate, browse products, add them to a shopping cart, and proceed to checkout.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Getting Started
 
-## Available Scripts
+- Clone the repo:
 
-In the project directory, you can run:
+  `git clone https://github.com/mesutcifci/React-Projects.git`
 
-### `npm start`
+- Open the main folder you cloned and navigate to the `react-e-commerce-app` directory
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- instal dependencies:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+  `npm install`
 
-### `npm test`
+- Create .env file in where package.json placed:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+  REACT_APP_FIREBASE_APP_ID=TYPE YOUR VALUE       
+  REACT_APP_FIREBASE_MESSAGING_SENDER_ID=TYPE YOUR VALUE
+  REACT_APP_FIREBASE_STORAGE_BUCKET=TYPE YOUR VALUE
+  REACT_APP_FIREBASE_PROJECT_ID=TYPE YOUR VALUE
+  REACT_APP_FIREBASE_AUTH_DOMAIN=TYPE YOUR VALUE
+  REACT_APP_FIREBASE_API_KEY=TYPE YOUR VALUE
+```
 
-### `npm run build`
+- Place your firebase app values.
+  <br />
+- Start project:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Features
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Responsive, mobile first
+- Product Carousel
+- Product listing and detail pages
+- Filtering products by categories
+- Shopping cart functionality
+- Checkout process
+- User authentication and authorization with Gmail and email
+- Form management with formik and yup
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Built With
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [React](https://reactjs.org/) - A JavaScript library for building user interfaces
+- [Create React App](https://create-react-app.dev/) - A tool to create single-page React applications  
+- [TypeScript](https://www.typescriptlang.org/) - A strongly typed programming language that builds on JavaScript
+- [Redux / Redux toolkit](https://redux-toolkit.js.org/) - A predictable state container for JavaScript apps
+- [Firebase](https://firebase.google.com/) - A platform for building web and mobile apps
+- [Material UI](https://mui.com/) - A popular React UI framework
+- [Formik](https://formik.org/) - A library for managing the state and validation of forms
+- [Formik Material-UI](https://stackworx.github.io/formik-mui/) - A set of Material-UI form controls built with Formik
+- [Yup](https://github.com/jquense/yup) - A library for writing validation schemas
+- [Jest](https://jestjs.io/) - JavaScript Testing Framework
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) - Testing framework for React
