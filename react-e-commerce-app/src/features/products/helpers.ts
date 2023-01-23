@@ -1,4 +1,3 @@
-import { IParameter } from "../../types/parameters";
 import { IProduct } from "../../types/product";
 
 export const filterByIds = (data: IProduct[], productIds: string[]) => {
@@ -6,17 +5,14 @@ export const filterByIds = (data: IProduct[], productIds: string[]) => {
   return filteredData;
 };
 
-export const filterBySearchParameters = (
+export const filterByTertiaryCategory = (
   tertiaryIds: string[],
-  data: IProduct[],
-  parameters: IParameter
+  data: IProduct[]
 ) => {
   let filteredData: IProduct[] = [];
 
-  filteredData = data.filter(
-    (item) =>
-      parameters.secondary.includes(item.secondaryCategory) &&
-      tertiaryIds.includes(item.tertiaryCategory)
+  filteredData = data.filter((item) =>
+    tertiaryIds.includes(item.tertiaryCategory)
   );
 
   return filteredData;

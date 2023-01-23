@@ -13,7 +13,7 @@ export interface IProduct {
   stockAmount: number;
   discountRate: number;
   description: IProductDescription;
-  primaryCategories: string[];
+  primaryCategory: string;
   secondaryCategory: string;
   tertiaryCategory: string;
   collections: string[];

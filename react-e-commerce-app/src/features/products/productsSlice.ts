@@ -10,7 +10,7 @@ import {
 import { db } from "../../firebase";
 import {
   filterByIds,
-  filterBySearchParameters,
+  filterByTertiaryCategory,
   mapWithFavoriteProductIds,
 } from "./helpers";
 import { IParameter } from "../../types/parameters";
@@ -43,11 +43,11 @@ const productsSlice = createSlice({
           state.productsByIds = action.payload;
         }
       )
-      .addCase(fetProductsByPrimaryCategories.pending, (state) => {
+      .addCase(fetProductsByCategories.pending, (state) => {
         state.loading = true;
       })
       .addCase(
-        fetProductsByPrimaryCategories.fulfilled,
+        fetProductsByCategories.fulfilled,
         (state, action: PayloadAction<IProduct[]>) => {
           state.loading = false;
           state.productsByCategory = action.payload;
@@ -74,8 +74,8 @@ export const fetchAllProducts = createAsyncThunk(
   }
 );
 
-export const fetProductsByPrimaryCategories = createAsyncThunk(
-  "products/fetchProductsByPrimaryCategories",
+export const fetProductsByCategories = createAsyncThunk(
+  "products/fetProductsByCategories",
   async (
     {
       searchParameters,
@@ -87,15 +87,25 @@ export const fetProductsByPrimaryCategories = createAsyncThunk(
     thunkAPI
   ) => {
     const { primary, secondary, tertiary } = searchParameters;
+    let q;
+    console.log(secondary);
 
-    const q = query(
-      collection(db, "products"),
-      where("primaryCategories", "array-contains-any", [primary])
-    );
+    if (primary && !secondary.length) {
+      q = query(
+        collection(db, "products"),
+        where("primaryCategory", "==", primary)
+      );
+    } else {
+      q = query(
+        collection(db, "products"),
+        where("primaryCategory", "==", primary),
+        where("secondaryCategory", "in", [...secondary])
+      );
+    }
 
     let querySnapshot = await getDocs(q);
-
     const data: IProduct[] = [];
+
     querySnapshot.forEach((doc) => {
       let docData = doc.data() as IProduct;
       docData.id = doc.id;
@@ -104,11 +114,7 @@ export const fetProductsByPrimaryCategories = createAsyncThunk(
 
     if (secondary.length) {
       const tertiaryIds = tertiary.flatMap((item) => Object.values(item));
-      let filteredProducts = filterBySearchParameters(
-        tertiaryIds,
-        data,
-        searchParameters
-      );
+      let filteredProducts = filterByTertiaryCategory(tertiaryIds, data);
       filteredProducts = mapWithFavoriteProductIds(
         filteredProducts,
         favoriteProductIds

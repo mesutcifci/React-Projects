@@ -5,7 +5,7 @@ import ProductCard from "../ProductCard";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../app/store";
 import { useEffect } from "react";
-import { fetProductsByPrimaryCategories } from "../../features/products/productsSlice";
+import { fetProductsByCategories } from "../../features/products/productsSlice";
 
 const ProductList = () => {
   const {
@@ -20,7 +20,7 @@ const ProductList = () => {
 
   useEffect(() => {
     dispatch(
-      fetProductsByPrimaryCategories({
+      fetProductsByCategories({
         searchParameters: categorySearchParameters,
         favoriteProductIds: user?.favoriteProductIds,
       })
