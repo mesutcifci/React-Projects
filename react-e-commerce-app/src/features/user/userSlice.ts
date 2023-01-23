@@ -1,13 +1,7 @@
 import { PayloadAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { IUser, IUserProduct } from "../../types/user";
-import {
-  arrayUnion,
-  doc,
-  getDocFromServer,
-  updateDoc,
-} from "firebase/firestore";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
-import { checkIfProductExist } from "./helpers";
 import { RootState } from "../../app/store";
 
 type IUserState = {
@@ -30,60 +24,8 @@ export const userSlice = createSlice({
     setUser(state, actions: PayloadAction<IUser>) {
       state.user = actions.payload;
     },
-    setUserProductsInCart(state, actions: PayloadAction<IUserProduct[]>) {
-      if (state.user) {
-        state.user.userProductsInCart = actions.payload;
-      }
-    },
   },
 });
 
-export const addUserProductsInCart = createAsyncThunk(
-  "user/addUserProductsInCart",
-  async (
-    { productId, amount }: { productId: string; amount: number },
-    thunkAPI
-  ) => {
-    thunkAPI.dispatch(setUserLoading(true));
-    let {
-      user: { user },
-    } = thunkAPI.getState() as RootState;
-
-    const userRef = doc(db, "users", user!.id);
-    let docData = await getDocFromServer(userRef);
-    if (docData.exists()) {
-      const { userProductsInCart } = docData.data() as IUser;
-      const isProductExist = checkIfProductExist(productId, userProductsInCart);
-
-      if (isProductExist) {
-        userProductsInCart.forEach((product) => {
-          if (product.id === productId) {
-            product.amount = amount;
-          }
-        });
-        await updateDoc(userRef, { userProductsInCart });
-      } else {
-        await updateDoc(userRef, {
-          userProductsInCart: arrayUnion({ id: productId, amount }),
-        });
-      }
-
-      docData = await getDocFromServer(userRef);
-      if (docData.exists()) {
-        const userData = docData.data() as IUser;
-        const userProductsInCart = userData.userProductsInCart;
-        thunkAPI.dispatch(setUserProductsInCart(userProductsInCart));
-      }
-    }
-    thunkAPI.dispatch(setUserLoading(false));
-  }
-);
-
-export const addProductIdToUserFavoriteProducts = createAsyncThunk(
-  "user/addProductIdToUserFavoriteProducts",
-  (productId) => {}
-);
-
 export default userSlice.reducer;
-export const { setUser, setUserLoading, setUserProductsInCart } =
-  userSlice.actions;
+export const { setUser, setUserLoading } = userSlice.actions;

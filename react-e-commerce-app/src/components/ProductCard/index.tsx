@@ -53,7 +53,7 @@ const ProductCard = ({ product }: IProps) => {
         }}
       >
         <img className="product-image" src={product.imageUrl} />
-        <FavoriteButton onClick={handleClickFavoriteButton} />
+        <FavoriteButton productId={product.id} />
       </Box>
       <Stack sx={{ paddingLeft: "5px", paddingRight: "5px" }}>
         <Typography

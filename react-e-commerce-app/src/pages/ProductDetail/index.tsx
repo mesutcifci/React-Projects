@@ -36,8 +36,8 @@ import comments from "../../constants/comments.json";
 import { IComment } from "../../types/comments";
 import { RootState, useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
-import { addUserProductsInCart } from "../../features/user/userSlice";
 import { fetchProduct } from "../../features/product/productSlice";
+import { addUserProductsInCart } from "../../helpers/addUserProductsInCart";
 
 const ProductDetail = () => {
   const [searchParams] = useSearchParams();
@@ -277,12 +277,11 @@ const ProductDetail = () => {
 
   const handleClickAddToCartButton = () => {
     if (product.product && currentUser.currentUser) {
-      dispatch(
-        addUserProductsInCart({
-          productId: product.product.id,
-          amount: productQuantity,
-        })
-      );
+      addUserProductsInCart({
+        productId: product.product.id,
+        amount: productQuantity,
+        userId: currentUser.currentUser.uid,
+      });
     } else {
       navigate("/auth/login");
     }
@@ -339,6 +338,7 @@ const ProductDetail = () => {
                   />
                   <FavoriteButton
                     sx={{ display: { xs: "flex", lg: "none" } }}
+                    productId={product.product.id}
                   />
                 </Box>
               </Stack>
@@ -488,6 +488,7 @@ const ProductDetail = () => {
                     <FavoriteButton
                       position="static"
                       sx={{ display: { xs: "none", lg: "flex" } }}
+                      productId={product.product.id}
                     />
                   </Stack>
                 </Stack>

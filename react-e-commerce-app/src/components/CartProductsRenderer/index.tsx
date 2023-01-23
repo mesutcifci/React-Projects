@@ -24,9 +24,9 @@ import Counter from "../Counter";
 // Hooks
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../app/store";
-import { addUserProductsInCart } from "../../features/user/userSlice";
 import { fetchAllProducts } from "../../features/products/productsSlice";
 import { setCartProductsAndTotalCost } from "../../features/cartProducts/cartProductsSlice";
+import { addUserProductsInCart } from "../../helpers/addUserProductsInCart";
 
 const CartProductsRenderer = () => {
   const [rows, setRows] = useState<GridRowsProp>();
@@ -77,12 +77,11 @@ const CartProductsRenderer = () => {
     }
 
     if (currentUser.currentUser && selectedProduct) {
-      dispatch(
-        addUserProductsInCart({
-          productId,
-          amount: selectedProduct.amount,
-        })
-      );
+      addUserProductsInCart({
+        productId: selectedProduct.id,
+        amount: selectedProduct.amount,
+        userId: currentUser.currentUser.uid,
+      });
     }
   };
 
