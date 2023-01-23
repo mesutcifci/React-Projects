@@ -21,3 +21,19 @@ export const filterBySearchParameters = (
 
   return filteredData;
 };
+
+export const mapWithFavoriteProductIds = (
+  products: IProduct[],
+  favoriteProductIds: string[] | undefined
+) => {
+  if (favoriteProductIds) {
+    return products.map((product) => {
+      if (favoriteProductIds.includes(product.id)) {
+        product.isFavorite = true;
+      }
+      return product;
+    });
+  } else {
+    return products;
+  }
+};

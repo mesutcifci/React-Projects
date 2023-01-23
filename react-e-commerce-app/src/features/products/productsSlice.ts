@@ -2,14 +2,17 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { IProduct } from "../../types/product";
 import {
   collection,
-  doc,
-  getDocFromServer,
   getDocs,
+  getDocsFromCache,
   query,
   where,
 } from "firebase/firestore";
 import { db } from "../../firebase";
-import { filterByIds, filterBySearchParameters } from "./helpers";
+import {
+  filterByIds,
+  filterBySearchParameters,
+  mapWithFavoriteProductIds,
+} from "./helpers";
 import { IParameter } from "../../types/parameters";
 
 interface IinitialState {
@@ -73,7 +76,16 @@ export const fetchAllProducts = createAsyncThunk(
 
 export const fetProductsByPrimaryCategories = createAsyncThunk(
   "products/fetchProductsByPrimaryCategories",
-  async (searchParameters: IParameter, thunkAPI) => {
+  async (
+    {
+      searchParameters,
+      favoriteProductIds,
+    }: {
+      searchParameters: IParameter;
+      favoriteProductIds: string[] | undefined;
+    },
+    thunkAPI
+  ) => {
     const { primary, secondary, tertiary } = searchParameters;
 
     const q = query(
@@ -81,7 +93,8 @@ export const fetProductsByPrimaryCategories = createAsyncThunk(
       where("primaryCategories", "array-contains-any", [primary])
     );
 
-    const querySnapshot = await getDocs(q);
+    let querySnapshot = await getDocs(q);
+
     const data: IProduct[] = [];
     querySnapshot.forEach((doc) => {
       let docData = doc.data() as IProduct;
@@ -91,14 +104,22 @@ export const fetProductsByPrimaryCategories = createAsyncThunk(
 
     if (secondary.length) {
       const tertiaryIds = tertiary.flatMap((item) => Object.values(item));
-      const filteredProducts = filterBySearchParameters(
+      let filteredProducts = filterBySearchParameters(
         tertiaryIds,
         data,
         searchParameters
       );
+      filteredProducts = mapWithFavoriteProductIds(
+        filteredProducts,
+        favoriteProductIds
+      );
       return filteredProducts;
     } else {
-      return data;
+      let filteredProducts = mapWithFavoriteProductIds(
+        data,
+        favoriteProductIds
+      );
+      return filteredProducts;
     }
   }
 );

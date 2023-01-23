@@ -22,7 +22,25 @@ const Products = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setCategorySearchParameters({ searchParams, pathname }));
+    const primary = pathname.substring(1);
+    let secondary = searchParams.get("secondary")?.split(",") || [];
+    const tertiary =
+      searchParams
+        .get("tertiary")
+        ?.split(",")
+        .map((item) => {
+          // ["ls", "sho"];
+          const [tertiaryCategoryId, secondaryCategoryId] = item.split(":");
+          return { [secondaryCategoryId]: tertiaryCategoryId };
+        }) || [];
+
+    dispatch(
+      setCategorySearchParameters({
+        primary,
+        secondary,
+        tertiary,
+      })
+    );
   }, [searchParams, pathname]);
   return (
     <Box

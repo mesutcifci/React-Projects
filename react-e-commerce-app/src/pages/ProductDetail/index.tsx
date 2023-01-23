@@ -339,6 +339,7 @@ const ProductDetail = () => {
                   <FavoriteButton
                     sx={{ display: { xs: "flex", lg: "none" } }}
                     productId={product.product.id}
+                    isFavorite={product.product.isFavorite}
                   />
                 </Box>
               </Stack>
@@ -489,6 +490,7 @@ const ProductDetail = () => {
                       position="static"
                       sx={{ display: { xs: "none", lg: "flex" } }}
                       productId={product.product.id}
+                      isFavorite={product.product.isFavorite}
                     />
                   </Stack>
                 </Stack>

@@ -14,7 +14,6 @@ import cartProductsReducer from "../features/cartProducts/cartProductsSlice";
 import productsReducer from "../features/products/productsSlice";
 import productReducer from "../features/product/productSlice";
 import categorySearchParametersReducer from "../features/categorySearchParameters/categorySearchParametersSlice";
-import favoriteProductsReducer from "../features/favoriteProducts/favoriteProductsSlice";
 
 // This type interface extends the default options for render from RTL, as well
 // as allows the user to specify other things such as initialState, store.
@@ -34,7 +33,6 @@ export function renderWithProviders(
         products: productsReducer,
         product: productReducer,
         categorySearchParameters: categorySearchParametersReducer,
-        favoriteProducts: favoriteProductsReducer,
       },
     }),
     ...renderOptions

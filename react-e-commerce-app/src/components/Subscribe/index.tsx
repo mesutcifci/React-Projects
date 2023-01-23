@@ -16,32 +16,26 @@ const Subscribe = () => {
   );
 
   useEffect(() => {
-    if (dispatch) {
-      firebaseAuth.onAuthStateChanged((current) => {
-        if (current) {
-          const currentUserData = {
-            uid: current.uid,
-            displayName: current.displayName!,
-            email: current.email!,
-          };
-          dispatch(setCurrentUser(currentUserData));
-        } else {
-          dispatch(setCurrentUser(null));
-        }
-      });
-    }
-  }, [dispatch]);
+    firebaseAuth.onAuthStateChanged((current) => {
+      if (current) {
+        const currentUserData = {
+          uid: current.uid,
+          displayName: current.displayName!,
+          email: current.email!,
+        };
+        dispatch(setCurrentUser(currentUserData));
+      }
+    });
+  }, []);
 
   useEffect(() => {
-    if (dispatch) {
-      if (currentUser) {
-        onSnapshot(doc(db, "users", currentUser.uid), (doc) => {
-          dispatch(setUserLoading(true));
-          let user = doc.data() as IUser;
-          dispatch(setUser(user));
-          dispatch(setUserLoading(false));
-        });
-      }
+    if (currentUser) {
+      onSnapshot(doc(db, "users", currentUser.uid), (doc) => {
+        dispatch(setUserLoading(true));
+        let user = doc.data() as IUser;
+        dispatch(setUser(user));
+        dispatch(setUserLoading(false));
+      });
     }
   }, [currentUser]);
 

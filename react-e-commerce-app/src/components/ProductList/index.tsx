@@ -8,15 +8,24 @@ import { useEffect } from "react";
 import { fetProductsByPrimaryCategories } from "../../features/products/productsSlice";
 
 const ProductList = () => {
-  const { categorySearchParameters } = useSelector((state: RootState) => state);
+  const {
+    categorySearchParameters,
+    user: { user },
+    currentUser: { currentUser },
+  } = useSelector((state: RootState) => state);
   const { loading, productsByCategory } = useSelector(
     (state: RootState) => state.products
   );
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetProductsByPrimaryCategories(categorySearchParameters));
-  }, [categorySearchParameters]);
+    dispatch(
+      fetProductsByPrimaryCategories({
+        searchParameters: categorySearchParameters,
+        favoriteProductIds: user?.favoriteProductIds,
+      })
+    );
+  }, [categorySearchParameters, user]);
 
   return (
     <>
