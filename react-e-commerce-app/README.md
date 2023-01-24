@@ -83,7 +83,7 @@ See [Live Demo](https://react-firebase-e-commerce.vercel.app/)
 
     `npm run build`
 
- 7. run tests:
+  7. run tests:
 
     `npm run test`
 
@@ -93,6 +93,7 @@ See [Live Demo](https://react-firebase-e-commerce.vercel.app/)
 - Product Carousel
 - Product listing and detail pages
 - Filtering products by categories
+- Permanent filter url
 - Shopping cart functionality
 - Checkout process
 - User authentication and authorization with Gmail and email
