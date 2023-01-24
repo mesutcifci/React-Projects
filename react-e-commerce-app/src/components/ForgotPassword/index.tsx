@@ -2,15 +2,14 @@ import { useState } from "react";
 
 // Styles
 import { Stack, Divider, Typography, Button } from "@mui/material";
+import theme from "../../theme";
+import { sharableInputLabelStyles } from "../../ui/sharableStyles";
 
 // Formik
 import { Formik, Form, Field } from "formik";
 import { TextField } from "formik-mui";
 import { MuiTelInput } from "mui-tel-input";
 import * as yup from "yup";
-
-// Data
-import theme from "../../theme";
 
 const validationSchema = yup.object({
   email: yup.string().email("Enter a valid email"),
@@ -76,13 +75,7 @@ const ForgotPassword = () => {
               type="email"
               name="email"
               label="Email"
-              sx={{
-                "& .MuiFormLabel-root": {
-                  color: "#808080",
-                  fontSize: "13px",
-                  fontWeight: theme.fontWeight.regular,
-                },
-              }}
+              sx={{ ...sharableInputLabelStyles }}
             />
             <Divider
               sx={{

@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-// firebase
+// Data
 import { auth, db, provider } from "../../firebase";
 import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
+import { IUser } from "../../types/user";
 
 // styles
 import {
@@ -27,12 +28,12 @@ import {
 import theme from "../../theme";
 
 import { GmailIcon } from "../../ui/";
+import { sharableInputLabelStyles } from "../../ui/sharableStyles";
 
 // formik
 import * as yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { TextField } from "formik-mui";
-import { IUser } from "../../types/user";
 
 const validationSchema = yup.object({
   email: yup
@@ -160,13 +161,7 @@ const Login = () => {
               type="email"
               name="email"
               label="Email"
-              sx={{
-                "& .MuiFormLabel-root": {
-                  color: "#808080",
-                  fontSize: "13px",
-                  fontWeight: theme.fontWeight.regular,
-                },
-              }}
+              sx={{ ...sharableInputLabelStyles }}
             />
             <Field
               disabled={loading}
@@ -185,13 +180,7 @@ const Login = () => {
                   </InputAdornment>
                 ),
               }}
-              sx={{
-                "& .MuiFormLabel-root": {
-                  color: "#808080",
-                  fontSize: "13px",
-                  fontWeight: theme.fontWeight.regular,
-                },
-              }}
+              sx={{ ...sharableInputLabelStyles }}
             />
             <FormGroup
               sx={{

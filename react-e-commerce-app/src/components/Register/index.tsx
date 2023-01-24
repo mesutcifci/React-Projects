@@ -19,6 +19,7 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import theme from "../../theme";
+import { sharableInputLabelStyles } from "../../ui/sharableStyles";
 
 // Formik
 import { Formik, Form, Field } from "formik";
@@ -175,13 +176,7 @@ const Register = () => {
               type="text"
               name="firstName"
               label="First Name"
-              sx={{
-                "& .MuiFormLabel-root": {
-                  color: "#808080",
-                  fontSize: "13px",
-                  fontWeight: theme.fontWeight.regular,
-                },
-              }}
+              sx={{ ...sharableInputLabelStyles }}
             />
             <Field
               disabled={loading}
@@ -189,13 +184,7 @@ const Register = () => {
               type="text"
               name="lastName"
               label="Last Name"
-              sx={{
-                "& .MuiFormLabel-root": {
-                  color: "#808080",
-                  fontSize: "13px",
-                  fontWeight: theme.fontWeight.regular,
-                },
-              }}
+              sx={{ ...sharableInputLabelStyles }}
             />
             <Field
               disabled={loading}
@@ -203,13 +192,7 @@ const Register = () => {
               type="email"
               name="email"
               label="Email"
-              sx={{
-                "& .MuiFormLabel-root": {
-                  color: "#808080",
-                  fontSize: "13px",
-                  fontWeight: theme.fontWeight.regular,
-                },
-              }}
+              sx={{ ...sharableInputLabelStyles }}
             />
             <Field
               disabled={loading}
@@ -217,13 +200,7 @@ const Register = () => {
               type={isPasswordShown.password ? "text" : "password"}
               name="password"
               label="Password"
-              sx={{
-                "& .MuiFormLabel-root": {
-                  color: "#808080",
-                  fontSize: "13px",
-                  fontWeight: theme.fontWeight.regular,
-                },
-              }}
+              sx={{ ...sharableInputLabelStyles }}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end" sx={{ cursor: "pointer" }}>
@@ -246,13 +223,7 @@ const Register = () => {
               type={isPasswordShown.confirmPassword ? "text" : "password"}
               name="confirmPassword"
               label="Confirm Password"
-              sx={{
-                "& .MuiFormLabel-root": {
-                  color: "#808080",
-                  fontSize: "13px",
-                  fontWeight: theme.fontWeight.regular,
-                },
-              }}
+              sx={{ ...sharableInputLabelStyles }}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end" sx={{ cursor: "pointer" }}>
