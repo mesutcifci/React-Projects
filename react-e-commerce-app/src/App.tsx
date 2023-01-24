@@ -1,16 +1,8 @@
 import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 
 // Components
-import {
-  AppWrapper,
-  Footer,
-  Loading,
-  Navbar,
-  Newsletter,
-  ScrollToTop,
-  Subscribe,
-} from "./components";
-import { Home, Auth, Products, ProductDetail, Cart } from "./pages";
+import { AppWrapper, Loading, ScrollToTop, Subscribe } from "./components";
+import InitializeProducts from "./components/InitializeProducts";
 
 function App() {
   return (
@@ -20,17 +12,9 @@ function App() {
         <ScrollToTop />
         <AppWrapper>
           <Subscribe />
-          <Navbar />
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/:primaryCategory" element={<Products />} />
-            <Route path="/product-detail" element={<ProductDetail />} />
-            <Route path="/auth/:key" element={<Auth />} />
-            <Route path="cart" element={<Cart />} />
-            <Route path="*" element={<Navigate to="/" />} />
+            <Route path="*" element={<InitializeProducts />} />
           </Routes>
-          <Newsletter />
-          <Footer />
         </AppWrapper>
       </BrowserRouter>
     </div>
