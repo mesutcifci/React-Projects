@@ -6,7 +6,7 @@ See [Live Demo](https://react-firebase-e-commerce.vercel.app/)
 
 # Getting Started
 
-
+0. Before clone the repo you need to [create a cloud firesote database](https://firebase.google.com/docs/firestore/quickstart?authuser=1&hl=en#create)
 
 1. Clone the repo:
 
