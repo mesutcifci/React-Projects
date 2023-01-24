@@ -17,11 +17,9 @@ const ProductCard = ({ product }: IProps) => {
   const handleClickCard = () => {
     navigate({
       pathname: `/product-detail`,
-      search: `?name=${product.name.toLowerCase()}&id=${product.id}`,
+      search: `?id=${product.id}`,
     });
   };
-
-  const handleClickFavoriteButton = () => {};
 
   return (
     <Stack

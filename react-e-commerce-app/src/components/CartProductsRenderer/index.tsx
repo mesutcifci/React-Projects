@@ -9,7 +9,14 @@ import {
   GridRowParams,
   GridRowsProp,
 } from "@mui/x-data-grid";
-import { Avatar, Box, LinearProgress, Typography, Stack } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  LinearProgress,
+  Typography,
+  Stack,
+  Link,
+} from "@mui/material";
 import theme from "../../theme";
 import { Close as CloseIcon } from "@mui/icons-material";
 
@@ -102,16 +109,24 @@ const CartProductsRenderer = () => {
       field: "product",
       headerName: "Product",
       renderCell: (params: GridRenderCellParams) => {
+        const url = `/product-detail?id=${params.row.id}`;
         return (
           <Stack direction="row" alignItems="center" columnGap="24px">
-            <Avatar
-              src={params.row.product?.img}
-              sx={{ width: "70px", height: "70px" }}
-              alt={params.row?.product?.name}
-            />
-            <Typography fontSize="16px" fontWeight={theme.fontWeight.semiBold}>
-              {params.row.product?.name}
-            </Typography>
+            <Link href={url}>
+              <Avatar
+                src={params.row.product?.img}
+                sx={{ width: "70px", height: "70px" }}
+                alt={params.row?.product?.name}
+              />
+            </Link>
+            <Link href={url} sx={{ color: "initial", textDecoration: "none" }}>
+              <Typography
+                fontSize="16px"
+                fontWeight={theme.fontWeight.semiBold}
+              >
+                {params.row.product?.name}
+              </Typography>
+            </Link>
           </Stack>
         );
       },
