@@ -58,7 +58,7 @@ export const getCachedProductsByPrimaryCategories = () => {
 
 export const sliceProductsAndAddToLocalStorage = (products: IProduct[]) => {
   const primaryCategories = ["men", "women", "kids"];
-  primaryCategories.map((category) => {
+  primaryCategories.forEach((category) => {
     const filteredProducts = products.filter(
       (product) => product.primaryCategory === category
     );

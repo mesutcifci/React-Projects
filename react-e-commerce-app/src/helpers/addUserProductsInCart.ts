@@ -42,12 +42,14 @@ export const addUserProductsInCart = async ({
         }
       });
       // if product exist update amount of selected product
-      await updateDoc(userRef, { userProductsInCart });
+      const promise = await updateDoc(userRef, { userProductsInCart });
+      return promise;
     } else {
       // add new product
-      await updateDoc(userRef, {
+      const promise = await updateDoc(userRef, {
         userProductsInCart: arrayUnion({ id: productId, amount }),
       });
+      return promise;
     }
   }
 };

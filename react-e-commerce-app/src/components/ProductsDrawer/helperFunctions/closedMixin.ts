@@ -14,7 +14,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
     borderRadius: "50px",
   },
   [theme.breakpoints.up("md")]: {
-    width: "310px",
+    width: "280px",
     backgroundColor: "#FFFFFF",
     height: "500px",
     left: "0px",

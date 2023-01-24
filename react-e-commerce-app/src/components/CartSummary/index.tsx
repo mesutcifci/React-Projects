@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 // Styles
 import { Avatar, Box, Button, Stack, Typography } from "@mui/material";
-import { DeliveryMethodCard, Loading, PaymentMethodsRenderer } from "..";
+import { DeliveryMethodCard, PaymentMethodsRenderer } from "..";
 import theme from "../../theme";
 
 // Data
@@ -85,7 +85,6 @@ const CartSummary = ({ setActiveStep }: IProps) => {
 
   return (
     <>
-      <Loading isLoading={user.loading} />
       {cartSummaryData && cartProducts.products && (
         <Stack
           rowGap="60px"

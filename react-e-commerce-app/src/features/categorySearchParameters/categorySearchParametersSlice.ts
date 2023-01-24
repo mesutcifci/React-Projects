@@ -1,17 +1,11 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IParameter, ITertiaryParameter } from "../../types/parameters";
+import { IParameter } from "../../types/parameters";
 
 const initialState: IParameter = {
   primary: "",
   secondary: [],
   tertiary: [],
 };
-
-interface ISearchParameters {
-  primary: string;
-  secondary: string[] | undefined;
-  tertiary: string[];
-}
 
 const categorySearchParametersSlice = createSlice({
   name: "categorySearchParametersSlice",

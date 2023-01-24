@@ -5,11 +5,12 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { setUser, setUserLoading } from "../../features/user/userSlice";
 import { IUser } from "../../types/user";
 import { useSelector } from "react-redux";
-import { setCurrentUser } from "../../features/currentUser/currentUserSlice";
-import { useSearchParams } from "react-router-dom";
+import {
+  setCurrentUser,
+  setCurrentUserLoading,
+} from "../../features/currentUser/currentUserSlice";
 
 const Subscribe = () => {
-  const [searchParams] = useSearchParams();
   const dispatch = useAppDispatch();
   const currentUser = useSelector(
     (state: RootState) => state.currentUser.currentUser
@@ -17,6 +18,7 @@ const Subscribe = () => {
 
   useEffect(() => {
     firebaseAuth.onAuthStateChanged((current) => {
+      dispatch(setCurrentUserLoading(true));
       if (current) {
         const currentUserData = {
           uid: current.uid,
@@ -24,7 +26,10 @@ const Subscribe = () => {
           email: current.email!,
         };
         dispatch(setCurrentUser(currentUserData));
+      } else {
+        dispatch(setCurrentUser(null));
       }
+      dispatch(setCurrentUserLoading(false));
     });
   }, []);
 
@@ -36,6 +41,10 @@ const Subscribe = () => {
         dispatch(setUser(user));
         dispatch(setUserLoading(false));
       });
+    } else {
+      dispatch(setUserLoading(true));
+      dispatch(setUser(null));
+      dispatch(setUserLoading(false));
     }
   }, [currentUser]);
 

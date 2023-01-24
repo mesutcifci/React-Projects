@@ -1,6 +1,5 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 
-import Loading from "../Loading";
 import ProductCard from "../ProductCard";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../app/store";
@@ -11,11 +10,9 @@ const ProductList = () => {
   const {
     categorySearchParameters,
     user: { user },
-    currentUser: { currentUser },
+    products: { productsByCategory },
   } = useSelector((state: RootState) => state);
-  const { loading, productsByCategory } = useSelector(
-    (state: RootState) => state.products
-  );
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -28,10 +25,8 @@ const ProductList = () => {
       );
     }
   }, [categorySearchParameters, user]);
-
   return (
     <>
-      <Loading isLoading={loading} />
       <Box
         sx={{
           display: "flex",
@@ -46,17 +41,14 @@ const ProductList = () => {
             md: "70px",
           },
           minHeight: "500px",
-          width: { xs: "100%", lg: "calc(100% - 310px)" },
+          width: { xs: "100%", lg: "calc(100% - 280px)" },
           maxWidth: "944px",
         }}
       >
-        {productsByCategory?.length
-          ? productsByCategory.map((product, index) => (
-              <ProductCard product={product} key={index} />
-            ))
-          : !loading && (
-              <Typography>No products available for your selection</Typography>
-            )}
+        {productsByCategory?.length &&
+          productsByCategory.map((product, index) => (
+            <ProductCard product={product} key={index} />
+          ))}
       </Box>
     </>
   );

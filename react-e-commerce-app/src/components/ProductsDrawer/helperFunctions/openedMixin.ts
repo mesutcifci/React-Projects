@@ -13,7 +13,7 @@ const openedMixin = (theme: Theme): CSSObject => ({
   borderLeft: "0px",
   [theme.breakpoints.up("lg")]: {
     position: "static",
-    width: "310px",
+    width: "280px",
     height: "500px",
   },
 });

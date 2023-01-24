@@ -4,6 +4,7 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import {
   AppWrapper,
   Footer,
+  Loading,
   Navbar,
   Newsletter,
   ScrollToTop,
@@ -15,6 +16,7 @@ function App() {
   return (
     <div>
       <BrowserRouter>
+        <Loading />
         <ScrollToTop />
         <AppWrapper>
           <Subscribe />

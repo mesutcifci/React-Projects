@@ -20,12 +20,7 @@ import {
 import theme from "../../theme";
 
 // Components
-import {
-  ColorPalette,
-  Counter,
-  FavoriteButton,
-  Loading,
-} from "../../components";
+import { ColorPalette, Counter, FavoriteButton } from "../../components";
 import { ProductCareIcon, ProductMaterialsIcon } from "../../ui";
 
 // Hooks
@@ -38,13 +33,12 @@ import { RootState, useAppDispatch } from "../../app/store";
 import { useSelector } from "react-redux";
 import { fetchProduct } from "../../features/product/productSlice";
 import { addUserProductsInCart } from "../../helpers/addUserProductsInCart";
+import { setUserLoading } from "../../features/user/userSlice";
 
 const ProductDetail = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { user, currentUser, product } = useSelector(
-    (state: RootState) => state
-  );
+  const { currentUser, product } = useSelector((state: RootState) => state);
   const dispatch = useAppDispatch();
 
   const [productQuantity, setProductQuantity] = useState(1);
@@ -277,11 +271,19 @@ const ProductDetail = () => {
 
   const handleClickAddToCartButton = () => {
     if (product.product && currentUser.currentUser) {
-      addUserProductsInCart({
+      dispatch(setUserLoading(true));
+      const promise = addUserProductsInCart({
         productId: product.product.id,
         amount: productQuantity,
         userId: currentUser.currentUser.uid,
-      });
+      })
+        .then((result) => {
+          dispatch(setUserLoading(false));
+        })
+        .catch((error) => {
+          console.log(error);
+          dispatch(setUserLoading(false));
+        });
     } else {
       navigate("/auth/login");
     }
@@ -297,7 +299,6 @@ const ProductDetail = () => {
 
   return (
     <>
-      <Loading isLoading={product.loading || user.loading} />
       <Stack
         sx={{
           minHeight: "500px",
@@ -315,7 +316,7 @@ const ProductDetail = () => {
           },
         }}
       >
-        {product.product ? (
+        {product.product && (
           <>
             <Stack
               sx={{ flexDirection: { xs: "column", lg: "row" } }}
@@ -573,8 +574,6 @@ const ProductDetail = () => {
               </Stack>
             </Stack>
           </>
-        ) : (
-          <Typography>Something went wrong</Typography>
         )}
       </Stack>
     </>

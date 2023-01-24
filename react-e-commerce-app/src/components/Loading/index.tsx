@@ -1,15 +1,22 @@
 // Styles
 import { Backdrop, CircularProgress } from "@mui/material";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
 
-interface IProps {
-  isLoading: boolean;
-}
+const Loading = () => {
+  const {
+    user: { loading: userLoading },
+    currentUser: { loading: currentUserLoading },
+    product: { loading: productLoading },
+    products: { loading: productsLoading },
+  } = useSelector((state: RootState) => state);
 
-const Loading = ({ isLoading }: IProps) => {
   return (
     <Backdrop
       sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open={isLoading}
+      open={
+        userLoading || currentUserLoading || productLoading || productsLoading
+      }
     >
       <CircularProgress color="inherit" />
     </Backdrop>
