@@ -2,19 +2,23 @@ This repo contains a basic e-commerce application built with React. The applicat
 
 See [Live Demo](https://react-firebase-e-commerce.vercel.app/)
 
+
+
 # Getting Started
 
-- Clone the repo:
+
+
+1. Clone the repo:
 
   `git clone https://github.com/mesutcifci/React-Projects.git`
 
-- Open the main folder you cloned and navigate to the `react-e-commerce-app` directory
+2. Open the main folder you cloned and navigate to the `react-e-commerce-app` directory
 
-- instal dependencies:
+3. instal dependencies:
 
   `npm install`
 
-- Create .env file in where package.json placed:
+4. Create .env file in where package.json placed:
 
 ```
   REACT_APP_FIREBASE_APP_ID=TYPE YOUR VALUE       
@@ -25,17 +29,54 @@ See [Live Demo](https://react-firebase-e-commerce.vercel.app/)
   REACT_APP_FIREBASE_API_KEY=TYPE YOUR VALUE
 ```
 
-- Start project:
+5. Initialize products
+   
+   - Checkout to branch react-e-commerce-initialize-products
 
-`npm start`
+   - Start project with command `npm start`
 
-- Build project:
+   - Go to components/InitializeProducts directory
 
-`npm run build`
+   - Inside addProducts function set image urls for each primary category
 
-- run tests:
+      ``` 
+        // Add your image URL's here
+        const men = "";
+        const women = "";
+        const kids = "";
+      ```
 
-`npm run test`
+   - Open http://localhost:3000/ in your browser
+   - Click **Add Products** button
+   - If you see ```something bad happened: FirebaseError: [code=permission-denied]: Missing or insufficient permissions.```:
+     - Go to your firebase console
+     - Select Firestore Database on left menu
+     - Click Rules tab on incoming screen
+     - Copy and paste following code 
+     
+       ```  rules_version = '2';
+       service cloud.firestore {
+         match /databases/{database}/documents {
+          // Products
+          match /products/{product} {
+    	      allow read, create;
+          }
+        // Users
+        match /users/{userId} {
+          allow create: if request.auth != null;
+    	    allow read, update: if request.auth != null && request.auth.uid == userId;
+        } } }
+     - Click publish button.
+     - Return to app screen and click **Add Products** button   
+     - After products added checkout to main branch - if something went wrong let me know. 
+  
+  6. Build project:
+
+    `npm run build`
+
+ 7. run tests:
+
+    `npm run test`
 
 # Features
 
