@@ -7,10 +7,31 @@ import { Login, Register, ForgotPassword } from "../../components";
 import { Box, Typography } from "@mui/material";
 import { ArrowBack as ArrowBackIcon } from "@mui/icons-material";
 import theme from "../../theme";
+import { useEffect } from "react";
+import { RootState } from "../../app/store";
+import { useSelector } from "react-redux";
 
 const Auth = () => {
   const params = useParams();
   const navigate = useNavigate();
+
+  const { currentUser, loading: currentUserLoading } = useSelector(
+    (state: RootState) => state.currentUser
+  );
+
+  useEffect(() => {
+    if (!currentUserLoading && !!currentUser) {
+      navigate({ pathname: "/" });
+    }
+  }, [currentUser, currentUserLoading]);
+
+  useEffect(() => {
+    const validKeys = ["login", "register", "forgot-password"];
+    const isParamKeyValid = validKeys.some((key) => key === params?.key);
+    if (params?.key && !isParamKeyValid) {
+      navigate({ pathname: `/auth/login` });
+    }
+  }, [params]);
 
   const handleClick = () => {
     navigate("/");
@@ -24,8 +45,6 @@ const Auth = () => {
         return <Register />;
       case "forgot-password":
         return <ForgotPassword />;
-      default:
-        return <p>Page not found</p>;
     }
   };
   return (

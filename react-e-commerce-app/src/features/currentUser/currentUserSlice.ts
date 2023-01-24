@@ -8,7 +8,7 @@ interface ICurrentUserState {
 
 const initialState: ICurrentUserState = {
   currentUser: null,
-  loading: false,
+  loading: true,
 };
 
 export const authSlice = createSlice({

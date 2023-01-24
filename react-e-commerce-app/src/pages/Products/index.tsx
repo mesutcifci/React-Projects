@@ -12,7 +12,7 @@ import {
 } from "../../components";
 
 // Hooks
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useAppDispatch } from "../../app/store";
 import { setCategorySearchParameters } from "../../features/categorySearchParameters/categorySearchParametersSlice";
 
@@ -20,27 +20,38 @@ const Products = () => {
   const [searchParams] = useSearchParams();
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const primary = pathname.substring(1);
-    let secondary = searchParams.get("secondary")?.split(",") || [];
-    const tertiary =
-      searchParams
-        .get("tertiary")
-        ?.split(",")
-        .map((item) => {
-          // ["ls", "sho"];
-          const [tertiaryCategoryId, secondaryCategoryId] = item.split(":");
-          return { [secondaryCategoryId]: tertiaryCategoryId };
-        }) || [];
+    const primaryCategoryIds = ["men", "women", "kids"];
+    const isPrimaryValid = primaryCategoryIds.some((id) => id === primary);
 
-    dispatch(
-      setCategorySearchParameters({
-        primary,
-        secondary,
-        tertiary,
-      })
-    );
+    if (!isPrimaryValid) {
+      const randomIndex = Math.floor(Math.random() * 3);
+      navigate({ pathname: `/${primaryCategoryIds[randomIndex]}` });
+    }
+
+    if (primary.length && isPrimaryValid) {
+      let secondary = searchParams.get("secondary")?.split(",") || [];
+      const tertiary =
+        searchParams
+          .get("tertiary")
+          ?.split(",")
+          .map((item) => {
+            // ["ls", "sho"];
+            const [tertiaryCategoryId, secondaryCategoryId] = item.split(":");
+            return { [secondaryCategoryId]: tertiaryCategoryId };
+          }) || [];
+
+      dispatch(
+        setCategorySearchParameters({
+          primary,
+          secondary,
+          tertiary,
+        })
+      );
+    }
   }, [searchParams, pathname]);
   return (
     <Box
