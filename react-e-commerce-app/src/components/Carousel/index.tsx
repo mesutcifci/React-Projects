@@ -235,7 +235,7 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
                 SHOP NOW
               </Typography>
             </Box>
-            <img src={item.src} />
+            <img src={item.src} alt={item.text} />
             <Box
               sx={{
                 backgroundColor: "#ffffff",

@@ -104,7 +104,7 @@ const Collections = () => {
           >
             {data.buttonText}
           </Button>
-          <img src={data.imageUrl} />
+          <img src={data.imageUrl} loading="lazy" alt={data.text} />
         </Stack>
       ))}
     </Box>

@@ -107,7 +107,7 @@ const Footer = () => {
                 },
               }}
             >
-              <img src={item.imageUrl} alt={item.altText} />
+              <img src={item.imageUrl} alt={item.altText} loading="lazy" />
             </Link>
           ))}
         </Grid>

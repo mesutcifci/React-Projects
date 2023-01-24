@@ -38,7 +38,11 @@ import { setUserLoading } from "../../features/user/userSlice";
 const ProductDetail = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { currentUser, product } = useSelector((state: RootState) => state);
+  const {
+    currentUser,
+    product,
+    user: { user },
+  } = useSelector((state: RootState) => state);
   const dispatch = useAppDispatch();
 
   const [productQuantity, setProductQuantity] = useState(1);
@@ -49,9 +53,14 @@ const ProductDetail = () => {
   useEffect(() => {
     const id = searchParams.get("id");
     if (id) {
-      dispatch(fetchProduct(id));
+      dispatch(
+        fetchProduct({
+          productId: id,
+          favoriteProductIds: user?.favoriteProductIds,
+        })
+      );
     }
-  }, [searchParams.get("id")]);
+  }, [searchParams.get("id"), user]);
 
   const renderComments = () => {
     return comments.map((comment: IComment) => (
