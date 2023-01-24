@@ -2,11 +2,40 @@ This repo contains a basic e-commerce application built with React. The applicat
 
 See [Live Demo](https://react-firebase-e-commerce.vercel.app/)
 
+# Setup Firebase
 
+1. Before clone the repo you need to create a cloud firesote database
+2. Go to [firebase console](https://console.firebase.google.com/u/1/)
+3. Click create or add project button
+4. After project created select Firestore Database under the Build dropdown on the left menu
+5. Click create database button and follow the steps
+6. Select Rules tab
+7. Copy and paste following code 
+
+      ```      
+       rules_version = '2';
+       service cloud.firestore {
+         match /databases/{database}/documents {
+          // Products
+          match /products/{product} {
+    	      allow read, create;
+          }
+        // Users
+        match /users/{userId} {
+          allow create: if request.auth != null;
+    	    allow read, update: if request.auth != null && request.auth.uid == userId;
+        } } } 
+     ```
+
+ 8. Click publish button.
+ 9. Select Authentication under the Build dropdown on the left menu
+ 10. Click Get Started button
+ 11. Click Sign-in method tab and then select email option
+ 12. Enable the first switch(Email/Password)
+ 13. Save and click Add new provider button
+ 14. Follow same steps for gmail
 
 # Getting Started
-
-
 
 1. Clone the repo:
 
@@ -48,27 +77,7 @@ See [Live Demo](https://react-firebase-e-commerce.vercel.app/)
 
    - Open http://localhost:3000/ in your browser
    - Click **Add Products** button
-   - If you see ```something bad happened: FirebaseError: [code=permission-denied]: Missing or insufficient permissions.```:
-     - Go to your firebase console
-     - Select Firestore Database on left menu
-     - Click Rules tab on incoming screen
-     - Copy and paste following code 
-     
-       ```  rules_version = '2';
-       service cloud.firestore {
-         match /databases/{database}/documents {
-          // Products
-          match /products/{product} {
-    	      allow read, create;
-          }
-        // Users
-        match /users/{userId} {
-          allow create: if request.auth != null;
-    	    allow read, update: if request.auth != null && request.auth.uid == userId;
-        } } }
-     - Click publish button.
-     - Return to app screen and click **Add Products** button   
-     - After products added checkout to main branch - if something went wrong let me know. 
+   - After products added checkout to main branch - if something went wrong let me know. 
   
   6. Build project:
 
