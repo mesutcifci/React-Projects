@@ -2,7 +2,6 @@ import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 
 // Components
 import {
-  AppWrapper,
   Footer,
   Loading,
   Navbar,
@@ -10,6 +9,7 @@ import {
   ScrollToTop,
   Subscribe,
 } from "./components";
+
 import {
   Home,
   Auth,
@@ -19,29 +19,29 @@ import {
   FavoriteProducts,
 } from "./pages";
 
+import { Box } from "@mui/material";
+
 function App() {
   return (
-    <div>
+    <Box sx={{ maxWidth: "1600px", marginLeft: "auto", marginRight: "auto" }}>
       <BrowserRouter>
         <Loading />
         <ScrollToTop />
-        <AppWrapper>
-          <Subscribe />
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/:primaryCategory" element={<Products />} />
-            <Route path="/product-detail" element={<ProductDetail />} />
-            <Route path="/auth/:key" element={<Auth />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/favorite-products" element={<FavoriteProducts />} />
-            <Route path="*" element={<Navigate to="/" />} />
-          </Routes>
-          <Newsletter />
-          <Footer />
-        </AppWrapper>
+        <Subscribe />
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/:primaryCategory" element={<Products />} />
+          <Route path="/product-detail" element={<ProductDetail />} />
+          <Route path="/auth/:key" element={<Auth />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/favorite-products" element={<FavoriteProducts />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+        <Newsletter />
+        <Footer />
       </BrowserRouter>
-    </div>
+    </Box>
   );
 }
 

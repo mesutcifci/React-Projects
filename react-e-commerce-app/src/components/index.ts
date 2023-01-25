@@ -1,4 +1,3 @@
-export { default as AppWrapper } from "./AppWrapper";
 export { default as Subscribe } from "./Subscribe";
 
 export { default as Loading } from "./Loading";

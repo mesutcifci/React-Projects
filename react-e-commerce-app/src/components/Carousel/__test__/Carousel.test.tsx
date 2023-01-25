@@ -18,6 +18,10 @@ const data = [
   },
 ];
 
+jest.mock("react-router-dom", () => ({
+  useNavigate: jest.fn(),
+}));
+
 describe("Carousel mobile", () => {
   beforeEach(() => {
     render(<Carousel variant="mobile" data={data} />);

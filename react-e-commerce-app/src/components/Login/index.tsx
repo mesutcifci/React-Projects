@@ -3,7 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 // Data
 import { auth, db, provider } from "../../firebase";
-import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithPopup,
+  signInWithEmailAndPassword,
+  AuthError,
+} from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { IUser } from "../../types/user";
 
@@ -52,6 +56,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [isPasswordShown, setIsPasswordShown] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleClickPasswordIcon = () => {
     setIsPasswordShown((previousState) => !previousState);
@@ -80,7 +85,8 @@ const Login = () => {
       }
       navigate("/");
     } catch (error) {
-      console.log(error);
+      let typedError = error as AuthError;
+      setErrorMessage(typedError.message);
     }
     setLoading(false);
   };
@@ -94,7 +100,15 @@ const Login = () => {
       await signInWithEmailAndPassword(auth, values.email, values.password);
       navigate("/");
     } catch (error) {
-      console.log(error);
+      let typedError = error as AuthError;
+      switch (typedError.code) {
+        case "auth/user-not-found":
+          setErrorMessage("User not found");
+          break;
+        case "auth/wrong-password":
+          setErrorMessage("Wrong password");
+          break;
+      }
     }
     setLoading(false);
   };
@@ -105,6 +119,10 @@ const Login = () => {
 
   const handleClickSignUp = () => {
     navigate({ pathname: "/auth/register" });
+  };
+
+  const handleChangeInput = () => {
+    setErrorMessage("");
   };
 
   return (
@@ -153,8 +171,8 @@ const Login = () => {
         validationSchema={validationSchema}
         onSubmit={loginWithEmail}
       >
-        {() => (
-          <Form id="loginForm" noValidate>
+        {({ errors }) => (
+          <Form id="loginForm" noValidate onChange={handleChangeInput}>
             <Field
               disabled={loading}
               component={TextField}
@@ -180,7 +198,19 @@ const Login = () => {
                   </InputAdornment>
                 ),
               }}
-              sx={{ ...sharableInputLabelStyles }}
+              sx={{
+                ...sharableInputLabelStyles,
+                "& .MuiFormHelperText-root": {
+                  color: "#d32f2f",
+                },
+              }}
+              helperText={
+                errors.password
+                  ? errors.password
+                  : errorMessage
+                  ? errorMessage
+                  : ""
+              }
             />
             <FormGroup
               sx={{

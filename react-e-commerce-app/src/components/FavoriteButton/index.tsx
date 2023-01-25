@@ -5,6 +5,7 @@ import { addProductIdIntoUserFavoriteProducts } from "../../helpers/addProductId
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { removeProductIdFromUserFavoriteProducts } from "../../helpers/removeProductIdFromUserFavoriteProducts";
+import { useNavigate } from "react-router-dom";
 
 interface IProps {
   position?: "absolute" | "static";
@@ -19,6 +20,7 @@ const FavoriteButton = ({
   productId,
   isFavorite,
 }: IProps) => {
+  const navigate = useNavigate();
   const { currentUser } = useSelector((state: RootState) => state.currentUser);
   const handleClickFavoriteButton = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -29,13 +31,13 @@ const FavoriteButton = ({
         productId,
         userId: currentUser.uid,
       });
-    } else {
-      if (currentUser) {
-        removeProductIdFromUserFavoriteProducts({
-          productId,
-          userId: currentUser.uid,
-        });
-      }
+    } else if (currentUser && isFavorite) {
+      removeProductIdFromUserFavoriteProducts({
+        productId,
+        userId: currentUser.uid,
+      });
+    } else if (!currentUser) {
+      navigate("/auth/login");
     }
   };
   return (

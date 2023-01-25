@@ -1,4 +1,4 @@
-import { screen, render, getByText, getByTestId } from "@testing-library/react";
+import { screen, render } from "@testing-library/react";
 import Footer from "../index";
 import footerItems from "../../../constants/footer.json";
 import { BrowserRouter } from "react-router-dom";
@@ -46,9 +46,7 @@ describe("Footer", () => {
   });
 
   test("Should render bottom text correctly", () => {
-    const bottomTextElement = screen.getByText(
-      "DESIGN BY ICEO.CO - © 2019. ALL RIGHTS RESERVED."
-    );
+    const bottomTextElement = screen.getByText("ICEO.CO");
     expect(bottomTextElement).toBeInTheDocument();
   });
 });
