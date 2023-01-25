@@ -178,18 +178,48 @@ const Footer = () => {
           </Box>
         </Grid>
       </Grid>
-      <Typography
+      <Box
         sx={{
-          fontSize: "12px",
-          fontWeight: theme.fontWeight.regular,
-          color: "#AEAEAE",
-          marginLeft: "auto",
-          marginRight: "auto",
-          width: "max-content",
+          width: "100%",
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          gap: "30px",
         }}
       >
-        DESIGN BY ICEO.CO - © 2019. ALL RIGHTS RESERVED.
-      </Typography>
+        <Typography
+          sx={{
+            fontSize: "12px",
+            fontWeight: theme.fontWeight.regular,
+            color: "#AEAEAE",
+            marginTop: "15px",
+            width: "max-content",
+            "& a": {
+              fontWeight: theme.fontWeight.semiBold,
+            },
+          }}
+        >
+          DESIGN BY{" "}
+          <a href="https://iceo.co/en" referrerPolicy="no-referrer">
+            ICEO.CO
+          </a>{" "}
+          - © 2019. ALL RIGHTS RESERVED.
+        </Typography>
+        <Typography
+          sx={{
+            fontSize: "12px",
+            fontWeight: theme.fontWeight.regular,
+            color: "#AEAEAE",
+            marginTop: "15px",
+            width: "max-content",
+            "& a": {
+              fontWeight: theme.fontWeight.semiBold,
+            },
+          }}
+        >
+          CODED BY <a href="https://mesutcifci.github.io/">MESUT ÇİFCİ</a>
+        </Typography>
+      </Box>
     </>
   );
 };

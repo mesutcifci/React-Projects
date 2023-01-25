@@ -13,6 +13,7 @@ import carouselBottomData from "./carouselBottomData.json";
 
 // Components
 import { MoneyBackIcon, ShippingIcon, SmileIconWithBackground } from "../../ui";
+import { useNavigate } from "react-router-dom";
 
 interface ICarouselItemType {
   id: number;
@@ -28,6 +29,7 @@ interface ICarouselProps {
 
 const Carousel = ({ variant, data }: ICarouselProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(1);
+  const navigate = useNavigate();
 
   const updateCurrentImageIndex = (slideDirection: string) => {
     if (slideDirection === "right") {
@@ -94,6 +96,10 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
   const returnSliderTrackPosition = () => {
     const height = 353 / data.length;
     return { top: height * (currentImageIndex - 1) + "px" };
+  };
+
+  const handleClickShopNowButton = () => {
+    navigate({ pathname: "/women" });
   };
 
   return (
@@ -221,6 +227,7 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
                   backgroundColor: "#FBB03B",
                 }}
                 component="button"
+                onClick={handleClickShopNowButton}
               >
                 <ArrowForwardIcon data-testid="shopIcon" />
               </IconButton>
@@ -231,6 +238,7 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
                   color: "white",
                   fontWeight: theme.fontWeight.semiBold,
                 }}
+                onClick={handleClickShopNowButton}
               >
                 SHOP NOW
               </Typography>
