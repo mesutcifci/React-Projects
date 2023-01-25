@@ -223,7 +223,7 @@ const Footer = () => {
         >
           CODED BY{" "}
           <a href="https://mesutcifci.github.io/" target="_blank">
-            MESUT ÇİFCİ
+            MESUT ÇİFTÇİ
           </a>
         </Typography>
       </Box>
