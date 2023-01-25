@@ -10,47 +10,47 @@ See [Live Demo](https://react-firebase-e-commerce.vercel.app/)
 4. After project created select Firestore Database under the Build dropdown on the left menu
 5. Click create database button and follow the steps
 6. Select Rules tab
-7. Copy and paste following code 
+7. Copy and paste following code
 
-      ```      
-       rules_version = '2';
-       service cloud.firestore {
-         match /databases/{database}/documents {
-          // Products
-          match /products/{product} {
-    	      allow read, create;
-          }
-        // Users
-        match /users/{userId} {
-          allow create: if request.auth != null;
-    	    allow read, update: if request.auth != null && request.auth.uid == userId;
-        } } } 
-     ```
+   ```
+    rules_version = '2';
+    service cloud.firestore {
+      match /databases/{database}/documents {
+       // Products
+       match /products/{product} {
+   	      allow read, create;
+       }
+     // Users
+     match /users/{userId} {
+       allow create: if request.auth != null;
+   	    allow read, update: if request.auth != null && request.auth.uid == userId;
+     } } }
+   ```
 
- 8. Click publish button.
- 9. Select Authentication under the Build dropdown on the left menu
- 10. Click Get Started button
- 11. Click Sign-in method tab and then select email option
- 12. Enable the first switch(Email/Password)
- 13. Save and click Add new provider button
- 14. Follow same steps for gmail
+8. Click publish button.
+9. Select Authentication under the Build dropdown on the left menu
+10. Click Get Started button
+11. Click Sign-in method tab and then select email option
+12. Enable the first switch(Email/Password)
+13. Save and click Add new provider button
+14. Follow same steps for gmail
 
 # Getting Started
 
 1. Clone the repo:
 
-  `git clone https://github.com/mesutcifci/React-Projects.git`
+`git clone https://github.com/mesutcifci/React-Projects.git`
 
 2. Open the main folder you cloned and navigate to the `react-e-commerce-app` directory
 
 3. instal dependencies:
 
-  `npm install`
+`npm install`
 
 4. Create .env file in where package.json placed:
 
 ```
-  REACT_APP_FIREBASE_APP_ID=TYPE YOUR VALUE       
+  REACT_APP_FIREBASE_APP_ID=TYPE YOUR VALUE
   REACT_APP_FIREBASE_MESSAGING_SENDER_ID=TYPE YOUR VALUE
   REACT_APP_FIREBASE_STORAGE_BUCKET=TYPE YOUR VALUE
   REACT_APP_FIREBASE_PROJECT_ID=TYPE YOUR VALUE
@@ -59,7 +59,7 @@ See [Live Demo](https://react-firebase-e-commerce.vercel.app/)
 ```
 
 5. Initialize products
-   
+
    - Checkout to branch react-e-commerce-initialize-products
 
    - Start project with command `npm start`
@@ -68,22 +68,23 @@ See [Live Demo](https://react-firebase-e-commerce.vercel.app/)
 
    - Inside addProducts function set image urls for each primary category
 
-      ``` 
-        // Add your image URL's here
-        const men = "";
-        const women = "";
-        const kids = "";
-      ```
+     ```
+       // Add your image URL's here
+       const men = "";
+       const women = "";
+       const kids = "";
+     ```
 
    - Open http://localhost:3000/ in your browser
    - Click **Add Products** button
-   - After products added checkout to main branch - if something went wrong let me know. 
-  
-  6. Build project:
+   - After products added checkout to main branch - if something went wrong let me know.
+
+6. Build project:
+
 
     `npm run build`
 
- 7. run tests:
+7.  run tests:
 
     `npm run test`
 
@@ -94,6 +95,7 @@ See [Live Demo](https://react-firebase-e-commerce.vercel.app/)
 - Product listing and detail pages
 - Filtering products by categories
 - Shopping cart functionality
+- Add, remove and show favorite products
 - Checkout process
 - User authentication and authorization with Gmail and email
 - Form management with formik and yup
@@ -101,7 +103,7 @@ See [Live Demo](https://react-firebase-e-commerce.vercel.app/)
 # Built With
 
 - [React](https://reactjs.org/) - A JavaScript library for building user interfaces
-- [Create React App](https://create-react-app.dev/) - A tool to create single-page React applications  
+- [Create React App](https://create-react-app.dev/) - A tool to create single-page React applications
 - [TypeScript](https://www.typescriptlang.org/) - A strongly typed programming language that builds on JavaScript
 - [Redux / Redux toolkit](https://redux-toolkit.js.org/) - A predictable state container for JavaScript apps
 - [Firebase](https://firebase.google.com/) - A platform for building web and mobile apps

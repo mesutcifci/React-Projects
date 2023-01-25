@@ -10,7 +10,14 @@ import {
   ScrollToTop,
   Subscribe,
 } from "./components";
-import { Home, Auth, Products, ProductDetail, Cart } from "./pages";
+import {
+  Home,
+  Auth,
+  Products,
+  ProductDetail,
+  Cart,
+  FavoriteProducts,
+} from "./pages";
 
 function App() {
   return (
@@ -26,7 +33,8 @@ function App() {
             <Route path="/:primaryCategory" element={<Products />} />
             <Route path="/product-detail" element={<ProductDetail />} />
             <Route path="/auth/:key" element={<Auth />} />
-            <Route path="cart" element={<Cart />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/favorite-products" element={<FavoriteProducts />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
           <Newsletter />

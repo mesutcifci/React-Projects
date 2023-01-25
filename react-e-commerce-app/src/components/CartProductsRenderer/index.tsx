@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 // Styles
 import {
@@ -24,15 +25,15 @@ import { Close as CloseIcon } from "@mui/icons-material";
 import { IModifiedProduct } from "../../types/product";
 import { arrayRemove, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
+import { RootState, useAppDispatch } from "../../app/store";
+import {
+  fetchAllProducts,
+  setCartProductsAndTotalCost,
+} from "../../features/products/productsSlice";
 
 // Components
 import Counter from "../Counter";
 
-// Hooks
-import { useSelector } from "react-redux";
-import { RootState, useAppDispatch } from "../../app/store";
-import { fetchAllProducts } from "../../features/products/productsSlice";
-import { setCartProductsAndTotalCost } from "../../features/cartProducts/cartProductsSlice";
 import { addUserProductsInCart } from "../../helpers/addUserProductsInCart";
 
 const CartProductsRenderer = () => {
@@ -40,21 +41,15 @@ const CartProductsRenderer = () => {
   const {
     user: { user },
     currentUser,
-    cartProducts,
-    products: { productsByIds },
+    products: { products, cartProducts },
   } = useSelector((state: RootState) => state);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (productsByIds && user) {
-      dispatch(
-        setCartProductsAndTotalCost({
-          products: productsByIds,
-          userProductsInCart: user.userProductsInCart,
-        })
-      );
+    if (products && user) {
+      dispatch(setCartProductsAndTotalCost(user.userProductsInCart));
     }
-  }, [productsByIds, user]);
+  }, [products, user]);
 
   useEffect(() => {
     const productIds = user?.userProductsInCart.map((product) => product.id);

@@ -10,7 +10,6 @@ import { ToolkitStore } from "@reduxjs/toolkit/dist/configureStore";
 // As a basic setup, import your same slice reducers
 import userReducer from "../features/user/userSlice";
 import currentUserReducer from "../features/currentUser/currentUserSlice";
-import cartProductsReducer from "../features/cartProducts/cartProductsSlice";
 import productsReducer from "../features/products/productsSlice";
 import productReducer from "../features/product/productSlice";
 import categorySearchParametersReducer from "../features/categorySearchParameters/categorySearchParametersSlice";
@@ -28,7 +27,6 @@ export function renderWithProviders(
     store = configureStore({
       reducer: {
         user: userReducer,
-        cartProducts: cartProductsReducer,
         currentUser: currentUserReducer,
         products: productsReducer,
         product: productReducer,

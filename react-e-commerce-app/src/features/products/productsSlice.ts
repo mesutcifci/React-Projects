@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IProduct } from "../../types/product";
+import { IModifiedProduct, IProduct } from "../../types/product";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../firebase";
 import {
@@ -11,23 +11,84 @@ import {
   sliceProductsAndAddToLocalStorage,
 } from "./helpers";
 import { IParameter } from "../../types/parameters";
+import { IUserProduct } from "../../types/user";
+import _ from "lodash";
+
+interface ICartProducts {
+  products: IModifiedProduct[] | null;
+  totalCost: number;
+}
 
 interface IinitialState {
+  products: IProduct[] | null;
+  cartProducts: ICartProducts;
   productsByIds: IProduct[] | null;
   productsByCategory: IProduct[] | null;
+  favoriteProducts: IProduct[] | null;
   loading: boolean;
 }
 
 const initialState: IinitialState = {
+  products: null,
   productsByIds: null,
   productsByCategory: null,
+  cartProducts: { products: null, totalCost: 0 },
+  favoriteProducts: null,
   loading: false,
 };
 
 const productsSlice = createSlice({
   name: "products",
   initialState,
-  reducers: {},
+  reducers: {
+    setCartProductsAndTotalCost(state, actions: PayloadAction<IUserProduct[]>) {
+      const mappedProducts: IModifiedProduct[] = [];
+
+      if (state.products?.length) {
+        state.products.forEach((product) => {
+          const matchedProductInCart = actions.payload.find(
+            (item) => item.id === product.id
+          );
+
+          if (!!matchedProductInCart) {
+            mappedProducts.push({
+              ...product,
+              amount: matchedProductInCart.amount,
+              price: matchedProductInCart.amount * product.price,
+            });
+          }
+        });
+
+        state.cartProducts.products = mappedProducts;
+      }
+
+      if (mappedProducts.length) {
+        let total = mappedProducts.reduce(
+          (previousValue, currentValue) => previousValue + currentValue.price,
+          0
+        );
+        total = parseFloat(total.toFixed(4));
+        state.cartProducts.totalCost = total;
+      } else {
+        state.cartProducts.totalCost = 0;
+      }
+    },
+    setFavoriteProducts(state, action: PayloadAction<string[] | undefined>) {
+      if (state.products && action.payload && action.payload.length > 0) {
+        const copyProducts = _.cloneDeep(state.products);
+        const matchedProducts = copyProducts.filter((product) => {
+          const isFavorite = action.payload!.some((id) => product.id === id);
+          if (isFavorite) {
+            product.isFavorite = isFavorite;
+          }
+          return isFavorite;
+        });
+        state.favoriteProducts = matchedProducts;
+      } else {
+        state.favoriteProducts = null;
+      }
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchAllProducts.pending, (state) => {
@@ -37,7 +98,7 @@ const productsSlice = createSlice({
         fetchAllProducts.fulfilled,
         (state, action: PayloadAction<IProduct[]>) => {
           state.loading = false;
-          state.productsByIds = action.payload;
+          state.products = action.payload;
         }
       )
       .addCase(fetchProductsByCategories.pending, (state) => {
@@ -69,8 +130,7 @@ export const fetchAllProducts = createAsyncThunk(
       sliceProductsAndAddToLocalStorage(data);
     }
 
-    const filteredProducts = filterByIds(data, productIds);
-    return filteredProducts;
+    return data;
   }
 );
 
@@ -126,4 +186,5 @@ export const fetchProductsByCategories = createAsyncThunk(
 );
 
 export default productsSlice.reducer;
-export const {} = productsSlice.actions;
+export const { setCartProductsAndTotalCost, setFavoriteProducts } =
+  productsSlice.actions;

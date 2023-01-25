@@ -13,6 +13,7 @@ import {
   Badge,
 } from "@mui/material";
 import {
+  FavoriteBorder,
   Menu as MenuIcon,
   Person,
   PersonOutlined,
@@ -84,6 +85,14 @@ const Navbar = () => {
     }
   };
 
+  const handleClickFavoriteIcon = () => {
+    if (currentUser) {
+      navigate({ pathname: "/favorite-products" });
+    } else {
+      navigate("/auth/login");
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -137,7 +146,12 @@ const Navbar = () => {
           }}
         >
           <Box
-            sx={{ display: "flex", columnGap: "17px", cursor: "pointer" }}
+            sx={{
+              display: "flex",
+              columnGap: "17px",
+              cursor: "pointer",
+              marginRight: "10px",
+            }}
             onClick={() => navigate("/")}
           >
             <ProductLogo
@@ -153,6 +167,7 @@ const Navbar = () => {
                   lg: `${
                     selectedTabIndex === false && pathname === "/" && "#ffffff"
                   }`,
+                  marginTop: "2px",
                 },
               }}
             >
@@ -175,7 +190,7 @@ const Navbar = () => {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              columnGap: "10px",
+              columnGap: { xs: "5px", xs350: "17px" },
               marginLeft: { xs: "auto", md: "initial" },
             }}
           >
@@ -219,6 +234,15 @@ const Navbar = () => {
               ) : (
                 <ShoppingCartOutlined />
               )}
+            </IconButton>
+            <IconButton
+              sx={{
+                width: "34px",
+                height: "34px",
+              }}
+              onClick={handleClickFavoriteIcon}
+            >
+              <FavoriteBorder />
             </IconButton>
             <IconButton
               size="small"

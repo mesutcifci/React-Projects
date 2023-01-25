@@ -50,7 +50,7 @@ const CartFooter = ({
 }: IProps) => {
   const navigate = useNavigate();
   const totalCost = useSelector(
-    (state: RootState) => state.cartProducts.totalCost
+    (state: RootState) => state.products.cartProducts.totalCost
   );
 
   const handleClickContinueShoppingButton = () => {
