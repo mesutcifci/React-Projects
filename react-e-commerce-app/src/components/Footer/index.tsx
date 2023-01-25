@@ -200,7 +200,11 @@ const Footer = () => {
           }}
         >
           DESIGN BY{" "}
-          <a href="https://iceo.co/en" referrerPolicy="no-referrer">
+          <a
+            href="https://iceo.co/en"
+            referrerPolicy="no-referrer"
+            target="_blank"
+          >
             ICEO.CO
           </a>{" "}
           - © 2019. ALL RIGHTS RESERVED.
@@ -217,7 +221,10 @@ const Footer = () => {
             },
           }}
         >
-          CODED BY <a href="https://mesutcifci.github.io/">MESUT ÇİFCİ</a>
+          CODED BY{" "}
+          <a href="https://mesutcifci.github.io/" target="_blank">
+            MESUT ÇİFCİ
+          </a>
         </Typography>
       </Box>
     </>
