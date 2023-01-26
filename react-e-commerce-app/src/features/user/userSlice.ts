@@ -1,8 +1,5 @@
-import { PayloadAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { IUser, IUserProduct } from "../../types/user";
-import { arrayUnion, doc, updateDoc } from "firebase/firestore";
-import { db } from "../../firebase";
-import { RootState } from "../../app/store";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { IUser } from "../../types/user";
 
 type IUserState = {
   user: IUser | null;

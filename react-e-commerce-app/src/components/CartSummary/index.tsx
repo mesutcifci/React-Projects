@@ -29,8 +29,7 @@ interface ICartSummaryData {
 const CartSummary = ({ setActiveStep }: IProps) => {
   const [cartSummaryData, setCartSummaryData] = useState<ICartSummaryData>();
   const {
-    products: { cartProducts, loading },
-    user,
+    products: { cartProducts },
   } = useSelector((state: RootState) => state);
 
   useEffect(() => {

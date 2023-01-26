@@ -50,7 +50,12 @@ const ProductCard = ({ product }: IProps) => {
           width: "100%",
         }}
       >
-        <img className="product-image" src={product.imageUrl} loading="lazy" />
+        <img
+          className="product-image"
+          src={product.imageUrl}
+          loading="lazy"
+          alt={product.name}
+        />
         <FavoriteButton
           productId={product.id}
           isFavorite={product.isFavorite}

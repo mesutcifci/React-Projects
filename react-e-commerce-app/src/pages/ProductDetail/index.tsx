@@ -281,7 +281,7 @@ const ProductDetail = () => {
   const handleClickAddToCartButton = () => {
     if (product.product && currentUser.currentUser) {
       dispatch(setUserLoading(true));
-      const promise = addUserProductsInCart({
+      addUserProductsInCart({
         productId: product.product.id,
         amount: productQuantity,
         userId: currentUser.currentUser.uid,

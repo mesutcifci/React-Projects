@@ -28,7 +28,6 @@ const FavoriteProducts = () => {
   const [rows, setRows] = useState<GridRowsProp>();
   const {
     user: { user },
-    currentUser,
     products: { products, favoriteProducts },
   } = useSelector((state: RootState) => state);
   const dispatch = useAppDispatch();

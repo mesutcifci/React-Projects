@@ -222,7 +222,11 @@ const Footer = () => {
           }}
         >
           CODED BY{" "}
-          <a href="https://mesutcifci.github.io/" target="_blank">
+          <a
+            href="https://mesutcifci.github.io/"
+            target="_blank"
+            referrerPolicy="no-referrer"
+          >
             MESUT ÇİFTÇİ
           </a>
         </Typography>

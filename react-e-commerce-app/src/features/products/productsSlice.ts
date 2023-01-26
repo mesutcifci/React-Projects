@@ -3,7 +3,6 @@ import { IModifiedProduct, IProduct } from "../../types/product";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../firebase";
 import {
-  filterByIds,
   filterByTertiaryCategory,
   getCachedProductsByPrimaryCategories,
   getCachedProductsByPrimaryCategory,
