@@ -48,6 +48,11 @@ See [Live Demo](https://react-firebase-e-commerce.vercel.app/)
 `npm install`
 
 4. Create .env file in where package.json placed:
+  
+   - To find your app data go to firebase console open your project
+   - Click the gear icon near Project Overview button on top left
+   - Select project settings
+   - You fill find your app data below the incoming page
 
 ```
   REACT_APP_FIREBASE_APP_ID=TYPE YOUR VALUE
