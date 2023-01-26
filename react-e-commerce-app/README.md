@@ -6,11 +6,12 @@ See [Live Demo](https://react-firebase-e-commerce.vercel.app/)
 
 1. Before clone the repo you need to create a cloud firestore database
 2. Go to [firebase console](https://console.firebase.google.com/u/1/)
-3. Click create or add project button follow steps and add an web app your firebase project
-4. Select Firestore Database under the Build dropdown on the left menu
-5. Click create database button and follow the steps
-6. Select Rules tab
-7. Copy and paste following code
+3. Click create or add project button and follow steps 
+4. After project created, add an web app to your project
+5. Select Firestore Database under the Build dropdown on the left menu
+6. Click create database button and follow the steps
+7. Select Rules tab
+8. Copy and paste following code
 
    ```
     rules_version = '2';
@@ -27,13 +28,13 @@ See [Live Demo](https://react-firebase-e-commerce.vercel.app/)
      } } }
    ```
 
-8. Click publish button.
-9. Select Authentication under the Build dropdown on the left menu
-10. Click Get Started button
-11. Click Sign-in method tab and then select email option
-12. Enable the first switch(Email/Password)
-13. Save and click Add new provider button
-14. Follow same steps for gmail
+9. Click publish button.
+10. Select Authentication under the Build dropdown on the left menu
+11. Click Get Started button
+12. Click Sign-in method tab and then select email option
+13. Enable the first switch(Email/Password)
+14. Save and click Add new provider button
+15. Follow same steps for gmail
 
 # Getting Started
 
