@@ -94,7 +94,7 @@ See [Live Demo](https://react-firebase-e-commerce.vercel.app/)
 - Product Carousel
 - Product listing and detail pages
 - Filtering products by categories
-- Permanent filter url
+- Remember filtered url
 - Shopping cart functionality
 - Add, remove and show favorite products
 - Checkout process
