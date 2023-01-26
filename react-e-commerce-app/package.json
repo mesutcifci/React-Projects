@@ -16,12 +16,15 @@
     "@types/node": "^18.11.12",
     "@types/react": "^18.0.25",
     "@types/react-dom": "^18.0.8",
+    "babel-plugin-import": "^1.13.6",
+    "customize-cra": "^1.0.0",
     "firebase": "^9.14.0",
     "formik": "^2.2.9",
     "formik-mui": "^5.0.0-alpha.0",
     "lodash": "^4.17.21",
     "mui-tel-input": "^2.1.0",
     "react": "^18.2.0",
+    "react-app-rewired": "^2.2.1",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.4.3",
@@ -31,9 +34,9 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -53,5 +56,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@craco/craco": "^7.0.0"
   }
 }

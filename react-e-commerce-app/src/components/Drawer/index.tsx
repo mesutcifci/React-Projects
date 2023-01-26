@@ -1,5 +1,6 @@
 // Styles
-import { styled, Drawer as MuiDrawer } from "@mui/material";
+import { Drawer as MuiDrawer } from "@mui/material";
+import { styled } from "@mui/material/styles";
 
 // Helpers
 import openedMixin from "../ProductsDrawer/helperFunctions/openedMixin";
