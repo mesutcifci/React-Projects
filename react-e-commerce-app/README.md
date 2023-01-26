@@ -4,7 +4,7 @@ See [Live Demo](https://react-firebase-e-commerce.vercel.app/)
 
 # Setup Firebase
 
-1. Before clone the repo you need to create a cloud firesote database
+1. Before clone the repo you need to create a cloud firestore database
 2. Go to [firebase console](https://console.firebase.google.com/u/1/)
 3. Click create or add project button
 4. After project created select Firestore Database under the Build dropdown on the left menu
