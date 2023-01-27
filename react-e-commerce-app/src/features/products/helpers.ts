@@ -5,15 +5,19 @@ export const filterByIds = (data: IProduct[], productIds: string[]) => {
   return filteredData;
 };
 
-export const filterByTertiaryCategory = (
+export const filterBySubCategories = (
+  secondary: string[],
   tertiaryIds: string[],
   data: IProduct[]
 ) => {
   let filteredData: IProduct[] = [];
 
-  filteredData = data.filter((item) =>
-    tertiaryIds.includes(item.tertiaryCategory)
-  );
+  filteredData = data.filter((item) => {
+    return (
+      secondary.includes(item.secondaryCategory) &&
+      tertiaryIds.includes(item.tertiaryCategory)
+    );
+  });
 
   return filteredData;
 };

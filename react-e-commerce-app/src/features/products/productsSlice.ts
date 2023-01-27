@@ -3,7 +3,7 @@ import { IModifiedProduct, IProduct } from "../../types/product";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../firebase";
 import {
-  filterByTertiaryCategory,
+  filterBySubCategories,
   getCachedProductsByPrimaryCategories,
   getCachedProductsByPrimaryCategory,
   mapWithFavoriteProductIds,
@@ -168,7 +168,11 @@ export const fetchProductsByCategories = createAsyncThunk(
 
     if (secondary.length) {
       const tertiaryIds = tertiary.flatMap((item) => Object.values(item));
-      let filteredProducts = filterByTertiaryCategory(tertiaryIds, data);
+      let filteredProducts = filterBySubCategories(
+        secondary,
+        tertiaryIds,
+        data
+      );
       filteredProducts = mapWithFavoriteProductIds(
         filteredProducts,
         favoriteProductIds
