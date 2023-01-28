@@ -11,7 +11,7 @@ import {
 } from "./helpers";
 import { IParameter } from "../../types/parameters";
 import { IUserProduct } from "../../types/user";
-import _ from "lodash";
+import cloneDeep from "lodash/cloneDeep";
 
 interface ICartProducts {
   products: IModifiedProduct[] | null;
@@ -74,7 +74,7 @@ const productsSlice = createSlice({
     },
     setFavoriteProducts(state, action: PayloadAction<string[] | undefined>) {
       if (state.products && action.payload && action.payload.length > 0) {
-        const copyProducts = _.cloneDeep(state.products);
+        const copyProducts = cloneDeep(state.products);
         const matchedProducts = copyProducts.filter((product) => {
           const isFavorite = action.payload!.some((id) => product.id === id);
           if (isFavorite) {
