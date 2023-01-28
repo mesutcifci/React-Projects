@@ -17,12 +17,6 @@ import { useNavigate } from "react-router-dom";
 
 // Data
 import data from "../../constants/mainCarouselData.json";
-interface ICarouselItemType {
-  id: number;
-  src: string;
-  text: string;
-  link: string;
-}
 
 const Carousel = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(1);
