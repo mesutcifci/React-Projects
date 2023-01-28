@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "src": {
+      "mobile": "https://firebasestorage.googleapis.com/v0/b/react-e-commerce-f354a.appspot.com/o/main-carousel%2Fmobile%2Fimage1.webp?alt=media&token=b3dac257-d205-4fea-b291-a668ca2cee82",
+      "desktop": "https://firebasestorage.googleapis.com/v0/b/react-e-commerce-f354a.appspot.com/o/main-carousel%2Fdesktop%2Fimage1.webp?alt=media&token=00b35a9a-7c5b-4b7e-a433-27d6616570bb"
+    },
+    "text": "Up to 50% off on selected items",
+    "link": ""
+  },
+  {
+    "id": 2,
+    "src": {
+      "mobile": "https://firebasestorage.googleapis.com/v0/b/react-e-commerce-f354a.appspot.com/o/main-carousel%2Fmobile%2Fimage2.webp?alt=media&token=62c3af73-02e2-4c18-bdb6-afe0c092908c",
+      "desktop": "https://firebasestorage.googleapis.com/v0/b/react-e-commerce-f354a.appspot.com/o/main-carousel%2Fdesktop%2Fimage2.webp?alt=media&token=23475798-394c-4552-9797-2da926a4a0c2"
+    },
+    "text": "Sale of the summer collection",
+    "link": ""
+  },
+
+  {
+    "id": 3,
+    "src": {
+      "mobile": "https://firebasestorage.googleapis.com/v0/b/react-e-commerce-f354a.appspot.com/o/main-carousel%2Fmobile%2Fimage3.webp?alt=media&token=4b873685-f5aa-4ac0-8e24-b5c246b691be",
+      "desktop": "https://firebasestorage.googleapis.com/v0/b/react-e-commerce-f354a.appspot.com/o/main-carousel%2Fdesktop%2Fimage3.webp?alt=media&token=d8f9c88f-8cd2-462f-8dce-a2df476b0e9c"
+    },
+    "text": "Free shipping on all orders over $100",
+    "link": ""
+  }
+]

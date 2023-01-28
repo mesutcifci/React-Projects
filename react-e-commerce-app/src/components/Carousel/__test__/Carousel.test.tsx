@@ -1,30 +1,13 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import Carousel from "../index";
 
-const data = [
-  {
-    id: 1,
-    src: "./images/mobile/main-carousel/image",
-    text: "Carousel text 1",
-    link: "",
-    imageType: "png",
-  },
-  {
-    id: 2,
-    src: "./images/mobile/main-carousel/image",
-    text: "Carousel text 2",
-    link: "",
-    imageType: "png",
-  },
-];
-
 jest.mock("react-router-dom", () => ({
   useNavigate: jest.fn(),
 }));
 
-describe("Carousel mobile", () => {
+describe("Carousel", () => {
   beforeEach(() => {
-    render(<Carousel variant="mobile" data={data} />);
+    render(<Carousel />);
   });
 
   test("Forward icon should be visible", () => {
@@ -47,6 +30,8 @@ describe("Carousel mobile", () => {
     const forwardButton = screen.getByTestId("forwardButton");
     const backwardButton = screen.getByTestId("backwardButton");
 
+    fireEvent.click(forwardButton);
+    fireEvent.click(forwardButton);
     fireEvent.click(forwardButton);
 
     expect(forwardButton).toBeDisabled();

@@ -15,6 +15,8 @@ import carouselBottomData from "./carouselBottomData.json";
 import { MoneyBackIcon, ShippingIcon, SmileIconWithBackground } from "../../ui";
 import { useNavigate } from "react-router-dom";
 
+// Data
+import data from "../../constants/mainCarouselData.json";
 interface ICarouselItemType {
   id: number;
   src: string;
@@ -22,12 +24,7 @@ interface ICarouselItemType {
   link: string;
 }
 
-interface ICarouselProps {
-  variant: "mobile" | "desktop";
-  data: ICarouselItemType[];
-}
-
-const Carousel = ({ variant, data }: ICarouselProps) => {
+const Carousel = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(1);
   const navigate = useNavigate();
 
@@ -105,10 +102,7 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
   return (
     <Box
       sx={{
-        display: {
-          xs: `${variant === "mobile" ? "flex" : "none"}`,
-          lg: `${variant === "mobile" ? "none" : "flex"}`,
-        },
+        display: "flex",
         position: "relative",
         height: { xs: "501px", lg: "100vh" },
         overflow: "hidden",
@@ -243,7 +237,10 @@ const Carousel = ({ variant, data }: ICarouselProps) => {
                 SHOP NOW
               </Typography>
             </Box>
-            <img src={item.src} />
+            <picture>
+              <source media="(min-width: 1200px)" srcSet={item.src.desktop} />
+              <img src={item.src.mobile} />
+            </picture>
             <Box
               sx={{
                 backgroundColor: "#ffffff",
