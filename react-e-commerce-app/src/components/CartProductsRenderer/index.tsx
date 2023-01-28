@@ -1,22 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 // Styles
 import {
-  DataGrid,
-  GridActionsCellItem,
-  GridColumns,
-  GridRenderCellParams,
-  GridRowParams,
-  GridRowsProp,
-} from "@mui/x-data-grid";
-import {
   Avatar,
   Box,
-  LinearProgress,
   Typography,
   Stack,
   Link,
+  TableContainer,
+  Paper,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
 } from "@mui/material";
 import theme from "../../theme";
 import { Close as CloseIcon } from "@mui/icons-material";
@@ -37,7 +35,6 @@ import Counter from "../Counter";
 import { addUserProductsInCart } from "../../helpers/addUserProductsInCart";
 
 const CartProductsRenderer = () => {
-  const [rows, setRows] = useState<GridRowsProp>();
   const {
     user: { user },
     currentUser,
@@ -57,10 +54,6 @@ const CartProductsRenderer = () => {
       dispatch(fetchAllProducts(productIds));
     }
   }, [user]);
-
-  useEffect(() => {
-    createGridRows();
-  }, [cartProducts.products]);
 
   const handleClickAmountButtons = async (
     productId: string,
@@ -87,170 +80,172 @@ const CartProductsRenderer = () => {
     }
   };
 
-  const handleClickRemoveProductButton = async (params: GridRowParams) => {
+  const handleClickRemoveProductButton = async (id: string, amount: number) => {
     if (currentUser.currentUser) {
       const docRef = doc(db, "users", currentUser.currentUser.uid);
       await updateDoc(docRef, {
         userProductsInCart: arrayRemove({
-          id: params.row.id,
-          amount: params.row.amount,
+          id,
+          amount,
         }),
       });
     }
   };
 
-  const columns: GridColumns = [
-    {
-      field: "product",
-      headerName: "Product",
-      renderCell: (params: GridRenderCellParams) => {
-        const url = `/product-detail?id=${params.row.id}`;
-        return (
-          <Stack direction="row" alignItems="center" columnGap="24px">
-            <Link href={url}>
-              <Avatar
-                src={params.row.product?.img}
-                sx={{ width: "70px", height: "70px" }}
-                alt={params.row?.product?.name}
-              />
-            </Link>
-            <Link href={url} sx={{ color: "initial", textDecoration: "none" }}>
-              <Typography
-                fontSize="16px"
-                fontWeight={theme.fontWeight.semiBold}
-              >
-                {params.row.product?.name}
-              </Typography>
-            </Link>
-          </Stack>
-        );
-      },
-      sortable: false,
-      minWidth: 300,
-      flex: 1,
-    },
-    {
-      field: "color",
-      headerName: "Color",
-      minWidth: 150,
-      sortable: false,
-      flex: 0.5,
-      headerAlign: "center",
-      align: "center",
-    },
-    {
-      field: "size",
-      headerName: "Size",
-      minWidth: 150,
-      sortable: false,
-      flex: 0.5,
-      headerAlign: "center",
-      align: "center",
-    },
-    {
-      field: "amount",
-      headerName: "Amount",
-      minWidth: 200,
-      sortable: false,
-      flex: 0.7,
-      headerAlign: "center",
-      align: "center",
-      renderCell: (params) => {
-        return (
-          <Counter
-            maxValue={params.row.stockAmount}
-            counterValue={params.row.amount}
-            handleClickDecreaseButton={() =>
-              handleClickAmountButtons(params.row.id, "decrease")
-            }
-            handleClickIncreaseButton={() =>
-              handleClickAmountButtons(params.row.id, "increase")
-            }
-          />
-        );
-      },
-    },
-    {
-      field: "price",
-      headerName: "Price",
-      minWidth: 100,
-      sortable: false,
-      flex: 0.5,
-      headerAlign: "center",
-      align: "center",
-      renderCell: (params) => (
-        <Typography fontSize="14px" fontWeight={theme.fontWeight.regular}>
-          {params.row.price}
-        </Typography>
-      ),
-    },
-    {
-      field: "removeProduct",
-      type: "actions",
-      align: "right",
-      getActions: (params: GridRowParams) => [
-        <GridActionsCellItem
-          onClick={() => handleClickRemoveProductButton(params)}
-          icon={<CloseIcon sx={{ color: "#000000" }} />}
-          label="Delete"
-        />,
-      ],
-    },
-  ];
-
-  const createGridRows = () => {
-    if (cartProducts.products?.length) {
-      const gridRows = cartProducts.products.map((product) => {
-        return {
-          id: product.id,
-          product: { img: product.imageUrl, name: product.name },
-          color: "White",
-          size: "XL",
-          amount: product.amount,
-          stockAmount: product.stockAmount,
-          price: `$${product.price}`,
-        };
-      });
-
-      setRows(gridRows);
-    } else {
-      setRows(undefined);
-    }
-  };
   return (
     <Box sx={{ minHeight: "400px" }}>
-      <DataGrid
-        columns={columns}
-        rows={rows || []}
-        loading={!cartProducts.products?.length}
-        autoHeight
-        disableColumnSelector
-        disableColumnFilter
-        disableColumnMenu
-        disableSelectionOnClick
-        disableVirtualization
-        hideFooter
-        rowHeight={90}
-        sx={{
-          border: "none",
-          "& .MuiDataGrid-columnSeparator": { display: "none" },
-          "& .MuiDataGrid-columnHeaders": {
-            border: "none",
-          },
-          "& .MuiDataGrid-columnHeaderTitle": {
-            color: "#C1C1C1",
-            fontWeight: 400,
-            fontSize: "14px",
-          },
-          "& .MuiDataGrid-row:hover": {
-            background: "initial",
-          },
-          "& .MuiDataGrid-cell": { border: "none" },
-        }}
-        components={{
-          LoadingOverlay: LinearProgress,
-        }}
-      />
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }}>
+          <TableHead>
+            <TableRow>
+              <TableCell
+                sx={{
+                  color: "#c1c1c1",
+                  fontSize: "14px",
+                  fontWeight: theme.fontWeight.regular,
+                  minWidth: "300px",
+                }}
+              >
+                Product
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{
+                  color: "#c1c1c1",
+                  fontSize: "14px",
+                  fontWeight: theme.fontWeight.regular,
+                  minWidth: "150px",
+                }}
+              >
+                Color
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{
+                  color: "#c1c1c1",
+                  fontSize: "14px",
+                  fontWeight: theme.fontWeight.regular,
+                  minWidth: "150px",
+                }}
+              >
+                size
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{
+                  color: "#c1c1c1",
+                  fontSize: "14px",
+                  fontWeight: theme.fontWeight.regular,
+                  minWidth: "200px",
+                }}
+              >
+                Amount
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{
+                  color: "#c1c1c1",
+                  fontSize: "14px",
+                  fontWeight: theme.fontWeight.regular,
+                  minWidth: "100px",
+                }}
+              >
+                Price
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{
+                  minWidth: "100px",
+                }}
+              ></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {cartProducts.products?.map((product) => {
+              const url = `/product-detail?id=${product.id}`;
+              return (
+                <TableRow key={product.id} sx={{ "& td": { borderBottom: 0 } }}>
+                  <TableCell sx={{ minWidth: "300px" }}>
+                    <Stack direction="row" alignItems="center" columnGap="24px">
+                      <Link href={url}>
+                        <Avatar
+                          src={product.imageUrl}
+                          sx={{ width: "70px", height: "70px" }}
+                          alt={product.name}
+                        />
+                      </Link>
+                      <Link
+                        href={url}
+                        sx={{ color: "initial", textDecoration: "none" }}
+                      >
+                        <Typography
+                          fontSize="16px"
+                          fontWeight={theme.fontWeight.semiBold}
+                        >
+                          {product.name}
+                        </Typography>
+                      </Link>
+                    </Stack>
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    sx={{
+                      fontSize: "14px",
+                      fontWeight: theme.fontWeight.regular,
+                      minWidth: "150px",
+                    }}
+                  >
+                    White
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    sx={{
+                      fontSize: "14px",
+                      fontWeight: theme.fontWeight.regular,
+                      minWidth: "150px",
+                    }}
+                  >
+                    XL
+                  </TableCell>
+                  <TableCell sx={{ minWidth: "200px" }}>
+                    <Counter
+                      sx={{ marginLeft: "auto", marginRight: "auto" }}
+                      maxValue={product.stockAmount}
+                      counterValue={product.amount}
+                      handleClickDecreaseButton={() =>
+                        handleClickAmountButtons(product.id, "decrease")
+                      }
+                      handleClickIncreaseButton={() =>
+                        handleClickAmountButtons(product.id, "increase")
+                      }
+                    />
+                  </TableCell>
+                  <TableCell sx={{ minWidth: "100px" }}>
+                    <Typography
+                      fontSize="16px"
+                      fontWeight={theme.fontWeight.semiBold}
+                      textAlign="center"
+                    >
+                      {product.price}
+                    </Typography>
+                  </TableCell>
+                  <TableCell align="right" sx={{ minWidth: "100px" }}>
+                    <CloseIcon
+                      sx={{ color: "#000000" }}
+                      onClick={() =>
+                        handleClickRemoveProductButton(
+                          product.id,
+                          product.amount
+                        )
+                      }
+                    />
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Box>
   );
 };

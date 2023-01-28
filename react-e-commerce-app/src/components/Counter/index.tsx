@@ -1,5 +1,5 @@
 // Styles
-import { IconButton, Stack, Typography } from "@mui/material";
+import { IconButton, Stack, SxProps, Theme, Typography } from "@mui/material";
 import {
   Add as IncreaseButtonIcon,
   Remove as DecreaseButtonIcon,
@@ -11,6 +11,7 @@ interface IProps {
   handleClickDecreaseButton: () => void;
   handleClickIncreaseButton: () => void;
   maxValue: number;
+  sx?: SxProps<Theme>;
 }
 
 const Counter = ({
@@ -18,6 +19,7 @@ const Counter = ({
   maxValue,
   handleClickDecreaseButton,
   handleClickIncreaseButton,
+  sx,
 }: IProps) => {
   return (
     <Stack
@@ -31,6 +33,7 @@ const Counter = ({
         padding: "15px",
         height: "49px",
         width: "189px",
+        ...sx,
       }}
     >
       <IconButton
