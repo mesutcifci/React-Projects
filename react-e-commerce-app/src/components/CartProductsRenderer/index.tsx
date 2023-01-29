@@ -49,10 +49,7 @@ const CartProductsRenderer = () => {
   }, [products, user]);
 
   useEffect(() => {
-    const productIds = user?.userProductsInCart.map((product) => product.id);
-    if (productIds) {
-      dispatch(fetchAllProducts(productIds));
-    }
+    dispatch(fetchAllProducts());
   }, [user]);
 
   const handleClickAmountButtons = async (
@@ -226,7 +223,7 @@ const CartProductsRenderer = () => {
                       fontWeight={theme.fontWeight.semiBold}
                       textAlign="center"
                     >
-                      {product.price}
+                      ${product.price.toFixed(2)}
                     </Typography>
                   </TableCell>
                   <TableCell align="right" sx={{ minWidth: "100px" }}>

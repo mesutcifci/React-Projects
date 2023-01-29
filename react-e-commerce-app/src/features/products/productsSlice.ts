@@ -53,7 +53,7 @@ const productsSlice = createSlice({
             mappedProducts.push({
               ...product,
               amount: matchedProductInCart.amount,
-              price: matchedProductInCart.amount * product.price,
+              price: +(matchedProductInCart.amount * product.price).toFixed(2),
             });
           }
         });
@@ -66,7 +66,7 @@ const productsSlice = createSlice({
           (previousValue, currentValue) => previousValue + currentValue.price,
           0
         );
-        total = parseFloat(total.toFixed(4));
+        total = +total.toFixed(2);
         state.cartProducts.totalCost = total;
       } else {
         state.cartProducts.totalCost = 0;
@@ -115,7 +115,7 @@ const productsSlice = createSlice({
 
 export const fetchAllProducts = createAsyncThunk(
   "products/getAllProducts",
-  async (productIds: string[], thunkAPI) => {
+  async () => {
     let q = query(collection(db, "products"));
     const querySnapshot = await getDocs(q);
     let data: IProduct[] | null = getCachedProductsByPrimaryCategories();

@@ -37,10 +37,7 @@ const FavoriteProducts = () => {
   }, [products, user]);
 
   useEffect(() => {
-    const productIds = user?.userProductsInCart.map((product) => product.id);
-    if (productIds) {
-      dispatch(fetchAllProducts(productIds));
-    }
+    dispatch(fetchAllProducts());
   }, [user]);
 
   return (

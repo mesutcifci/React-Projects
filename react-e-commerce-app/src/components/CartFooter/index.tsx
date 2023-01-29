@@ -184,7 +184,7 @@ const CartFooter = ({
             Total Cost:
           </Typography>
           <Typography fontSize="16px" fontWeight={theme.fontWeight.semiBold}>
-            ${totalCost}
+            ${totalCost.toFixed(2)}
           </Typography>
         </Stack>
       )}
