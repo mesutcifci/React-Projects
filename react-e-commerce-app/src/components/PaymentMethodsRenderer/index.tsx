@@ -51,6 +51,7 @@ const PaymentMethodsRenderer = () => {
             onClick={() => {
               handleClickPaymentCard(methodName);
             }}
+            methodName={methodName}
           />
         </React.Fragment>
       );

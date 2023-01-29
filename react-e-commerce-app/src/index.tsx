@@ -9,14 +9,14 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
 import "./index.css";
 import { Provider } from "react-redux";
-import { store } from "./app/store";
+import { setupStore } from "./app/store";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
+    <Provider store={setupStore()}>
       <ThemeProvider theme={theme}>
         <App />
       </ThemeProvider>

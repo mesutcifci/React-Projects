@@ -198,7 +198,6 @@ const CartSummary = ({ setActiveStep }: IProps) => {
               </Stack>
             </Stack>
           </Stack>
-
           <Stack
             sx={{
               width: "100%",

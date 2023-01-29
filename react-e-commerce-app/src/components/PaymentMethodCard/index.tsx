@@ -5,9 +5,15 @@ interface IProps {
   icon: JSX.Element;
   isSelected: boolean;
   onClick: () => void;
+  methodName: string;
 }
 
-const PaymentMethodCard = ({ icon, isSelected, onClick }: IProps) => {
+const PaymentMethodCard = ({
+  icon,
+  isSelected,
+  onClick,
+  methodName,
+}: IProps) => {
   return (
     <Stack
       onClick={onClick}
@@ -26,6 +32,7 @@ const PaymentMethodCard = ({ icon, isSelected, onClick }: IProps) => {
       direction="row"
       alignItems="center"
       justifyContent="center"
+      data-testid={methodName}
     >
       {icon}
     </Stack>
