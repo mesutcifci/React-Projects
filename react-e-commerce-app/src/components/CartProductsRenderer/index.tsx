@@ -231,7 +231,7 @@ const CartProductsRenderer = () => {
                   </TableCell>
                   <TableCell align="right" sx={{ minWidth: "100px" }}>
                     <CloseIcon
-                      sx={{ color: "#000000" }}
+                      sx={{ color: "#000000", cursor: "pointer" }}
                       onClick={() =>
                         handleClickRemoveProductButton(
                           product.id,
