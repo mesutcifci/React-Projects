@@ -145,3 +145,8 @@ See [Live Demo](https://react-firebase-e-commerce.vercel.app/)
 
 - Favorite button click event slow on mobile
 - Categories checkbox click event slow on mobile
+
+# Credits
+
+Coded by [Mesut Çiftçi](https://mesutcifci.github.io/)
+Designed by [ICEO](https://iceo.co/en/blog/a-behance-success-going-for-another-with-an-ecommerce-ui-kit)
