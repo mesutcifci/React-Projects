@@ -6,7 +6,7 @@ See [Live Demo](https://react-firebase-e-commerce.vercel.app/)
 
 1. Before clone the repo you need to create a cloud firestore database
 2. Go to [firebase console](https://console.firebase.google.com/u/1/)
-3. Click create or add project button and follow steps 
+3. Click create or add project button and follow steps
 4. After project created, add an web app to your project
 5. Select Firestore Database under the Build dropdown on the left menu
 6. Click create database button and follow the steps
@@ -49,7 +49,7 @@ See [Live Demo](https://react-firebase-e-commerce.vercel.app/)
 `npm install`
 
 4. Create .env file in where package.json placed:
-  
+
    - To find your app data go to firebase console open your project
    - Click the gear icon near Project Overview button on top left
    - Select project settings
@@ -91,8 +91,7 @@ See [Live Demo](https://react-firebase-e-commerce.vercel.app/)
 
 7. run tests:
 
-
-    `npm run test`
+   `npm run test`
 
 # Features
 
@@ -120,3 +119,29 @@ See [Live Demo](https://react-firebase-e-commerce.vercel.app/)
 - [Yup](https://github.com/jquense/yup) - A library for writing validation schemas
 - [Jest](https://jestjs.io/) - JavaScript Testing Framework
 - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) - Testing framework for React
+
+# Backlog
+
+- Complete all unit tests - **Doing**
+- Change dummy breadcrumbs values to dynamic values
+- Create 404 page
+- Create and implement mui theme variables for colors
+- Design and update favicon
+- Implement react helmet for html title tag
+- Create SelectedJustForYou component and fill according to user actions
+- Create ProductsInToday component
+- Filter by colors
+- Filter by size
+- Filter by price
+- Animate main slider
+- Enable adding comments to products
+- Enable rate products
+- Sort by rate
+- Sort by price
+- Create profile page
+- Implement stripe integration
+
+# Bugs
+
+- Favorite button click event slow on mobile
+- Categories checkbox click event slow on mobile
