@@ -53,7 +53,7 @@ const useGetMappedCategories = () => {
       });
     }
 
-    setMappedCategories(JSON.parse(JSON.stringify(filteredCategory)));
+    setMappedCategories(filteredCategory);
   };
 
   return { mappedCategories, mapCategoriesWithSearchParameters };
