@@ -122,7 +122,7 @@ See [Live Demo](https://react-firebase-e-commerce.vercel.app/)
 
 # Backlog
 
-- Complete all unit tests - **Doing**
+- Complete all unit tests(9/36) - **Doing**
 - Change dummy breadcrumbs values to dynamic values
 - Create 404 page
 - Create and implement mui theme variables for colors
