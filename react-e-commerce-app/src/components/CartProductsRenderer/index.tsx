@@ -38,18 +38,14 @@ const CartProductsRenderer = () => {
   const {
     user: { user },
     currentUser,
-    products: { products, cartProducts },
+    products: { cartProducts },
   } = useSelector((state: RootState) => state);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (products && user) {
+    if (user) {
       dispatch(setCartProductsAndTotalCost(user.userProductsInCart));
     }
-  }, [products, user]);
-
-  useEffect(() => {
-    dispatch(fetchAllProducts());
   }, [user]);
 
   const handleClickAmountButtons = async (
@@ -125,7 +121,7 @@ const CartProductsRenderer = () => {
                   minWidth: "150px",
                 }}
               >
-                size
+                Size
               </TableCell>
               <TableCell
                 align="center"
