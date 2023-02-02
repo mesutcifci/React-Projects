@@ -38,7 +38,7 @@ const CartProductsRenderer = () => {
   const {
     user: { user },
     currentUser,
-    products: { cartProducts },
+    products: { products, cartProducts },
   } = useSelector((state: RootState) => state);
   const dispatch = useAppDispatch();
 
@@ -46,6 +46,10 @@ const CartProductsRenderer = () => {
     if (user) {
       dispatch(setCartProductsAndTotalCost(user.userProductsInCart));
     }
+  }, [user, products]);
+
+  useEffect(() => {
+    dispatch(fetchAllProducts());
   }, [user]);
 
   const handleClickAmountButtons = async (
