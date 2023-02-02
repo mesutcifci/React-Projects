@@ -114,7 +114,7 @@ const productsSlice = createSlice({
 });
 
 export const fetchAllProducts = createAsyncThunk(
-  "products/getAllProducts",
+  "products/fetchAllProducts",
   async () => {
     let q = query(collection(db, "products"));
     const querySnapshot = await getDocs(q);

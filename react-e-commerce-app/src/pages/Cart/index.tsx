@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Styles
 import {
@@ -6,7 +6,13 @@ import {
   PaymentOutlined,
   ShoppingCartOutlined,
 } from "@mui/icons-material";
-import { Stack, Step, Stepper, Typography } from "@mui/material";
+import {
+  CircularProgress,
+  Stack,
+  Step,
+  Stepper,
+  Typography,
+} from "@mui/material";
 import theme from "../../theme";
 
 // Components
@@ -17,9 +23,20 @@ import {
   CartSummary,
   ScrollToTop,
 } from "../../components";
+import { useSelector } from "react-redux";
+import { RootState } from "../../app/store";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const [activeStep, setActiveStep] = useState(0);
+  const { user, loading } = useSelector((state: RootState) => state.user);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!loading && !user) {
+      navigate({ pathname: "/auth/login" });
+    }
+  }, [user, loading]);
 
   const steps = [
     "Shopping Cart",
@@ -66,6 +83,10 @@ const Cart = () => {
   const handleClickNextStepButton = () => {
     setActiveStep((previousState) => previousState + 1);
   };
+
+  if (!loading && !user) {
+    return <CircularProgress />;
+  }
 
   return (
     <>
