@@ -1,7 +1,8 @@
 // Styles
 import { Backdrop, CircularProgress } from "@mui/material";
-import { useSelector } from "react-redux";
-import { RootState } from "../../app/store";
+
+// Hooks
+import { useAppSelector } from "../../app/hooks";
 
 const Loading = () => {
   const {
@@ -9,7 +10,7 @@ const Loading = () => {
     currentUser: { loading: currentUserLoading },
     product: { loading: productLoading },
     products: { loading: productsLoading },
-  } = useSelector((state: RootState) => state);
+  } = useAppSelector((state) => state);
 
   return (
     <Backdrop

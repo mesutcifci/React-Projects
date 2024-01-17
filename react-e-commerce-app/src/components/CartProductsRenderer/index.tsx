@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 
 // Styles
 import {
@@ -23,7 +22,6 @@ import { Close as CloseIcon } from "@mui/icons-material";
 import { IModifiedProduct } from "../../types/product";
 import { arrayRemove, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
-import { RootState, useAppDispatch } from "../../app/store";
 import {
   fetchAllProducts,
   setCartProductsAndTotalCost,
@@ -33,13 +31,14 @@ import {
 import Counter from "../Counter";
 
 import { addUserProductsInCart } from "../../helpers/addUserProductsInCart";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
 const CartProductsRenderer = () => {
   const {
     user: { user },
     currentUser,
     products: { products, cartProducts },
-  } = useSelector((state: RootState) => state);
+  } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

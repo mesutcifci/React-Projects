@@ -1,3 +1,5 @@
+// Hooks
+import { useAppSelector } from "../../app/hooks";
 import { useEffect, useState } from "react";
 
 // Styles
@@ -14,8 +16,7 @@ import {
 // Components
 import { DeliveryIconDHL, DeliveryIconDPD, DeliveryIconInPost } from "../../ui";
 import { ICountry } from "../../types/country";
-import { useSelector } from "react-redux";
-import { RootState } from "../../app/store";
+
 interface IProps {
   setActiveStep: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -30,7 +31,7 @@ const CartSummary = ({ setActiveStep }: IProps) => {
   const [cartSummaryData, setCartSummaryData] = useState<ICartSummaryData>();
   const {
     products: { cartProducts },
-  } = useSelector((state: RootState) => state);
+  } = useAppSelector((state) => state);
 
   useEffect(() => {
     let addressData = JSON.parse(localStorage.getItem("addressData") as string);

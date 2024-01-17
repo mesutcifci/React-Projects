@@ -29,11 +29,10 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 // Data
 import comments from "../../constants/comments.json";
 import { IComment } from "../../types/comments";
-import { RootState, useAppDispatch } from "../../app/store";
-import { useSelector } from "react-redux";
 import { fetchProduct } from "../../features/product/productSlice";
 import { addUserProductsInCart } from "../../helpers/addUserProductsInCart";
 import { setUserLoading } from "../../features/user/userSlice";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
 const ProductDetail = () => {
   const [searchParams] = useSearchParams();
@@ -42,7 +41,7 @@ const ProductDetail = () => {
     currentUser,
     product,
     user: { user },
-  } = useSelector((state: RootState) => state);
+  } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
   const [productQuantity, setProductQuantity] = useState(1);

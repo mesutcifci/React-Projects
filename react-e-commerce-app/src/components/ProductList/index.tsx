@@ -1,17 +1,16 @@
 import { Box } from "@mui/material";
 
 import ProductCard from "../ProductCard";
-import { useSelector } from "react-redux";
-import { RootState, useAppDispatch } from "../../app/store";
 import { useEffect } from "react";
 import { fetchProductsByCategories } from "../../features/products/productsSlice";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
 const ProductList = () => {
   const {
     categorySearchParameters,
     user: { user },
     products: { productsByCategory },
-  } = useSelector((state: RootState) => state);
+  } = useAppSelector((state) => state);
 
   const dispatch = useAppDispatch();
 

@@ -1,11 +1,14 @@
 // Styles
 import { FavoriteBorderOutlined } from "@mui/icons-material";
 import { Box, SxProps, Theme } from "@mui/material";
+
+// Helpers
 import { addProductIdIntoUserFavoriteProducts } from "../../helpers/addProductIdIntoUserFavoriteProducts";
-import { useSelector } from "react-redux";
-import { RootState } from "../../app/store";
 import { removeProductIdFromUserFavoriteProducts } from "../../helpers/removeProductIdFromUserFavoriteProducts";
+
+// Hooks
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../app/hooks";
 
 interface IProps {
   position?: "absolute" | "static";
@@ -21,7 +24,7 @@ const FavoriteButton = ({
   isFavorite,
 }: IProps) => {
   const navigate = useNavigate();
-  const { currentUser } = useSelector((state: RootState) => state.currentUser);
+  const { currentUser } = useAppSelector((state) => state.currentUser);
   const handleClickFavoriteButton = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {

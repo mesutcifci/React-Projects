@@ -13,8 +13,8 @@ import {
 
 // Hooks
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { useAppDispatch } from "../../app/store";
 import { setCategorySearchParameters } from "../../features/categorySearchParameters/categorySearchParametersSlice";
+import { useAppDispatch } from "../../app/hooks";
 
 const Products = () => {
   const [searchParams] = useSearchParams();

@@ -20,11 +20,10 @@ import { IParameter, ITertiaryParameter } from "../../types/parameters";
 // Hooks
 import { useNavigate } from "react-router-dom";
 import { useGetMappedCategories } from "../../hooks";
-import { useSelector } from "react-redux";
-import { RootState } from "../../app/store";
+import { useAppSelector } from "../../app/hooks";
 
 const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
-  const { categorySearchParameters } = useSelector((state: RootState) => state);
+  const { categorySearchParameters } = useAppSelector((state) => state);
   const { mapCategoriesWithSearchParameters, mappedCategories } =
     useGetMappedCategories();
   const navigate = useNavigate();

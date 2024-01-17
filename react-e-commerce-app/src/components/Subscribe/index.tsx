@@ -1,20 +1,17 @@
 import { useEffect } from "react";
-import { RootState, useAppDispatch } from "../../app/store";
 import { auth as firebaseAuth, db } from "../../firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 import { setUser, setUserLoading } from "../../features/user/userSlice";
 import { IUser } from "../../types/user";
-import { useSelector } from "react-redux";
 import {
   setCurrentUser,
   setCurrentUserLoading,
 } from "../../features/currentUser/currentUserSlice";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
 const Subscribe = () => {
   const dispatch = useAppDispatch();
-  const currentUser = useSelector(
-    (state: RootState) => state.currentUser.currentUser
-  );
+  const currentUser = useAppSelector((state) => state.currentUser.currentUser);
 
   useEffect(() => {
     firebaseAuth.onAuthStateChanged((current) => {

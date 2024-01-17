@@ -16,18 +16,17 @@ import {
 import theme from "../../theme";
 import { FavoriteButton } from "../../components";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { RootState, useAppDispatch } from "../../app/store";
 import {
   fetchAllProducts,
   setFavoriteProducts,
 } from "../../features/products/productsSlice";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
 const FavoriteProducts = () => {
   const {
     user: { user },
     products: { products, favoriteProducts },
-  } = useSelector((state: RootState) => state);
+  } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

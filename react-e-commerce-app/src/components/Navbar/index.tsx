@@ -1,5 +1,7 @@
+// Hooks
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../app/hooks";
 
 // Styles
 import {
@@ -29,8 +31,6 @@ import { ProductLogo } from "../../ui";
 
 // Data
 import { auth } from "../../firebase";
-import { useSelector } from "react-redux";
-import { RootState } from "../../app/store";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ const Navbar = () => {
   const {
     user: { user },
     currentUser: { currentUser },
-  } = useSelector((state: RootState) => state);
+  } = useAppSelector((state) => state);
 
   const [selectedTabIndex, setSelectedTabIndex] = useState<number | boolean>(
     false

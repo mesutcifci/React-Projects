@@ -7,16 +7,17 @@ import { Login, Register, ForgotPassword } from "../../components";
 import { Box, Typography } from "@mui/material";
 import { ArrowBack as ArrowBackIcon } from "@mui/icons-material";
 import theme from "../../theme";
+
+// Hooks
 import { useEffect } from "react";
-import { RootState } from "../../app/store";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../app/hooks";
 
 const Auth = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const { currentUser, loading: currentUserLoading } = useSelector(
-    (state: RootState) => state.currentUser
+  const { currentUser, loading: currentUserLoading } = useAppSelector(
+    (state) => state.currentUser
   );
 
   useEffect(() => {

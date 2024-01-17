@@ -23,13 +23,14 @@ import {
   CartSummary,
   ScrollToTop,
 } from "../../components";
-import { useSelector } from "react-redux";
-import { RootState } from "../../app/store";
+
+// Hooks
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../app/hooks";
 
 const Cart = () => {
   const [activeStep, setActiveStep] = useState(0);
-  const { user, loading } = useSelector((state: RootState) => state.user);
+  const { user, loading } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
 
   useEffect(() => {
