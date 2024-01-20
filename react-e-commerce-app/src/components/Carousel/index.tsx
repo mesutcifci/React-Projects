@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import useWindowResize from "../../hooks/useWindowResize";
 
 // Styles
 import {
@@ -20,7 +21,16 @@ import data from "../../constants/mainCarouselData.json";
 
 const Carousel = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(1);
+  const [sliderWrapperHeight, setSliderWrapperHeight] = useState(0);
+  const ref = useRef<HTMLElement>(null);
   const navigate = useNavigate();
+
+  const updateSliderWrapperHeight = () => {
+    if (ref.current) {
+      setSliderWrapperHeight(ref.current.clientHeight);
+    }
+  };
+  useWindowResize(updateSliderWrapperHeight);
 
   const updateCurrentImageIndex = (slideDirection: string) => {
     if (slideDirection === "right") {
@@ -85,7 +95,7 @@ const Carousel = () => {
   };
 
   const returnSliderTrackPosition = () => {
-    const height = 353 / data.length;
+    const height = 250 / data.length;
     return { top: height * (currentImageIndex - 1) + "px" };
   };
 
@@ -98,31 +108,30 @@ const Carousel = () => {
       sx={{
         display: "flex",
         position: "relative",
-        height: { xs: "501px", lg: "100vh" },
         overflow: "hidden",
+        height: sliderWrapperHeight + "px",
       }}
     >
       {data.map((item, index) => {
         return (
           <Box
             data-testid={`carouselItem${item.id}`}
+            {...(index === 0 && { ref: ref })}
             sx={{
               flexShrink: "0",
-              height: { xs: "501px", lg: "100vh" },
               width: "100%",
+              position: "absolute",
               "& img": {
                 width: "100%",
                 height: "100%",
-                objectFit: "cover",
                 filter: "grayScale(0.2)",
               },
               "&.carousel-item": {
                 transform: "translateX(0)",
-                position: "absolute",
                 transition: "transform 800ms ease",
               },
               transition: "transform 800ms ease",
-              "&.hide": { transform: `translateX(calc(100vw))` },
+              "&.hide": { transform: `translateX(calc(100%))` },
             }}
             key={item.id}
             className={`${
@@ -133,13 +142,13 @@ const Carousel = () => {
           >
             <Typography
               sx={{
-                position: "absolute",
-                fontSize: { xs: "36px", sm: "46px", md: "56px", lg: "66px" },
-                fontWeight: theme.fontWeight.bold,
-                lineHeight: { xs: "46px", sm: "56px", md: "66px", lg: "72px" },
                 color: "white",
+                fontSize: { xs: "36px", lg: "48px" },
+                fontWeight: theme.fontWeight.bold,
+                lineHeight: { xs: "46px", lg: "62px" },
                 transform: { xs: "translateY(-50%)", lg: "initial" },
-                top: { xs: "50%", lg: "188px" },
+                position: "absolute",
+                top: { xs: "50%", lg: "20%" },
                 left: { xs: "35px", lg: "263px", xl: "363px" },
                 zIndex: 2,
                 maxWidth: "500px",
@@ -155,7 +164,7 @@ const Carousel = () => {
                 flexDirection: "column",
                 rowGap: "18px",
                 position: "absolute",
-                bottom: { lg: "250px", xl: "189px" },
+                bottom: { lg: "145px", xl: "189px" },
                 left: "160px",
                 zIndex: "99",
               }}
@@ -172,7 +181,7 @@ const Carousel = () => {
               <Box
                 sx={{
                   width: "2px",
-                  height: "353px",
+                  height: "250px",
                   backgroundColor: "rgba(255,255,255,.27)",
                   position: "relative",
                 }}
@@ -201,7 +210,7 @@ const Carousel = () => {
             <Box
               sx={{
                 position: "absolute",
-                bottom: { xs: "74px", lg: "265px" },
+                bottom: { xs: "74px", lg: "235px" },
                 display: "flex",
                 columnGap: "22px",
                 zIndex: 2,
@@ -232,8 +241,11 @@ const Carousel = () => {
               </Typography>
             </Box>
             <picture>
-              <source media="(min-width: 1200px)" srcSet={item.src.desktop} />
-              <img src={item.src.mobile} />
+              <source media="(min-width: 1440px)" srcSet={item.src.xl} />
+              <source media="(min-width: 1024px)" srcSet={item.src.lg} />
+              <source media="(min-width: 768px)" srcSet={item.src.md} />
+              <source media="(min-width: 425px)" srcSet={item.src.sm} />
+              <img src={item.src.xs} onLoad={updateSliderWrapperHeight} />
             </picture>
             <Box
               sx={{
@@ -265,8 +277,7 @@ const Carousel = () => {
           bottom: { xs: "10px", lg: "75px", xl: "59px" },
           right: "30px",
           "& .Mui-disabled": {
-            backgroundColor: "rgba(255,255,255, 0.2) !important",
-            color: "white !important",
+            backgroundColor: "white !important",
           },
         }}
       >
