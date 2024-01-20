@@ -148,9 +148,9 @@ const Navbar = () => {
           <Box
             sx={{
               display: "flex",
-              columnGap: "17px",
+              columnGap: "1rem",
               cursor: "pointer",
-              marginRight: "10px",
+              marginRight: "0.625rem",
             }}
             onClick={() => navigate("/")}
           >
@@ -167,7 +167,7 @@ const Navbar = () => {
                   lg: `${
                     selectedTabIndex === false && pathname === "/" && "#ffffff"
                   }`,
-                  marginTop: "2px",
+                  marginTop: "0.125rem",
                 },
               }}
             >
@@ -190,7 +190,7 @@ const Navbar = () => {
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              columnGap: { xs: "5px", xs350: "17px" },
+              columnGap: { xs: "0.31rem", xs350: "1rem" },
               marginLeft: { xs: "auto", md: "initial" },
             }}
           >
@@ -202,7 +202,7 @@ const Navbar = () => {
               onClose={handleClose}
               PaperProps={{
                 sx: {
-                  marginTop: "10px",
+                  marginTop: "0.625rem",
                 },
               }}
             >

@@ -72,7 +72,7 @@ const CartSummary = ({ setActiveStep }: IProps) => {
         <DeliveryMethodCard
           cardData={cartSummaryData.selectedDeliveryMethod}
           icon={icon!}
-          sx={{ border: "1px solid #FBB03B" }}
+          sx={{ border: "0.0625rem solid #FBB03B" }}
           isShowChangeButton={true}
           handleClickChangeButton={() =>
             setActiveStep((previousState) => previousState - 1)
@@ -90,8 +90,8 @@ const CartSummary = ({ setActiveStep }: IProps) => {
     <>
       {cartSummaryData && cartProducts.products && (
         <Stack
-          rowGap="60px"
-          columnGap="40px"
+          rowGap="3.75rem"
+          columnGap="2.5rem"
           flexWrap="wrap"
           sx={{
             flexDirection: { md: "row" },
@@ -100,8 +100,8 @@ const CartSummary = ({ setActiveStep }: IProps) => {
           }}
         >
           <Stack
-            rowGap="60px"
-            columnGap="40px"
+            rowGap="3.75rem"
+            columnGap="2.5rem"
             sx={{
               flexDirection: { md: "row" },
               flexWrap: "wrap",
@@ -113,7 +113,7 @@ const CartSummary = ({ setActiveStep }: IProps) => {
           >
             <Box sx={{ width: "max-content", maxWidth: "100%" }}>
               <Typography
-                fontSize="14px"
+                fontSize="0.875rem"
                 fontWeight={theme.fontWeight.semiBold}
                 marginBottom="29px"
                 sx={{ textAlign: { xs: "center", lg: "start" } }}
@@ -126,7 +126,7 @@ const CartSummary = ({ setActiveStep }: IProps) => {
             <Stack
               direction="row"
               flexWrap="wrap"
-              gap="40px"
+              gap="2.5rem"
               sx={{
                 flexGrow: { md1000: 1 },
                 justifyContent: "center",
@@ -140,9 +140,9 @@ const CartSummary = ({ setActiveStep }: IProps) => {
                   flexGrow: { md1000: 1 },
                 }}
               >
-                <Box width="143px">
+                <Box width="9rem">
                   <Typography
-                    fontSize="14px"
+                    fontSize="0.875rem"
                     fontWeight={theme.fontWeight.semiBold}
                     marginBottom="29px"
                     sx={{ textAlign: { xs: "center", lg: "start" } }}
@@ -160,7 +160,7 @@ const CartSummary = ({ setActiveStep }: IProps) => {
                   maxWidth: "100%",
                   "& p": {
                     textAlign: { xs: "center", lg: "start" },
-                    fontSize: "14px",
+                    fontSize: "0.875rem",
                     fontWeight: theme.fontWeight.regular,
                   },
                 }}
@@ -172,7 +172,7 @@ const CartSummary = ({ setActiveStep }: IProps) => {
                   Address delivery
                 </Typography>
 
-                <Stack rowGap="5px" maxWidth="300px">
+                <Stack rowGap="0.31rem" maxWidth="18.75rem">
                   <Typography>{`${cartSummaryData.addressData.firstName} ${cartSummaryData.addressData.lastName}`}</Typography>
                   <Typography>{`${cartSummaryData.addressData.address}. ${cartSummaryData.addressData.city}, ${cartSummaryData.addressData.postalCode}`}</Typography>
                   <Typography>{`${cartSummaryData.selectedCountry.label}`}</Typography>
@@ -182,14 +182,14 @@ const CartSummary = ({ setActiveStep }: IProps) => {
 
                 <Button
                   sx={{
-                    border: "1px solid #D8D8D8",
-                    borderRadius: "49px",
+                    border: "0.0625rem solid #D8D8D8",
+                    borderRadius: "3.125rem",
                     color: "#000000",
-                    fontSize: "13px",
+                    fontSize: "0.81rem",
                     fontWeight: theme.fontWeight.semiBold,
-                    marginTop: "20px",
+                    marginTop: "1.25rem",
                     textAlign: "center",
-                    height: "49px",
+                    height: "3.125rem",
                     width: "183px",
                   }}
                   onClick={handleClickChangeAddressButton}
@@ -206,7 +206,7 @@ const CartSummary = ({ setActiveStep }: IProps) => {
             }}
           >
             <Typography
-              fontSize="14px"
+              fontSize="0.875rem"
               fontWeight={theme.fontWeight.semiBold}
               marginBottom="29px"
               sx={{ textAlign: { xs: "center", md: "start" } }}
@@ -215,8 +215,8 @@ const CartSummary = ({ setActiveStep }: IProps) => {
             </Typography>
 
             <Stack
-              rowGap="40px"
-              columnGap="10px"
+              rowGap="2.5rem"
+              columnGap="0.625rem"
               direction="row"
               flexWrap="wrap"
               alignItems="center"
@@ -227,8 +227,8 @@ const CartSummary = ({ setActiveStep }: IProps) => {
               }}
             >
               <Stack
-                rowGap="30px"
-                columnGap="10px"
+                rowGap="1.875rem"
+                columnGap="0.625rem"
                 direction="row"
                 flexWrap="wrap"
                 alignItems="center"
@@ -241,9 +241,9 @@ const CartSummary = ({ setActiveStep }: IProps) => {
                 {cartProducts.products.map((product) => (
                   <Stack
                     key={product.id}
-                    rowGap="20px"
+                    rowGap="1.25rem"
                     direction="row"
-                    columnGap="20px"
+                    columnGap="1.25rem"
                     alignItems="center"
                     sx={{ width: { xs: "279px", md: "100%" } }}
                   >
@@ -260,40 +260,40 @@ const CartSummary = ({ setActiveStep }: IProps) => {
                       }}
                     >
                       <Typography
-                        fontSize="14px"
+                        fontSize="0.875rem"
                         fontWeight={theme.fontWeight.semiBold}
                         width="200px"
                       >
                         {product.name}
                       </Typography>
                       <Typography
-                        fontSize="14px"
+                        fontSize="0.875rem"
                         fontWeight={theme.fontWeight.regular}
-                        width="60px"
+                        width="3.75rem"
                       >
                         White
                       </Typography>
                       <Typography
-                        fontSize="14px"
+                        fontSize="0.875rem"
                         fontWeight={theme.fontWeight.regular}
-                        width="60px"
+                        width="3.75rem"
                       >
                         XL
                       </Typography>
                       <Stack
                         direction="row"
-                        columnGap="10px"
+                        columnGap="0.625rem"
                         sx={{ justifyContent: { md: "space-between" } }}
-                        width="100px"
+                        width="6.25rem"
                       >
                         <Typography
-                          fontSize="14px"
+                          fontSize="0.875rem"
                           fontWeight={theme.fontWeight.semiBold}
                         >
                           {product.price}
                         </Typography>
                         <Typography
-                          fontSize="14px"
+                          fontSize="0.875rem"
                           fontWeight={theme.fontWeight.regular}
                         >
                           x{product.amount}
@@ -316,20 +316,20 @@ const CartSummary = ({ setActiveStep }: IProps) => {
                   direction="row"
                   alignItems="center"
                   justifyContent="center"
-                  columnGap="33px"
+                  columnGap="2.06rem"
                   width="244px"
-                  height="49px"
-                  sx={{ backgroundColor: "#F1F1F1", borderRadius: "49px" }}
+                  height="3.125rem"
+                  sx={{ backgroundColor: "#F1F1F1", borderRadius: "3.125rem" }}
                 >
                   <Typography
                     fontWeight={theme.fontWeight.light}
-                    fontSize="16px"
+                    fontSize="1rem"
                   >
                     Total cost:
                   </Typography>
                   <Typography
                     fontWeight={theme.fontWeight.semiBold}
-                    fontSize="16px"
+                    fontSize="1rem"
                   >
                     ${cartProducts.totalCost}
                   </Typography>

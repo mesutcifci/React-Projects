@@ -28,7 +28,7 @@ const ColorAccordion = ({ accordionStyles }: IAccordionProps) => {
     <Accordion sx={{ ...accordionStyles }} disableGutters>
       <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography
-          sx={{ fontSize: "12px", fontWeight: theme.fontWeight.semiBold }}
+          sx={{ fontSize: "0.75rem", fontWeight: theme.fontWeight.semiBold }}
         >
           COLOR
         </Typography>

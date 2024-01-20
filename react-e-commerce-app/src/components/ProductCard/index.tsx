@@ -27,12 +27,12 @@ const ProductCard = ({ product }: IProps) => {
         width: "272px",
         height: "350px",
         borderRadius: "8px",
-        border: "1px solid #e6e6e6",
+        border: "0.0625rem solid #e6e6e6",
         cursor: "pointer",
         boxShadow: "none",
         transition: "box-shadow 0.2s linear",
         "&:hover": {
-          boxShadow: "1px 5px 7px 0px rgba(175,171,171,.7)",
+          boxShadow: "0.0625rem 5px 7px 0px rgba(175,171,171,.7)",
         },
       }}
       onClick={handleClickCard}
@@ -61,24 +61,24 @@ const ProductCard = ({ product }: IProps) => {
           isFavorite={product.isFavorite}
         />
       </Box>
-      <Stack sx={{ paddingLeft: "5px", paddingRight: "5px" }}>
+      <Stack sx={{ paddingLeft: "0.31rem", paddingRight: "0.31rem" }}>
         <Typography
           sx={{
             display: "-webkit-box",
             WebkitLineClamp: "2",
             WebkitBoxOrient: "vertical",
             overflow: "hidden",
-            fontSize: { xs: "12px", sm768: "13px" },
+            fontSize: { xs: "0.75rem", sm768: "0.81rem" },
             fontWeight: theme.fontWeight.light,
             width: "100%",
-            height: "40px",
+            height: "2.5rem",
           }}
         >
           {product.name}
         </Typography>
         <Typography
           sx={{
-            fontSize: { xs: "12px", sm768: "16px" },
+            fontSize: { xs: "0.75rem", sm768: "1rem" },
             fontWeight: theme.fontWeight.regular,
           }}
         >

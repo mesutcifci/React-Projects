@@ -35,22 +35,22 @@ const Footer = () => {
         <Typography
           variant="h1"
           sx={{
-            fontSize: "16px",
+            fontSize: "1rem",
             fontWeight: theme.fontWeight.semiBold,
-            marginBottom: { xs: "10px", md: "28px" },
-            width: "150px",
+            marginBottom: { xs: "0.625rem", md: "28px" },
+            width: "9.375rem",
           }}
         >
           {item.title}
         </Typography>
-        <Stack sx={{ rowGap: "10px", width: "150px" }}>
+        <Stack sx={{ rowGap: "0.625rem", width: "9.375rem" }}>
           {item.children.map((child) => (
             <Typography
               component={RouterLink}
               to={child.link}
               key={child.name}
               sx={{
-                fontSize: "13px",
+                fontSize: "0.81rem",
                 fontWeight: theme.fontWeight.regular,
                 color: "#000000",
                 textDecoration: "none",
@@ -66,12 +66,12 @@ const Footer = () => {
   };
   return (
     <>
-      <Grid container rowGap="40px">
+      <Grid container rowGap="2.5rem">
         {renderFooterItems()}
         <Grid
           item
           sx={{
-            rowGap: "24px",
+            rowGap: "1.5rem",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -184,15 +184,15 @@ const Footer = () => {
           display: "flex",
           flexWrap: "wrap",
           justifyContent: "center",
-          gap: "30px",
+          gap: "1.875rem",
         }}
       >
         <Typography
           sx={{
-            fontSize: "12px",
+            fontSize: "0.75rem",
             fontWeight: theme.fontWeight.regular,
             color: "#AEAEAE",
-            marginTop: "15px",
+            marginTop: "0.93rem",
             width: "max-content",
             "& a": {
               fontWeight: theme.fontWeight.semiBold,
@@ -211,10 +211,10 @@ const Footer = () => {
         </Typography>
         <Typography
           sx={{
-            fontSize: "12px",
+            fontSize: "0.75rem",
             fontWeight: theme.fontWeight.regular,
             color: "#AEAEAE",
-            marginTop: "15px",
+            marginTop: "0.93rem",
             width: "max-content",
             "& a": {
               fontWeight: theme.fontWeight.semiBold,

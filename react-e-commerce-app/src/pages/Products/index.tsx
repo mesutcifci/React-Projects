@@ -72,11 +72,11 @@ const Products = () => {
       <ProductBreadcrumbs
         sx={{
           display: { xs: "none", md: "block" },
-          marginBottom: "35px",
+          marginBottom: "2.18rem",
           width: "max-content",
         }}
       />
-      <Stack direction="row" sx={{ columnGap: { md: "14px", lg: "34px" } }}>
+      <Stack direction="row" sx={{ columnGap: { md: "0.875rem", lg: "34px" } }}>
         <ProductsDrawer />
         <ProductList />
       </Stack>

@@ -29,12 +29,12 @@ interface IProps {
 
 const stepperButtonStyles: SxProps<Theme> = {
   backgroundColor: "#FBB03B",
-  borderRadius: "49px",
+  borderRadius: "3.125rem",
   color: "#000000",
-  fontSize: "13px",
+  fontSize: "0.81rem",
   fontWeight: theme.fontWeight.semiBold,
   textAlign: "center",
-  height: "49px",
+  height: "3.125rem",
   width: "203px",
   "&:hover": {
     backgroundColor: "#ffb53d",
@@ -99,8 +99,8 @@ const CartFooter = ({
 
   return (
     <Stack
-      rowGap="20px"
-      columnGap="20px"
+      rowGap="1.25rem"
+      columnGap="1.25rem"
       direction="row"
       flexWrap="wrap"
       alignItems="center"
@@ -117,20 +117,20 @@ const CartFooter = ({
           label="Promo Code"
           sx={{
             "& .MuiInputBase-root": {
-              borderRadius: "56px",
+              borderRadius: "3.5rem",
               width: "100%",
-              maxWidth: "336px",
+              maxWidth: "21rem",
             },
 
             "& .MuiInputBase-input": {
-              fontSize: "13px",
+              fontSize: "0.81rem",
               fontWeight: theme.fontWeight.regular,
-              paddingLeft: "24px",
+              paddingLeft: "1.5rem",
             },
             "& .MuiInputLabel-root:not(.MuiInputLabel-shrink)": {
-              fontSize: "13px",
+              fontSize: "0.81rem",
               fontWeight: theme.fontWeight.regular,
-              marginLeft: "10px",
+              marginLeft: "0.625rem",
               marginTop: "3px",
             },
           }}
@@ -140,15 +140,15 @@ const CartFooter = ({
                 position="end"
                 sx={{
                   cursor: "pointer",
-                  paddingRight: { sm: "17px" },
-                  paddingTop: "2px",
+                  paddingRight: { sm: "1rem" },
+                  paddingTop: "0.125rem",
                 }}
               >
                 <NavigationIcon
                   sx={{
                     transform: "rotate(90deg)",
                     fill: "#B5B5B5",
-                    height: "20px",
+                    height: "1.25rem",
                   }}
                 />
               </InputAdornment>
@@ -163,7 +163,7 @@ const CartFooter = ({
             color: "black",
             display: "flex",
             alignItem: "center",
-            columnGap: { xs: "12px", lg: "24px" },
+            columnGap: { xs: "0.75rem", lg: "1.5rem" },
             width: "max-content",
             "&:hover": { color: "black", backgroundColor: "white" },
           }}
@@ -171,18 +171,24 @@ const CartFooter = ({
           onClick={handleClickBackButton}
         >
           <ArrowBackIcon />
-          <Typography fontSize="14px" fontWeight={theme.fontWeight.semiBold}>
+          <Typography
+            fontSize="0.875rem"
+            fontWeight={theme.fontWeight.semiBold}
+          >
             Back
           </Typography>
         </IconButton>
       )}
 
       {activeStep === 0 && (
-        <Stack direction="row" sx={{ columnGap: { xs: "10px", lg: "33px" } }}>
-          <Typography fontSize="16px" fontWeight={theme.fontWeight.light}>
+        <Stack
+          direction="row"
+          sx={{ columnGap: { xs: "0.625rem", lg: "2.06rem" } }}
+        >
+          <Typography fontSize="1rem" fontWeight={theme.fontWeight.light}>
             Total Cost:
           </Typography>
-          <Typography fontSize="16px" fontWeight={theme.fontWeight.semiBold}>
+          <Typography fontSize="1rem" fontWeight={theme.fontWeight.semiBold}>
             ${totalCost.toFixed(2)}
           </Typography>
         </Stack>
@@ -192,16 +198,16 @@ const CartFooter = ({
         <Stack
           direction="row"
           alignItems="center"
-          sx={{ columnGap: { xs: "10px", lg: "16px" } }}
+          sx={{ columnGap: { xs: "0.625rem", lg: "1rem" } }}
         >
           <LocalShippingOutlined />
           <Typography
             fontWeight={theme.fontWeight.light}
             sx={{
-              fontSize: { xs: "12px", sm: "14px" },
+              fontSize: { xs: "0.75rem", sm: "0.875rem" },
               display: "flex",
               alignItems: "center",
-              maxWidth: "285px",
+              maxWidth: "18rem",
               width: "max-content",
             }}
           >
@@ -210,9 +216,9 @@ const CartFooter = ({
               component="span"
               sx={{
                 display: "inline-block",
-                marginLeft: "4px",
-                marginRight: "4px",
-                fontSize: { xs: "12px", lg: "14px" },
+                marginLeft: "0.25rem",
+                marginRight: "0.25rem",
+                fontSize: { xs: "0.75rem", lg: "0.875rem" },
               }}
               fontWeight={theme.fontWeight.semiBold}
             >
@@ -230,18 +236,18 @@ const CartFooter = ({
         flexWrap="wrap"
         alignItems="center"
         justifyContent="center"
-        rowGap="20px"
-        sx={{ columnGap: { xs: "10px", lg: "26px" } }}
+        rowGap="1.25rem"
+        sx={{ columnGap: { xs: "0.625rem", lg: "26px" } }}
       >
         <Button
           sx={{
-            border: "1px solid #D8D8D8",
-            borderRadius: "49px",
+            border: "0.0625rem solid #D8D8D8",
+            borderRadius: "3.125rem",
             color: "#000000",
-            fontSize: "13px",
+            fontSize: "0.81rem",
             fontWeight: theme.fontWeight.semiBold,
             textAlign: "center",
-            height: "49px",
+            height: "3.125rem",
             width: "203px",
           }}
           onClick={handleClickContinueShoppingButton}

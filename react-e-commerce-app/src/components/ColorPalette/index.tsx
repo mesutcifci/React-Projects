@@ -14,8 +14,8 @@ const ColorPalette = ({ colors, sx }: IProps) => {
           className="colorBox"
           key={color}
           sx={{
-            border: "1px solid #D4D4D4",
-            borderRight: `${index + 1 !== colors.length && "0px"}`,
+            border: "0.0625rem solid #D4D4D4",
+            borderRight: `${index + 1 !== colors.length && "0rem"}`,
             cursor: "pointer",
             display: "flex",
             alignItems: "center",
@@ -27,10 +27,10 @@ const ColorPalette = ({ colors, sx }: IProps) => {
           <Box
             className="colorBox"
             sx={{
-              width: "25px",
-              height: "25px",
+              width: "1.56rem",
+              height: "1.56rem",
               backgroundColor: color,
-              border: `${color === "#FFFFFF" && "1px solid #E6E6E6"}`,
+              border: `${color === "#FFFFFF" && "0.0625rem solid #E6E6E6"}`,
             }}
           ></Box>
         </Box>

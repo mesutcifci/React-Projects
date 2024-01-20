@@ -43,31 +43,35 @@ const Carousel = () => {
   const renderIcon = (id: string) => {
     switch (id) {
       case "carouselShipping":
-        return <ShippingIcon id={id} sx={{ width: "39px", height: "39px" }} />;
+        return (
+          <ShippingIcon id={id} sx={{ width: "2.43rem", height: "2.43rem" }} />
+        );
       case "carouselCustomer":
         return (
           <SmileIconWithBackground
             id={id}
-            sx={{ width: "39px", height: "39px" }}
+            sx={{ width: "2.43rem", height: "2.43rem" }}
             width="39"
             height="39"
             viewBox="0 0 39 39"
           />
         );
       case "Originality Guaranteed":
-        return <MoneyBackIcon id={id} sx={{ width: "39px", height: "39px" }} />;
+        return (
+          <MoneyBackIcon id={id} sx={{ width: "2.43rem", height: "2.43rem" }} />
+        );
     }
   };
 
   const renderCarouselBottomData = () => {
     return carouselBottomData.map((data) => (
-      <Box key={data.id} sx={{ display: "flex", columnGap: "27px" }}>
+      <Box key={data.id} sx={{ display: "flex", columnGap: "1.68rem" }}>
         {renderIcon(data.id)}
-        <Stack rowGap="9px">
+        <Stack rowGap="0.56rem">
           <Typography
             component="h3"
             sx={{
-              fontSize: "14px",
+              fontSize: "0.875rem",
               fontWeight: theme.fontWeight.semiBold,
             }}
           >
@@ -76,10 +80,10 @@ const Carousel = () => {
           <Typography
             sx={{
               color: "#A8A8A8",
-              fontSize: "12px",
+              fontSize: "0.75rem",
               fontWeight: theme.fontWeight.regular,
-              height: "55px",
-              maxWidth: "160px",
+              height: "3.5rem",
+              maxWidth: "10rem",
               WebkitLineClamp: "3",
               display: "-webkit-box",
               overflow: "hidden",
@@ -143,16 +147,16 @@ const Carousel = () => {
             <Typography
               sx={{
                 color: "white",
-                fontSize: { xs: "36px", lg: "48px" },
+                fontSize: { xs: "2.25rem", lg: "3rem" },
                 fontWeight: theme.fontWeight.bold,
-                lineHeight: { xs: "46px", lg: "62px" },
+                lineHeight: { xs: "2.875rem", lg: "3.875rem" },
                 transform: { xs: "translateY(-50%)", lg: "initial" },
                 position: "absolute",
                 top: { xs: "50%", lg: "20%" },
-                left: { xs: "35px", lg: "263px", xl: "363px" },
+                left: { xs: "2.18rem", lg: "16.43rem", xl: "22.68rem" },
                 zIndex: 2,
-                maxWidth: "500px",
-                width: { xs: "80%", lg: "480px" },
+                maxWidth: "31.25rem",
+                width: { xs: "80%", lg: "30rem" },
               }}
             >
               {item.text}
@@ -162,10 +166,10 @@ const Carousel = () => {
                 display: { xs: "none", lg: "flex" },
                 alignItems: "center",
                 flexDirection: "column",
-                rowGap: "18px",
+                rowGap: "1.125rem",
                 position: "absolute",
-                bottom: { lg: "145px", xl: "189px" },
-                left: "160px",
+                bottom: { lg: "9.06rem", xl: "11.81rem" },
+                left: "10rem",
                 zIndex: "99",
               }}
             >
@@ -173,15 +177,15 @@ const Carousel = () => {
                 sx={{
                   color: "#ffffff",
                   fontWeight: theme.fontWeight.semiBold,
-                  fontSize: "12px",
+                  fontSize: "0.75rem",
                 }}
               >
                 01
               </Typography>
               <Box
                 sx={{
-                  width: "2px",
-                  height: "250px",
+                  width: "0.125rem",
+                  height: "15.625rem",
                   backgroundColor: "rgba(255,255,255,.27)",
                   position: "relative",
                 }}
@@ -192,7 +196,7 @@ const Carousel = () => {
                     height: `calc(100% / ${data.length})`,
                     position: "absolute",
                     ...returnSliderTrackPosition(),
-                    width: "2px",
+                    width: "0.125rem",
                     zIndex: "100",
                   }}
                 ></Box>
@@ -201,7 +205,7 @@ const Carousel = () => {
                 sx={{
                   color: "#ffffff",
                   fontWeight: theme.fontWeight.semiBold,
-                  fontSize: "12px",
+                  fontSize: "0.75rem",
                 }}
               >
                 {data.length < 10 ? "0" + data.length : data.length}
@@ -210,11 +214,11 @@ const Carousel = () => {
             <Box
               sx={{
                 position: "absolute",
-                bottom: { xs: "74px", lg: "235px" },
+                bottom: { xs: "4.625rem", lg: "14.6875rem" },
                 display: "flex",
-                columnGap: "22px",
+                columnGap: "1.375rem",
                 zIndex: 2,
-                left: { xs: "35px", lg: "263px", xl: "363px" },
+                left: { xs: "2.18rem", lg: "16.43rem", xl: "22.68rem" },
                 alignItems: "center",
               }}
             >
@@ -231,7 +235,7 @@ const Carousel = () => {
               <Typography
                 sx={{
                   cursor: "pointer",
-                  fontSize: "13px",
+                  fontSize: "0.81rem",
                   color: "white",
                   fontWeight: theme.fontWeight.semiBold,
                 }}
@@ -250,19 +254,19 @@ const Carousel = () => {
             <Box
               sx={{
                 backgroundColor: "#ffffff",
-                borderTopRightRadius: "131px",
+                borderTopRightRadius: "8.18rem",
                 color: "#000000",
-                columnGap: "56px",
+                columnGap: "3.5rem",
                 display: { xs: "none", lg: "flex" },
                 alignItems: "flex-start",
-                height: "131px",
+                height: "8.18rem",
                 justifyContent: "space-evenly",
-                paddingTop: "36px",
-                paddingLeft: { lg: "129px", xl: "298px" },
-                paddingRight: { lg: "49px", xl: "97px" },
+                paddingTop: "2.25rem",
+                paddingLeft: { lg: "8.125rem", xl: "18.625rem" },
+                paddingRight: { lg: "3.0625rem", xl: "6.125rem" },
                 position: "absolute",
-                bottom: "0px",
-                maxWidth: "1221px",
+                bottom: "0rem",
+                maxWidth: "76.31rem",
                 width: "90%",
               }}
             >
@@ -274,8 +278,8 @@ const Carousel = () => {
       <Box
         sx={{
           position: "absolute",
-          bottom: { xs: "10px", lg: "75px", xl: "59px" },
-          right: "30px",
+          bottom: { xs: "0.625rem", lg: "4.68rem", xl: "3.68rem" },
+          right: "1.875rem",
           "& .Mui-disabled": {
             backgroundColor: "white !important",
           },
@@ -286,7 +290,7 @@ const Carousel = () => {
             color: "black",
             backgroundColor: "white",
             borderRadius: "0",
-            marginRight: "5px",
+            marginRight: "0.31rem",
             "&:hover": { color: "black", backgroundColor: "white" },
           }}
           component="button"

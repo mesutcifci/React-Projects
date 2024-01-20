@@ -23,7 +23,7 @@ import { Box } from "@mui/material";
 
 function App() {
   return (
-    <Box sx={{ maxWidth: "1600px", marginLeft: "auto", marginRight: "auto" }}>
+    <Box sx={{ maxWidth: "100rem", marginLeft: "auto", marginRight: "auto" }}>
       <BrowserRouter>
         <Loading />
         <ScrollToTop />

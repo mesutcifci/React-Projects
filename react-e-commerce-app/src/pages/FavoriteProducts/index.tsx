@@ -63,9 +63,9 @@ const FavoriteProducts = () => {
                 <TableCell
                   sx={{
                     color: "#c1c1c1",
-                    fontSize: "14px",
+                    fontSize: "0.875rem",
                     fontWeight: theme.fontWeight.regular,
-                    minWidth: "300px",
+                    minWidth: "18.75rem",
                   }}
                 >
                   Product
@@ -74,9 +74,9 @@ const FavoriteProducts = () => {
                   align="center"
                   sx={{
                     color: "#c1c1c1",
-                    fontSize: "14px",
+                    fontSize: "0.875rem",
                     fontWeight: theme.fontWeight.regular,
-                    minWidth: "150px",
+                    minWidth: "9.375rem",
                   }}
                 >
                   Color
@@ -85,9 +85,9 @@ const FavoriteProducts = () => {
                   align="center"
                   sx={{
                     color: "#c1c1c1",
-                    fontSize: "14px",
+                    fontSize: "0.875rem",
                     fontWeight: theme.fontWeight.regular,
-                    minWidth: "150px",
+                    minWidth: "9.375rem",
                   }}
                 >
                   size
@@ -96,9 +96,9 @@ const FavoriteProducts = () => {
                   align="center"
                   sx={{
                     color: "#c1c1c1",
-                    fontSize: "14px",
+                    fontSize: "0.875rem",
                     fontWeight: theme.fontWeight.regular,
-                    minWidth: "100px",
+                    minWidth: "6.25rem",
                   }}
                 >
                   Price
@@ -106,7 +106,7 @@ const FavoriteProducts = () => {
                 <TableCell
                   align="center"
                   sx={{
-                    minWidth: "100px",
+                    minWidth: "6.25rem",
                   }}
                 ></TableCell>
               </TableRow>
@@ -119,11 +119,11 @@ const FavoriteProducts = () => {
                     key={product.id}
                     sx={{ "& td": { borderBottom: 0 } }}
                   >
-                    <TableCell sx={{ minWidth: "300px" }}>
+                    <TableCell sx={{ minWidth: "18.75rem" }}>
                       <Stack
                         direction="row"
                         alignItems="center"
-                        columnGap="24px"
+                        columnGap="1.5rem"
                       >
                         <Link href={url}>
                           <Avatar
@@ -137,7 +137,7 @@ const FavoriteProducts = () => {
                           sx={{ color: "initial", textDecoration: "none" }}
                         >
                           <Typography
-                            fontSize="16px"
+                            fontSize="1rem"
                             fontWeight={theme.fontWeight.semiBold}
                           >
                             {product.name}
@@ -148,9 +148,9 @@ const FavoriteProducts = () => {
                     <TableCell
                       align="center"
                       sx={{
-                        fontSize: "14px",
+                        fontSize: "0.875rem",
                         fontWeight: theme.fontWeight.regular,
-                        minWidth: "150px",
+                        minWidth: "9.375rem",
                       }}
                     >
                       White
@@ -158,16 +158,16 @@ const FavoriteProducts = () => {
                     <TableCell
                       align="center"
                       sx={{
-                        fontSize: "14px",
+                        fontSize: "0.875rem",
                         fontWeight: theme.fontWeight.regular,
-                        minWidth: "150px",
+                        minWidth: "9.375rem",
                       }}
                     >
                       XL
                     </TableCell>
-                    <TableCell sx={{ minWidth: "100px" }}>
+                    <TableCell sx={{ minWidth: "6.25rem" }}>
                       <Typography
-                        fontSize="16px"
+                        fontSize="1rem"
                         fontWeight={theme.fontWeight.semiBold}
                         textAlign="center"
                       >

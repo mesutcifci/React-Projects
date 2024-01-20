@@ -63,15 +63,15 @@ const ProductDetail = () => {
 
   const renderComments = () => {
     return comments.map((comment: IComment) => (
-      <Stack key={comment.id} direction="row" columnGap="27px">
+      <Stack key={comment.id} direction="row" columnGap="1.68rem">
         <Avatar
           src={comment.avatarUrl}
-          sx={{ width: "40px", height: "40px" }}
+          sx={{ width: "2.5rem", height: "2.5rem" }}
           alt={comment.owner}
         />
         <Stack justifyContent="flex-start">
           <Typography
-            fontSize="12px"
+            fontSize="0.75rem"
             fontWeight={theme.fontWeight.semiBold}
             marginBottom="5.5px"
           >
@@ -84,9 +84,9 @@ const ProductDetail = () => {
             sx={{ marginBottom: "12.1px" }}
           />
           <Typography
-            fontSize="12px"
+            fontSize="0.75rem"
             fontWeight={theme.fontWeight.regular}
-            sx={{ width: "100%", maxWidth: "500px" }}
+            sx={{ width: "100%", maxWidth: "31.25rem" }}
           >
             {comment.comment}
           </Typography>
@@ -100,31 +100,31 @@ const ProductDetail = () => {
       <Stack
         justifyContent="center"
         alignItems="center"
-        rowGap="40px"
+        rowGap="2.5rem"
         sx={{
           flexDirection: { md: "row" },
-          columnGap: { xs: "60px", xl: "177px" },
+          columnGap: { xs: "3.75rem", xl: "177px" },
         }}
       >
         {/* DESCRIPTION */}
         <Stack alignItems="center" sx={{ width: { md: "50%" } }}>
           <DescriptionOutlined
             sx={{
-              marginBottom: "49px",
+              marginBottom: "3.125rem",
               height: "67px",
               width: "52.2px",
               opacity: "0.1",
             }}
           />
           <Typography
-            fontSize="16px"
+            fontSize="1rem"
             fontWeight={theme.fontWeight.semiBold}
             textAlign="center"
-            sx={{ marginBottom: "35px" }}
+            sx={{ marginBottom: "2.18rem" }}
           >
             Details and product description
           </Typography>
-          <Typography fontSize="14px" fontWeight={theme.fontWeight.regular}>
+          <Typography fontSize="0.875rem" fontWeight={theme.fontWeight.regular}>
             {product.product?.description.details}
           </Typography>
         </Stack>
@@ -133,7 +133,7 @@ const ProductDetail = () => {
         <Stack alignItems="center" sx={{ width: { md: "50%" } }}>
           <ProductMaterialsIcon
             sx={{
-              marginBottom: "49px",
+              marginBottom: "3.125rem",
               height: "67px",
               width: "52.2px",
             }}
@@ -141,17 +141,17 @@ const ProductDetail = () => {
             data-testid="productMaterials"
           />
           <Typography
-            fontSize="16px"
+            fontSize="1rem"
             fontWeight={theme.fontWeight.semiBold}
             textAlign="center"
-            sx={{ marginBottom: "35px" }}
+            sx={{ marginBottom: "2.18rem" }}
           >
             Material(s) and care
           </Typography>
           <Typography
-            fontSize="14px"
+            fontSize="0.875rem"
             fontWeight={theme.fontWeight.regular}
-            sx={{ marginBottom: "10px" }}
+            sx={{ marginBottom: "0.625rem" }}
           >
             {product.product?.description.materials}
           </Typography>
@@ -171,20 +171,25 @@ const ProductDetail = () => {
   const renderProductReviews = () => {
     return (
       <Stack
-        rowGap="40px"
+        rowGap="2.5rem"
         sx={{
-          columnGap: { xs: "60px", xl: "177px" },
+          columnGap: { xs: "3.75rem", xl: "177px" },
           flexDirection: { md: "row" },
           alignItems: "center",
         }}
       >
         {/* RATING*/}
-        <Stack rowGap="40px" sx={{ width: { md: "50%" } }}>
-          <Stack gap="40px" direction="row" flexWrap="wrap" alignItems="center">
+        <Stack rowGap="2.5rem" sx={{ width: { md: "50%" } }}>
+          <Stack
+            gap="2.5rem"
+            direction="row"
+            flexWrap="wrap"
+            alignItems="center"
+          >
             {/* RATING POINTS */}
             <Stack alignItems="center">
               <Typography
-                fontSize="59px"
+                fontSize="3.68rem"
                 fontWeight={theme.fontWeight.semiBold}
               >
                 4.5
@@ -195,15 +200,15 @@ const ProductDetail = () => {
                 precision={0.5}
                 readOnly
                 size="small"
-                sx={{ marginBottom: "14px" }}
+                sx={{ marginBottom: "0.875rem" }}
               />
               <Typography
-                fontSize="12px"
+                fontSize="0.75rem"
                 fontWeight={theme.fontWeight.regular}
                 color="#B9B9B9"
-                sx={{ display: "flex", alignItems: "center", gap: "4px" }}
+                sx={{ display: "flex", alignItems: "center", gap: "0.25rem" }}
               >
-                <Person2Outlined sx={{ height: "15px" }} /> 81 all opinions
+                <Person2Outlined sx={{ height: "0.93rem" }} /> 81 all opinions
               </Typography>
             </Stack>
 
@@ -214,11 +219,11 @@ const ProductDetail = () => {
                   <Star sx={{ fill: "#ffb53d" }} />
                   <Typography
                     sx={{
-                      fontSize: "12px",
+                      fontSize: "0.75rem",
                       fontWeight: theme.fontWeight.regular,
-                      marginLeft: "9px",
-                      marginRight: "18px",
-                      width: "4px",
+                      marginLeft: "0.56rem",
+                      marginRight: "1.125rem",
+                      width: "0.25rem",
                     }}
                   >
                     {number}
@@ -226,17 +231,17 @@ const ProductDetail = () => {
                   <Box
                     sx={{
                       width: "142px",
-                      height: "2px",
+                      height: "0.125rem",
                       background: "#DBDBDB",
-                      borderRadius: "2px",
+                      borderRadius: "0.125rem",
                       position: "relative",
                       "&:before": {
                         background: "#ffb53d",
-                        borderRadius: "2px",
+                        borderRadius: "0.125rem",
                         content: '""',
-                        height: "2px",
+                        height: "0.125rem",
                         position: "absolute",
-                        left: "0px",
+                        left: "0rem",
                         right: `calc(${Math.floor(Math.random() * 101)}%)`,
                         zIndex: 2,
                       },
@@ -250,13 +255,13 @@ const ProductDetail = () => {
           <Button
             sx={{
               backgroundColor: "#FBB03B",
-              borderRadius: "56px",
+              borderRadius: "3.5rem",
               color: "#000000",
               display: "flex",
               alignItems: "center",
-              fontSize: "13px",
+              fontSize: "0.81rem",
               fontWeight: theme.fontWeight.semiBold,
-              height: "49px",
+              height: "3.125rem",
               maxWidth: { xs: "400px", sm: "448px" },
               textAlign: "center",
               width: "189px",
@@ -309,7 +314,7 @@ const ProductDetail = () => {
     <>
       <Stack
         sx={{
-          minHeight: "500px",
+          minHeight: "31.25rem",
           width: "100%",
           marginTop: { xs: "83px", md: "29px" },
           paddingLeft: {
@@ -356,16 +361,20 @@ const ProductDetail = () => {
               {/* PRICE - COLOR - BUTTONS */}
               <Stack
                 sx={{
-                  padding: "36px",
-                  paddingTop: { lg: "0px" },
-                  rowGap: "39px",
+                  padding: "2.25rem",
+                  paddingTop: { lg: "0rem" },
+                  rowGap: "2.43rem",
                 }}
               >
                 {/* NAME AND PRICE */}
                 <Box>
                   <Typography
                     sx={{
-                      fontSize: { xs: "21px", sm768: "25px", lg: "30px" },
+                      fontSize: {
+                        xs: "21px",
+                        sm768: "1.56rem",
+                        lg: "1.875rem",
+                      },
                       fontWeight: theme.fontWeight.light,
                     }}
                   >
@@ -373,7 +382,11 @@ const ProductDetail = () => {
                   </Typography>
                   <Typography
                     sx={{
-                      fontSize: { xs: "21px", sm768: "25px", lg: "30px" },
+                      fontSize: {
+                        xs: "21px",
+                        sm768: "1.56rem",
+                        lg: "1.875rem",
+                      },
                       fontWeight: theme.fontWeight.regular,
                     }}
                   >
@@ -384,17 +397,19 @@ const ProductDetail = () => {
                 {/* COLOR PALETTE */}
                 <Box>
                   <Typography
-                    fontSize="13px"
+                    fontSize="0.81rem"
                     fontWeight={theme.fontWeight.light}
-                    marginBottom="17px"
+                    marginBottom="1rem"
                   >
                     Color:
                   </Typography>
                   <ColorPalette
                     colors={product.product.colors}
                     sx={{
-                      columnGap: "13px",
-                      "& .colorBox": { border: "1px solid #E6E6E6 !important" },
+                      columnGap: "0.81rem",
+                      "& .colorBox": {
+                        border: "0.0625rem solid #E6E6E6 !important",
+                      },
                     }}
                   />
                 </Box>
@@ -405,7 +420,7 @@ const ProductDetail = () => {
                     sx={{
                       display: "flex",
                       justifyContent: "space-between",
-                      marginBottom: "17px",
+                      marginBottom: "1rem",
                     }}
                   >
                     <Typography
@@ -415,7 +430,7 @@ const ProductDetail = () => {
                       Size:{" "}
                     </Typography>
                     <Typography
-                      fontSize="13px"
+                      fontSize="0.81rem"
                       fontWeight={theme.fontWeight.semiBold}
                       sx={{
                         cursor: "pointer",
@@ -427,30 +442,32 @@ const ProductDetail = () => {
                   <IconButton
                     component="button"
                     sx={{
-                      border: "1px solid #D8D8D8",
-                      borderRadius: "49px",
+                      border: "0.0625rem solid #D8D8D8",
+                      borderRadius: "3.125rem",
                       display: "flex",
                       justifyContent: "space-between",
                       alignItems: "center",
                       padding: "15px 26.9px 15px 31px",
-                      height: "49px",
+                      height: "3.125rem",
                       width: "184px",
                     }}
                   >
                     <Typography
                       color="#AAAAAA"
-                      fontSize="13px"
+                      fontSize="0.81rem"
                       fontWeight={theme.fontWeight.regular}
                       textTransform="uppercase"
                     >
                       Choose size
                     </Typography>
-                    <ChevronRight sx={{ fontSize: "20px", fill: "#B5B5B5" }} />
+                    <ChevronRight
+                      sx={{ fontSize: "1.25rem", fill: "#B5B5B5" }}
+                    />
                   </IconButton>
                 </Box>
 
                 <Typography
-                  fontSize="13px"
+                  fontSize="0.81rem"
                   fontWeight={theme.fontWeight.light}
                   marginBottom="-17px"
                 >
@@ -460,7 +477,7 @@ const ProductDetail = () => {
                 {/* BUTTONS  */}
                 <Stack
                   direction="row"
-                  gap="15px"
+                  gap="0.93rem"
                   flexWrap="wrap"
                   alignItems="center"
                 >
@@ -473,17 +490,17 @@ const ProductDetail = () => {
                   />
 
                   {/* ADD TO CART - FAVORITE */}
-                  <Stack direction="row" gap="15px" alignItems="center">
+                  <Stack direction="row" gap="0.93rem" alignItems="center">
                     <Button
                       sx={{
                         backgroundColor: "#FBB03B",
-                        borderRadius: "56px",
+                        borderRadius: "3.5rem",
                         color: "#000000",
                         display: "flex",
                         alignItems: "center",
-                        fontSize: "13px",
+                        fontSize: "0.81rem",
                         fontWeight: theme.fontWeight.semiBold,
-                        height: "49px",
+                        height: "3.125rem",
                         maxWidth: { xs: "400px", sm: "448px" },
                         textAlign: "center",
                         width: "189px",
@@ -508,30 +525,30 @@ const ProductDetail = () => {
 
             {/* DESCRIPTION - REVIEWS */}
             <Stack
-              padding="36px"
-              marginTop="33px"
-              rowGap="39px"
-              maxWidth="1500px"
+              padding="2.25rem"
+              marginTop="2.06rem"
+              rowGap="2.43rem"
+              maxWidth="131.25rem"
             >
               <Stack
                 direction="row"
                 sx={{
-                  columnGap: { xs: "10px", md: "40px" },
+                  columnGap: { xs: "0.625rem", md: "2.5rem" },
                   justifyContent: { sm: "center" },
                 }}
               >
                 <Button
                   sx={{
-                    height: "49px",
+                    height: "3.125rem",
                     width: "189px",
                     border: `1px solid ${
                       selectedTab === "description" ? "#FBB03B" : "#D8D8D8"
                     }`,
-                    borderRadius: "49px",
+                    borderRadius: "3.125rem",
                     color: `${
                       selectedTab === "description" ? "#000000" : "#D4D4D4"
                     }`,
-                    fontSize: "13px",
+                    fontSize: "0.81rem",
                     fontWeight: `${
                       selectedTab === "description"
                         ? theme.fontWeight.semiBold
@@ -550,16 +567,16 @@ const ProductDetail = () => {
                 </Button>
                 <Button
                   sx={{
-                    height: "49px",
+                    height: "3.125rem",
                     width: "189px",
                     border: `1px solid ${
                       selectedTab === "reviews" ? "#FBB03B" : "#D8D8D8"
                     }`,
-                    borderRadius: "49px",
+                    borderRadius: "3.125rem",
                     color: `${
                       selectedTab === "reviews" ? "#000000" : "#D4D4D4"
                     }`,
-                    fontSize: "13px",
+                    fontSize: "0.81rem",
                     fontWeight: `${
                       selectedTab === "reviews"
                         ? theme.fontWeight.semiBold
@@ -575,7 +592,7 @@ const ProductDetail = () => {
                   REVIEWS &nbsp; (3)
                 </Button>
               </Stack>
-              <Stack rowGap="20px">
+              <Stack rowGap="1.25rem">
                 {selectedTab === "reviews"
                   ? renderProductReviews()
                   : renderProductDescription()}

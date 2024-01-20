@@ -60,7 +60,7 @@ const NavbarMobileMenu = ({ isDrawerOpened, setIsDrawerOpened }: IProps) => {
           <ListItem
             sx={{
               cursor: "pointer",
-              fontSize: "30px",
+              fontSize: "1.875rem",
               color: { xs: "rgba(0, 0, 0, 0.7)", lg: "#ffffff" },
               fontFamily: "Poppins, sans-serif",
             }}
@@ -117,8 +117,11 @@ const NavbarMobileMenu = ({ isDrawerOpened, setIsDrawerOpened }: IProps) => {
       onClose={handleCloseDrawer}
       sx={{
         display: { lg: "none" },
-        "& .MuiDrawer-paperAnchorRight": { width: "100%", maxWidth: "300px" },
-        padding: "20px",
+        "& .MuiDrawer-paperAnchorRight": {
+          width: "100%",
+          maxWidth: "18.75rem",
+        },
+        padding: "1.25rem",
       }}
       data-testid="mobileMenu"
     >
@@ -126,7 +129,7 @@ const NavbarMobileMenu = ({ isDrawerOpened, setIsDrawerOpened }: IProps) => {
         direction="row"
         justifyContent="space-between"
         alignItems="center"
-        padding="10px"
+        padding="0.625rem"
       >
         {shownCategory !== "primary" && (
           <ArrowBack
@@ -139,7 +142,7 @@ const NavbarMobileMenu = ({ isDrawerOpened, setIsDrawerOpened }: IProps) => {
           onClick={handleCloseDrawer}
         />
       </Stack>
-      <List sx={{ marginTop: "30px" }}>{renderCategories()}</List>
+      <List sx={{ marginTop: "1.875rem" }}>{renderCategories()}</List>
     </Drawer>
   );
 };

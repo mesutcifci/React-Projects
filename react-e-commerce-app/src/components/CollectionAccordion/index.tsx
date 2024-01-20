@@ -16,7 +16,7 @@ const CollectionAccordion = ({ accordionStyles }: IAccordionProps) => {
     <Accordion sx={{ ...accordionStyles }} disableGutters>
       <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography
-          sx={{ fontSize: "12px", fontWeight: theme.fontWeight.semiBold }}
+          sx={{ fontSize: "0.75rem", fontWeight: theme.fontWeight.semiBold }}
         >
           COLLECTION
         </Typography>
@@ -34,9 +34,9 @@ const CollectionAccordion = ({ accordionStyles }: IAccordionProps) => {
             sx={{
               cursor: "pointer",
               "&:hover": { color: "#FBB03B" },
-              fontSize: "14px",
+              fontSize: "0.875rem",
               fontWeight: theme.fontWeight.regular,
-              paddingLeft: "14px",
+              paddingLeft: "0.875rem",
             }}
           >{`Collection - ${index + 1}`}</Typography>
         ))}

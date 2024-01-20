@@ -264,7 +264,7 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
     return tertiaryCategories.map((category) => (
       <Stack direction="row" alignItems="center" key={category.name}>
         <Checkbox
-          sx={{ height: "30px", width: "30px" }}
+          sx={{ height: "1.875rem", width: "1.875rem" }}
           checked={category.isSelected}
           onClick={() =>
             handleClickTertiaryCategory(secondaryCategory, category)
@@ -275,7 +275,7 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
           sx={{
             cursor: "pointer",
             "&:hover": { color: "#FBB03B" },
-            fontSize: "14px",
+            fontSize: "0.875rem",
             fontWeight: theme.fontWeight.regular,
           }}
           onClick={() =>
@@ -296,7 +296,7 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
     >
       <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography
-          sx={{ fontSize: "12px", fontWeight: theme.fontWeight.semiBold }}
+          sx={{ fontSize: "0.75rem", fontWeight: theme.fontWeight.semiBold }}
         >
           PRODUCT TYPE
         </Typography>
@@ -308,13 +308,13 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
             disableGutters
             sx={{
               boxShadow: "none",
-              paddingLeft: "20px",
+              paddingLeft: "1.25rem",
               "&.MuiAccordion-root::before": { opacity: "1 !important" },
             }}
           >
             <Stack direction="row" alignItems="center">
               <Checkbox
-                sx={{ height: "30px", width: "30px" }}
+                sx={{ height: "1.875rem", width: "1.875rem" }}
                 checked={secondaryCategory.isSelected}
                 onClick={() =>
                   handleClickSecondaryCategoryCheckbox({
@@ -327,20 +327,22 @@ const ProductTypeAccordion = ({ accordionStyles }: IAccordionProps) => {
                 expandIcon={<ExpandMore />}
                 sx={{
                   boxShadow: "none",
-                  paddingLeft: "5px",
-                  height: "30px",
+                  paddingLeft: "0.31rem",
+                  height: "1.875rem",
                   width: "calc(100% - 30px)",
                 }}
               >
                 <Typography
-                  fontSize="12px"
+                  fontSize="0.75rem"
                   fontWeight={theme.fontWeight.semiBold}
                 >
                   {secondaryCategory.name}
                 </Typography>
               </AccordionSummary>
             </Stack>
-            <AccordionDetails sx={{ paddingLeft: "31px", paddingRight: "0px" }}>
+            <AccordionDetails
+              sx={{ paddingLeft: "2rem", paddingRight: "0rem" }}
+            >
               {renderTertiaryCategories(secondaryCategory)}
             </AccordionDetails>
           </Accordion>

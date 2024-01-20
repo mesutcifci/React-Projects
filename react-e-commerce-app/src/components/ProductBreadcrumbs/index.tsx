@@ -14,16 +14,16 @@ const ProductBreadcrumbs = ({ sx }: IProps) => {
         href="/"
         color="#B2B2B2"
         sx={{ display: "flex", alignItems: "center" }}
-        fontSize="13px"
+        fontSize="0.81rem"
         fontWeight={theme.fontWeight.regular}
       >
-        <HomeIcon color="inherit" sx={{ height: "24px" }} />
+        <HomeIcon color="inherit" sx={{ height: "1.5rem" }} />
       </Link>
       <Link
         underline="hover"
         color="#B2B2B2"
         href=""
-        fontSize="13px"
+        fontSize="0.81rem"
         fontWeight={theme.fontWeight.regular}
       >
         Primary
@@ -32,7 +32,7 @@ const ProductBreadcrumbs = ({ sx }: IProps) => {
         underline="hover"
         color="#B2B2B2"
         href=""
-        fontSize="13px"
+        fontSize="0.81rem"
         fontWeight={theme.fontWeight.regular}
       >
         Secondary
@@ -41,7 +41,7 @@ const ProductBreadcrumbs = ({ sx }: IProps) => {
         underline="hover"
         color="#000000"
         href=""
-        fontSize="13px"
+        fontSize="0.81rem"
         fontWeight={theme.fontWeight.regular}
       >
         Tertiary

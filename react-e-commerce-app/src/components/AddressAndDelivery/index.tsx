@@ -39,32 +39,32 @@ interface IProps {
 }
 
 const inputContainerStyles: SxProps<Theme> = {
-  height: "130px",
+  height: "8.125rem",
 };
 
 const inputLabelStyles: SxProps<Theme> = {
   color: "#000000",
   cursor: "pointer",
-  fontSize: "14px",
+  fontSize: "0.875rem",
   fontWeight: theme.fontWeight.semiBold,
-  marginBottom: "12px",
+  marginBottom: "0.75rem",
 };
 
 const inputStyles: SxProps<Theme> = {
   "& .MuiInputBase-root": {
-    borderRadius: "56px",
+    borderRadius: "3.5rem",
     width: "100%",
-    maxWidth: "336px",
-    minWidth: { sm: "336px" },
+    maxWidth: "21rem",
+    minWidth: { sm: "21rem" },
   },
 
   "& .MuiFormHelperText-root": {
-    margin: "5px 0px 0px 5px",
-    width: "300px",
+    margin: "0.31rem 0rem 0rem 0.31rem",
+    width: "18.75rem",
   },
 
   "& .MuiInputBase-input": {
-    fontSize: { sm: "13px" },
+    fontSize: { sm: "0.81rem" },
     fontWeight: { sm: theme.fontWeight.regular },
   },
 };
@@ -166,7 +166,7 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
           cardData={item}
           icon={icon!}
           sx={{
-            border: `1px solid ${
+            border: `0.0625rem solid ${
               selectedDeliveryMethod.id === item.id ? "#FBB03B" : "#D8D8D8"
             }`,
             cursor: "pointer",
@@ -246,17 +246,17 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
       direction="row"
       flexWrap="wrap"
       alignItems="flex-start"
-      rowGap="60px"
+      rowGap="3.75rem"
       sx={{
         justifyContent: { xs: "center", lg1300: "space-between" },
-        columnGap: { xs: "10px", lg: "25px", xl: "54px" },
+        columnGap: { xs: "0.625rem", lg: "1.56rem", xl: "3.37rem" },
       }}
     >
       <Stack
         direction="row"
         flexWrap="wrap"
         alignItems="center"
-        sx={{ width: "100%", maxWidth: { xs: "705px", xl: "760px" } }}
+        sx={{ width: "100%", maxWidth: { xs: "44rem", xl: "47.5rem" } }}
       >
         <Formik
           initialValues={initialFormValues}
@@ -311,7 +311,9 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
                   direction="row"
                   flexWrap="wrap"
                   justifyContent="center"
-                  sx={{ gap: { xs: "10px 25px", xl: "15px 87px" } }}
+                  sx={{
+                    gap: { xs: "0.625rem 1.5625rem", xl: ".9375rem 5.4375rem" },
+                  }}
                 >
                   {/* FIRST NAME */}
                   <Box sx={{ ...inputContainerStyles }}>
@@ -432,7 +434,7 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
                     sx={{
                       ...inputContainerStyles,
                       width: "100%",
-                      maxWidth: "336px",
+                      maxWidth: "21rem",
                     }}
                   >
                     <InputLabel htmlFor="country" sx={{ ...inputLabelStyles }}>
@@ -443,7 +445,9 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
                       disabled={false}
                       sx={{
                         ...inputStyles,
-                        "& .MuiInputAdornment-root ": { paddingLeft: "14.2px" },
+                        "& .MuiInputAdornment-root ": {
+                          paddingLeft: ".8875rem",
+                        },
                         "& .MuiOutlinedInput-notchedOutline": {
                           borderColor: `${selectedCountry?.error && "#d32f2f"}`,
                         },
@@ -538,10 +542,10 @@ const AddressAndDelivery = ({ setActiveStep }: IProps) => {
         justifyContent="center"
         sx={{
           width: "100%",
-          maxWidth: "470px",
-          rowGap: "16px",
-          columnGap: "19px",
-          marginTop: { lg: "33px" },
+          maxWidth: "29.375",
+          rowGap: "1rem",
+          columnGap: "1.18rem",
+          marginTop: { lg: "2.06rem" },
         }}
       >
         {renderDeliveryMethodCards()}

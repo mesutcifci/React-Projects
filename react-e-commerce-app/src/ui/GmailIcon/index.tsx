@@ -4,7 +4,7 @@ const GmailIcon = ({
   viewBox = "0 0 25 25",
   width = "25",
   height = "25",
-  sx = { width: "25px", height: "25px" },
+  sx = { width: "1.56rem", height: "1.56rem" },
   id,
 }: SvgIconProps) => {
   return (

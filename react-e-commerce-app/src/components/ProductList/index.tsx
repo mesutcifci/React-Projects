@@ -32,14 +32,14 @@ const ProductList = () => {
           flexWrap: "wrap",
           justifyContent: { xs: "center", sm: "flex-start" },
           columnGap: {
-            xs: "13px",
-            md: "25px",
+            xs: "0.81rem",
+            md: "1.56rem",
           },
           rowGap: {
-            xs: "35px",
+            xs: "2.18rem",
             md: "70px",
           },
-          minHeight: "500px",
+          minHeight: "31.25rem",
           width: { xs: "100%", lg: "calc(100% - 280px)" },
           maxWidth: "944px",
         }}

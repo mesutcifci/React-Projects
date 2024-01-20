@@ -25,10 +25,10 @@ const DeliveryMethodCard = ({
       sx={{
         ...sx,
         alignItems: "center",
-        borderRadius: "10px",
-        padding: "25px 15px 24px 15px",
-        height: "198px",
-        width: "143px",
+        borderRadius: "0.625rem",
+        padding: "1.5625rem .9375rem 1.5rem .9375rem",
+        height: "12.375rem",
+        width: "9rem",
         transition: "scale 200ms linear",
         "&:hover": { scale: `1.05` },
         position: "relative",
@@ -36,14 +36,14 @@ const DeliveryMethodCard = ({
       onClick={onClick}
       data-testid={cardData.id}
     >
-      <Box sx={{ marginBottom: "31px" }}>{icon}</Box>
+      <Box sx={{ marginBottom: "2rem" }}>{icon}</Box>
       <Typography
-        sx={{ marginBottom: "14px" }}
+        sx={{ marginBottom: "0.875rem" }}
       >{`$${cardData.price}`}</Typography>
       <Typography
         sx={{
           color: "#A1A1A1",
-          fontSize: "13px",
+          fontSize: "0.81rem",
           width: "100%",
           textAlign: "center",
         }}
@@ -54,19 +54,19 @@ const DeliveryMethodCard = ({
         <Button
           sx={{
             backgroundColor: "#FBB03B",
-            borderRadius: "56px",
+            borderRadius: "3.5rem",
             color: "#000000",
             display: "flex",
             alignItems: "center",
-            fontSize: "12px",
+            fontSize: "0.75rem",
             fontWeight: theme.fontWeight.medium,
             position: "absolute",
             bottom: "-17px",
             left: "50%",
             transform: "translateX(-50%)",
             textAlign: "center",
-            height: "31px",
-            width: "98px",
+            height: "2rem",
+            width: "6.125rem",
             "&:hover": {
               backgroundColor: "#ffb53d",
             },

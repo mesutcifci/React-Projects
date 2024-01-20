@@ -27,25 +27,25 @@ const ForgotPassword = () => {
     <Stack
       alignItems="center"
       sx={{
-        padding: "16px",
+        padding: "1rem",
         "& form": {
           display: "flex",
           flexDirection: "column",
-          rowGap: "15px",
+          rowGap: "0.93rem",
           width: "100%",
           maxWidth: "448px",
         },
         "& .MuiOutlinedInput-root": {
-          borderRadius: "56px",
+          borderRadius: "3.5rem",
           borderColor: "#D8D8D8",
         },
       }}
     >
       <Typography
         sx={{
-          fontSize: "22px",
+          fontSize: "1.375rem",
           fontWeight: theme.fontWeight.semiBold,
-          marginBottom: "24px",
+          marginBottom: "1.5rem",
         }}
       >
         Forgot your password?
@@ -53,12 +53,12 @@ const ForgotPassword = () => {
       <Typography
         sx={{
           color: "#7D7D7D",
-          fontSize: "13px",
+          fontSize: "0.81rem",
           fontWeight: theme.fontWeight.regular,
-          lineHeight: "25px",
+          lineHeight: "1.56rem",
           maxWidth: "358px",
           textAlign: "center",
-          marginBottom: "40px",
+          marginBottom: "2.5rem",
         }}
       >
         Enter your email or phone number and recover your account
@@ -81,7 +81,7 @@ const ForgotPassword = () => {
               sx={{
                 "&:before, &:after": {
                   borderColor: "#D8D8D8",
-                  maxWidth: "150px",
+                  maxWidth: "9.375rem",
                 },
                 "&:before": {
                   marginRight: "auto",
@@ -93,7 +93,7 @@ const ForgotPassword = () => {
             >
               <Typography
                 sx={{
-                  fontSize: "13px",
+                  fontSize: "0.81rem",
                   fontWeight: theme.fontWeight.regular,
                   color: "#BEBEBE",
                 }}
@@ -114,18 +114,18 @@ const ForgotPassword = () => {
         sx={{
           width: "100%",
           maxWidth: { xs: "400px", sm: "448px" },
-          height: "56px",
-          borderRadius: "56px",
+          height: "3.5rem",
+          borderRadius: "3.5rem",
           display: "flex",
           alignItems: "center",
           textAlign: "center",
           backgroundColor: "#FBB03B",
-          marginTop: "20px",
+          marginTop: "1.25rem",
           textTransform: "none",
           "&:hover": {
             backgroundColor: "#ffb53d",
           },
-          fontSize: "13px",
+          fontSize: "0.81rem",
           fontWeight: theme.fontWeight.semiBold,
         }}
       >

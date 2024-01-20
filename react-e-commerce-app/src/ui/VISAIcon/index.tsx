@@ -4,7 +4,7 @@ const VISAIcon = ({
   width = "50",
   height = "16",
   viewBox = "0.5 0.5 999 323.684",
-  sx = { width: "50px", height: "16px" },
+  sx = { width: "50px", height: "1rem" },
   id,
 }: SvgIconProps) => {
   return (

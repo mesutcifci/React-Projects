@@ -28,10 +28,10 @@ const Counter = ({
       justifyContent="space-between"
       columnGap="21px"
       sx={{
-        border: "1px solid #D8D8D8",
-        borderRadius: "49px",
-        padding: "15px",
-        height: "49px",
+        border: "0.0625rem solid #D8D8D8",
+        borderRadius: "3.125rem",
+        padding: "0.93rem",
+        height: "3.125rem",
         width: "189px",
         ...sx,
       }}
@@ -48,10 +48,10 @@ const Counter = ({
       </IconButton>
       <Typography
         color="#000000"
-        fontSize="16px"
+        fontSize="1rem"
         fontWeight={theme.fontWeight.semiBold}
         textAlign="center"
-        sx={{ width: "10px" }}
+        sx={{ width: "0.625rem" }}
       >
         {counterValue}
       </Typography>

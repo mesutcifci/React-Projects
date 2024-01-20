@@ -20,7 +20,7 @@ const accordionStyles = {
   "&.MuiPaper-root::before": {
     display: { md: "none !important" },
   },
-  border: { md: "1px solid #E6E6E6 !important" },
+  border: { md: "0.0625rem solid #E6E6E6 !important" },
 };
 
 const ProductsDrawer = () => {
@@ -65,7 +65,7 @@ const ProductsDrawer = () => {
         </DrawerHeader>
         <Divider />
 
-        <Stack rowGap="13px">
+        <Stack rowGap="0.81rem">
           <ProductTypeAccordion accordionStyles={accordionStyles} />
           <PriceAccordion accordionStyles={accordionStyles} />
           <CollectionAccordion accordionStyles={accordionStyles} />

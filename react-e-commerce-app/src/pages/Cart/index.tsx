@@ -111,7 +111,7 @@ const Cart = () => {
           direction="row"
           flexWrap="wrap"
           alignItems="center"
-          columnGap="10px"
+          columnGap="0.625rem"
           sx={{ justifyContent: { xs: "center", sm768: "space-between" } }}
         >
           <Typography
@@ -119,11 +119,11 @@ const Cart = () => {
               display: "inline-flex",
               alignItems: "center",
               justifyContent: { xs: "center", sm768: "initial" },
-              fontSize: { xs: "17px", md: "20px" },
+              fontSize: { xs: "1rem", md: "1.25rem" },
               fontWeight: theme.fontWeight.semiBold,
-              maxWidth: { sm768: "300px", md: "350px" },
+              maxWidth: { sm768: "18.75rem", md: "350px" },
               width: "100%",
-              height: "60px",
+              height: "3.75rem",
               textAlign: { xs: "center", sm768: "initial" },
             }}
           >
@@ -134,7 +134,7 @@ const Cart = () => {
             sx={{
               minWidth: "288px",
               maxWidth: { xs: "450px", sm768: "320px" },
-              height: "60px",
+              height: "3.75rem",
               width: "100%",
             }}
           >
@@ -144,8 +144,8 @@ const Cart = () => {
                   key={label}
                   onClick={() => handleClickStepIcon(index)}
                   sx={{
-                    height: "36px",
-                    width: "36px",
+                    height: "2.25rem",
+                    width: "2.25rem",
                     backgroundColor: `${
                       index < activeStep
                         ? "#ffffff"
@@ -154,7 +154,7 @@ const Cart = () => {
                         : "unset"
                     }`,
                     border: `${
-                      index > activeStep ? "none" : "1px solid #FBB03B"
+                      index > activeStep ? "none" : "0.0625rem solid #FBB03B"
                     }`,
                     borderRadius: "100%",
                     cursor: "pointer",

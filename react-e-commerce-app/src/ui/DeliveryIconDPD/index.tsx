@@ -4,7 +4,7 @@ const DeliveryIconDPD = ({
   viewBox = "0 0 49.043 20.659",
   width = "60",
   height = "27",
-  sx = { width: "60px", height: "27px" },
+  sx = { width: "3.75rem", height: "1.68rem" },
   id,
 }: SvgIconProps) => {
   return (

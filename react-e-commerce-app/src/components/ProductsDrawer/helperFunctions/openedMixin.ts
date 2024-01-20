@@ -7,14 +7,14 @@ const openedMixin = (theme: Theme): CSSObject => ({
     duration: theme.transitions.duration.enteringScreen,
   }),
   overflowX: "hidden",
-  top: "0px",
-  bottom: "0px",
-  border: "1px solid rgba(0, 0, 0, 0.12)",
-  borderLeft: "0px",
+  top: "0rem",
+  bottom: "0rem",
+  border: "0.0625rem solid rgba(0, 0, 0, 0.12)",
+  borderLeft: "0rem",
   [theme.breakpoints.up("lg")]: {
     position: "static",
     width: "280px",
-    height: "500px",
+    height: "31.25rem",
   },
 });
 

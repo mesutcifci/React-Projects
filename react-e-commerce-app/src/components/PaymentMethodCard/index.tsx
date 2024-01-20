@@ -19,11 +19,11 @@ const PaymentMethodCard = ({
       onClick={onClick}
       sx={{
         border: `1px solid ${isSelected ? "#FBB03B" : "#D8D8D8"}`,
-        borderRadius: "22px",
+        borderRadius: "1.375rem",
         cursor: "pointer",
         opacity: `${isSelected ? 1 : 0.5}`,
-        height: "54px",
-        width: "130px",
+        height: "3.37rem",
+        width: "8.125rem",
         transition: "scale 200ms linear",
         "&:hover": {
           scale: "1.05",

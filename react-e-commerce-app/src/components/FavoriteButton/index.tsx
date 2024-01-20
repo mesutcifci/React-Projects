@@ -48,7 +48,7 @@ const FavoriteButton = ({
       onClick={handleClickFavoriteButton}
       sx={{
         backgroundColor: `${isFavorite ? "#FBB03B" : "#ffffff"}`,
-        border: "1px solid #9e9e9e",
+        border: "0.0625rem solid #9e9e9e",
         borderRadius: "50%",
         cursor: "pointer",
         display: "flex",
@@ -62,7 +62,7 @@ const FavoriteButton = ({
         },
         position: position,
         right: "23px",
-        top: "19px",
+        top: "1.18rem",
         ...sx,
       }}
     >

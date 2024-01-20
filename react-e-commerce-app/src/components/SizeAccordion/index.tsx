@@ -19,7 +19,7 @@ const SizeAccordion = ({ accordionStyles }: IAccordionProps) => {
     <Accordion sx={{ ...accordionStyles }} disableGutters>
       <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography
-          sx={{ fontSize: "12px", fontWeight: theme.fontWeight.semiBold }}
+          sx={{ fontSize: "0.75rem", fontWeight: theme.fontWeight.semiBold }}
         >
           SIZE
         </Typography>
@@ -34,8 +34,8 @@ const SizeAccordion = ({ accordionStyles }: IAccordionProps) => {
           <Box
             key={size}
             sx={{
-              border: "1px solid #D4D4D4",
-              borderRight: `${index + 1 !== sizes.length && "0px"}`,
+              border: "0.0625rem solid #D4D4D4",
+              borderRight: `${index + 1 !== sizes.length && "0rem"}`,
               cursor: "pointer",
               display: "flex",
               alignItems: "center",
@@ -45,7 +45,7 @@ const SizeAccordion = ({ accordionStyles }: IAccordionProps) => {
             }}
           >
             <Typography
-              sx={{ fontSize: "13px", fontWeight: theme.fontWeight.regular }}
+              sx={{ fontSize: "0.81rem", fontWeight: theme.fontWeight.regular }}
             >
               {size}
             </Typography>

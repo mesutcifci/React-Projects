@@ -129,25 +129,25 @@ const Login = () => {
     <Stack
       alignItems="center"
       sx={{
-        padding: "16px",
+        padding: "1rem",
         "& form": {
           display: "flex",
           flexDirection: "column",
-          rowGap: "15px",
+          rowGap: "0.93rem",
           width: "100%",
           maxWidth: "448px",
         },
         "& .MuiOutlinedInput-root": {
-          borderRadius: "56px",
+          borderRadius: "3.5rem",
           borderColor: "#D8D8D8",
         },
       }}
     >
       <Typography
         sx={{
-          fontSize: "22px",
+          fontSize: "1.375rem",
           fontWeight: theme.fontWeight.semiBold,
-          marginBottom: "24px",
+          marginBottom: "1.5rem",
         }}
       >
         Login
@@ -155,12 +155,12 @@ const Login = () => {
       <Typography
         sx={{
           color: "#7D7D7D",
-          fontSize: "13px",
+          fontSize: "0.81rem",
           fontWeight: theme.fontWeight.regular,
-          lineHeight: "25px",
+          lineHeight: "1.56rem",
           maxWidth: "358px",
           textAlign: "center",
-          marginBottom: "40px",
+          marginBottom: "2.5rem",
         }}
       >
         Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -227,14 +227,14 @@ const Login = () => {
                 label="Keep me signed in"
                 sx={{
                   "& span": {
-                    fontSize: "13px",
+                    fontSize: "0.81rem",
                     fontWeight: theme.fontWeight.regular,
                   },
                 }}
               />
               <Typography
                 sx={{
-                  fontSize: "13px",
+                  fontSize: "0.81rem",
                   width: "max-content",
                   fontWeight: theme.fontWeight.regular,
                   color: "#808080",
@@ -254,7 +254,7 @@ const Login = () => {
           alignItems: "center",
           justifyContent: "center",
           flexWrap: "wrap",
-          gap: "20px",
+          gap: "1.25rem",
           width: "100%",
           marginTop: "32px",
         }}
@@ -265,8 +265,8 @@ const Login = () => {
           sx={{
             width: { xs: "100%", sm: "214px" },
             maxWidth: { xs: "400px" },
-            height: "56px",
-            borderRadius: "56px",
+            height: "3.5rem",
+            borderRadius: "3.5rem",
             display: "flex",
             alignItems: "center",
             columnGap: "22.6px",
@@ -278,7 +278,7 @@ const Login = () => {
             sx={{
               textTransform: "capitalize",
               fontWeight: theme.fontWeight.semiBold,
-              fontSize: "13px",
+              fontSize: "0.81rem",
             }}
           >
             Facebook
@@ -291,8 +291,8 @@ const Login = () => {
           sx={{
             width: { xs: "100%", sm: "214px" },
             maxWidth: { xs: "400px" },
-            height: "56px",
-            borderRadius: "56px",
+            height: "3.5rem",
+            borderRadius: "3.5rem",
             display: "flex",
             alignItems: "center",
             columnGap: "22.6px",
@@ -313,7 +313,7 @@ const Login = () => {
               textTransform: "capitalize",
               color: "#000000",
               fontWeight: theme.fontWeight.semiBold,
-              fontSize: "13px",
+              fontSize: "0.81rem",
             }}
           >
             Gmail
@@ -326,19 +326,19 @@ const Login = () => {
         type="submit"
         sx={{
           backgroundColor: "#FBB03B",
-          borderRadius: "56px",
+          borderRadius: "3.5rem",
           display: "flex",
           alignItems: "center",
-          fontSize: "13px",
+          fontSize: "0.81rem",
           fontWeight: theme.fontWeight.semiBold,
-          marginTop: "20px",
+          marginTop: "1.25rem",
           maxWidth: { xs: "400px", sm: "448px" },
           textAlign: "center",
           textTransform: "none",
           "&:hover": {
             backgroundColor: "#ffb53d",
           },
-          height: "56px",
+          height: "3.5rem",
           width: "100%",
         }}
       >
@@ -349,17 +349,17 @@ const Login = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          columnGap: "30px",
-          marginTop: "22px",
+          columnGap: "1.875rem",
+          marginTop: "1.375rem",
         }}
       >
         <Typography
-          sx={{ fontSize: "14px", fontWeight: theme.fontWeight.regular }}
+          sx={{ fontSize: "0.875rem", fontWeight: theme.fontWeight.regular }}
         >
           Not a member yet?
         </Typography>
         <Typography
-          sx={{ fontSize: "14px", fontWeight: "500", cursor: "pointer" }}
+          sx={{ fontSize: "0.875rem", fontWeight: "500", cursor: "pointer" }}
           onClick={handleClickSignUp}
         >
           Sign up

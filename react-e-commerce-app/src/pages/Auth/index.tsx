@@ -49,7 +49,7 @@ const Auth = () => {
     }
   };
   return (
-    <Box sx={{ marginTop: "15px" }}>
+    <Box sx={{ marginTop: "0.93rem" }}>
       <Box
         sx={{
           display: "flex",
@@ -66,7 +66,7 @@ const Auth = () => {
             lg: theme.padding?.pagePaddingLG + "px",
             xl: theme.padding?.pagePaddingXL + "px",
           },
-          marginBottom: "27px",
+          marginBottom: "1.68rem",
         }}
         onClick={handleClick}
       >
@@ -74,8 +74,8 @@ const Auth = () => {
         <Typography
           sx={{
             cursor: "pointer",
-            marginLeft: "24px",
-            fontSize: "14px",
+            marginLeft: "1.5rem",
+            fontSize: "0.875rem",
             fontWeight: theme.fontWeight.semiBold,
           }}
         >

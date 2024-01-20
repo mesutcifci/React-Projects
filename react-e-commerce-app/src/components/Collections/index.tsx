@@ -50,20 +50,20 @@ const Collections = () => {
               color="error"
               sx={{
                 backgroundColor: "#FF0000",
-                borderRadius: "30px",
+                borderRadius: "1.875rem",
                 color: "#ffffff",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: "12px",
+                fontSize: "0.75rem",
                 fontWeight: "600",
                 fontFamily: "Poppins, sans-serif",
-                height: "30px",
-                minWidth: "55px",
-                padding: "5px",
+                height: "1.875rem",
+                minWidth: "3.5rem",
+                padding: "0.31rem",
                 position: "absolute",
                 top: "118px",
-                left: { md: "40px", lg: "52px" },
+                left: { md: "2.5rem", lg: "52px" },
                 zIndex: 3,
               }}
             >
@@ -73,10 +73,10 @@ const Collections = () => {
           <Typography
             sx={{
               color: "#ffffff",
-              fontSize: "25px",
+              fontSize: "1.56rem",
               position: "absolute",
               top: "163px",
-              left: { md: "40px", lg: "52px" },
+              left: { md: "2.5rem", lg: "52px" },
               width: "165px",
               zIndex: 3,
             }}
@@ -86,15 +86,15 @@ const Collections = () => {
           <Button
             sx={{
               backgroundColor: "#ffffff",
-              borderRadius: "49px",
+              borderRadius: "3.125rem",
               color: "#000000",
-              fontSize: "13px",
-              height: "49px",
+              fontSize: "0.81rem",
+              height: "3.125rem",
               position: "absolute",
-              left: { md: "40px", lg: "52px" },
-              bottom: "62px",
+              left: { md: "2.5rem", lg: "52px" },
+              bottom: "3.875rem",
               minWidth: "111px",
-              padding: "20px",
+              padding: "1.25rem",
               zIndex: 3,
 
               "&:hover": {

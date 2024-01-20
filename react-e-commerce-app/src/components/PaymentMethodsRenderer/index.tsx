@@ -63,7 +63,7 @@ const PaymentMethodsRenderer = () => {
       direction="row"
       flexWrap="wrap"
       justifyContent="center"
-      gap="10px"
+      gap="0.625rem"
       sx={{ maxWidth: "410px" }}
     >
       {renderMethods()}

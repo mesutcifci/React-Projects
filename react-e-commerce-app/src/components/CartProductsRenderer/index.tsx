@@ -97,9 +97,9 @@ const CartProductsRenderer = () => {
               <TableCell
                 sx={{
                   color: "#c1c1c1",
-                  fontSize: "14px",
+                  fontSize: "0.875rem",
                   fontWeight: theme.fontWeight.regular,
-                  minWidth: "300px",
+                  minWidth: "18.75rem",
                 }}
               >
                 Product
@@ -108,9 +108,9 @@ const CartProductsRenderer = () => {
                 align="center"
                 sx={{
                   color: "#c1c1c1",
-                  fontSize: "14px",
+                  fontSize: "0.875rem",
                   fontWeight: theme.fontWeight.regular,
-                  minWidth: "150px",
+                  minWidth: "9.375rem",
                 }}
               >
                 Color
@@ -119,9 +119,9 @@ const CartProductsRenderer = () => {
                 align="center"
                 sx={{
                   color: "#c1c1c1",
-                  fontSize: "14px",
+                  fontSize: "0.875rem",
                   fontWeight: theme.fontWeight.regular,
-                  minWidth: "150px",
+                  minWidth: "9.375rem",
                 }}
               >
                 Size
@@ -130,7 +130,7 @@ const CartProductsRenderer = () => {
                 align="center"
                 sx={{
                   color: "#c1c1c1",
-                  fontSize: "14px",
+                  fontSize: "0.875rem",
                   fontWeight: theme.fontWeight.regular,
                   minWidth: "200px",
                 }}
@@ -141,9 +141,9 @@ const CartProductsRenderer = () => {
                 align="center"
                 sx={{
                   color: "#c1c1c1",
-                  fontSize: "14px",
+                  fontSize: "0.875rem",
                   fontWeight: theme.fontWeight.regular,
-                  minWidth: "100px",
+                  minWidth: "6.25rem",
                 }}
               >
                 Price
@@ -151,7 +151,7 @@ const CartProductsRenderer = () => {
               <TableCell
                 align="center"
                 sx={{
-                  minWidth: "100px",
+                  minWidth: "6.25rem",
                 }}
               ></TableCell>
             </TableRow>
@@ -161,8 +161,12 @@ const CartProductsRenderer = () => {
               const url = `/product-detail?id=${product.id}`;
               return (
                 <TableRow key={product.id} sx={{ "& td": { borderBottom: 0 } }}>
-                  <TableCell sx={{ minWidth: "300px" }}>
-                    <Stack direction="row" alignItems="center" columnGap="24px">
+                  <TableCell sx={{ minWidth: "18.75rem" }}>
+                    <Stack
+                      direction="row"
+                      alignItems="center"
+                      columnGap="1.5rem"
+                    >
                       <Link href={url}>
                         <Avatar
                           src={product.imageUrl}
@@ -175,7 +179,7 @@ const CartProductsRenderer = () => {
                         sx={{ color: "initial", textDecoration: "none" }}
                       >
                         <Typography
-                          fontSize="16px"
+                          fontSize="1rem"
                           fontWeight={theme.fontWeight.semiBold}
                         >
                           {product.name}
@@ -186,9 +190,9 @@ const CartProductsRenderer = () => {
                   <TableCell
                     align="center"
                     sx={{
-                      fontSize: "14px",
+                      fontSize: "0.875rem",
                       fontWeight: theme.fontWeight.regular,
-                      minWidth: "150px",
+                      minWidth: "9.375rem",
                     }}
                   >
                     White
@@ -196,9 +200,9 @@ const CartProductsRenderer = () => {
                   <TableCell
                     align="center"
                     sx={{
-                      fontSize: "14px",
+                      fontSize: "0.875rem",
                       fontWeight: theme.fontWeight.regular,
-                      minWidth: "150px",
+                      minWidth: "9.375rem",
                     }}
                   >
                     XL
@@ -216,16 +220,16 @@ const CartProductsRenderer = () => {
                       }
                     />
                   </TableCell>
-                  <TableCell sx={{ minWidth: "100px" }}>
+                  <TableCell sx={{ minWidth: "6.25rem" }}>
                     <Typography
-                      fontSize="16px"
+                      fontSize="1rem"
                       fontWeight={theme.fontWeight.semiBold}
                       textAlign="center"
                     >
                       ${product.price.toFixed(2)}
                     </Typography>
                   </TableCell>
-                  <TableCell align="right" sx={{ minWidth: "100px" }}>
+                  <TableCell align="right" sx={{ minWidth: "6.25rem" }}>
                     <CloseIcon
                       sx={{ color: "#000000", cursor: "pointer" }}
                       onClick={() =>

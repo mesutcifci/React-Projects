@@ -29,15 +29,15 @@ const Newsletter = () => {
         backgroundColor: "rgba(0, 0, 0, 0.5)",
         gap: "20px 46px",
         height: "262px",
-        marginTop: { xs: "40px", md: "90px" },
-        marginBottom: { xs: "40px", md: "90px" },
-        padding: "16px",
+        marginTop: { xs: "2.5rem", md: "90px" },
+        marginBottom: { xs: "2.5rem", md: "90px" },
+        padding: "1rem",
         width: "100%",
       }}
     >
       <Typography
         sx={{
-          fontSize: { xs: "20px", sm: "25px" },
+          fontSize: { xs: "1.25rem", sm: "1.56rem" },
           fontWeight: theme.fontWeight.regular,
           maxWidth: { xs: "350px", sm: "420px", lg: "505px" },
           width: "100%",
@@ -58,9 +58,9 @@ const Newsletter = () => {
                 display: "flex",
                 alignItems: "center",
                 flexWrap: "wrap",
-                columnGap: "20px",
+                columnGap: "1.25rem",
                 rowGap: "21px",
-                maxWidth: { xs: "350px", sm: "470px" },
+                maxWidth: { xs: "350px", sm: "29.375" },
                 width: "100%",
               }}
             >
@@ -71,13 +71,13 @@ const Newsletter = () => {
                 placeholder="Enter your email"
                 sx={{
                   "& .MuiInputBase-root": {
-                    border: "0px",
+                    border: "0rem",
                   },
                   "& .MuiOutlinedInput-input": {
                     backgroundColor: "#ffffff",
-                    borderRadius: "48px",
+                    borderRadius: "3rem",
                     boxSizing: "border-box",
-                    height: "48px",
+                    height: "3rem",
                     maxWidth: "315px",
                     width: "100%",
                     ...(errors.email && { color: "#FF6666 !important" }),
@@ -90,7 +90,7 @@ const Newsletter = () => {
                   },
                   "& .MuiFormLabel-root": {
                     color: "#808080",
-                    fontSize: "13px",
+                    fontSize: "0.81rem",
                     fontWeight: theme.fontWeight.regular,
                   },
                 }}
@@ -98,13 +98,13 @@ const Newsletter = () => {
               <Button
                 sx={{
                   backgroundColor: "#FBB03B",
-                  borderRadius: "56px",
+                  borderRadius: "3.5rem",
                   color: "#000000",
                   display: "flex",
                   alignItems: "center",
-                  fontSize: "13px",
+                  fontSize: "0.81rem",
                   fontWeight: theme.fontWeight.semiBold,
-                  height: "48px",
+                  height: "3rem",
                   maxWidth: { xs: "400px", sm: "448px" },
                   padding: "15px 24px 14px 25px",
                   textAlign: "center",

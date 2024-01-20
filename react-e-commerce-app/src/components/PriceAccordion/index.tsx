@@ -42,7 +42,7 @@ const PriceAccordion = ({ accordionStyles }: IAccordionProps) => {
     <Accordion sx={{ ...accordionStyles }} disableGutters>
       <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography
-          sx={{ fontSize: "12px", fontWeight: theme.fontWeight.semiBold }}
+          sx={{ fontSize: "0.75rem", fontWeight: theme.fontWeight.semiBold }}
         >
           PRICE
         </Typography>
@@ -61,7 +61,7 @@ const PriceAccordion = ({ accordionStyles }: IAccordionProps) => {
                 fontSize: "11px",
                 fontWeight: theme.fontWeight.regular,
                 width: "67px",
-                height: "24px",
+                height: "1.5rem",
                 background: "#F4F4F4",
                 display: "flex",
                 alignItems: "center",
@@ -75,7 +75,7 @@ const PriceAccordion = ({ accordionStyles }: IAccordionProps) => {
                 fontSize: "11px",
                 fontWeight: theme.fontWeight.regular,
                 width: "67px",
-                height: "24px",
+                height: "1.5rem",
                 background: "#F4F4F4",
                 display: "flex",
                 alignItems: "center",

@@ -22,11 +22,11 @@ import TabPanel from "../TabPanel";
 
 const tabPanelStyles: SxProps<Theme> = {
   backgroundColor: "#ffffff",
-  borderTop: "1px solid #E5E5E5",
+  borderTop: "0.0625rem solid #E5E5E5",
   boxSizing: "border-box",
   height: "max-content",
   color: "black",
-  columnGap: "30px",
+  columnGap: "1.875rem",
   display: { xs: "none", md: "flex" },
   justifyContent: "space-evenly",
   padding: "33px 20% 36px 20%",
@@ -110,7 +110,7 @@ const NavbarDesktopMenu = ({
           sx={{
             ...tabPanelStyles,
             ...(pathname !== "/" && {
-              borderBottom: "1px solid #e5e5e5",
+              borderBottom: "0.0625rem solid #e5e5e5",
             }),
           }}
           key={category.name}
@@ -120,14 +120,14 @@ const NavbarDesktopMenu = ({
             return (
               <Stack
                 key={secondaryCategory.name}
-                rowGap="15px"
+                rowGap="0.93rem"
                 sx={{ minWidth: "140px" }}
                 onClick={(event) =>
                   handleClickSecondaryCategory(event, secondaryCategory)
                 }
               >
                 <Typography
-                  fontSize="14px"
+                  fontSize="0.875rem"
                   fontWeight={theme.fontWeight.semiBold}
                   textTransform="uppercase"
                   sx={{ cursor: "pointer", "&:hover": { color: "#FBB03B" } }}
@@ -137,7 +137,7 @@ const NavbarDesktopMenu = ({
                 {tertiaryCategories.map((tertiaryCategory) => (
                   <Typography
                     key={tertiaryCategory.name}
-                    fontSize="12px"
+                    fontSize="0.75rem"
                     fontWeight={theme.fontWeight.regular}
                     sx={{ cursor: "pointer", "&:hover": { color: "#FBB03B" } }}
                     onClick={(event) =>
@@ -190,7 +190,7 @@ const NavbarDesktopMenu = ({
           },
           "& .MuiTabs-indicatorSpan": {
             width: "max-content",
-            paddingInline: "5px",
+            paddingInline: "0.31rem",
             backgroundColor: "#FBB03B",
           },
           "& .MuiTabs-scroller": {
