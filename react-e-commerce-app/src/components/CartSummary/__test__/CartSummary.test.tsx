@@ -4,7 +4,7 @@ import { renderWithProviders } from "../../../utils/test-utils";
 import { ICartAddressData } from "../../../types/cartTypes";
 import { ICountry } from "../../../types/country";
 
-const setActiveStep = jest.fn();
+const setActiveStep = vi.fn();
 
 const localStorageData = [
   {

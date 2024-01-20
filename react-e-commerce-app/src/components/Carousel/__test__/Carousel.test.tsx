@@ -1,8 +1,8 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import Carousel from "../index";
 
-jest.mock("react-router-dom", () => ({
-  useNavigate: jest.fn(),
+vi.mock("react-router-dom", () => ({
+  useNavigate: vi.fn(),
 }));
 
 describe("Carousel", () => {

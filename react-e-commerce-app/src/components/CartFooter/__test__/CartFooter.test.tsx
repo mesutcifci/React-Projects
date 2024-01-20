@@ -6,12 +6,12 @@ const steps = ["Shopping Cart", "Address data and type of delivery", "Summary"];
 
 const props = {
   steps,
-  handleClickBackButton: jest.fn(),
-  handleClickNextStepButton: jest.fn(),
+  handleClickBackButton: vi.fn(),
+  handleClickNextStepButton: vi.fn(),
 };
 
-jest.mock("react-router-dom", () => ({
-  useNavigate: jest.fn(),
+vi.mock("react-router-dom", () => ({
+  useNavigate: vi.fn(),
 }));
 
 describe("CartFooter", () => {
