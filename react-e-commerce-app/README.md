@@ -109,7 +109,7 @@ See [Live Demo](https://react-firebase-e-commerce.vercel.app/)
 # Built With
 
 - [React](https://reactjs.org/) - A JavaScript library for building user interfaces
-- [Create React App](https://create-react-app.dev/) - A tool to create single-page React applications
+- [Vite](https://vitejs.dev/) - A frontend tool for building web applications
 - [TypeScript](https://www.typescriptlang.org/) - A strongly typed programming language that builds on JavaScript
 - [Redux / Redux toolkit](https://redux-toolkit.js.org/) - A predictable state container for JavaScript apps
 - [Firebase](https://firebase.google.com/) - A platform for building web and mobile apps
@@ -117,36 +117,10 @@ See [Live Demo](https://react-firebase-e-commerce.vercel.app/)
 - [Formik](https://formik.org/) - A library for managing the state and validation of forms
 - [Formik Material-UI](https://stackworx.github.io/formik-mui/) - A set of Material-UI form controls built with Formik
 - [Yup](https://github.com/jquense/yup) - A library for writing validation schemas
-- [Jest](https://jestjs.io/) - JavaScript Testing Framework
+- [Vitest](https://vitest.dev/) - A Vite-native testing framework
 - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/) - Testing framework for React
-
-# Backlog
-
-- Complete all unit tests(9/36) - **Doing**
-- Change dummy breadcrumbs values to dynamic values
-- Create 404 page
-- Create and implement mui theme variables for colors
-- Design and update favicon
-- Implement react helmet for html title tag
-- Create SelectedJustForYou component and fill according to user actions
-- Create ProductsInToday component
-- Filter by colors
-- Filter by size
-- Filter by price
-- Animate main slider
-- Enable adding comments to products
-- Enable rate products
-- Sort by rate
-- Sort by price
-- Create profile page
-- Implement stripe integration
-
-# Bugs
-
-- Favorite button click event slow on mobile
-- Categories checkbox click event slow on mobile
 
 # Credits
 
-Coded by [Mesut Çiftçi](https://mesutcifci.github.io/)
+Coded by [Mesut Çifci](https://mesutcifci.github.io/)
 Designed by [ICEO](https://iceo.co/en/blog/a-behance-success-going-for-another-with-an-ecommerce-ui-kit)
