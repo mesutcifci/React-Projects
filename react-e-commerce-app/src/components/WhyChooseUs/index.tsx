@@ -63,6 +63,7 @@ const WhyChooseUs = () => {
         alignItems: "center",
         rowGap: "1.875rem",
         marginTop: "1.875rem",
+        minHeight: { xs: "40.625rem", lg: "24.0625rem" },
       }}
     >
       <Box component="header" sx={{ width: "100%" }}>

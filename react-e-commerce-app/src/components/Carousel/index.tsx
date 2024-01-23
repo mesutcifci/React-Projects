@@ -114,6 +114,7 @@ const Carousel = () => {
         position: "relative",
         overflow: "hidden",
         height: sliderWrapperHeight + "px",
+        minHeight: "23.4375rem",
       }}
     >
       {data.map((item, index) => {
@@ -249,7 +250,13 @@ const Carousel = () => {
               <source media="(min-width: 1024px)" srcSet={item.src.lg} />
               <source media="(min-width: 768px)" srcSet={item.src.md} />
               <source media="(min-width: 425px)" srcSet={item.src.sm} />
-              <img src={item.src.xs} onLoad={updateSliderWrapperHeight} />
+              <img
+                src={item.src.xs}
+                onLoad={updateSliderWrapperHeight}
+                {...(index > 0 && { loading: "lazy" })}
+                width={375}
+                height={442}
+              />
             </picture>
             <Box
               sx={{
