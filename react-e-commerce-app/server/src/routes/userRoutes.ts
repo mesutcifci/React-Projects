@@ -1,26 +1,11 @@
-import express, { Request, Response } from "express";
-
-const getAllUsers = (req: Request, res: Response) => {
-  res.status(200).json({ message: "All Users Fetched" });
-};
-
-const getUser = (req: Request, res: Response) => {
-  console.log(req.params);
-  res.status(200).json({ message: "User Fetched With Id" });
-};
-
-const createUser = (req: Request, res: Response) => {
-  console.log(req.body);
-  res.status(200).json({ message: "User Successfully Created" });
-};
-
-const updateUser = (req: Request, res: Response) => {
-  res.status(200).json({ message: "User Successfully Updated" });
-};
-
-const deleteUser = (req: Request, res: Response) => {
-  res.status(204).json({ message: "User Successfully Deleted" });
-};
+import express from "express";
+import {
+  createUser,
+  deleteUser,
+  getAllUsers,
+  getUser,
+  updateUser,
+} from "../controllers/userController";
 
 const router = express.Router();
 
