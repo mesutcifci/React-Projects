@@ -8,32 +8,36 @@ const port = 8000;
 // This enables to use of req.body
 app.use(express.json())
 
-// GET all products
-app.get("/api/v1/products/", (req: Request, res: Response) => {
+const getAllProducts = (req: Request, res: Response) => {
   res.status(200).json({ message: "All Products Fetched" });
-});
+}
 
-// GET one product
-app.get("/api/v1/products/:id", (req: Request, res: Response) => {
+const getProduct = (req: Request, res: Response) => {
   console.log(req.params)
   res.status(200).json({message: "Product Fetched With Id"})
-})
+}
 
-// Add new product
-app.post("/api/v1/products", (req: Request, res: Response) => {
+const createProduct = (req: Request, res: Response) => {
   console.log(req.body);
   res.status(200).json({message: "Product Successfully Created"})
-})
+}
 
-// Update a product
-app.patch("/api/v1/products/:id", (req: Request, res: Response) => {
+const updateProduct = (req: Request, res: Response) => {
   res.status(200).json({message: "Product Successfully Updated"})
-})
+}
 
-// Delete a product
-app.delete("/api/v1/products/:id", (req:Request, res: Response) => {
+const deleteProduct = (req:Request, res: Response) => {
   res.status(204).json({message: "Product Successfully Deleted"})
-})
+}
+
+app.route('/api/v1/products')
+  .get(getAllProducts)
+  .post(createProduct);
+
+  app.route('/api/v1/products/:id')
+  .get(getProduct)
+  .patch(updateProduct)
+  .delete(deleteProduct);
 
 app.listen(port, () => {
   console.log("express init");
