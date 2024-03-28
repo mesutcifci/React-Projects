@@ -1,24 +1,99 @@
 import { type Request, type Response } from 'express';
 import Product from '../models/productModel';
+import { type IProduct } from '../types/Product';
 
-export const getAllProducts = (req: Request, res: Response): void => {
-	res.status(200).json({ message: 'All Products Fetched' });
+export const getAllProducts = async (
+	req: Request,
+	res: Response
+): Promise<void> => {
+	try {
+		const products = await Product.find();
+		res.status(200).json({
+			status: 'success',
+			results: products.length,
+			data: { products },
+		});
+	} catch (err) {
+		res.status(404).json({
+			status: 'fail',
+			message: err,
+		});
+	}
 };
 
-export const getProduct = (req: Request, res: Response): void => {
-	console.log(req.params);
-	res.status(200).json({ message: 'Product Fetched With Id' });
+export const getProduct = async (
+	req: Request,
+	res: Response
+): Promise<void> => {
+	try {
+		const product = Product.findById(req.params.id);
+		res.status(200).json({
+			status: 'success',
+			data: { product },
+		});
+	} catch (err) {
+		res.status(404).json({
+			status: 'fail',
+			message: err,
+		});
+	}
 };
 
-export const createProduct = (req: Request, res: Response): void => {
-	console.log(req.body);
-	res.status(200).json({ message: 'Product Successfully Created' });
+export const createProduct = async (
+	req: Request,
+	res: Response
+): Promise<void> => {
+	try {
+		const product = await Product.create(req.body);
+		res.status(201).json({
+			status: 'success',
+			data: {
+				product,
+			},
+		});
+	} catch (err) {
+		res.status(400).json({
+			status: 'fail',
+			message: err,
+		});
+	}
 };
 
-export const updateProduct = (req: Request, res: Response): void => {
-	res.status(200).json({ message: 'Product Successfully Updated' });
+export const updateProduct = async (
+	req: Request,
+	res: Response
+): Promise<void> => {
+	try {
+		const body: IProduct = req.body;
+		const product = await Product.findByIdAndUpdate(req.params.id, body, {
+			new: true,
+			runValidators: true,
+		});
+		res.status(201).json({
+			status: 'success',
+			data: {
+				product,
+			},
+		});
+	} catch (err) {
+		res.status(400).json({
+			status: 'fail',
+			message: err,
+		});
+	}
 };
 
-export const deleteProduct = (req: Request, res: Response): void => {
-	res.status(204).json({ message: 'Product Successfully Deleted' });
+export const deleteProduct = async (
+	req: Request,
+	res: Response
+): Promise<void> => {
+	try {
+		await Product.findByIdAndDelete(req.params.id);
+		res.status(204).json({ status: 'success' });
+	} catch (err) {
+		res.status(400).json({
+			status: 'fail',
+			message: err,
+		});
+	}
 };
