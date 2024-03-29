@@ -9,6 +9,7 @@
         "sourceType": "module"
     },
     "rules": {
-        "no-console":"warn"
+        "no-console":"warn",
+        "@typescript-eslint/strict-boolean-expressions": "off"
     }
 }
