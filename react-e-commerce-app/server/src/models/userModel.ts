@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
+import { type IUser } from '../types/user';
 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema<IUser>({
 	name: {
 		type: String,
 		required: [true, 'Name is required'],
@@ -36,6 +37,12 @@ const userSchema = new mongoose.Schema({
 		default: true,
 		select: false,
 	},
+	favorites: [
+		{
+			type: mongoose.Schema.ObjectId,
+			ref: 'Product',
+		},
+	],
 });
 
-export default mongoose.model('User', userSchema);
+export default mongoose.model<IUser>('User', userSchema);
