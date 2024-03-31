@@ -12,4 +12,12 @@ app.use(express.json());
 app.use('/api/v1/products', productRouter);
 app.use('/api/v1/users', userRouter);
 
+// 404
+app.use('*', (req, res, next) => {
+	res.status(404).json({
+		status: 'fail',
+		message: `The URL ${req.originalUrl} is not exist`,
+	});
+});
+
 export default app;
