@@ -15,6 +15,7 @@ export interface IProduct extends Document {
 	ratingsAverage: number;
 	ratingsQuantity: number;
 	description: string;
+	isActive: boolean;
 	images: [string];
 	badges: [IBadge];
 	categories: [Types.ObjectId];

@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import { type IProduct } from '../types/Product';
+import mongoose, { type Query } from 'mongoose';
+import { type IProduct } from '../types/product';
 
 const productSchema = new mongoose.Schema<IProduct>(
 	{
@@ -74,10 +74,20 @@ const productSchema = new mongoose.Schema<IProduct>(
 			type: Date,
 			default: Date.now,
 		},
+		isActive: {
+			type: Boolean,
+			default: false,
+		},
 	},
 	{
 		strictQuery: true,
 	}
 );
+
+// Do not return inactive products to client
+productSchema.pre<Query<any, any>>(/^find/, function (next) {
+	void this.find({ isActive: true });
+	next();
+});
 
 export default mongoose.model<IProduct>('Product', productSchema);
