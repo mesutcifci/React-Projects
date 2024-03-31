@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
 import Product from '../models/productModel';
-import type { IProduct } from '../types/Product';
+import type { IProduct } from '../types/product';
 import QueryGenerator from '../helpers/QueryGenerator';
 
 export const getAllProducts = async (
@@ -9,8 +9,17 @@ export const getAllProducts = async (
 ): Promise<void> => {
 	try {
 		const queryObject = { ...req.query };
+		const resultLimits = {
+			'10': '10',
+			'20': '20',
+			'30': '30',
+		};
 		// Create Query Instance
-		const queryInstance = new QueryGenerator(Product.find(), queryObject)
+		const queryInstance = new QueryGenerator(
+			Product.find(),
+			queryObject,
+			resultLimits
+		)
 			.filter()
 			.sort()
 			.select()

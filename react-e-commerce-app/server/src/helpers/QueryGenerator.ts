@@ -4,15 +4,15 @@ import type QueryString from 'qs';
 export default class QueryGenerator<T extends Document> {
 	query: Query<T[], T>;
 	queryObject: QueryString.ParsedQs;
-	productLimits: { '10': 10; '20': 20; '30': 30 };
-	constructor(query: Query<T[], T>, queryObject: QueryString.ParsedQs) {
+	resultLimits: Record<string, string>;
+	constructor(
+		query: Query<T[], T>,
+		queryObject: QueryString.ParsedQs,
+		resultLimits: Record<string, string>
+	) {
 		this.query = query;
 		this.queryObject = queryObject;
-		this.productLimits = {
-			'10': 10,
-			'20': 20,
-			'30': 30,
-		};
+		this.resultLimits = resultLimits;
 	}
 
 	filter(): this {
@@ -61,7 +61,7 @@ export default class QueryGenerator<T extends Document> {
 		const page = this.queryObject.page ? +this.queryObject.page : 1;
 		const limit =
 			this.queryObject.limit &&
-			(this.queryObject.limit as string) in this.productLimits
+			(this.queryObject.limit as string) in this.resultLimits
 				? +this.queryObject.limit
 				: 10;
 		// If page is 2 and limit is 10 we show only 11th to 20th products
