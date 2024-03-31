@@ -1,6 +1,7 @@
-import express, { type Express } from 'express';
+import express, { type Express, type ErrorRequestHandler } from 'express';
 import productRouter from './routes/productRoutes';
 import userRouter from './routes/userRoutes';
+import AppError from './helpers/AppError';
 
 // Create express an app instance
 const app: Express = express();
@@ -14,10 +15,20 @@ app.use('/api/v1/users', userRouter);
 
 // 404
 app.use('*', (req, res, next) => {
-	res.status(404).json({
-		status: 'fail',
-		message: `The URL ${req.originalUrl} is not exist`,
-	});
+	next(new AppError(`The URL ${req.originalUrl} is not exist`, 404));
 });
+
+// Error handler
+const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+	const statusCode: number = err.statusCode || 500;
+	const status = err.status || 'error';
+	const message = err.message || 'An error occurred!';
+
+	res.status(statusCode).json({
+		status,
+		message,
+	});
+};
+app.use(errorHandler);
 
 export default app;
