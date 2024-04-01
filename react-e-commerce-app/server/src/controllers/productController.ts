@@ -5,7 +5,7 @@ import QueryGenerator from '../helpers/QueryGenerator';
 import catchAsyncErrors from '../helpers/catchAsyncErrors';
 
 export const getAllProducts = catchAsyncErrors(
-	async (req: Request, res: Response): Promise<void> => {
+	async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 		const queryObject = { ...req.query };
 		const resultLimits = {
 			'10': '10',
@@ -33,7 +33,7 @@ export const getAllProducts = catchAsyncErrors(
 );
 
 export const getProduct = catchAsyncErrors(
-	async (req: Request, res: Response): Promise<void> => {
+	async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 		const product = Product.findById(req.params.id);
 		res.status(200).json({
 			status: 'success',
@@ -55,7 +55,7 @@ export const createProduct = catchAsyncErrors(
 );
 
 export const updateProduct = catchAsyncErrors(
-	async (req: Request, res: Response): Promise<void> => {
+	async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 		const body: IProduct = req.body;
 		const product = await Product.findByIdAndUpdate(req.params.id, body, {
 			new: true,
@@ -71,7 +71,7 @@ export const updateProduct = catchAsyncErrors(
 );
 
 export const deleteProduct = catchAsyncErrors(
-	async (req: Request, res: Response): Promise<void> => {
+	async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 		await Product.findByIdAndDelete(req.params.id);
 		res.status(204).json({ status: 'success' });
 	}
