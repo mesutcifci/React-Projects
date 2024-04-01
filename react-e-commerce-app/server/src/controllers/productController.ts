@@ -1,13 +1,11 @@
-import type { Request, Response } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 import Product from '../models/productModel';
 import type { IProduct } from '../types/product';
 import QueryGenerator from '../helpers/QueryGenerator';
+import catchAsyncErrors from '../helpers/catchAsyncErrors';
 
-export const getAllProducts = async (
-	req: Request,
-	res: Response
-): Promise<void> => {
-	try {
+export const getAllProducts = catchAsyncErrors(
+	async (req: Request, res: Response): Promise<void> => {
 		const queryObject = { ...req.query };
 		const resultLimits = {
 			'10': '10',
@@ -31,37 +29,21 @@ export const getAllProducts = async (
 			results: products.length,
 			data: { products },
 		});
-	} catch (err) {
-		res.status(404).json({
-			status: 'fail',
-			message: err,
-		});
 	}
-};
+);
 
-export const getProduct = async (
-	req: Request,
-	res: Response
-): Promise<void> => {
-	try {
+export const getProduct = catchAsyncErrors(
+	async (req: Request, res: Response): Promise<void> => {
 		const product = Product.findById(req.params.id);
 		res.status(200).json({
 			status: 'success',
 			data: { product },
 		});
-	} catch (err) {
-		res.status(404).json({
-			status: 'fail',
-			message: err,
-		});
 	}
-};
+);
 
-export const createProduct = async (
-	req: Request,
-	res: Response
-): Promise<void> => {
-	try {
+export const createProduct = catchAsyncErrors(
+	async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 		const product = await Product.create(req.body);
 		res.status(201).json({
 			status: 'success',
@@ -69,19 +51,11 @@ export const createProduct = async (
 				product,
 			},
 		});
-	} catch (err) {
-		res.status(400).json({
-			status: 'fail',
-			message: err,
-		});
 	}
-};
+);
 
-export const updateProduct = async (
-	req: Request,
-	res: Response
-): Promise<void> => {
-	try {
+export const updateProduct = catchAsyncErrors(
+	async (req: Request, res: Response): Promise<void> => {
 		const body: IProduct = req.body;
 		const product = await Product.findByIdAndUpdate(req.params.id, body, {
 			new: true,
@@ -93,25 +67,12 @@ export const updateProduct = async (
 				product,
 			},
 		});
-	} catch (err) {
-		res.status(400).json({
-			status: 'fail',
-			message: err,
-		});
 	}
-};
+);
 
-export const deleteProduct = async (
-	req: Request,
-	res: Response
-): Promise<void> => {
-	try {
+export const deleteProduct = catchAsyncErrors(
+	async (req: Request, res: Response): Promise<void> => {
 		await Product.findByIdAndDelete(req.params.id);
 		res.status(204).json({ status: 'success' });
-	} catch (err) {
-		res.status(400).json({
-			status: 'fail',
-			message: err,
-		});
 	}
-};
+);
