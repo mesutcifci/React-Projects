@@ -3,6 +3,7 @@ import Product from '../models/productModel';
 import type { IProduct } from '../types/product';
 import QueryGenerator from '../helpers/QueryGenerator';
 import catchAsyncErrors from '../helpers/catchAsyncErrors';
+import AppError from '../helpers/AppError';
 
 export const getAllProducts = catchAsyncErrors(
 	async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -34,7 +35,13 @@ export const getAllProducts = catchAsyncErrors(
 
 export const getProduct = catchAsyncErrors(
 	async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-		const product = Product.findById(req.params.id);
+		const product = await Product.findById(req.params.id);
+
+		if (!product) {
+			next(new AppError('No product found with that id', 404));
+			return;
+		}
+
 		res.status(200).json({
 			status: 'success',
 			data: { product },
@@ -45,6 +52,10 @@ export const getProduct = catchAsyncErrors(
 export const createProduct = catchAsyncErrors(
 	async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 		const product = await Product.create(req.body);
+		if (!product) {
+			next(new AppError('No product found with that id', 404));
+			return;
+		}
 		res.status(201).json({
 			status: 'success',
 			data: {
@@ -72,7 +83,11 @@ export const updateProduct = catchAsyncErrors(
 
 export const deleteProduct = catchAsyncErrors(
 	async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-		await Product.findByIdAndDelete(req.params.id);
+		const product = await Product.findByIdAndDelete(req.params.id);
+		if (!product) {
+			next(new AppError('No product found with that id', 404));
+			return;
+		}
 		res.status(204).json({ status: 'success' });
 	}
 );
