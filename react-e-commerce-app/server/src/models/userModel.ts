@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
 import { type IUser } from '../types/user';
+import validator from 'validator';
 
 const userSchema = new mongoose.Schema<IUser>(
 	{
@@ -19,6 +21,7 @@ const userSchema = new mongoose.Schema<IUser>(
 			unique: true,
 			lowercase: true,
 			trim: true,
+			validate: [validator.isEmail, 'Please provide a valid email'],
 		},
 		password: {
 			type: String,
@@ -29,6 +32,12 @@ const userSchema = new mongoose.Schema<IUser>(
 		passwordConfirm: {
 			type: String,
 			required: [true, 'Please confirm your password'],
+			validate: {
+				validator: function (data: string): boolean {
+					return data === (this as unknown as IUser).password;
+				},
+				message: "Passwords don't match",
+			},
 		},
 		passwordChangedAt: Date,
 		passwordResetToken: String,
@@ -49,5 +58,15 @@ const userSchema = new mongoose.Schema<IUser>(
 		strictQuery: true,
 	}
 );
+
+// NOTE: Never write your own logic for authentication and authorization for production app
+// Use 3rd party solutions like Auth0 instead
+userSchema.pre('save', async function (next) {
+	if (this.isModified('password')) {
+		this.password = await bcrypt.hash(this.password, 12);
+	} else {
+		next();
+	}
+});
 
 export default mongoose.model<IUser>('User', userSchema);
