@@ -13,6 +13,7 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
+		"@types/jsonwebtoken": "^9.0.6",
 		"@types/validator": "^13.11.9",
 		"axios": "^1.6.8",
 		"bcrypt": "^5.1.1",
