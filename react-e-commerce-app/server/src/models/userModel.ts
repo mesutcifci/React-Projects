@@ -38,6 +38,7 @@ const userSchema = new mongoose.Schema<IUser>(
 				},
 				message: "Passwords don't match",
 			},
+			select: false,
 		},
 		passwordChangedAt: Date,
 		passwordResetToken: String,
