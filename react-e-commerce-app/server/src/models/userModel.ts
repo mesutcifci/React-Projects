@@ -65,9 +65,20 @@ const userSchema = new mongoose.Schema<IUser>(
 userSchema.pre('save', async function (next) {
 	if (this.isModified('password')) {
 		this.password = await bcrypt.hash(this.password, 12);
+		// Prevents passwordConfirm store in database
+		this.passwordConfirm = undefined;
+		next();
 	} else {
 		next();
 	}
 });
+
+userSchema.methods.comparePasswords = async function (
+	currentPassword: string,
+	input: string
+) {
+	const isPasswordMatched = await bcrypt.compare(input, currentPassword);
+	return isPasswordMatched;
+};
 
 export default mongoose.model<IUser>('User', userSchema);

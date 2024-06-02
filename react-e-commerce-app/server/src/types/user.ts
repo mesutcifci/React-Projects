@@ -15,4 +15,8 @@ export interface IUser extends Document {
 	passwordResetExpires?: Date;
 	active: boolean;
 	favorites: [IFavorite];
+	comparePasswords: (
+		candidatePassword: string,
+		userPassword: string
+	) => boolean;
 }
