@@ -18,5 +18,5 @@ export interface IUser extends Document {
 	comparePasswords: (
 		candidatePassword: string,
 		userPassword: string
-	) => boolean;
+	) => Promise<boolean>;
 }

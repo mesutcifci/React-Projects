@@ -74,11 +74,10 @@ userSchema.pre('save', async function (next) {
 });
 
 userSchema.methods.comparePasswords = async function (
-	currentPassword: string,
-	input: string
+	input: string,
+	currentPassword: string
 ) {
-	const isPasswordMatched = await bcrypt.compare(input, currentPassword);
-	return isPasswordMatched;
+	return await bcrypt.compare(input, currentPassword);
 };
 
 export default mongoose.model<IUser>('User', userSchema);
