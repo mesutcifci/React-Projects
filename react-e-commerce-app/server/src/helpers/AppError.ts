@@ -11,6 +11,7 @@ export default class AppError extends Error {
 		this.isOperational = true;
 
 		// https://nodejs.org/api/errors.html#errorcapturestacktracetargetobject-constructoropt
+		// Prevents sending sensitive data with error
 		Error.captureStackTrace(this, this.constructor);
 	}
 }
