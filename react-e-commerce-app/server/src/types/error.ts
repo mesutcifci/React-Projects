@@ -4,4 +4,5 @@ export interface IAppError {
 	message: string;
 	stack: string;
 	isOperational: boolean;
+	name: string;
 }

@@ -8,6 +8,7 @@ export default class AppError extends Error {
 		this.status = `${statusCode.toString().startsWith('4') ? 'fail' : 'error'}`;
 		this.statusCode = statusCode || 500;
 		this.message = message || 'An error occurred';
+		// In everywhere we use AppError class we mark these errors as safe or operational errors
 		this.isOperational = true;
 
 		// https://nodejs.org/api/errors.html#errorcapturestacktracetargetobject-constructoropt

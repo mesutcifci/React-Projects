@@ -5,6 +5,7 @@
 	"main": "dist/app.js",
 	"scripts": {
 		"start": "NODE_ENV=production tsc && node dist/server.js",
+		"start:prod": "NODE_ENV=production nodemon src/server.ts",
 		"dev": "NODE_ENV=development nodemon src/server.ts",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
