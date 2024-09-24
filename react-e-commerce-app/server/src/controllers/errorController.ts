@@ -9,6 +9,14 @@ const handleCastError = (error: CastError): IAppError => {
 	return new AppError(message, 400) as IAppError;
 };
 
+const handleDBDuplicateFieldError = (error: IAppError): IAppError => {
+	// extract value between quotas
+	const extractedErrorMessage = error.message.match(/"([^"]+)"/); // Correct usage of regex
+
+	const message = `Duplicate value ${extractedErrorMessage?.[1] ?? ''}. Please use a different value.`;
+	return new AppError(message, 400);
+};
+
 const sendErrorToProd = (error: IAppError, res: Response): void => {
 	const statusCode: number = error.statusCode || 500;
 	const status = error.status || 'error';
@@ -59,6 +67,8 @@ export const errorHandler = (
 		let copyError = { ...error };
 		if (error.name === 'CastError') {
 			copyError = handleCastError(error as unknown as CastError);
+		} else if (error.code === 11000) {
+			copyError = handleDBDuplicateFieldError(error);
 		}
 
 		sendErrorToProd(copyError, res);

@@ -2,7 +2,8 @@ export interface IAppError {
 	statusCode: number;
 	status: string;
 	message: string;
-	stack: string;
+	stack?: string;
 	isOperational: boolean;
-	name: string;
+	name?: string;
+	code?: number;
 }
