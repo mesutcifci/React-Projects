@@ -1,3 +1,7 @@
+interface IError {
+	message: string;
+}
+
 export interface IAppError {
 	statusCode: number;
 	status: string;
@@ -6,4 +10,5 @@ export interface IAppError {
 	isOperational: boolean;
 	name?: string;
 	code?: number;
+	errors?: IError[];
 }

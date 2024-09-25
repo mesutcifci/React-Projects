@@ -17,6 +17,20 @@ const handleDBDuplicateFieldError = (error: IAppError): IAppError => {
 	return new AppError(message, 400);
 };
 
+const handleDBValidationError = (error: IAppError): IAppError => {
+	const validationErrors = error?.errors;
+	if (validationErrors) {
+		const messages = Object.values(validationErrors).map(
+			(item) => item.message
+		);
+
+		const message = `Invalid input data. ${messages.join('. ')}`;
+		return new AppError(message, 400);
+	}
+
+	return new AppError('Invalid input data.', 400);
+};
+
 const sendErrorToProd = (error: IAppError, res: Response): void => {
 	const statusCode: number = error.statusCode || 500;
 	const status = error.status || 'error';
@@ -69,6 +83,8 @@ export const errorHandler = (
 			copyError = handleCastError(error as unknown as CastError);
 		} else if (error.code === 11000) {
 			copyError = handleDBDuplicateFieldError(error);
+		} else if (error.name === 'ValidationError') {
+			copyError = handleDBValidationError(error);
 		}
 
 		sendErrorToProd(copyError, res);
