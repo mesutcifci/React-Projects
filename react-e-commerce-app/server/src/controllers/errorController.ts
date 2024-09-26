@@ -78,7 +78,14 @@ export const errorHandler = (
 	if (process.env.NODE_ENV === 'development') {
 		sendErrorToDev(error, res);
 	} else if (process.env.NODE_ENV === 'production') {
-		let copyError = { ...error };
+		let copyError: Record<string, any> = {};
+
+		// clone not enumerable properties
+		// https://stackoverflow.com/a/38316932
+		Object.getOwnPropertyNames(error).forEach(function (prop) {
+			copyError[prop] = error[prop];
+		});
+
 		if (error.name === 'CastError') {
 			copyError = handleCastError(error as unknown as CastError);
 		} else if (error.code === 11000) {
@@ -87,6 +94,6 @@ export const errorHandler = (
 			copyError = handleDBValidationError(error);
 		}
 
-		sendErrorToProd(copyError, res);
+		sendErrorToProd(copyError as IAppError, res);
 	}
 };

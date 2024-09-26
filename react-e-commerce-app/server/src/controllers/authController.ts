@@ -53,10 +53,12 @@ export const login = catchAsyncErrors(
 		const user = await User.findOne({ email }).select('+password');
 		let isPasswordCorrect = false;
 
-		isPasswordCorrect = !!(await user?.comparePasswords(
-			password as string,
-			user.password
-		));
+		if (user) {
+			isPasswordCorrect = await user.comparePasswords(
+				password as string,
+				user.password
+			);
+		}
 
 		if (!user || !isPasswordCorrect) {
 			next(new AppError('Your Email Or Password Is Not Correct', 401));

@@ -8,7 +8,6 @@ export interface IAppError {
 	message: string;
 	stack?: string;
 	isOperational: boolean;
-	name?: string;
-	code?: number;
 	errors?: IError[];
+	[key: string]: any;
 }

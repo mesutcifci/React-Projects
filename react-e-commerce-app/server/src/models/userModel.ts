@@ -33,6 +33,7 @@ const userSchema = new mongoose.Schema<IUser>(
 			type: String,
 			required: [true, 'Please confirm your password'],
 			validate: {
+				// This only works on save
 				validator: function (data: string): boolean {
 					return data === (this as unknown as IUser).password;
 				},
@@ -63,6 +64,10 @@ const userSchema = new mongoose.Schema<IUser>(
 // NOTE: Never write your own logic for authentication and authorization for production app
 // Use 3rd party solutions like Auth0 instead
 userSchema.pre('save', async function (next) {
+	/**
+	 * Users may update other user fields ex: email
+	 * In this case there is no need to re-encrypt the password
+	 */
 	if (this.isModified('password')) {
 		this.password = await bcrypt.hash(this.password, 12);
 		// Prevents passwordConfirm store in database
