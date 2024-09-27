@@ -14,12 +14,19 @@ app.use(express.json());
 app.use('/api/v1/products', productRouter);
 app.use('/api/v1/users', userRouter);
 
-// 404
+// Handle routes that are not exist
 app.use('*', (req, res, next) => {
 	next(new AppError(`The URL ${req.originalUrl} is not exist`, 404));
 });
 
-// Error handler
+/**
+ * Error handler middleware
+ * This middleware catches all of errors. Because errorHandler function takes four arguments
+ * express register this function as an error handler middleware
+ *
+ * When we pass our error objects (new AppError(...)) into next function
+ * express regards these as an error by default. Then the error middleware catches these errors.
+ */
 app.use(errorHandler);
 
 export default app;
