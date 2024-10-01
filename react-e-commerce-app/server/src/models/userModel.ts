@@ -78,6 +78,21 @@ userSchema.pre('save', async function (next) {
 	}
 });
 
+userSchema.methods.checkIsPasswordChanged = async function (
+	JWTTimeStamp: string
+) {
+	if (this.passwordChangedAt) {
+		// convert date string to milliseconds
+		let convertedTimeStamp = this.passwordChangedAt.getTime();
+		// convert to seconds
+		convertedTimeStamp /= 1000;
+
+		return JWTTimeStamp < convertedTimeStamp;
+	}
+
+	return false;
+};
+
 userSchema.methods.comparePasswords = async function (
 	input: string,
 	currentPassword: string

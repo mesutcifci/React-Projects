@@ -31,6 +31,12 @@ const handleDBValidationError = (error: IAppError): IAppError => {
 	return new AppError('Invalid input data.', 400);
 };
 
+const handleJWTError = (): IAppError =>
+	new AppError('Invalid token. Please log in', 401);
+
+const handleJWTExpiredError = (): IAppError =>
+	new AppError('Your token has expired. Please log in again', 401);
+
 const sendErrorToProd = (error: IAppError, res: Response): void => {
 	const statusCode: number = error.statusCode || 500;
 	const status = error.status || 'error';
@@ -92,6 +98,10 @@ export const errorHandler = (
 			copyError = handleDBDuplicateFieldError(error);
 		} else if (error.name === 'ValidationError') {
 			copyError = handleDBValidationError(error);
+		} else if (error.name === 'JsonWebTokenError') {
+			copyError = handleJWTError();
+		} else if (error.name === 'TokenExpiredError') {
+			copyError = handleJWTExpiredError();
 		}
 
 		sendErrorToProd(copyError as IAppError, res);

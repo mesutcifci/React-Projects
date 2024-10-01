@@ -4,6 +4,8 @@ import User from '../models/userModel';
 import jwt from 'jsonwebtoken';
 import AppError from '../helpers/AppError';
 import { deleteProperties } from '../helpers/deleteObjectProperty';
+import { promisify } from 'util';
+import { type IUser } from '../types/user';
 
 const generateToken = (id: string): string =>
 	jwt.sign({ id }, process.env.JWT_SECRET as jwt.Secret, {
@@ -70,5 +72,61 @@ export const login = catchAsyncErrors(
 			status: 'success',
 			token,
 		});
+	}
+);
+
+interface CustomRequest extends Request {
+	user?: IUser;
+}
+
+export const protect = catchAsyncErrors(
+	async (req: CustomRequest, res: Response, next: NextFunction) => {
+		let token;
+
+		if (
+			req.headers.authorization &&
+			req.headers.authorization.startsWith('Bearer')
+		) {
+			token = req.headers.authorization.split(' ')[1];
+		}
+
+		if (!token) {
+			next(
+				new AppError('You are not logged in. Please log in to continue.', 401)
+			);
+			return;
+		}
+
+		if (!process.env.JWT_SECRET) {
+			next(new AppError('Server error. Cannot access to the jwt', 500, false));
+			return;
+		}
+
+		// convert jwt.verify method to  a promise return function to do not break convention.
+		const promisifiedVerify = promisify(jwt.verify) as (
+			// ts does not know if how many parameters accept promisifiedVerify function
+			// we need to declare manually
+			token: string,
+			secret: string
+		) => Promise<any>;
+		const decoded = await promisifiedVerify(token, process.env.JWT_SECRET);
+
+		const user = await User.findById(decoded.id);
+
+		if (!user) {
+			next(new AppError('User not found with this token', 401));
+			return;
+		}
+
+		const isPaswordChangedAfterTokenGenerated =
+			user.checkIsPasswordChangedAfterTokenGenerated(decoded.iat as string);
+
+		if (isPaswordChangedAfterTokenGenerated) {
+			next(new AppError('Token is invalid. Please log in again.', 401));
+			return;
+		}
+
+		req.user = user;
+		next();
 	}
 );
