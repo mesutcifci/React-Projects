@@ -78,7 +78,7 @@ userSchema.pre('save', async function (next) {
 	}
 });
 
-userSchema.methods.checkIsPasswordChanged = async function (
+userSchema.methods.checkIsPasswordChangedAfterTokenGenerated = async function (
 	JWTTimeStamp: string
 ) {
 	if (this.passwordChangedAt) {

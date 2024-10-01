@@ -20,6 +20,7 @@ export const signUp = catchAsyncErrors(
 			email: req.body.email,
 			password: req.body.password,
 			passwordConfirm: req.body.passwordConfirm,
+			passwordChangedAt: req.body.passwordChangedAt,
 		});
 
 		// Remove properties which should not to send to client.
@@ -119,7 +120,11 @@ export const protect = catchAsyncErrors(
 		}
 
 		const isPaswordChangedAfterTokenGenerated =
-			user.checkIsPasswordChangedAfterTokenGenerated(decoded.iat as string);
+			await user.checkIsPasswordChangedAfterTokenGenerated(
+				decoded.iat as string
+			);
+
+		console.log('test-1', isPaswordChangedAfterTokenGenerated);
 
 		if (isPaswordChangedAfterTokenGenerated) {
 			next(new AppError('Token is invalid. Please log in again.', 401));
