@@ -6,12 +6,20 @@ import {
 	getUser,
 	updateUser,
 } from '../controllers/userController';
-import { login, signUp } from '../controllers/authController';
+import {
+	forgotPassword,
+	login,
+	resetPassword,
+	signUp,
+} from '../controllers/authController';
 
 const router = express.Router();
 
 router.post('/signup', signUp);
 router.post('/login', login);
+
+router.post('/forgotPassword', forgotPassword);
+router.post('/resetPassword', resetPassword);
 
 router.route('/').get(getAllUsers).post(createUser);
 

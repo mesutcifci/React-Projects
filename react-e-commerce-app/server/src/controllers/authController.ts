@@ -135,3 +135,25 @@ export const protect = catchAsyncErrors(
 		next();
 	}
 );
+
+export const forgotPassword = catchAsyncErrors(
+	async (req: Request, res: Response, next: NextFunction) => {
+		const user = await User.findOne({ email: req.body.email });
+
+		if (!user) {
+			next(new AppError('There is no user with this email address!', 404));
+			return;
+		}
+
+		console.log('forgot password');
+
+		const resetToken = user.createPasswordResetToken();
+		await user.save({ validateBeforeSave: false });
+	}
+);
+
+export const resetPassword = (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {};

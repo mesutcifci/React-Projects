@@ -22,4 +22,5 @@ export interface IUser extends Document {
 	checkIsPasswordChangedAfterTokenGenerated: (
 		timeStamp: string
 	) => Promise<boolean>;
+	createPasswordResetToken: () => Promise<string>;
 }

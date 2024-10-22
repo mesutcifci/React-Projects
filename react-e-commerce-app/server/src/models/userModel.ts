@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
+import { createHash, randomBytes } from 'crypto';
 import { type IUser } from '../types/user';
 import validator from 'validator';
 
@@ -98,6 +99,15 @@ userSchema.methods.comparePasswords = async function (
 	currentPassword: string
 ) {
 	return await bcrypt.compare(input, currentPassword);
+};
+
+userSchema.methods.createPasswordResetToken = async function () {
+	const resetToken = randomBytes(32).toString('hex');
+	this.passwordResetToken = createHash('sha256')
+		.update(resetToken)
+		.digest('hex');
+	this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
+	return resetToken;
 };
 
 export default mongoose.model<IUser>('User', userSchema);
