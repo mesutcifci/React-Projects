@@ -7,6 +7,7 @@ import { deleteProperties } from '../helpers/deleteObjectProperty';
 import { promisify } from 'util';
 import { type IUser } from '../types/user';
 import { sendEmail } from '../helpers/Emails';
+import { createHash } from 'crypto';
 
 const generateToken = (id: string): string =>
 	jwt.sign({ id }, process.env.JWT_SECRET as jwt.Secret, {
@@ -125,8 +126,6 @@ export const protect = catchAsyncErrors(
 				decoded.iat as string
 			);
 
-		console.log('test-1', isPaswordChangedAfterTokenGenerated);
-
 		if (isPaswordChangedAfterTokenGenerated) {
 			next(new AppError('Token is invalid. Please log in again.', 401));
 			return;
@@ -162,7 +161,7 @@ export const forgotPassword = catchAsyncErrors(
 
 			res.status(200).json({
 				status: 'success',
-				message,
+				message: 'Token send to your email successfully',
 			});
 		} catch (error) {
 			user.passwordResetExpires = undefined;
@@ -175,8 +174,33 @@ export const forgotPassword = catchAsyncErrors(
 	}
 );
 
-export const resetPassword = (
-	req: Request,
-	res: Response,
-	next: NextFunction
-) => {};
+export const resetPassword = catchAsyncErrors(
+	async (req: Request, res: Response, next: NextFunction) => {
+		const passwordResetToken = createHash('sha256')
+			.update(req.params.token)
+			.digest('hex');
+
+		const user = await User.findOne({
+			passwordResetToken,
+			passwordResetExpires: {
+				$gt: Date.now(),
+			},
+		});
+
+		if (!user) {
+			next(new AppError('Token is invalid or expired!', 400));
+			return;
+		}
+
+		user.password = req.body.password;
+		user.passwordConfirm = req.body.passwordConfirm;
+		user.passwordResetToken = req.body.passwordResetToken;
+		await user.save();
+
+		const token = generateToken(user._id as string);
+		res.status(200).json({
+			status: 'success',
+			token,
+		});
+	}
+);

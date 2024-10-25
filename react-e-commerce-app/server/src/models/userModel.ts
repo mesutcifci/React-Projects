@@ -79,6 +79,15 @@ userSchema.pre('save', async function (next) {
 	}
 });
 
+userSchema.pre('save', async function (next) {
+	if (!this.isModified('password') || this.isNew) {
+		next();
+		return;
+	}
+
+	this.passwordChangedAt = new Date(Date.now() - 1000);
+});
+
 userSchema.methods.checkIsPasswordChangedAfterTokenGenerated = async function (
 	JWTTimeStamp: string
 ) {
