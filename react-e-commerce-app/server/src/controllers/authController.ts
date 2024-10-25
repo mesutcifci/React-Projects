@@ -6,6 +6,7 @@ import AppError from '../helpers/AppError';
 import { deleteProperties } from '../helpers/deleteObjectProperty';
 import { promisify } from 'util';
 import { type IUser } from '../types/user';
+import { sendEmail } from '../helpers/Emails';
 
 const generateToken = (id: string): string =>
 	jwt.sign({ id }, process.env.JWT_SECRET as jwt.Secret, {
@@ -145,10 +146,32 @@ export const forgotPassword = catchAsyncErrors(
 			return;
 		}
 
-		console.log('forgot password');
-
-		const resetToken = user.createPasswordResetToken();
+		const resetToken = await user.createPasswordResetToken();
 		await user.save({ validateBeforeSave: false });
+
+		const resetURL = `${req.protocol}://${req.get('host')}/api/v1/users/resetPassword/${resetToken}`;
+
+		const message = `Reset URL: ${resetURL}`;
+
+		try {
+			await sendEmail({
+				email: user.email,
+				subject: 'Reset Your Password',
+				message,
+			});
+
+			res.status(200).json({
+				status: 'success',
+				message,
+			});
+		} catch (error) {
+			user.passwordResetExpires = undefined;
+			user.passwordResetToken = undefined;
+			await user.save({ validateBeforeSave: false });
+			next(new AppError('An error occurred. Try again later!', 500));
+			// eslint-disable-next-line no-useless-return
+			return;
+		}
 	}
 );
 
