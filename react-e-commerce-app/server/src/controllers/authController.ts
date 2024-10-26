@@ -204,3 +204,34 @@ export const resetPassword = catchAsyncErrors(
 		});
 	}
 );
+
+export const updatePassword = catchAsyncErrors(
+	async (req: Request, res: Response, next: NextFunction) => {
+		const user = await User.findById(req.user?.id).select('+password');
+
+		let isPasswordCorrect = false;
+
+		if (user) {
+			isPasswordCorrect = await user.comparePasswords(
+				req.body.passwordCurrent as string,
+				user.password
+			);
+		}
+
+		if (!user || !isPasswordCorrect) {
+			next(new AppError('Your Current Password Is Not Correct', 401));
+			return;
+		}
+
+		user.password = req.body.password;
+		user.passwordConfirm = req.body.passwordConfirm;
+		await user.save();
+
+		const token = generateToken(user._id as string);
+
+		res.status(200).json({
+			status: 'success',
+			token,
+		});
+	}
+);

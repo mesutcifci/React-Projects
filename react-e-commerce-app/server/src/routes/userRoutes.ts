@@ -9,8 +9,10 @@ import {
 import {
 	forgotPassword,
 	login,
+	protect,
 	resetPassword,
 	signUp,
+	updatePassword,
 } from '../controllers/authController';
 
 const router = express.Router();
@@ -20,6 +22,8 @@ router.post('/login', login);
 
 router.post('/forgotPassword', forgotPassword);
 router.patch('/resetPassword/:token', resetPassword);
+
+router.patch('/updatePassword', protect, updatePassword);
 
 router.route('/').get(getAllUsers).post(createUser);
 
