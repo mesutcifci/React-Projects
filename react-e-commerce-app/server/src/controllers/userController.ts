@@ -43,6 +43,9 @@ export const updateProfile = catchAsyncErrors(
 	}
 );
 
-export const deleteAccount = (req: Request, res: Response): void => {
-	res.status(204).json({ message: 'User Successfully Deleted' });
-};
+export const deleteAccount = catchAsyncErrors(
+	async (req: Request, res: Response, next: NextFunction) => {
+		await User.findByIdAndUpdate(req.user?.id, { active: false });
+		res.status(204).json({ status: 'success', data: null });
+	}
+);
