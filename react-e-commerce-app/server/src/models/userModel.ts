@@ -10,11 +10,35 @@ const userSchema = new mongoose.Schema<IUser>(
 			type: String,
 			required: [true, 'Name is required'],
 			trim: true,
+			validate: {
+				// This only works on save
+				validator: (value: string) => {
+					return (
+						validator.isAlpha(value, 'tr-TR') ||
+						validator.isAlpha(value, 'en-US')
+					);
+				},
+				message:
+					'Name must be consist of letters. Please remove numbers and special characters.',
+			},
+			maxlength: 30,
 		},
 		surname: {
 			type: String,
 			required: [true, 'Surname is required'],
 			trim: true,
+			validate: {
+				// This only works on save
+				validator: (value: string) => {
+					return (
+						validator.isAlpha(value, 'tr-TR') ||
+						validator.isAlpha(value, 'en-US')
+					);
+				},
+				message:
+					'Surname must be consist of letters. Please remove numbers and special characters.',
+			},
+			maxlength: 30,
 		},
 		email: {
 			type: String,
