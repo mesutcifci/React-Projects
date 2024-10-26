@@ -1,9 +1,9 @@
 import type { NextFunction, Request, Response } from 'express';
 import Product from '../models/productModel';
 import type { IProduct } from '../types/product';
-import QueryGenerator from '../helpers/QueryGenerator';
+import QueryGenerator from '../helpers/queryGenerator';
 import catchAsyncErrors from '../helpers/catchAsyncErrors';
-import AppError from '../helpers/AppError';
+import AppError from '../helpers/appError';
 
 export const getAllProducts = catchAsyncErrors(
 	async (req: Request, res: Response, next: NextFunction): Promise<void> => {

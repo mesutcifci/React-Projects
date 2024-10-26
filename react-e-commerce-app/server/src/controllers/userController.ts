@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from 'express';
 import catchAsyncErrors from '../helpers/catchAsyncErrors';
 import User from '../models/userModel';
-import AppError from '../helpers/AppError';
+import AppError from '../helpers/appError';
 import { filterRequestBody } from '../helpers/filterRequestBody';
 
 // export const getAllUsers = catchAsyncErrors(

@@ -1,7 +1,7 @@
 import { type NextFunction, type Request, type Response } from 'express';
 import { type IAppError } from '../types/error';
 import { type CastError } from 'mongoose';
-import AppError from '../helpers/AppError';
+import AppError from '../helpers/appError';
 
 const handleCastError = (error: CastError): IAppError => {
 	const message = `Invalid ${error.path}: ${error.value}`;

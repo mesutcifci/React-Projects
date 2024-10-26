@@ -2,11 +2,11 @@ import catchAsyncErrors from '../helpers/catchAsyncErrors';
 import type { NextFunction, Request, Response } from 'express';
 import User from '../models/userModel';
 import jwt from 'jsonwebtoken';
-import AppError from '../helpers/AppError';
+import AppError from '../helpers/appError';
 import { deleteProperties } from '../helpers/deleteObjectProperty';
 import { promisify } from 'util';
 import { type IUser } from '../types/user';
-import { sendEmail } from '../helpers/Emails';
+import { sendEmail } from '../helpers/emails';
 import { createHash } from 'crypto';
 
 const generateToken = (id: string): string =>

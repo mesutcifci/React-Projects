@@ -1,7 +1,7 @@
 import express, { type Express } from 'express';
 import productRouter from './routes/productRoutes';
 import userRouter from './routes/userRoutes';
-import AppError from './helpers/AppError';
+import AppError from './helpers/appError';
 import { errorHandler } from './controllers/errorController';
 
 // Create express an app instance
