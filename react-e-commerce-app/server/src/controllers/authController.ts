@@ -14,6 +14,37 @@ const generateToken = (id: string): string =>
 		expiresIn: process.env.JWT_EXPIRES_IN,
 	});
 
+const sendToken = (
+	token: string,
+	statusCode: number,
+	res: Response,
+	user?: any
+): void => {
+	const cookieOptions: {
+		expires: Date;
+		httpOnly: boolean;
+		secure?: boolean;
+	} = {
+		expires: new Date(
+			Date.now() +
+				Number(process.env.JWT_COOKIE_EXPIRES_IN) * 24 * 60 * 60 * 1000
+		),
+		httpOnly: true,
+	};
+
+	if (process.env.NODE_ENV === 'production') {
+		cookieOptions.secure = true;
+	}
+
+	res.cookie('jwt', token, cookieOptions);
+
+	res.status(statusCode).json({
+		status: 'success',
+		token,
+		...(user && { data: { user } }),
+	});
+};
+
 export const signUp = catchAsyncErrors(
 	async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 		const user = await User.create({
@@ -36,13 +67,7 @@ export const signUp = catchAsyncErrors(
 
 		const token = generateToken(user._id as string);
 
-		res.status(201).json({
-			status: 'success',
-			token,
-			data: {
-				editedUser,
-			},
-		});
+		sendToken(token, 201, res, editedUser);
 	}
 );
 
@@ -71,10 +96,7 @@ export const login = catchAsyncErrors(
 		}
 
 		const token = generateToken(user._id as string);
-		res.status(200).json({
-			status: 'success',
-			token,
-		});
+		sendToken(token, 200, res);
 	}
 );
 
@@ -198,10 +220,7 @@ export const resetPassword = catchAsyncErrors(
 		await user.save();
 
 		const token = generateToken(user._id as string);
-		res.status(200).json({
-			status: 'success',
-			token,
-		});
+		sendToken(token, 200, res);
 	}
 );
 
@@ -228,10 +247,6 @@ export const updatePassword = catchAsyncErrors(
 		await user.save();
 
 		const token = generateToken(user._id as string);
-
-		res.status(200).json({
-			status: 'success',
-			token,
-		});
+		sendToken(token, 200, res);
 	}
 );
