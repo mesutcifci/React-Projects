@@ -5,6 +5,27 @@ import AppError from './helpers/appError';
 import { errorHandler } from './controllers/errorController';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
+import ExpressMongoSanitize from 'express-mongo-sanitize';
+import sanitizeHtml from 'sanitize-html';
+
+const sanitizeRecursively = (data: any): any => {
+	if (typeof data === 'string') {
+		return sanitizeHtml(data, {
+			allowedTags: ['b', 'i', 'em', 'strong', 'a'],
+			allowedAttributes: {
+				a: ['href'],
+			},
+			allowedIframeHostnames: ['www.youtube.com'],
+		});
+	} else if (Array.isArray(data)) {
+		// This will sanitize data recursively
+		return data.map((item) => sanitizeRecursively(item));
+	} else if (typeof data === 'object' && data !== null) {
+		for (const key in data) {
+			data[key] = sanitizeRecursively(data[key]);
+		}
+	}
+};
 
 // Create express an app instance
 const app: Express = express();
@@ -29,6 +50,14 @@ app.use('/api', limiter);
 
 // This enables to use of req.body
 app.use(express.json());
+
+// Data sanitization for NoSQL attacks
+app.use(ExpressMongoSanitize());
+
+app.use((req, res, next) => {
+	sanitizeRecursively(req.body);
+	next();
+});
 
 // Route handlers
 app.use('/api/v1/products', productRouter);
