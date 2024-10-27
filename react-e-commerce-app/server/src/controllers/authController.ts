@@ -32,6 +32,11 @@ const sendToken = (
 		httpOnly: true,
 	};
 
+	// Make sure to do not send password accidentally
+	if (user?.password) {
+		user.password = undefined;
+	}
+
 	if (process.env.NODE_ENV === 'production') {
 		cookieOptions.secure = true;
 	}

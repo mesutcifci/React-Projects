@@ -3,16 +3,30 @@ import productRouter from './routes/productRoutes';
 import userRouter from './routes/userRoutes';
 import AppError from './helpers/appError';
 import { errorHandler } from './controllers/errorController';
+import rateLimit from 'express-rate-limit';
 
 // Create express an app instance
 const app: Express = express();
+
+// Rate limit
+const limiter = rateLimit({
+	limit: 300,
+	windowMs: 60 * 60 * 1000,
+	message: 'Too many request from this IP, please try again in an hour!',
+});
+
+const userLimiter = rateLimit({
+	limit: 30,
+	windowMs: 30 * 60 * 1000,
+	message: 'Too many attempt. Please try again later!',
+});
 
 // This enables to use of req.body
 app.use(express.json());
 
 // Route handlers
-app.use('/api/v1/products', productRouter);
-app.use('/api/v1/users', userRouter);
+app.use('/api/v1/products', limiter, productRouter);
+app.use('/api/v1/users', userLimiter, userRouter);
 
 // Handle routes that are not exist
 app.use('*', (req, res, next) => {
