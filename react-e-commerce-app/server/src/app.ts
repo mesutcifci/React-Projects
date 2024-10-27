@@ -4,9 +4,13 @@ import userRouter from './routes/userRoutes';
 import AppError from './helpers/appError';
 import { errorHandler } from './controllers/errorController';
 import rateLimit from 'express-rate-limit';
+import helmet from 'helmet';
 
 // Create express an app instance
 const app: Express = express();
+
+// Set http security headers
+app.use(helmet());
 
 // Rate limit
 const limiter = rateLimit({
@@ -21,11 +25,13 @@ const userLimiter = rateLimit({
 	message: 'Too many attempt. Please try again later!',
 });
 
+app.use('/api', limiter);
+
 // This enables to use of req.body
 app.use(express.json());
 
 // Route handlers
-app.use('/api/v1/products', limiter, productRouter);
+app.use('/api/v1/products', productRouter);
 app.use('/api/v1/users', userLimiter, userRouter);
 
 // Handle routes that are not exist
