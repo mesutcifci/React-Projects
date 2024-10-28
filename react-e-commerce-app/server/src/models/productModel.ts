@@ -86,6 +86,15 @@ const productSchema = new mongoose.Schema<IProduct>(
 				},
 			],
 		},
+		collections: {
+			type: [
+				{
+					type: mongoose.Schema.ObjectId,
+					ref: 'Collection',
+					required: true,
+				},
+			],
+		},
 		createdAt: {
 			type: Date,
 			default: Date.now,

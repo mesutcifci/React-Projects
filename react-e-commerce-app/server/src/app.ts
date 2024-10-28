@@ -24,6 +24,8 @@ const sanitizeRecursively = (data: any): any => {
 		for (const key in data) {
 			data[key] = sanitizeRecursively(data[key]);
 		}
+	} else if (typeof data === 'boolean' || typeof data === 'number') {
+		return data;
 	}
 };
 

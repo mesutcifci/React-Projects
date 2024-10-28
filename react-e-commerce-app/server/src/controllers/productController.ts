@@ -52,10 +52,6 @@ export const getProduct = catchAsyncErrors(
 export const createProduct = catchAsyncErrors(
 	async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 		const product = await Product.create(req.body);
-		if (!product) {
-			next(new AppError('No product found with that id', 404));
-			return;
-		}
 		res.status(201).json({
 			status: 'success',
 			data: {
@@ -83,11 +79,7 @@ export const updateProduct = catchAsyncErrors(
 
 export const deleteProduct = catchAsyncErrors(
 	async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-		const product = await Product.findByIdAndDelete(req.params.id);
-		if (!product) {
-			next(new AppError('No product found with that id', 404));
-			return;
-		}
+		await Product.findByIdAndDelete(req.params.id);
 		res.status(204).json({ status: 'success' });
 	}
 );

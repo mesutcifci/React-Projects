@@ -1,6 +1,5 @@
-import type { Document, Types } from 'mongoose';
+import type { Document } from 'mongoose';
 
 export interface ICollection extends Document {
 	name: string;
-	products: Types.ObjectId;
 }

@@ -19,6 +19,7 @@ export interface IProduct extends Document {
 	images: [string];
 	badges: [IBadge];
 	categories: [Types.ObjectId];
+	collections: [Types.ObjectId];
 	createdAt: Date;
 	updatedAt: Date;
 }
