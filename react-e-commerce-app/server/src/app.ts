@@ -1,6 +1,7 @@
 import express, { type Express } from 'express';
 import productRouter from './routes/productRoutes';
 import userRouter from './routes/userRoutes';
+import reviewRouter from './routes/reviewRoutes';
 import AppError from './helpers/appError';
 import { errorHandler } from './controllers/errorController';
 import rateLimit from 'express-rate-limit';
@@ -62,8 +63,9 @@ app.use((req, res, next) => {
 });
 
 // Route handlers
-app.use('/api/v1/products', productRouter);
 app.use('/api/v1/users', userLimiter, userRouter);
+app.use('/api/v1/products', productRouter);
+app.use('/api/v1/reviews', reviewRouter);
 
 // Handle routes that are not exist
 app.use('*', (req, res, next) => {

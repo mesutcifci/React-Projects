@@ -4,6 +4,6 @@ export interface IReview extends Document {
 	product: Types.ObjectId;
 	user: Types.ObjectId;
 	rating: number;
-	reviewText: string;
+	review: string;
 	createdAt: Date;
 }

@@ -19,7 +19,7 @@ const reviewSchema = new mongoose.Schema<IReview>(
 			min: 1,
 			max: 5,
 		},
-		reviewText: {
+		review: {
 			type: String,
 			required: true,
 		},
