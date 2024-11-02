@@ -95,14 +95,6 @@ const productSchema = new mongoose.Schema<IProduct>(
 				},
 			],
 		},
-		createdAt: {
-			type: Date,
-			default: Date.now,
-		},
-		updatedAt: {
-			type: Date,
-			default: Date.now,
-		},
 		isActive: {
 			type: Boolean,
 			default: false,
@@ -110,6 +102,7 @@ const productSchema = new mongoose.Schema<IProduct>(
 	},
 	{
 		strictQuery: true,
+		timestamps: true,
 	}
 );
 

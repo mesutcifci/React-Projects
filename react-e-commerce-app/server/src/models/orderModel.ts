@@ -25,17 +25,10 @@ const orderSchema = new mongoose.Schema<IOrder>(
 			default: 'Pending',
 			enum: ['Pending', 'Approved', 'Shipped', 'Delivered', 'Cancelled'],
 		},
-		createdAt: {
-			type: Date,
-			default: Date.now,
-		},
-		updatedAt: {
-			type: Date,
-			default: Date.now,
-		},
 	},
 	{
 		strictQuery: true,
+		timestamps: true,
 	}
 );
 
