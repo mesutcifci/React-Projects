@@ -103,8 +103,16 @@ const productSchema = new mongoose.Schema<IProduct>(
 	{
 		strictQuery: true,
 		timestamps: true,
+		toJSON: { virtuals: true },
+		toObject: { virtuals: true },
 	}
 );
+
+productSchema.virtual('reviews', {
+	ref: 'Review',
+	foreignField: 'product',
+	localField: '_id',
+});
 
 // Do not return inactive products to client
 productSchema.pre<Query<any, any>>(/^find/, function (next) {
