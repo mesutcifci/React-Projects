@@ -1,4 +1,4 @@
-import type { Document } from 'mongoose';
+import type { Document, Types } from 'mongoose';
 
 export interface IFavorite {
 	ref: 'Product';
@@ -14,7 +14,7 @@ export interface IUser extends Document {
 	passwordResetToken?: string;
 	passwordResetExpires?: Date;
 	active: boolean;
-	favorites: [IFavorite];
+	favorites: Types.ObjectId[];
 	comparePasswords: (
 		candidatePassword: string,
 		userPassword: string

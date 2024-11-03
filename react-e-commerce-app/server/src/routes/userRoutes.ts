@@ -2,6 +2,7 @@ import express from 'express';
 import {
 	deleteAccount,
 	getUser,
+	toggleFavorite,
 	updateProfile,
 } from '../controllers/userController';
 import {
@@ -34,5 +35,6 @@ router.patch('/updatePassword', authLimiter, updatePassword);
 router.patch('/updateProfile', updateProfile);
 router.delete('/deleteAccount', deleteAccount);
 router.get('/profile', getUser);
+router.post('/favorites', toggleFavorite);
 
 export default router;
