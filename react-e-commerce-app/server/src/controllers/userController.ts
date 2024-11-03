@@ -3,6 +3,7 @@ import catchAsyncErrors from '../helpers/catchAsyncErrors';
 import User from '../models/userModel';
 import AppError from '../helpers/appError';
 import { filterRequestBody } from '../helpers/filterRequestBody';
+import { deleteProperties } from '../helpers/deleteObjectProperty';
 
 // export const getAllUsers = catchAsyncErrors(
 // 	async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -15,9 +16,33 @@ import { filterRequestBody } from '../helpers/filterRequestBody';
 // 	}
 // );
 
-export const getUser = (req: Request, res: Response): void => {
-	res.status(200).json({ message: 'User Fetched With Id' });
-};
+export const getUser = catchAsyncErrors(
+	async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+		const user = await User.findById(req.user?.id);
+
+		if (!user) {
+			next(new AppError('User not found', 404));
+			return;
+		}
+
+		// Remove properties which should not to send to client.
+		const editedUser = deleteProperties(user.toObject(), [
+			'password',
+			'passwordConfirm',
+			'passwordChangedAt',
+			'passwordResetExpires',
+			'_id',
+			'__v',
+		]);
+
+		res.status(200).json({
+			status: 'success',
+			data: {
+				user: editedUser,
+			},
+		});
+	}
+);
 
 export const updateProfile = catchAsyncErrors(
 	async (req: Request, res: Response, next: NextFunction) => {

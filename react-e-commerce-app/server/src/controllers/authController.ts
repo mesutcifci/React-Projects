@@ -65,6 +65,8 @@ export const signUp = catchAsyncErrors(
 		const editedUser = deleteProperties(user.toObject(), [
 			'password',
 			'passwordConfirm',
+			'passwordChangedAt',
+			'passwordResetExpires',
 			'favorites',
 			'_id',
 			'__v',
