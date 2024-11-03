@@ -112,3 +112,23 @@ export const toggleFavorite = catchAsyncErrors(
 		});
 	}
 );
+
+export const getFavorites = catchAsyncErrors(
+	async (req: Request, res: Response, next: NextFunction) => {
+		const user = await User.findById(req.user?.id).populate('favorites');
+
+		if (!user) {
+			next(new AppError('User not found', 404));
+			return;
+		}
+
+		const favorites = user.favorites;
+
+		res.status(200).json({
+			status: 'success',
+			data: {
+				favorites,
+			},
+		});
+	}
+);

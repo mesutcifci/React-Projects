@@ -1,6 +1,7 @@
 import express from 'express';
 import {
 	deleteAccount,
+	getFavorites,
 	getUser,
 	toggleFavorite,
 	updateProfile,
@@ -35,6 +36,6 @@ router.patch('/updatePassword', authLimiter, updatePassword);
 router.patch('/updateProfile', updateProfile);
 router.delete('/deleteAccount', deleteAccount);
 router.get('/profile', getUser);
-router.post('/favorites', toggleFavorite);
+router.route('/favorites').get(getFavorites).post(toggleFavorite);
 
 export default router;
