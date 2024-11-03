@@ -2,7 +2,12 @@ import express from 'express';
 import { createReview } from '../controllers/reviewController';
 import { protect } from '../controllers/authController';
 
-const router = express.Router();
+/**
+ * Each router only have access parameters of their routers
+ * if we need to reach other routes' parameters
+ * we need to set mergeParams value to true
+ */
+const router = express.Router({ mergeParams: true });
 
 router.route('/').post(protect, createReview);
 
