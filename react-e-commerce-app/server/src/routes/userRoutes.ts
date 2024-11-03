@@ -24,13 +24,15 @@ const authLimiter = rateLimit({
 
 router.post('/signup', authLimiter, signUp);
 router.post('/login', authLimiter, login);
-
 router.post('/forgotPassword', authLimiter, forgotPassword);
 router.patch('/resetPassword/:token', authLimiter, resetPassword);
-router.patch('/updatePassword', authLimiter, protect, updatePassword);
 
-router.patch('/updateProfile', protect, updateProfile);
-router.delete('/deleteAccount', protect, deleteAccount);
-router.get('/profile', protect, getUser);
+// Protect all routes from here
+router.use(protect);
+
+router.patch('/updatePassword', authLimiter, updatePassword);
+router.patch('/updateProfile', updateProfile);
+router.delete('/deleteAccount', deleteAccount);
+router.get('/profile', getUser);
 
 export default router;
