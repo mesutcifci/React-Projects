@@ -52,6 +52,7 @@ export const getProduct = catchAsyncErrors(
 	}
 );
 
+// TODO remove before production
 export const createProduct = catchAsyncErrors(
 	async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 		const product = await Product.create(req.body);
@@ -64,6 +65,7 @@ export const createProduct = catchAsyncErrors(
 	}
 );
 
+// TODO remove before production
 export const updateProduct = catchAsyncErrors(
 	async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 		const body: IProduct = req.body;
@@ -80,6 +82,7 @@ export const updateProduct = catchAsyncErrors(
 	}
 );
 
+// TODO remove before production
 export const deleteProduct = catchAsyncErrors(
 	async (req: Request, res: Response, next: NextFunction): Promise<void> => {
 		await Product.findByIdAndDelete(req.params.id);

@@ -14,8 +14,10 @@ const router = express.Router();
 // We implement this here because we want to get product id from current product
 router.use('/:productId/reviews', reviewRouter);
 
+// TODO remove createProduct before production
 router.route('/').get(getAllProducts).post(createProduct);
 
+// TODO remove updateProduct and deleteProduct before production
 router.route('/:id').get(getProduct).patch(updateProduct).delete(deleteProduct);
 
 export default router;
