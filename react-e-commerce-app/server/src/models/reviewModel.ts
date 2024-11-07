@@ -58,9 +58,8 @@ reviewSchema.statics.calculateAverageRating = async function (productId) {
 	});
 };
 
-reviewSchema.post('save', async function () {
-	const review = this.constructor as IReviewModel;
-	await review.calculateAverageRating(this.product);
+reviewSchema.post(/save|^findOneAnd/, async function (doc) {
+	await doc.constructor.calculateAverageRating(doc.product);
 });
 
 export default mongoose.model<IReview, IReviewModel>('Review', reviewSchema);
