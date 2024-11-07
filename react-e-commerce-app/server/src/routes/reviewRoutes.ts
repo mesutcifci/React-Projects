@@ -2,6 +2,7 @@ import express from 'express';
 import {
 	createReview,
 	getReviewsOfProduct,
+	updateReview,
 } from '../controllers/reviewController';
 import { protect } from '../controllers/authController';
 
@@ -13,5 +14,7 @@ import { protect } from '../controllers/authController';
 const router = express.Router({ mergeParams: true });
 
 router.route('/').get(getReviewsOfProduct).post(protect, createReview);
+
+router.route('/:id').patch(protect, updateReview);
 
 export default router;
