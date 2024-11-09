@@ -30,6 +30,7 @@
 		"mongoose": "^8.2.3",
 		"nodemailer": "^6.9.15",
 		"sanitize-html": "^2.13.1",
+		"slugify": "^1.6.6",
 		"validator": "^13.11.0"
 	},
 	"devDependencies": {

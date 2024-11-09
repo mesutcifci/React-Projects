@@ -1,5 +1,6 @@
 import mongoose, { type Query } from 'mongoose';
 import { type IProduct } from '../types/product';
+import slugify from 'slugify';
 
 const productSchema = new mongoose.Schema<IProduct>(
 	{
@@ -11,6 +12,7 @@ const productSchema = new mongoose.Schema<IProduct>(
 			maxlength: [150, "A product name can't bigger than 150 character"],
 			minlength: [10, 'A product name must have at least 10 character'],
 		},
+		slug: String,
 		price: {
 			type: Number,
 			required: [true, 'A product must have a price'],
@@ -130,6 +132,10 @@ productSchema.pre<Query<any, any>>(/^find/, function (next) {
 	 */
 	void this.find({ isActive: true });
 	next();
+});
+
+productSchema.pre('save', function () {
+	this.slug = slugify(this.name, { lower: true });
 });
 
 export default mongoose.model<IProduct>('Product', productSchema);

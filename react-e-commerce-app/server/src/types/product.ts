@@ -8,6 +8,7 @@ export interface IBadge {
 
 export interface IProduct extends Document {
 	name: string;
+	slug: string;
 	price: number;
 	discountPrice?: number;
 	currency: string;
