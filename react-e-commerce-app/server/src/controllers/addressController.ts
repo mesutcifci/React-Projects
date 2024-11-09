@@ -91,3 +91,24 @@ export const getAddresses = catchAsyncErrors(
 		});
 	}
 );
+
+export const getAddress = catchAsyncErrors(
+	async (req: Request, res: Response, next: NextFunction) => {
+		const address = await Address.findOne({
+			_id: req.params.id,
+			user: req.user?.id,
+		});
+
+		if (!address) {
+			next(new AppError('Address not found', 404));
+			return;
+		}
+
+		res.status(200).json({
+			status: 'success',
+			data: {
+				address,
+			},
+		});
+	}
+);

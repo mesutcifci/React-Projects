@@ -2,6 +2,7 @@ import express from 'express';
 import {
 	createAddress,
 	deleteAddress,
+	getAddress,
 	getAddresses,
 	updateAddress,
 } from '../controllers/addressController';
@@ -9,6 +10,6 @@ import {
 const router = express.Router();
 
 router.route('/').get(getAddresses).post(createAddress);
-router.route('/:id').patch(updateAddress).delete(deleteAddress);
+router.route('/:id').get(getAddress).patch(updateAddress).delete(deleteAddress);
 
 export default router;
