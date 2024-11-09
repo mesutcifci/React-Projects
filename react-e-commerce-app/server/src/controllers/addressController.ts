@@ -76,3 +76,18 @@ export const deleteAddress = catchAsyncErrors(
 		});
 	}
 );
+
+export const getAddresses = catchAsyncErrors(
+	async (req: Request, res: Response, next: NextFunction) => {
+		const addresses = await Address.find({
+			user: req.user?.id,
+		});
+
+		res.status(200).json({
+			status: 'success',
+			data: {
+				addresses,
+			},
+		});
+	}
+);
