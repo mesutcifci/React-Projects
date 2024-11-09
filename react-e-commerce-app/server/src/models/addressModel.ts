@@ -26,13 +26,19 @@ const addressSchema = new mongoose.Schema<IAddress>(
 			trim: true,
 			maxlength: [100, 'District cannot be more than 100 characters'],
 		},
-		addressLine1: {
+		neighborhood: {
+			type: String,
+			required: [true, 'Neighborhood is required'],
+			trim: true,
+			maxlength: [100, 'Neighborhood cannot be more than 100 characters'],
+		},
+		addressLineFirst: {
 			type: String,
 			required: [true, 'Address line is required'],
 			trim: true,
 			maxlength: [300, 'Address line cannot be more than 300 characters'],
 		},
-		addressLine2: {
+		addressLineSecond: {
 			type: String,
 			trim: true,
 			maxlength: [300, 'Address line cannot be more than 300 characters'],

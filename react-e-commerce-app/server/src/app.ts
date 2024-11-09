@@ -1,9 +1,14 @@
 import express, { type Express } from 'express';
+
 import productRouter from './routes/productRoutes';
 import userRouter from './routes/userRoutes';
 import reviewRouter from './routes/reviewRoutes';
+import addressRouter from './routes/addressRoutes';
+
 import AppError from './helpers/appError';
 import { errorHandler } from './controllers/errorController';
+import { protect } from './controllers/authController';
+
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import ExpressMongoSanitize from 'express-mongo-sanitize';
@@ -66,6 +71,7 @@ app.use((req, res, next) => {
 app.use('/api/v1/users', userLimiter, userRouter);
 app.use('/api/v1/products', productRouter);
 app.use('/api/v1/reviews', reviewRouter);
+app.use('/api/v1/address', protect, addressRouter);
 
 // Handle routes that are not exist
 app.use('*', (req, res, next) => {
