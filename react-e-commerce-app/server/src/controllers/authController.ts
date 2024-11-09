@@ -134,7 +134,9 @@ export const protect = catchAsyncErrors(
 			return;
 		}
 
-		// convert jwt.verify method to  a promise return function to do not break convention.
+		// Normally jwt.verify accepts a callback function runs as soon as verification completed
+		// We are converting jwt.verify method to a promise return function to do not break convention.
+		// So we can stick to async await
 		const promisifiedVerify = promisify(jwt.verify) as (
 			// ts does not know if how many parameters accept promisifiedVerify function
 			// we need to declare manually
