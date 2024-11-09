@@ -12,6 +12,7 @@ export const createAddress = catchAsyncErrors(
 		const address = await Address.create(addressBody);
 
 		res.status(201).json({
+			status: 'success',
 			data: {
 				address,
 			},
@@ -46,9 +47,32 @@ export const updateAddress = catchAsyncErrors(
 		);
 
 		res.status(200).json({
+			status: 'success',
 			data: {
 				address: updatedAddress,
 			},
+		});
+	}
+);
+
+export const deleteAddress = catchAsyncErrors(
+	async (req: Request, res: Response, next: NextFunction) => {
+		const address = await Address.findById(req.params.id);
+
+		if (!address) {
+			next(new AppError('Address not found', 404));
+			return;
+		}
+
+		if (address.user.toString() !== req.user?.id) {
+			next(new AppError('Insufficient permission', 401));
+			return;
+		}
+
+		await Address.findByIdAndDelete(req.params.id);
+
+		res.status(200).json({
+			status: 'success',
 		});
 	}
 );
