@@ -48,7 +48,7 @@ export const updateReview = catchAsyncErrors(
 		}
 
 		// Prevents a user from trying to update another user's review
-		if (!review.user && review.user !== req?.user?.id) {
+		if (!review.user || review.user.toString() !== req?.user?.id) {
 			next(new AppError('Insufficient permission', 401));
 			return;
 		}
