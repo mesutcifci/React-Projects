@@ -123,6 +123,11 @@ productSchema.virtual('reviews', {
 
 // Do not return inactive products to client
 productSchema.pre<Query<any, any>>(/^find/, function (next) {
+	/**
+	 * #DOC
+	 * We don't use async/await because the query does not executed here.
+	 * Instead we add { isActive: true } to query match criteria.
+	 */
 	void this.find({ isActive: true });
 	next();
 });
