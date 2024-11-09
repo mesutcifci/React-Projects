@@ -1,18 +1,5 @@
 import type { Document, Types } from 'mongoose';
 
-export interface IFavorite {
-	ref: 'Product';
-}
-
-interface IAddress {
-	country: string;
-	city: string;
-	district: string;
-	street: string;
-	addressLine1: string;
-	addressLine2: string;
-}
-
 export interface IUser extends Document {
 	name: string;
 	surname: string;
@@ -24,7 +11,6 @@ export interface IUser extends Document {
 	passwordResetExpires?: Date;
 	active: boolean;
 	favorites: Types.ObjectId[];
-	address?: IAddress;
 	comparePasswords: (
 		candidatePassword: string,
 		userPassword: string

@@ -80,32 +80,6 @@ const userSchema = new mongoose.Schema<IUser>(
 				ref: 'Product',
 			},
 		],
-		// Beware typechecking not working in nested fields
-		address: {
-			country: {
-				type: String,
-				required: [true, 'Country is required'],
-			},
-			city: {
-				type: String,
-				required: [true, 'City is required'],
-			},
-			district: {
-				type: String,
-				required: [true, 'District is required'],
-			},
-			street: {
-				type: String,
-				required: [true, 'Street is required'],
-			},
-			addressLine1: {
-				type: String,
-				required: [true, 'Address line is required'],
-			},
-			addressLine2: {
-				type: String,
-			},
-		},
 	},
 	{
 		strictQuery: true,
