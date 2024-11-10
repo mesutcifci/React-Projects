@@ -35,13 +35,13 @@ export const getAllProducts = catchAsyncErrors(
 
 export const getProduct = catchAsyncErrors(
 	async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-		const product = await Product.findById(req.params.id).populate({
+		const product = await Product.findById(req.params.slug).populate({
 			path: 'reviews',
 			select: '-__v',
 		});
 
 		if (!product) {
-			next(new AppError('No product found with that id', 404));
+			next(new AppError('No product found with that slug', 404));
 			return;
 		}
 

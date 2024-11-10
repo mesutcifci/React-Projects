@@ -12,7 +12,10 @@ const productSchema = new mongoose.Schema<IProduct>(
 			maxlength: [150, "A product name can't bigger than 150 character"],
 			minlength: [10, 'A product name must have at least 10 character'],
 		},
-		slug: String,
+		slug: {
+			type: String,
+			unique: true,
+		},
 		price: {
 			type: Number,
 			required: [true, 'A product must have a price'],
