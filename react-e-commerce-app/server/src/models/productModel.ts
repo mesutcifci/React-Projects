@@ -89,14 +89,10 @@ const productSchema = new mongoose.Schema<IProduct>(
 				},
 			],
 		},
-		categories: {
-			type: [
-				{
-					type: mongoose.Schema.ObjectId,
-					ref: 'Category',
-					required: true,
-				},
-			],
+		category: {
+			type: mongoose.Schema.ObjectId,
+			ref: 'Category',
+			required: true,
 		},
 		collections: {
 			type: [

@@ -19,7 +19,7 @@ export interface IProduct extends Document {
 	isActive: boolean;
 	images: [string];
 	badges: [IBadge];
-	categories: [Types.ObjectId];
+	category: Types.ObjectId;
 	collections: [Types.ObjectId];
 	createdAt: Date;
 	updatedAt: Date;
