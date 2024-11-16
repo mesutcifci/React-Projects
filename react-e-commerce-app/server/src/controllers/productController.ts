@@ -7,7 +7,11 @@ import AppError from '../helpers/appError';
 import Category from '../models/categoryModel';
 import { type Types } from 'mongoose';
 import type QueryString from 'qs';
-import { getChildrenCategories } from '../helpers/category';
+import {
+	generateNestedCategory,
+	getCategoryPath,
+	getChildrenCategories,
+} from '../helpers/category';
 
 export const buildQueryForProducts = (
 	queryObject: QueryString.ParsedQs
@@ -127,9 +131,17 @@ export const getProduct = catchAsyncErrors(
 			return;
 		}
 
+		const categoryPath = await getCategoryPath(product.category);
+		const nestedCategory = generateNestedCategory(categoryPath);
+
+		const enchancedProduct = {
+			...product.toObject(),
+			categoryPath: nestedCategory,
+		};
+
 		res.status(200).json({
 			status: 'success',
-			data: { product },
+			data: { product: enchancedProduct },
 		});
 	}
 );

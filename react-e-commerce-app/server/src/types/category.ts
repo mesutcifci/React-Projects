@@ -6,3 +6,7 @@ export interface ICategory extends Document {
 	slug: string;
 	level: number;
 }
+
+export interface INestedCategory extends ICategory {
+	children: INestedCategory[];
+}

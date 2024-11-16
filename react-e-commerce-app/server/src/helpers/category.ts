@@ -1,10 +1,6 @@
 import { type Types } from 'mongoose';
 import Category from '../models/categoryModel';
-import { type ICategory } from '../types/category';
-
-interface INestedCategory extends ICategory {
-	children: INestedCategory[];
-}
+import type { INestedCategory, ICategory } from '../types/category';
 
 /**
  * Finds the category where the id parameter equal to  categoryId
