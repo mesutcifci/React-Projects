@@ -5,9 +5,9 @@ import QueryGenerator from '../helpers/queryGenerator';
 import catchAsyncErrors from '../helpers/catchAsyncErrors';
 import AppError from '../helpers/appError';
 import Category from '../models/categoryModel';
-import { getChildrenCategories } from '../helpers/getCategoryPath';
 import { type Types } from 'mongoose';
 import type QueryString from 'qs';
+import { getChildrenCategories } from '../helpers/category';
 
 export const buildQueryForProducts = (
 	queryObject: QueryString.ParsedQs

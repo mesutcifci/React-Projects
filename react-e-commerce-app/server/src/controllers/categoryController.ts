@@ -2,8 +2,7 @@ import { type NextFunction, type Request, type Response } from 'express';
 import catchAsyncErrors from '../helpers/catchAsyncErrors';
 import Category from '../models/categoryModel';
 import AppError from '../helpers/appError';
-import { getCategoryPath } from '../helpers/getCategoryPath';
-import { generateNestedCategory } from '../helpers/generateNestedCategory';
+import { generateNestedCategory, getCategoryPath } from '../helpers/category';
 
 export const createCategory = catchAsyncErrors(
 	async (req: Request, res: Response, next: NextFunction) => {
