@@ -10,12 +10,6 @@ const categorySchema = new mongoose.Schema<ICategory>(
 			trim: true,
 			unique: true,
 		},
-		value: {
-			type: String,
-			required: [true, 'Value is required'],
-			lowercase: true,
-			unique: true,
-		},
 		parentId: {
 			type: mongoose.Schema.ObjectId,
 			ref: 'Category',

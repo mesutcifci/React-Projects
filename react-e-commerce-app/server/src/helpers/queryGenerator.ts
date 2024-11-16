@@ -16,9 +16,30 @@ export default class QueryGenerator<T extends Document> {
 	}
 
 	filter(): this {
+		// Get deep copy of queryObject to avoid modifying the original object
+		const queryObjectCopy = JSON.parse(JSON.stringify(this.queryObject));
+
+		// We do not want to perform any operations with this fields.
+		// Therefore we delete them.
+		const excludedFields = ['page', 'sort', 'limit', 'fields'];
+		excludedFields.forEach((field) => {
+			if (queryObjectCopy[field]) {
+				// eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+				delete queryObjectCopy[field];
+			}
+		});
+
 		// We need to convert query object to valid mongoose query strings
 		// Example: { price: { gte: 5 } } to { price: {$gte: 5 } }
-		let queryString = JSON.stringify(this.queryObject);
+		// eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+		let queryString = JSON.stringify(queryObjectCopy);
+
+		/**
+		 * #DOC
+		 * \b...\b => Select exact words, do not select words like ltex or agte
+		 * () => select
+		 * /g => select multiple words
+		 */
 		queryString = queryString.replace(
 			/\b(gte|gt|lte|lt)\b/g,
 			(match) => `$${match}`
@@ -61,6 +82,7 @@ export default class QueryGenerator<T extends Document> {
 		const page = this.queryObject.page ? +this.queryObject.page : 1;
 		const limit =
 			this.queryObject.limit &&
+			// Prevent the user from getting excess amount of products
 			(this.queryObject.limit as string) in this.resultLimits
 				? +this.queryObject.limit
 				: 10;

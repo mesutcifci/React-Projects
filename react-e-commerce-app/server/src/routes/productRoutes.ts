@@ -4,6 +4,7 @@ import {
 	deleteProduct,
 	getAllProducts,
 	getProduct,
+	getProductsByCategorySlug,
 	updateProduct,
 } from '../controllers/productController';
 import reviewRouter from '../routes/reviewRoutes';
@@ -16,6 +17,8 @@ router.use('/:productId/reviews', reviewRouter);
 
 // TODO remove createProduct before production
 router.route('/').get(getAllProducts).post(createProduct);
+
+router.route('/category/:slug').get(getProductsByCategorySlug);
 
 // TODO remove updateProduct and deleteProduct before production
 router

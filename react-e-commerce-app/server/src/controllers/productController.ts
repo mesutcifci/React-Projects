@@ -4,26 +4,108 @@ import type { IProduct } from '../types/product';
 import QueryGenerator from '../helpers/queryGenerator';
 import catchAsyncErrors from '../helpers/catchAsyncErrors';
 import AppError from '../helpers/appError';
+import Category from '../models/categoryModel';
+import { getChildrenCategories } from '../helpers/getCategoryPath';
+import { type Types } from 'mongoose';
+import type QueryString from 'qs';
+
+export const buildQueryForProducts = (
+	queryObject: QueryString.ParsedQs
+): QueryGenerator<IProduct> => {
+	const queryObjectCopy: QueryString.ParsedQs = JSON.parse(
+		JSON.stringify(queryObject)
+	);
+	const resultLimits = {
+		'10': '10',
+		'20': '20',
+		'30': '30',
+	};
+
+	const queryInstance = new QueryGenerator(
+		/**
+		 * #DOC
+		 * As soon as we await the Product.find() then the query will be executed
+		 * otherwise it will returns a Query object so we can modify this query object without executing
+		 */
+		Product.find(),
+		queryObjectCopy,
+		resultLimits
+	)
+		.filter()
+		.sort()
+		.select()
+		.paginate();
+
+	return queryInstance;
+};
 
 export const getAllProducts = catchAsyncErrors(
 	async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-		const queryObject = { ...req.query };
-		const resultLimits = {
-			'10': '10',
-			'20': '20',
-			'30': '30',
-		};
-		// Create Query Instance
-		const queryInstance = new QueryGenerator(
-			Product.find(),
-			queryObject,
-			resultLimits
-		)
-			.filter()
-			.sort()
-			.select()
-			.paginate();
+		const queryInstance = buildQueryForProducts(req.query);
 		// Execute Query
+		const products = await queryInstance.query;
+		res.status(200).json({
+			status: 'success',
+			results: products.length,
+			data: { products },
+		});
+	}
+);
+
+export const getProductsByCategorySlug = catchAsyncErrors(
+	async (req: Request, res: Response, next: NextFunction) => {
+		// find the category by slug
+		const category = await Category.findOne({
+			slug: req.params.slug,
+		});
+
+		if (!category) {
+			next(new AppError('Category not found', 404));
+			return;
+		}
+
+		// Create Set object to avoid duplicated ids
+		const uniqueCategoryIdSet = new Set<any>();
+		uniqueCategoryIdSet.add(category._id);
+
+		const queryCategory = req?.query?.category_id;
+		if (req?.query.category_id) {
+			if (Array.isArray(queryCategory)) {
+				queryCategory.forEach((item) => {
+					uniqueCategoryIdSet.add(item);
+				});
+			} else {
+				uniqueCategoryIdSet.add(queryCategory);
+			}
+		} else {
+			// Get children of the current category
+			const children = await getChildrenCategories(
+				category._id as Types.ObjectId
+			);
+
+			children.forEach((item) => {
+				if (item._id) {
+					uniqueCategoryIdSet.add(item._id);
+				}
+			});
+		}
+
+		const categoryIdsArray = Array.from(uniqueCategoryIdSet);
+
+		/**
+		 * Category A > Category B > Category C
+		 *
+		 * if req.params.slug: category-a we need to get both products of Category B and Category C.
+		 * Because products of these categories also products of Category C
+		 */
+		const queryObject = {
+			...req.query,
+			category: { $in: categoryIdsArray },
+		};
+
+		// Create query instance
+		const queryInstance = buildQueryForProducts(queryObject);
+
 		const products = await queryInstance.query;
 		res.status(200).json({
 			status: 'success',

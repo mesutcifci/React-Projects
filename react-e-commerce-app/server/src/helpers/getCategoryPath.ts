@@ -21,7 +21,7 @@ export const getCategoryPath = async (
 	 * So we need to its children from top to bottom.
 	 */
 	if (!currentCategory?.parentId) {
-		const children = await getChildren(categoryId);
+		const children = await getChildrenCategories(categoryId);
 
 		if (children?.length > 0) {
 			path.push(...children);
@@ -40,7 +40,7 @@ export const getCategoryPath = async (
 	});
 
 	if (!isLowestLevelCategory) {
-		const parents = await getParents(categoryId);
+		const parents = await getParentCategories(categoryId);
 
 		if (parents?.length > 0) {
 			path.push(...parents);
@@ -49,8 +49,8 @@ export const getCategoryPath = async (
 		}
 	}
 
-	const children = await getChildren(categoryId);
-	const parents = await getParents(categoryId);
+	const children = await getChildrenCategories(categoryId);
+	const parents = await getParentCategories(categoryId);
 
 	/**
 	 * 3) If not this is a middle level category so we need to both parents and children
@@ -62,7 +62,7 @@ export const getCategoryPath = async (
 	return path;
 };
 
-const getParents = async (
+export const getParentCategories = async (
 	categoryId: Types.ObjectId | string
 ): Promise<ICategory[]> => {
 	const parents = [];
@@ -90,7 +90,7 @@ const getParents = async (
 	return parents;
 };
 
-const getChildren = async (
+export const getChildrenCategories = async (
 	categoryId: Types.ObjectId | string
 ): Promise<ICategory[]> => {
 	const children = [];
