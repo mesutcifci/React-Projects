@@ -94,15 +94,6 @@ const productSchema = new mongoose.Schema<IProduct>(
 			ref: 'Category',
 			required: true,
 		},
-		collections: {
-			type: [
-				{
-					type: mongoose.Schema.ObjectId,
-					ref: 'Collection',
-					required: true,
-				},
-			],
-		},
 		isActive: {
 			type: Boolean,
 			default: false,
