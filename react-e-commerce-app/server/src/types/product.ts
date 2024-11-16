@@ -1,11 +1,5 @@
 import type { Document, Types } from 'mongoose';
 
-export interface IBadge {
-	text: string;
-	startDate: Date;
-	endDate: Date;
-}
-
 export interface IProduct extends Document {
 	name: string;
 	slug: string;
@@ -18,9 +12,7 @@ export interface IProduct extends Document {
 	description: string;
 	isActive: boolean;
 	images: [string];
-	badges: [IBadge];
 	category: Types.ObjectId;
-	collections: [Types.ObjectId];
 	createdAt: Date;
 	updatedAt: Date;
 }

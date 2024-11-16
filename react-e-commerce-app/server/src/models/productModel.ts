@@ -69,26 +69,6 @@ const productSchema = new mongoose.Schema<IProduct>(
 			type: [String],
 			required: [true, 'A product must have an image'],
 		},
-		badges: {
-			type: [
-				{
-					text: {
-						type: String,
-						required: [true, 'A badge must have an text field'],
-						maxlength: [30, 'A badge text can not bigger than 30 character'],
-						minlength: [3, 'A badge text must have at least 3 character'],
-					},
-					startDate: {
-						type: Date,
-						required: [true, 'A badge must have a start date'],
-					},
-					endDate: {
-						type: Date,
-						required: [true, 'A badge must have a end date'],
-					},
-				},
-			],
-		},
 		category: {
 			type: mongoose.Schema.ObjectId,
 			ref: 'Category',
