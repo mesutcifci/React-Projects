@@ -6,6 +6,10 @@ interface INestedCategory extends ICategory {
 	children: INestedCategory[];
 }
 
+/**
+ * Finds the category where the id parameter equal to  categoryId
+ * and all related categories with this category.
+ */
 export const getCategoryPath = async (
 	categoryId: Types.ObjectId | string
 ): Promise<ICategory[]> => {
@@ -120,6 +124,19 @@ export const getChildrenCategories = async (
 	return children;
 };
 
+/**
+ * Generate an category object that includes sub categories recursively
+ *
+ * @returns {
+ *  name: "Category A"
+ *  children: [
+ * 		{
+ * 			name: "Category B"
+ *      children: [...]
+ *    }
+ *  ]
+ * }
+ */
 export const generateNestedCategory = (
 	categories: ICategory[]
 ): INestedCategory | null => {
