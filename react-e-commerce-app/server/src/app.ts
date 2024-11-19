@@ -5,6 +5,7 @@ import userRouter from './routes/userRoutes';
 import reviewRouter from './routes/reviewRoutes';
 import addressRouter from './routes/addressRoutes';
 import categoryRouter from './routes/categoryRoutes';
+import navigationRouter from './routes/navigationMenuRoutes';
 
 import AppError from './helpers/appError';
 import { errorHandler } from './controllers/errorController';
@@ -77,6 +78,7 @@ app.use('/api/v1/products', productRouter);
 app.use('/api/v1/reviews', reviewRouter);
 app.use('/api/v1/address', protect, addressRouter);
 app.use('/api/v1/category', categoryRouter);
+app.use('/api/v1/navigation', navigationRouter);
 
 // Handle routes that are not exist
 app.use('*', (req, res, next) => {

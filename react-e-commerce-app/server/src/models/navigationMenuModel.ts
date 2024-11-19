@@ -2,21 +2,55 @@ import mongoose, { Types } from 'mongoose';
 import type { INavigationMenu } from '../types/navigationMenu';
 import slugify from 'slugify';
 
-const navigationMenuSchema = new mongoose.Schema<INavigationMenu>({
+const navigationMenuSchema = new mongoose.Schema<
+	INavigationMenu<Types.ObjectId, true>
+>({
 	title: {
 		type: String,
 		require: [true, 'Title is required'],
 		trim: true,
 		maxlength: [100, 'Title cannot be more than 100 characters'],
 	},
-	items: [
-		{
-			category: {
-				type: Types.ObjectId,
-				ref: 'Category',
-				required: true,
+	items: {
+		type: [
+			{
+				category: {
+					type: Types.ObjectId,
+					ref: 'Category',
+					required: true,
+				},
+				additionalFields: {
+					icon: {
+						type: String,
+						trim: true,
+						lowerCase: true,
+						maxlength: [20, 'icon name cannot be more than 20 characters'],
+					},
+				},
 			},
-			additionalFields: {
+		],
+		required: [true, 'Items are required'],
+	},
+	extraItems: {
+		type: [
+			{
+				name: {
+					type: String,
+					trim: true,
+					lowerCase: true,
+					maxlength: [100, 'name cannot be more than 100 characters'],
+					required: true,
+				},
+				slug: {
+					type: String,
+					trim: true,
+					maxlength: [100, 'slug cannot be more than 100 characters'],
+				},
+				order: {
+					type: Number,
+					max: [100, 'order number cannot be more than 100'],
+					min: [-9999, 'order number cannot be less than -9999'],
+				},
 				icon: {
 					type: String,
 					trim: true,
@@ -24,35 +58,8 @@ const navigationMenuSchema = new mongoose.Schema<INavigationMenu>({
 					maxlength: [20, 'icon name cannot be more than 20 characters'],
 				},
 			},
-		},
-	],
-	extraItems: [
-		{
-			name: {
-				type: String,
-				trim: true,
-				lowerCase: true,
-				maxlength: [100, 'name cannot be more than 100 characters'],
-				required: true,
-			},
-			slug: {
-				type: String,
-				trim: true,
-				maxlength: [100, 'name cannot be more than 100 characters'],
-			},
-			order: {
-				type: Number,
-				max: [100, 'order number cannot be more than 100'],
-				min: [-9999, 'order number cannot be less than -9999'],
-			},
-			icon: {
-				type: String,
-				trim: true,
-				lowerCase: true,
-				maxlength: [20, 'icon name cannot be more than 20 characters'],
-			},
-		},
-	],
+		],
+	},
 });
 
 navigationMenuSchema.pre('save', function () {
@@ -63,7 +70,7 @@ navigationMenuSchema.pre('save', function () {
 	}
 });
 
-export default mongoose.model<INavigationMenu>(
+export default mongoose.model<INavigationMenu<Types.ObjectId, true>>(
 	'NavigationMenu',
 	navigationMenuSchema
 );
