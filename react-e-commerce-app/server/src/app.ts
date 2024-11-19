@@ -25,14 +25,17 @@ const sanitizeRecursively = (data: any): any => {
 			allowedIframeHostnames: ['www.youtube.com'],
 		});
 	} else if (Array.isArray(data)) {
-		// This will sanitize data recursively
+		// Recursively sanitize each item in the array
 		return data.map((item) => sanitizeRecursively(item));
 	} else if (typeof data === 'object' && data !== null) {
+		// Recursively sanitize each property in the object
+		const sanitizedObject: any = {};
 		for (const key in data) {
-			data[key] = sanitizeRecursively(data[key]);
+			sanitizedObject[key] = sanitizeRecursively(data[key]);
 		}
+		return sanitizedObject;
 	} else if (typeof data === 'boolean' || typeof data === 'number') {
-		return data;
+		return data; // Booleans and numbers don't need sanitization
 	}
 };
 
