@@ -80,7 +80,7 @@ app.use('/api/v1/reviews', reviewRouter);
 app.use('/api/v1/address', protect, addressRouter);
 app.use('/api/v1/category', categoryRouter);
 app.use('/api/v1/navigation', navigationRouter);
-app.use('/api/v1/basket', basketRouter);
+app.use('/api/v1/basket', protect, basketRouter);
 
 // Handle routes that are not exist
 app.use('*', (req, res, next) => {

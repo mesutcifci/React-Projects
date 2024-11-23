@@ -1,9 +1,8 @@
 import express from 'express';
-import { addToBasket } from '../controllers/basketController';
-import { protect } from '../controllers/authController';
+import { addToBasket, getBasket } from '../controllers/basketController';
 
 const router = express.Router();
 
-router.route('/').post(protect, addToBasket);
+router.route('/').get(getBasket).post(addToBasket);
 
 export default router;

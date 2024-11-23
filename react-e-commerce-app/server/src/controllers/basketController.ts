@@ -93,3 +93,23 @@ export const addToBasket = catchAsyncErrors(
 		});
 	}
 );
+
+export const getBasket = catchAsyncErrors(
+	async (req: Request, res: Response, next: NextFunction) => {
+		const basket = await Basket.findOne({
+			user: req.user?._id,
+		});
+
+		if (!basket) {
+			next(new AppError('Basket not found', 404));
+			return;
+		}
+
+		res.status(200).json({
+			status: 'success',
+			data: {
+				basket,
+			},
+		});
+	}
+);
