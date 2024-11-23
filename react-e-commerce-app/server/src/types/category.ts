@@ -7,8 +7,10 @@ export interface ICategory extends Document {
 	level: number;
 }
 
-// Use for responses. Omit Mongoose Document type properties
-export type ICategoryPlain = Omit<ICategory, keyof Document>;
+// #DOC Omit Mongoose Document type properties but add _id type
+export type ICategoryPlain<T = ICategory> = Omit<T, keyof Document> & {
+	_id: Types.ObjectId;
+};
 
 export interface INestedCategory extends ICategory {
 	children: INestedCategory[];

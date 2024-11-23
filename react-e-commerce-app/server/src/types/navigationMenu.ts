@@ -1,7 +1,13 @@
-import type { Document, Types } from 'mongoose';
+import type { Document } from 'mongoose';
 
-export interface INavigationMenuItem {
-	category: Types.ObjectId;
+// Base interfaces
+interface IBase {
+	name: string;
+	extraItems: INavigationMenuExtraItem[] | [];
+}
+
+export interface INavigationMenuItem<T> {
+	category: T;
 	additionalFields: {
 		icon: string;
 	};
@@ -14,8 +20,10 @@ export interface INavigationMenuExtraItem {
 	icon?: string;
 }
 
-export interface INavigationMenu extends Document {
-	title: string;
-	items: INavigationMenuItem[];
-	extraItems: INavigationMenuExtraItem[];
-}
+export type INavigationMenu<
+	TCategory,
+	IsDocument extends boolean = false,
+> = IBase &
+	(IsDocument extends true ? Document : Record<string, unknown>) & {
+		items: Array<INavigationMenuItem<TCategory>>;
+	};
