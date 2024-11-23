@@ -4,12 +4,13 @@ import Category from '../models/categoryModel';
 import AppError from '../helpers/appError';
 import { generateNestedCategory, getCategoryPath } from '../helpers/category';
 
+// TODO remove before production
 export const createCategory = catchAsyncErrors(
 	async (req: Request, res: Response, next: NextFunction) => {
 		const category = await Category.create(req.body);
 
 		if (!category) {
-			next(new AppError('Category not found', 404));
+			next(new AppError('Category could not created', 500));
 			return;
 		}
 
