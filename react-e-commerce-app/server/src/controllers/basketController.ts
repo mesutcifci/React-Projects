@@ -162,3 +162,27 @@ export const removeFromBasket = catchAsyncErrors(
 		});
 	}
 );
+
+export const emptyBasket = catchAsyncErrors(
+	async (req: Request, res: Response, next: NextFunction) => {
+		// Get basket of the user
+		const basket = await Basket.findOne({ user: req.user?._id });
+
+		// if not basket throw error
+		if (!basket) {
+			next(new AppError('Basket not found', 404));
+			return;
+		}
+
+		// Equate basket products to an empty array
+		basket.products = [];
+		await basket.save();
+
+		res.status(200).json({
+			status: 'success',
+			data: {
+				basket,
+			},
+		});
+	}
+);
