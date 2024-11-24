@@ -113,3 +113,52 @@ export const getBasket = catchAsyncErrors(
 		});
 	}
 );
+
+export const removeFromBasket = catchAsyncErrors(
+	async (req: Request, res: Response, next: NextFunction) => {
+		const { productId } = req.body;
+
+		if (!productId) {
+			next(new AppError('Product id not found', 400));
+			return;
+		}
+
+		// Get basket of the user
+		const basket = await Basket.findOne({ user: req.user?._id });
+
+		// if not basket throw error
+		if (!basket) {
+			next(new AppError('Basket not found', 404));
+			return;
+		}
+
+		// if not basket products throw error
+		if (!basket.products?.length) {
+			next(new AppError('Basket products not found', 404));
+			return;
+		}
+
+		// Find index of product id inside of basket products
+		const index = basket.products.findIndex(
+			(item) => item.product?.toString() === productId?.toString()
+		);
+
+		// if index == -1 throw error product not found
+		if (index === -1) {
+			next(new AppError('Could not find a product with this id', 404));
+			return;
+		}
+		// else remove the product
+		else {
+			basket.products.splice(index, 1);
+			await basket.save();
+		}
+
+		res.status(200).json({
+			status: 'success',
+			data: {
+				basket,
+			},
+		});
+	}
+);
