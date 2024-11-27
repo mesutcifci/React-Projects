@@ -49,6 +49,25 @@ export default class QueryGenerator<T extends Document> {
 		return this;
 	}
 
+	search(): this {
+		if (this.queryObject.search) {
+			const searchText = this.queryObject.search as string;
+			const words = searchText.split('-');
+
+			const searchConditions = words.map((word) => {
+				return { name: { $regex: word, $options: 'i' } };
+			});
+
+			// console.log(searchConditions);
+
+			void this.query.find({
+				$or: searchConditions,
+			} as unknown as FilterQuery<T>);
+		}
+
+		return this;
+	}
+
 	select(): this {
 		if (this.queryObject.fields) {
 			// Convert invalid { fields: { 'name,price' } } to

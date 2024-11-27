@@ -36,6 +36,7 @@ export const buildQueryForProducts = (
 		resultLimits
 	)
 		.filter()
+		.search()
 		.sort()
 		.select()
 		.paginate();
