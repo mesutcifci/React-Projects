@@ -20,7 +20,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "types": ["vite/client", "node", "vitest/globals", "@testing-library/jest-dom/vitest"]
   },
   "include": ["src"]
 }
