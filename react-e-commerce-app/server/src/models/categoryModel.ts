@@ -28,6 +28,7 @@ const categorySchema = new mongoose.Schema<ICategory>(
 		strictQuery: true,
 		toObject: { virtuals: true },
 		toJSON: { virtuals: true },
+		timestamps: true,
 	}
 );
 
