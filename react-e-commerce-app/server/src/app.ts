@@ -16,6 +16,8 @@ import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import ExpressMongoSanitize from 'express-mongo-sanitize';
 import sanitizeHtml from 'sanitize-html';
+import cors from 'cors';
+import { whiteList } from './whitelist';
 
 const sanitizeRecursively = (data: any): any => {
 	if (typeof data === 'string') {
@@ -43,6 +45,18 @@ const sanitizeRecursively = (data: any): any => {
 
 // Create express an app instance
 const app: Express = express();
+
+app.use(
+	cors({
+		origin: function (origin, callback) {
+			if (origin && whiteList.includes(origin)) {
+				callback(null, true);
+			} else {
+				callback(new Error('Not allowed by CORS'));
+			}
+		},
+	})
+);
 
 // Set http security headers
 app.use(helmet());
