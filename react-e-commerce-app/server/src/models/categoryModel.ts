@@ -23,6 +23,47 @@ const categorySchema = new mongoose.Schema<ICategory>(
 			required: [true, 'Level is required'],
 			min: [1, 'Level cannot be smaller than 1'],
 		},
+		images: [
+			{
+				url: {
+					type: String,
+					required: [true, 'Image url is required'],
+					trim: true,
+					maxLength: [500, 'url cannot be more than 500 characters'],
+				},
+				link: {
+					type: String,
+					trim: true,
+					maxLength: [500, 'link cannot be more than 500 characters'],
+				},
+				text: {
+					type: String,
+					trim: true,
+					maxLength: [100, 'text cannot be more than 100 characters'],
+				},
+				textBackgroundColor: {
+					type: String,
+					trim: true,
+					maxLength: [
+						100,
+						'textBackgroundColor cannot be more than 100 characters',
+					],
+				},
+				textColor: {
+					type: String,
+					trim: true,
+					maxLength: [100, 'textColor cannot be more than 100 characters'],
+				},
+			},
+		],
+		icons: [
+			{
+				name: {
+					type: String,
+					maxlength: [20, 'Icon name cannot be more than 20 characters.'],
+				},
+			},
+		],
 	},
 	{
 		strictQuery: true,
@@ -33,7 +74,11 @@ const categorySchema = new mongoose.Schema<ICategory>(
 );
 
 categorySchema.pre('save', function () {
-	this.slug = slugify(this.name, { lower: true });
+	this.slug = slugify(this.name, {
+		replacement: '-', // replace spaces with replacement character, defaults to `-`
+		remove: /[*+~.()'"!:@]/g, // remove characters that match regex, defaults to `undefined`
+		lower: true, // convert to lower case, defaults to `false`
+	});
 });
 
 export default mongoose.model<ICategory>('Category', categorySchema);

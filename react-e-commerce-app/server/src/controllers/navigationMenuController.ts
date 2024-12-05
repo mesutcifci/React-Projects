@@ -31,17 +31,23 @@ export const createNavigationMenu = catchAsyncErrors(
 export const getNavigationMenuByName = catchAsyncErrors(
 	async (req: Request, res: Response, next: NextFunction) => {
 		// Get navigation menu, populate category field
-		const navigation: INavigationMenu<ICategoryPlain> | null =
+		let navigation: INavigationMenu<ICategoryPlain, true> | null =
 			await NavigationMenu.findOne({
 				name: req.params.name,
-			}).populate('items.category', 'name slug level');
+			}).populate('items.category', 'name slug level images icon');
 
 		if (!navigation) {
 			next(new AppError('Navigation menu not found', 404));
 			return;
 		}
 
-		// Initiate response object
+		navigation = navigation.toObject();
+
+		/**
+		 * Initiate response object
+		 * Set category fields of items to ICategoryPlain
+		 * Also fill ICategoryPlain with the key of INestedCategory
+		 */
 		const response: INavigationMenu<ICategoryPlain<INestedCategory>> = {
 			name: navigation.name,
 			extraItems: navigation.extraItems,
@@ -77,7 +83,7 @@ export const getNavigationMenuByName = catchAsyncErrors(
 		res.status(200).json({
 			status: 'success',
 			data: {
-				navigation,
+				response,
 			},
 		});
 	}

@@ -3,7 +3,7 @@ import type { INavigationMenu } from '../types/navigationMenu';
 import slugify from 'slugify';
 
 const navigationMenuSchema = new mongoose.Schema<
-	INavigationMenu<Types.ObjectId, true>
+	INavigationMenu<Types.ObjectId>
 >(
 	{
 		name: {
@@ -21,14 +21,6 @@ const navigationMenuSchema = new mongoose.Schema<
 						type: Types.ObjectId,
 						ref: 'Category',
 						required: true,
-					},
-					additionalFields: {
-						icon: {
-							type: String,
-							trim: true,
-							lowerCase: true,
-							maxlength: [20, 'icon name cannot be more than 20 characters'],
-						},
 					},
 				},
 			],
@@ -83,7 +75,7 @@ navigationMenuSchema.pre('save', function () {
 	}
 });
 
-export default mongoose.model<INavigationMenu<Types.ObjectId, true>>(
+export default mongoose.model<INavigationMenu<Types.ObjectId>>(
 	'NavigationMenu',
 	navigationMenuSchema
 );
