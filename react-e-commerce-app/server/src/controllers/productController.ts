@@ -5,13 +5,7 @@ import QueryGenerator from '../helpers/queryGenerator';
 import catchAsyncErrors from '../helpers/catchAsyncErrors';
 import AppError from '../helpers/appError';
 import Category from '../models/categoryModel';
-import { type Types } from 'mongoose';
 import type QueryString from 'qs';
-import {
-	generateNestedCategory,
-	getCategoryPath,
-	getChildrenCategories,
-} from '../helpers/category';
 
 export const buildQueryForProducts = (
 	queryObject: QueryString.ParsedQs
@@ -66,57 +60,7 @@ export const getProductsByCategorySlug = catchAsyncErrors(
 
 		if (!category) {
 			next(new AppError('Category not found', 404));
-			return;
 		}
-
-		// Create Set object to avoid duplicated ids
-		const uniqueCategoryIdSet = new Set<any>();
-		uniqueCategoryIdSet.add(category._id);
-
-		const queryCategory = req?.query?.category_id;
-		if (req?.query.category_id) {
-			if (Array.isArray(queryCategory)) {
-				queryCategory.forEach((item) => {
-					uniqueCategoryIdSet.add(item);
-				});
-			} else {
-				uniqueCategoryIdSet.add(queryCategory);
-			}
-		} else {
-			// Get children of the current category
-			const children = await getChildrenCategories(
-				category._id as Types.ObjectId
-			);
-
-			children.forEach((item) => {
-				if (item._id) {
-					uniqueCategoryIdSet.add(item._id);
-				}
-			});
-		}
-
-		const categoryIdsArray = Array.from(uniqueCategoryIdSet);
-
-		/**
-		 * Category A > Category B > Category C
-		 *
-		 * if req.params.slug: category-a we need to get both products of Category B and Category C.
-		 * Because products of these categories also products of Category C
-		 */
-		const queryObject = {
-			...req.query,
-			category: { $in: categoryIdsArray },
-		};
-
-		// Create query instance
-		const queryInstance = buildQueryForProducts(queryObject);
-
-		const products = await queryInstance.query;
-		res.status(200).json({
-			status: 'success',
-			results: products.length,
-			data: { products },
-		});
 	}
 );
 
@@ -129,21 +73,7 @@ export const getProduct = catchAsyncErrors(
 
 		if (!product) {
 			next(new AppError('No product found with that slug', 404));
-			return;
 		}
-
-		const categoryPath = await getCategoryPath(product.category);
-		const nestedCategory = generateNestedCategory(categoryPath);
-
-		const enchancedProduct = {
-			...product.toObject(),
-			categoryPath: nestedCategory,
-		};
-
-		res.status(200).json({
-			status: 'success',
-			data: { product: enchancedProduct },
-		});
 	}
 );
 

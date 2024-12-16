@@ -1,10 +1,8 @@
-import mongoose, { Types } from 'mongoose';
+import mongoose from 'mongoose';
 import type { INavigationMenu } from '../types/navigationMenu';
 import slugify from 'slugify';
 
-const navigationMenuSchema = new mongoose.Schema<
-	INavigationMenu<Types.ObjectId>
->(
+const navigationMenuSchema = new mongoose.Schema<INavigationMenu>(
 	{
 		name: {
 			type: String,
@@ -13,18 +11,6 @@ const navigationMenuSchema = new mongoose.Schema<
 			maxlength: [100, 'Name cannot be more than 100 characters'],
 			unique: true,
 			lowercase: true,
-		},
-		items: {
-			type: [
-				{
-					category: {
-						type: Types.ObjectId,
-						ref: 'Category',
-						required: true,
-					},
-				},
-			],
-			required: [true, 'Items are required'],
 		},
 		extraItems: {
 			type: [
@@ -75,7 +61,7 @@ navigationMenuSchema.pre('save', function () {
 	}
 });
 
-export default mongoose.model<INavigationMenu<Types.ObjectId>>(
+export default mongoose.model<INavigationMenu>(
 	'NavigationMenu',
 	navigationMenuSchema
 );

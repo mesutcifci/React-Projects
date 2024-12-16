@@ -2,12 +2,9 @@ import type { NextFunction, Request, Response } from 'express';
 import catchAsyncErrors from '../helpers/catchAsyncErrors';
 import NavigationMenu from '../models/navigationMenuModel';
 import AppError from '../helpers/appError';
-import {
-	type INavigationMenuItem,
-	type INavigationMenu,
-} from '../types/navigationMenu';
-import { type INestedCategory, type ICategoryPlain } from '../types/category';
-import { generateNestedCategory, getCategoryPath } from '../helpers/category';
+import { type INavigationMenu } from '../types/navigationMenu';
+import { buildCategoryTree } from '../helpers/category';
+import Category from '../models/categoryModel';
 
 // TODO comment out before production
 export const createNavigationMenu = catchAsyncErrors(
@@ -30,60 +27,30 @@ export const createNavigationMenu = catchAsyncErrors(
 
 export const getNavigationMenuByName = catchAsyncErrors(
 	async (req: Request, res: Response, next: NextFunction) => {
-		// Get navigation menu, populate category field
-		let navigation: INavigationMenu<ICategoryPlain, true> | null =
-			await NavigationMenu.findOne({
-				name: req.params.name,
-			}).populate('items.category', 'name slug level images icon');
+		const navigation: INavigationMenu | null = await NavigationMenu.findOne({
+			name: req.params.name,
+		}).lean();
 
 		if (!navigation) {
 			next(new AppError('Navigation menu not found', 404));
 			return;
 		}
 
-		navigation = navigation.toObject();
-
-		/**
-		 * Initiate response object
-		 * Set category fields of items to ICategoryPlain
-		 * Also fill ICategoryPlain with the key of INestedCategory
-		 */
-		const response: INavigationMenu<ICategoryPlain<INestedCategory>> = {
+		const response: INavigationMenu = {
 			name: navigation.name,
 			extraItems: navigation.extraItems,
-			items: [],
+			categories: [],
 		};
 
-		// Convert categories to nested category objects
-		let editedItems = await Promise.all(
-			navigation.items.map(async (item) => {
-				const categoryPath = await getCategoryPath(item.category._id);
-				const nestedCategory = generateNestedCategory(categoryPath);
+		const categories = await Category.find();
+		const nestedCategories = buildCategoryTree(categories);
 
-				if (nestedCategory) {
-					const { category, ...rest } = item; // Destructure to remove the category
-					const itemWithNestedCategory = {
-						...rest,
-						category: nestedCategory,
-					}; // Add the nested category
-					return itemWithNestedCategory;
-				}
-
-				return null;
-			})
-		);
-
-		// extract null values
-		editedItems = editedItems.filter((item) => item?.category != null);
-
-		response.items = editedItems as Array<
-			INavigationMenuItem<ICategoryPlain<INestedCategory>>
-		>;
+		response.categories = nestedCategories;
 
 		res.status(200).json({
 			status: 'success',
 			data: {
-				response,
+				...response,
 			},
 		});
 	}
