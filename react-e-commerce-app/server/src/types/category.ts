@@ -12,13 +12,21 @@ interface ICategoryIcon {
 	name: string;
 }
 
+interface ICategoryAncestor {
+	categoryId: Types.ObjectId;
+	name: string;
+	slug: string;
+	depth: number;
+}
+
 export interface ICategory extends Document {
 	name: string;
 	parentId: Types.ObjectId | null;
 	slug: string;
-	level: number;
+	depth: number;
 	images?: ICategoryImage[];
 	icons?: ICategoryIcon[];
+	ancestor: ICategoryAncestor[] | null;
 }
 
 export interface INestedCategory extends ICategory {

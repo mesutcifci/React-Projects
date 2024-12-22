@@ -18,11 +18,38 @@ const categorySchema = new mongoose.Schema<ICategory>(
 			type: String,
 			lowercase: true,
 		},
-		level: {
+		depth: {
 			type: Number,
-			required: [true, 'Level is required'],
-			min: [1, 'Level cannot be smaller than 1'],
+			required: [true, 'Depth is required'],
+			min: [1, 'Depth cannot be smaller than 1'],
 		},
+		ancestor: [
+			{
+				type: [
+					{
+						name: {
+							type: String,
+							required: [true, 'Name is required'],
+							trim: true,
+							unique: true,
+						},
+						categoryId: {
+							type: mongoose.Schema.ObjectId,
+							ref: 'Category',
+						},
+						slug: {
+							type: String,
+							lowercase: true,
+						},
+						depth: {
+							type: Number,
+							required: [true, 'Depth is required'],
+							min: [1, 'Depth cannot be smaller than 1'],
+						},
+					},
+				],
+			},
+		],
 		images: [
 			{
 				url: {
