@@ -53,14 +53,44 @@ export const getAllProducts = catchAsyncErrors(
 
 export const getProductsByCategorySlug = catchAsyncErrors(
 	async (req: Request, res: Response, next: NextFunction) => {
-		// find the category by slug
-		const category = await Category.findOne({
-			slug: req.params.slug,
+		const result = await Category.aggregate([
+			{ $match: { slug: req.params.slug } },
+			{
+				$graphLookup: {
+					from: 'categories',
+					startWith: '$_id',
+					connectFromField: '_id',
+					connectToField: 'parentId',
+					as: 'descendants',
+				},
+			},
+			{
+				$project: {
+					categoryIds: {
+						$concatArrays: [['$_id'], '$descendants._id'],
+					},
+				},
+			},
+		]);
+
+		if (!result.length) {
+			next(new AppError('Category not found', 404));
+			return;
+		}
+
+		// Build query for products
+		const queryInstance = buildQueryForProducts({
+			...req.query,
+			category: { $in: result[0].categoryIds },
 		});
 
-		if (!category) {
-			next(new AppError('Category not found', 404));
-		}
+		const products = await queryInstance.query;
+
+		res.status(200).json({
+			status: 'success',
+			results: products.length,
+			data: { products },
+		});
 	}
 );
 
