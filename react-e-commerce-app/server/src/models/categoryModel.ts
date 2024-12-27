@@ -25,29 +25,25 @@ const categorySchema = new mongoose.Schema<ICategory>(
 		},
 		ancestor: [
 			{
-				type: [
-					{
-						name: {
-							type: String,
-							required: [true, 'Name is required'],
-							trim: true,
-							unique: true,
-						},
-						categoryId: {
-							type: mongoose.Schema.ObjectId,
-							ref: 'Category',
-						},
-						slug: {
-							type: String,
-							lowercase: true,
-						},
-						depth: {
-							type: Number,
-							required: [true, 'Depth is required'],
-							min: [1, 'Depth cannot be smaller than 1'],
-						},
-					},
-				],
+				name: {
+					type: String,
+					required: [true, 'Name is required'],
+					trim: true,
+					unique: true,
+				},
+				categoryId: {
+					type: mongoose.Schema.ObjectId,
+					ref: 'Category',
+				},
+				slug: {
+					type: String,
+					lowercase: true,
+				},
+				depth: {
+					type: Number,
+					required: [true, 'Depth is required'],
+					min: [1, 'Depth cannot be smaller than 1'],
+				},
 			},
 		],
 		images: [
