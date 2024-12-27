@@ -56,7 +56,6 @@ export function Navigation() {
           className="lg:w-[9.6875rem] lg:h-[1.875rem] cursor-pointer"
         />
       </div>
-      <div>{/* Render Categories*/}</div>
       <div className="flex items-center gap-x-4">
         <img src={search} width={26} height={26} className="cursor-pointer" />
         <div className="flex items-center">
@@ -66,9 +65,11 @@ export function Navigation() {
           </span>
         </div>
       </div>
-      {isMenuOpen && (
-        <HamburgerMenu categories={categories} onClose={closeMenu} />
-      )}
+      <HamburgerMenu
+        categories={categories}
+        onClose={closeMenu}
+        isOpen={isMenuOpen}
+      />
     </nav>
   );
 }

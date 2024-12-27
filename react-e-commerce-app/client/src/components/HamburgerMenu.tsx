@@ -3,15 +3,18 @@ import { Category } from "../types/navigation";
 import chevronLeft from "@assets/images/chevron-left.svg";
 import chevronRight from "@assets/images/chevron-right.svg";
 import closeIcon from "@assets/images/close.svg";
+import Overlay from "./Overlay";
 
 interface HamburgerMenuProps {
   categories: Category[];
   onClose: () => void;
+  isOpen: boolean;
 }
 
 const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
   categories,
   onClose,
+  isOpen,
 }) => {
   const [path, setPath] = useState<Category[]>([]);
 
@@ -33,15 +36,14 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex">
-      {/* Overlay */}
-      <div
-        className="fixed inset-0 bg-black opacity-50"
-        onClick={onClose}
-      ></div>
-
+    <>
+      <Overlay isOpen={isOpen} onClose={onClose} />
       {/* Menu */}
-      <div className="relative w-3/4 max-w-sm bg-white h-full shadow-lg overflow-y-auto">
+      <div
+        className={`fixed inset-y-0 left-0 z-[101] w-3/4 max-w-sm bg-white h-full shadow-lg overflow-y-auto transform transition-all ease-in-out duration-300 ${
+          isOpen ? "translate-x-0 visible" : "-translate-x-full invisible"
+        }`}
+      >
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b">
           {path.length > 0 ? (
@@ -75,7 +77,7 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
           )}
         </ul>
       </div>
-    </div>
+    </>
   );
 };
 
