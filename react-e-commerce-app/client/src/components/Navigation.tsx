@@ -19,6 +19,7 @@ export function Navigation() {
 
         if (data.data.categories?.length > 0) {
           setCategories(data.data.categories);
+          console.log("Fetched categories:", data.data.categories);
         }
 
         // if (data.data.extraItems?.length > 0) {
