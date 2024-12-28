@@ -10,6 +10,7 @@ export default {
       colors: {
         mesblack: "#121212",
         mesgray: "#F5F5F5",
+        lifblue: "#3E3E59",
       },
       screens: {
         xs: "375px",
