@@ -1,10 +1,19 @@
 import { useState, useEffect } from "react";
 import { Category } from "../types/navigation";
+
+// Components
 import { motion, AnimatePresence } from "framer-motion";
+import Overlay from "./Overlay";
+
+// Images
 import chevronLeft from "@assets/images/chevron-left.svg";
 import chevronRight from "@assets/images/chevron-right.svg";
 import closeIcon from "@assets/images/close.svg";
-import Overlay from "./Overlay";
+import logo from "@assets/images/logo.svg";
+import x from "@assets/images/x.svg";
+import instagram from "@assets/images/instagram.svg";
+import facebook from "@assets/images/facebook.svg";
+import email from "@assets/images/email.svg";
 
 interface HamburgerMenuProps {
   categories: Category[];
@@ -50,6 +59,13 @@ const variants = {
   }),
 };
 
+const socialLinks = [
+  { icon: facebook, href: "https://facebook.com/", alt: "facebook" },
+  { icon: instagram, href: "https://instagram.com/", alt: "instagram" },
+  { icon: x, href: "https://x.com/", alt: "x" },
+  { icon: email, href: "mailto:example@mail.com", alt: "email" },
+];
+
 const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
   categories,
   onClose,
@@ -65,14 +81,6 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
     }
   }, [isOpen]);
 
-  // Add debug logs
-  useEffect(() => {
-    console.log("HamburgerMenu - Current categories:", categories);
-    console.log("HamburgerMenu - Current path:", path);
-    console.log("HamburgerMenu - isOpen:", isOpen);
-  }, [categories, path, isOpen]);
-
-  // Determine current categories to display based on the path
   let currentCategories: Category[] = categories;
   if (path.length > 0) {
     const last = path[path.length - 1];
@@ -91,6 +99,10 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
     setPath(path.slice(0, -1));
   };
 
+  useEffect(() => {
+    console.log("path", path.length);
+  }, [path]);
+
   return (
     <>
       <Overlay isOpen={isOpen} onClose={onClose} />
@@ -101,24 +113,32 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
-            className="fixed inset-y-0 left-0 z-[101] w-3/4 max-w-sm bg-white h-full shadow-lg"
+            className="fixed inset-y-0 left-0 z-[101] bg-white h-full w-full max-w-lg overflow-y-auto shadow-lg lg:hidden flex flex-col pb-6"
           >
             {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b">
+            <div className="flex items-center justify-between p-6">
               {path.length > 0 ? (
                 <button onClick={navigateBack} className="text-xl">
-                  <img src={chevronLeft} alt="chevron-left" />
+                  <img
+                    src={chevronLeft}
+                    alt="chevron-left"
+                    className="w-6 h-6"
+                  />
                 </button>
               ) : (
-                <span className="text-lg font-semibold">Menu</span>
+                <img
+                  src={logo}
+                  alt="logo"
+                  className="w-[7.125rem] h-[1.375rem]"
+                />
               )}
-              <button onClick={onClose} className="text-xl">
-                <img src={closeIcon} alt="close" />
+              <button onClick={onClose} className="ml-auto">
+                <img src={closeIcon} alt="close" className="w-7 h-7" />
               </button>
             </div>
 
-            {/* Categories with Animation */}
-            <div className="relative h-[calc(100%-4rem)] overflow-hidden">
+            {/* Categories */}
+            <div className="relative h-[calc(100%-400px)]">
               <AnimatePresence custom={direction}>
                 <motion.ul
                   key={path.length}
@@ -127,28 +147,63 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
                   initial={isFirstRender ? false : "hidden"}
                   animate="visible"
                   exit="exit"
-                  className="p-4 space-y-2 overflow-y-auto h-full w-full"
+                  className="p-6 h-full w-full flex flex-col gap-y-6"
                 >
                   {currentCategories.map((category) => (
                     <li
                       key={category._id}
-                      className="flex justify-between items-center py-2 px-3 cursor-pointer hover:bg-gray-100 rounded"
+                      className="flex justify-between items-center cursor-pointer rounded"
                       onClick={() => navigateToCategory(category)}
                     >
-                      <span>{category.name}</span>
+                      <span className="text-xl text-mesblack">
+                        {category.name}
+                      </span>
                       {category.children.length > 0 && (
-                        <img src={chevronRight} alt="chevron-right" />
+                        <img
+                          src={chevronRight}
+                          alt="chevron-right"
+                          className="w-6 h-6"
+                        />
                       )}
                     </li>
                   ))}
                   {currentCategories.length === 0 && (
-                    <li className="py-2 text-center text-gray-500">
+                    <li className="text-center text-sm text-mesblack">
                       No subcategories
                     </li>
                   )}
                 </motion.ul>
               </AnimatePresence>
             </div>
+
+            {/* Social Links & Sign in */}
+            {path.length === 0 && (
+              <div className="flex flex-col gap-y-6 mt-auto">
+                <div className="flex justify-center gap-x-4">
+                  {socialLinks.map((link) => (
+                    <a
+                      key={link.alt}
+                      href={link.href}
+                      target={
+                        link.href.startsWith("mailto") ? undefined : "_blank"
+                      }
+                      className="flex items-center justify-center w-9 h-9 rounded-full bg-mesgray"
+                    >
+                      <img
+                        src={link.icon}
+                        alt={link.alt}
+                        className="w-[1.125rem] h-[1.125rem]"
+                      />
+                    </a>
+                  ))}
+                </div>
+                <div className="px-6">
+                  <button className="w-full bg-black text-white h-10 rounded-[.375rem] text-sm">
+                    Sign in
+                  </button>
+                </div>
+              </div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
