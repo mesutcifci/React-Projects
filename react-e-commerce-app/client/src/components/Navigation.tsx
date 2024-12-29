@@ -1,11 +1,26 @@
 import { useEffect, useState } from "react";
+
+// Data
 import { fetchApi } from "../api/api";
+import { Category } from "../types/navigation";
+
+// Images
 import bag from "@assets/images/bag.svg";
 import hamburger from "@assets/images/hamburger.svg";
 import logo from "@assets/images/logo.svg";
 import search from "@assets/images/search.svg";
-import { Category } from "../types/navigation";
+
+// Components
 import HamburgerMenu from "./HamburgerMenu";
+import { Cloudinary } from "@cloudinary/url-gen";
+import { AdvancedImage } from "@cloudinary/react";
+import { Resize } from "@cloudinary/url-gen/actions";
+
+const cld = new Cloudinary({
+  cloud: {
+    cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME,
+  },
+});
 
 export function Navigation() {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -31,6 +46,15 @@ export function Navigation() {
       }
     };
     fetchNavigation();
+
+    console.log(
+      "cld",
+      cld
+        .image(
+          "https://res.cloudinary.com/dory0vtn4/image/upload/v1733414547/cosmetics-1_rewoko.jpg"
+        )
+        .resize(Resize.fill(250, 375))
+    );
   }, []);
 
   const openMenu = () => {
@@ -121,10 +145,13 @@ export function Navigation() {
                       <div className="flex gap-x-6 shrink-0 self-center">
                         {category.images?.map((image) => (
                           <a key={image.id} href={image.link} className="block">
-                            <img
-                              src={image.url}
-                              alt=""
-                              className="w-[250px] h-[375px]"
+                            <AdvancedImage
+                              cldImg={cld
+                                .image(image.url)
+                                .format("auto")
+                                .resize(Resize.fill(500, 750))}
+                              width={250}
+                              height={375}
                             />
                           </a>
                         ))}
