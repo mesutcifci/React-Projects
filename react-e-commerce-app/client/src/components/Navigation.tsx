@@ -46,15 +46,6 @@ export function Navigation() {
       }
     };
     fetchNavigation();
-
-    console.log(
-      "cld",
-      cld
-        .image(
-          "https://res.cloudinary.com/dory0vtn4/image/upload/v1733414547/cosmetics-1_rewoko.jpg"
-        )
-        .resize(Resize.fill(250, 375))
-    );
   }, []);
 
   const openMenu = () => {

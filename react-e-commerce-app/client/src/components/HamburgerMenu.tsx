@@ -21,6 +21,10 @@ interface HamburgerMenuProps {
   isOpen: boolean;
 }
 
+/*
+ * #DOC
+ * hidden, visible and exit are the states of the component
+ */
 const variants = {
   hidden: (direction: string) => ({
     x: direction === "forward" ? "100%" : "-100%",
@@ -105,7 +109,14 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
 
   return (
     <>
+      {/* The hamburger menu and the overlay share same state*/}
       <Overlay isOpen={isOpen} onClose={onClose} />
+
+      {/*
+       * #DOC
+       * We need to use AnimatePresence component to animate components that removed from the DOM.
+       * If a component have exit property it will be animated when removed from the DOM
+       */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
